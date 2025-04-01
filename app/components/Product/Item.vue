@@ -1,17 +1,35 @@
+<script setup lang="ts">
+import type { IProduct } from '@/types/api'
+
+defineProps<{
+    product: IProduct
+}>()
+</script>
+
 <template>
     <article class="product-card">
         <a href="#" class="product-card__image">
-            <img src="/images/products/1.jpg" alt="Костюм пижамный с перьями" loading="lazy">
             <img
-                src="/images/products/1-hover.jpg"
-                alt="Костюм пижамный с перьями"
                 loading="lazy"
+                :src="product.images[0]?.normal"
+                :srcset="`${product.images[0]?.normal} 1x, ${product.images[0]?.retina} 2x`"
+                :alt="product.name"
+                width="420"
+                height="630"
+            >
+            <img
+                loading="lazy"
+                :src="product.images[1]?.normal"
+                :srcset="`${product.images[1]?.normal} 1x, ${product.images[1]?.retina} 2x`"
+                :alt="product.name"
+                width="420"
+                height="630"
             >
         </a>
         <div class="product-card__header">
             <div class="product-card__chips">
-                <div class="chip">
-                    хит продаж
+                <div v-for="chip in product.chips" :key="chip.slug" class="chip">
+                    {{ chip.name }}
                 </div>
             </div>
             <div class="product-card__actions">
@@ -32,331 +50,14 @@
         </div>
         <div class="product-card__info">
             <h3 class="product-card__title">
-                Костюм пижамный с перьями
+                {{ product.name }}
             </h3>
             <div class="product-card__line">
                 <div class="product-card__price">
-                    14 600 ₽
+                    {{ product.price }} ₽
                 </div>
                 <div class="product-card__colors">
-                    <div style="background-color: #decebe" class="product-card__color" />
-                    <div style="background-color: #fa6969" class="product-card__color" />
-                    <div style="background-color: #b4b4b4" class="product-card__color" />
-                </div>
-            </div>
-        </div>
-    </article>
-    <article class="product-card">
-        <a href="#" class="product-card__image">
-            <img src="/images/products/2.jpg" alt="Брюки палаццо «Base»" loading="lazy">
-            <img src="/images/products/2-hover.jpg" alt="Брюки палаццо «Base»" loading="lazy">
-        </a>
-        <div class="product-card__header">
-            <div class="product-card__chips">
-                <div class="chip">
-                    хит продаж
-                </div>
-                <div class="chip">
-                    новая коллекция
-                </div>
-            </div>
-            <div class="product-card__actions">
-                <button type="button" class="product-card__action">
-                    <svg width="24" height="24">
-                        <use href="/images/icons.svg#favorite" />
-                    </svg>
-                </button>
-                <button type="button" class="product-card__action">
-                    <svg width="24" height="24">
-                        <use href="/images/icons.svg#cart" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <div class="product-card__info">
-            <h3 class="product-card__title">
-                Брюки палаццо «Base»
-            </h3>
-            <div class="product-card__line">
-                <div class="product-card__price">
-                    4 600 ₽
-                </div>
-                <div class="product-card__colors">
-                    <div style="background-color: #decebe" class="product-card__color" />
-                    <div style="background-color: #fa6969" class="product-card__color" />
-                    <div style="background-color: #b4b4b4" class="product-card__color" />
-                </div>
-            </div>
-        </div>
-    </article>
-    <article class="product-card">
-        <a href="#" class="product-card__image">
-            <img src="/images/products/3.jpg" alt="Брюки палаццо" loading="lazy">
-            <img src="/images/products/3-hover.jpg" alt="Брюки палаццо" loading="lazy">
-        </a>
-        <div class="product-card__header">
-            <div class="product-card__chips">
-                <div class="chip">
-                    хит продаж
-                </div>
-            </div>
-            <div class="product-card__actions">
-                <button type="button" class="product-card__action">
-                    <svg width="24" height="24">
-                        <use href="/images/icons.svg#favorite" />
-                    </svg>
-                </button>
-                <button
-                    type="button"
-                    class="product-card__action product-card__action--selected"
-                >
-                    <svg width="24" height="24">
-                        <use href="/images/icons.svg#cart" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <div class="product-card__info">
-            <h3 class="product-card__title">
-                Брюки палаццо
-            </h3>
-            <div class="product-card__line">
-                <div class="product-card__price">
-                    4 600 ₽
-                </div>
-                <div class="product-card__colors">
-                    <div style="background-color: #decebe" class="product-card__color" />
-                    <div style="background-color: #fa6969" class="product-card__color" />
-                    <div style="background-color: #b4b4b4" class="product-card__color" />
-                </div>
-            </div>
-        </div>
-    </article>
-    <article class="product-card">
-        <a href="#" class="product-card__image">
-            <img
-                src="/images/products/4.jpg"
-                alt="Шорты классические на резинке"
-                loading="lazy"
-            >
-            <img
-                src="/images/products/4-hover.jpg"
-                alt="Шорты классические на резинке"
-                loading="lazy"
-            >
-        </a>
-        <div class="product-card__header">
-            <div class="product-card__chips">
-                <div class="chip">
-                    хит продаж
-                </div>
-            </div>
-            <div class="product-card__actions">
-                <button type="button" class="product-card__action">
-                    <svg width="24" height="24">
-                        <use href="/images/icons.svg#favorite" />
-                    </svg>
-                </button>
-                <button type="button" class="product-card__action">
-                    <svg width="24" height="24">
-                        <use href="/images/icons.svg#cart" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <div class="product-card__info">
-            <h3 class="product-card__title">
-                Шорты классические на резинке
-            </h3>
-            <div class="product-card__line">
-                <div class="product-card__price">
-                    2 900 ₽
-                </div>
-                <div class="product-card__colors">
-                    <div style="background-color: #decebe" class="product-card__color" />
-                    <div style="background-color: #fa6969" class="product-card__color" />
-                    <div style="background-color: #b4b4b4" class="product-card__color" />
-                </div>
-            </div>
-        </div>
-    </article>
-    <article class="product-card">
-        <a href="#" class="product-card__image">
-            <img src="/images/products/5.jpg" alt="Шорты романтик" loading="lazy">
-            <img src="/images/products/5-hover.jpg" alt="Шорты романтик" loading="lazy">
-        </a>
-        <div class="product-card__header">
-            <div class="product-card__chips">
-                <div class="chip">
-                    хит продаж
-                </div>
-            </div>
-            <div class="product-card__actions">
-                <button
-                    type="button"
-                    class="product-card__action product-card__action--selected"
-                >
-                    <svg width="24" height="24">
-                        <use href="/images/icons.svg#favorite" />
-                    </svg>
-                </button>
-                <button type="button" class="product-card__action">
-                    <svg width="24" height="24">
-                        <use href="/images/icons.svg#cart" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <div class="product-card__info">
-            <h3 class="product-card__title">
-                Шорты романтик
-            </h3>
-            <div class="product-card__line">
-                <div class="product-card__price">
-                    2 900 ₽
-                </div>
-                <div class="product-card__colors">
-                    <div style="background-color: #decebe" class="product-card__color" />
-                    <div style="background-color: #fa6969" class="product-card__color" />
-                    <div style="background-color: #b4b4b4" class="product-card__color" />
-                </div>
-            </div>
-        </div>
-    </article>
-    <article class="product-card">
-        <a href="#" class="product-card__image">
-            <img src="/images/products/6.jpg" alt="Костюм пижамный «Gold»" loading="lazy">
-            <img
-                src="/images/products/6-hover.jpg"
-                alt="Костюм пижамный «Gold»"
-                loading="lazy"
-            >
-        </a>
-        <div class="product-card__header">
-            <div class="product-card__chips">
-                <div class="chip">
-                    хит продаж
-                </div>
-            </div>
-            <div class="product-card__actions">
-                <button
-                    type="button"
-                    class="product-card__action product-card__action--selected"
-                >
-                    <svg width="24" height="24">
-                        <use href="/images/icons.svg#favorite" />
-                    </svg>
-                </button>
-                <button type="button" class="product-card__action">
-                    <svg width="24" height="24">
-                        <use href="/images/icons.svg#cart" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <div class="product-card__info">
-            <h3 class="product-card__title">
-                Костюм пижамный «Gold»
-            </h3>
-            <div class="product-card__line">
-                <div class="product-card__price">
-                    13 800 ₽
-                </div>
-                <div class="product-card__colors">
-                    <div style="background-color: #decebe" class="product-card__color" />
-                    <div style="background-color: #fa6969" class="product-card__color" />
-                    <div style="background-color: #b4b4b4" class="product-card__color" />
-                </div>
-            </div>
-        </div>
-    </article>
-    <article class="product-card">
-        <a href="#" class="product-card__image">
-            <img src="/images/products/7.jpg" alt="Костюм пижамный «Cotton»" loading="lazy">
-            <img
-                src="/images/products/7-hover.jpg"
-                alt="Костюм пижамный «Cotton»"
-                loading="lazy"
-            >
-        </a>
-        <div class="product-card__header">
-            <div class="product-card__chips">
-                <div class="chip">
-                    хит продаж
-                </div>
-            </div>
-            <div class="product-card__actions">
-                <button type="button" class="product-card__action">
-                    <svg width="24" height="24">
-                        <use href="/images/icons.svg#favorite" />
-                    </svg>
-                </button>
-                <button type="button" class="product-card__action">
-                    <svg width="24" height="24">
-                        <use href="/images/icons.svg#cart" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <div class="product-card__info">
-            <h3 class="product-card__title">
-                Костюм пижамный «Cotton»
-            </h3>
-            <div class="product-card__line">
-                <div class="product-card__price">
-                    2 900 ₽
-                </div>
-                <div class="product-card__colors">
-                    <div style="background-color: #decebe" class="product-card__color" />
-                    <div style="background-color: #fa6969" class="product-card__color" />
-                    <div style="background-color: #b4b4b4" class="product-card__color" />
-                </div>
-            </div>
-        </div>
-    </article>
-    <article class="product-card">
-        <a href="#" class="product-card__image">
-            <img src="/images/products/8.jpg" alt="Брюки палаццо со шнурком" loading="lazy">
-            <img
-                src="/images/products/8-hover.jpg"
-                alt="Брюки палаццо со шнурком"
-                loading="lazy"
-            >
-        </a>
-        <div class="product-card__header">
-            <div class="product-card__chips">
-                <div class="chip">
-                    хит продаж
-                </div>
-                <div class="chip">
-                    новая коллекция
-                </div>
-            </div>
-            <div class="product-card__actions">
-                <button type="button" class="product-card__action">
-                    <svg width="24" height="24">
-                        <use href="/images/icons.svg#favorite" />
-                    </svg>
-                </button>
-                <button type="button" class="product-card__action">
-                    <svg width="24" height="24">
-                        <use href="/images/icons.svg#cart" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <div class="product-card__info">
-            <h3 class="product-card__title">
-                Брюки палаццо со шнурком
-            </h3>
-            <div class="product-card__line">
-                <div class="product-card__price">
-                    5 900 ₽
-                </div>
-                <div class="product-card__colors">
-                    <div style="background-color: #decebe" class="product-card__color" />
-                    <div style="background-color: #fa6969" class="product-card__color" />
-                    <div style="background-color: #b4b4b4" class="product-card__color" />
+                    <div v-for="color in product.colors" :key="color.id" :style="{ backgroundColor: color.code }" class="product-card__color" />
                 </div>
             </div>
         </div>
@@ -513,9 +214,10 @@
 
 .chip {
     padding: rem(4) rem(8);
-    font-size: 12px;
+    font-size: rem(12);
     line-height: 136%;
     color: $whiteColor;
+    text-transform: lowercase;
     white-space: nowrap;
     background-color: $redColor;
     border-radius: rem(20);

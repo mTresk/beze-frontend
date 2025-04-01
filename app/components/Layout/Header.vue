@@ -216,10 +216,6 @@ onMounted(() => {
 }
 
 .menu {
-    // .menu__body
-    &__body {
-    }
-
     // .menu__list
     &__list {
         display: flex;
