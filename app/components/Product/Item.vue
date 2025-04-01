@@ -1,49 +1,18 @@
 <script setup lang="ts">
 import type { IProduct } from '@/types/api'
-import { computed, onMounted } from 'vue'
 
 const props = defineProps<{
     product: IProduct
 }>()
 
-const favorites = useState<string[]>('favorites', () => {
-    const stored = localStorage.getItem('favorites')
-    return stored ? JSON.parse(stored) : []
-})
+const { toggleFavorite, isFavorite } = useFavorites()
 
-const isFavorite = computed(() => favorites.value.includes(String(props.product.id)))
-
-function handleFavoriteClick(): void {
-    if (isFavorite.value) {
-        favorites.value = favorites.value.filter(id => id !== String(props.product.id))
-
-        useToastify(`${props.product.name} удален из избранного`, {
-            type: 'success',
-        })
-    }
-    else {
-        favorites.value = [...favorites.value, String(props.product.id)]
-
-        useToastify(`${props.product.name} добавлен в избранное`, {
-            type: 'success',
-        })
-    }
-
-    localStorage.setItem('favorites', JSON.stringify(favorites.value))
-}
-
-onMounted(() => {
-    const storedFavorites = localStorage.getItem('favorites')
-
-    if (storedFavorites) {
-        favorites.value = JSON.parse(storedFavorites)
-    }
-})
+const favoriteStatus = isFavorite(String(props.product.id))
 </script>
 
 <template>
     <article class="product-card">
-        <a href="#" class="product-card__image">
+        <NuxtLink :to="`/catalog/${product.slug}`" class="product-card__image">
             <img
                 loading="lazy"
                 :src="product.images[0]?.normal"
@@ -60,7 +29,7 @@ onMounted(() => {
                 width="420"
                 height="630"
             >
-        </a>
+        </NuxtLink>
         <div class="product-card__header">
             <div class="product-card__chips">
                 <div v-for="chip in product.chips" :key="chip.slug" class="chip">
@@ -71,9 +40,9 @@ onMounted(() => {
                 <button
                     type="button"
                     class="product-card__action"
-                    :class="{ 'product-card__action--selected': isFavorite }"
-                    :aria-label="isFavorite ? 'Удалить из избранного' : 'Добавить в избранное'"
-                    @click="handleFavoriteClick"
+                    :class="{ 'product-card__action--selected': favoriteStatus }"
+                    :aria-label="favoriteStatus ? 'Удалить из избранного' : 'Добавить в избранное'"
+                    @click="toggleFavorite(String(product.id), product.name)"
                 >
                     <svg width="24" height="24">
                         <use href="/images/icons.svg#favorite" />

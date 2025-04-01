@@ -2,21 +2,30 @@ export interface IProduct {
     id: number
     name: string
     slug: string
+    sku: string
     price: number
     images: {
         normal: string
         retina: string
     }[]
-    colors: {
-        id: number
-        name: string
-        code: string
-    }[]
+    colors: IColor[]
     chips: IChip[]
+    sizes: ISize[]
+}
+
+export interface IColor {
+    id: number
+    name: string
+    code: string
 }
 
 export interface IChip {
     slug: string
+    name: string
+}
+
+export interface ISize {
+    id: number
     name: string
 }
 

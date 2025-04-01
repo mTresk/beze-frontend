@@ -1,5 +1,18 @@
+<script setup lang="ts">
+const { direction } = useScrollDirection()
+
+const scrollClass = computed(() => {
+    if (direction.value === 'down')
+        return 'scroll-down'
+    if (direction.value === 'up')
+        return 'scroll-up'
+    return ''
+})
+</script>
+
 <template>
-    <div class="wrapper">
+    <NuxtLoadingIndicator color="#b79d83" />
+    <div class="wrapper" :class="scrollClass">
         <LayoutHeader />
         <main class="page">
             <LayoutSmoothScroll>

@@ -1,45 +1,21 @@
 <script setup lang="ts">
-import { scrollDirection } from '@/helpers'
+const route = useRoute()
+const isInnerPage = computed(() => route.path !== '/')
 
-const favorites = useState<string[]>('favorites', () => [])
-const cart = useState<{ id: string, quantity: number }[]>('cart', () => [])
+const { favorites } = useFavorites()
+const { cartItems } = useCart()
 
 const favoritesCount = computed(() => favorites.value.length)
-const cartCount = computed(() => cart.value.length)
-
-function updateStates(): void {
-    const storedFavorites = localStorage.getItem('favorites')
-    const storedCart = localStorage.getItem('cart')
-
-    favorites.value = storedFavorites ? JSON.parse(storedFavorites) : []
-    cart.value = storedCart ? JSON.parse(storedCart) : []
-}
-
-function handleStorageChange(event: StorageEvent): void {
-    if (event.key === 'favorites' || event.key === 'cart') {
-        updateStates()
-    }
-}
-
-onMounted(() => {
-    scrollDirection()
-    updateStates()
-
-    window.addEventListener('storage', handleStorageChange)
-})
-
-onUnmounted(() => {
-    window.removeEventListener('storage', handleStorageChange)
-})
+const cartCount = computed(() => cartItems.value.length)
 </script>
 
 <template>
-    <header class="header">
+    <header class="header" :class="{ 'header--inner': isInnerPage }">
         <div class="header__inner">
             <div class="header__body">
-                <a href="/" class="header__logo">
+                <NuxtLink to="/" class="header__logo">
                     <img src="/images/logo.svg" alt="Beze exclusive studio" loading="lazy">
-                </a>
+                </NuxtLink>
                 <div class="header__menu menu">
                     <nav class="menu__body">
                         <ul class="menu__list">
@@ -153,7 +129,7 @@ onUnmounted(() => {
                         </svg>
                     </button>
 
-                        <a
+                    <a
                         href="#"
                         class="header__action"
                         :title="`Избранное${favoritesCount ? `: ${favoritesCount} товаров` : ''}`"
@@ -165,7 +141,6 @@ onUnmounted(() => {
                             <span v-if="favoritesCount">{{ favoritesCount }}</span>
                         </Transition>
                     </a>
-
 
                     <a
                         href="#"
@@ -199,6 +174,10 @@ onUnmounted(() => {
 
     .scroll-down & {
         transform: translateY(-100%);
+    }
+
+    &--inner {
+        background-color: $extraColor;
     }
 
     // .header__body

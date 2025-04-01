@@ -32,7 +32,7 @@ export default defineNuxtConfig({
         },
     },
     toastify: {
-        autoClose: 1500,
+        autoClose: 2000,
         position: 'bottom-right',
         theme: 'light',
         hideProgressBar: true,
