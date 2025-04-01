@@ -1,0 +1,28 @@
+.cursor {
+    position: fixed;
+    z-index: 9999;
+    display: flex;
+    gap: rem(4);
+    align-items: center;
+    padding: rem(8) rem(16);
+    font-size: rem(14);
+    color: $whiteColor;
+    pointer-events: none;
+    background-color: $extraColor;
+    border-radius: rem(20);
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.1s ease-in-out;
+
+    svg {
+        transform: rotate(-90deg);
+    }
+
+    &--visible {
+        opacity: 1;
+    }
+}
+
+[data-js-cursor] {
+    cursor: none;
+}
