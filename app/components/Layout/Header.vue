@@ -1,8 +1,35 @@
 <script setup lang="ts">
 import { scrollDirection } from '@/helpers'
 
+const favorites = useState<string[]>('favorites', () => [])
+const cart = useState<{ id: string, quantity: number }[]>('cart', () => [])
+
+const favoritesCount = computed(() => favorites.value.length)
+const cartCount = computed(() => cart.value.length)
+
+function updateStates(): void {
+    const storedFavorites = localStorage.getItem('favorites')
+    const storedCart = localStorage.getItem('cart')
+
+    favorites.value = storedFavorites ? JSON.parse(storedFavorites) : []
+    cart.value = storedCart ? JSON.parse(storedCart) : []
+}
+
+function handleStorageChange(event: StorageEvent): void {
+    if (event.key === 'favorites' || event.key === 'cart') {
+        updateStates()
+    }
+}
+
 onMounted(() => {
     scrollDirection()
+    updateStates()
+
+    window.addEventListener('storage', handleStorageChange)
+})
+
+onUnmounted(() => {
+    window.removeEventListener('storage', handleStorageChange)
 })
 </script>
 
@@ -125,17 +152,25 @@ onMounted(() => {
                             <use href="/images/icons.svg#search" />
                         </svg>
                     </button>
-                    <a title="Избранное" href="#" class="header__action">
+                    <a
+                        href="#"
+                        class="header__action"
+                        :title="`Избранное${favoritesCount ? `: ${favoritesCount} товаров` : ''}`"
+                    >
                         <svg width="30" height="30">
                             <use href="/images/icons.svg#favorite" />
                         </svg>
-                        <span>3</span>
+                        <span v-if="favoritesCount">{{ favoritesCount }}</span>
                     </a>
-                    <a title="Корзина" href="#" class="header__action">
+                    <a
+                        href="#"
+                        class="header__action"
+                        :title="`Корзина${cartCount ? `: ${cartCount} товаров` : ''}`"
+                    >
                         <svg width="30" height="30">
                             <use href="/images/icons.svg#cart" />
                         </svg>
-                        <span>12</span>
+                        <span v-if="cartCount">{{ cartCount }}</span>
                     </a>
                 </div>
             </div>

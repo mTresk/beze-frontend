@@ -1,9 +1,75 @@
 <script setup lang="ts">
 import type { IProduct } from '@/types/api'
+import { computed, onMounted } from 'vue'
 
-defineProps<{
+const props = defineProps<{
     product: IProduct
 }>()
+
+const favorites = useState<string[]>('favorites', () => {
+    const stored = localStorage.getItem('favorites')
+    return stored ? JSON.parse(stored) : []
+})
+
+const cart = useState<string[]>('cart', () => {
+    const stored = localStorage.getItem('cart')
+    return stored ? JSON.parse(stored) : []
+})
+
+const isFavorite = computed(() => favorites.value.includes(String(props.product.id)))
+
+const cartItem = computed(() => cart.value.includes(String(props.product.id)))
+
+function handleFavoriteClick(): void {
+    if (isFavorite.value) {
+        favorites.value = favorites.value.filter(id => id !== String(props.product.id))
+
+        useToastify(`${props.product.name} удален из избранного`, {
+            type: 'success',
+        })
+    }
+    else {
+        favorites.value = [...favorites.value, String(props.product.id)]
+
+        useToastify(`${props.product.name} добавлен в избранное`, {
+            type: 'success',
+        })
+    }
+
+    localStorage.setItem('favorites', JSON.stringify(favorites.value))
+}
+
+function handleCartClick(): void {
+    if (cartItem.value) {
+        cart.value = cart.value.filter(id => id !== String(props.product.id))
+
+        useToastify(`${props.product.name} удален из корзины`, {
+            type: 'success',
+        })
+    }
+    else {
+        cart.value = [...cart.value, String(props.product.id)]
+
+        useToastify(`${props.product.name} добавлен в корзину`, {
+            type: 'success',
+        })
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart.value))
+}
+
+onMounted(() => {
+    const storedFavorites = localStorage.getItem('favorites')
+    const storedCart = localStorage.getItem('cart')
+
+    if (storedFavorites) {
+        favorites.value = JSON.parse(storedFavorites)
+    }
+
+    if (storedCart) {
+        cart.value = JSON.parse(storedCart)
+    }
+})
 </script>
 
 <template>
@@ -35,13 +101,22 @@ defineProps<{
             <div class="product-card__actions">
                 <button
                     type="button"
-                    class="product-card__action product-card__action--selected"
+                    class="product-card__action"
+                    :class="{ 'product-card__action--selected': isFavorite }"
+                    :aria-label="isFavorite ? 'Удалить из избранного' : 'Добавить в избранное'"
+                    @click="handleFavoriteClick"
                 >
                     <svg width="24" height="24">
                         <use href="/images/icons.svg#favorite" />
                     </svg>
                 </button>
-                <button type="button" class="product-card__action">
+                <button
+                    type="button"
+                    class="product-card__action"
+                    :class="{ 'product-card__action--selected': cartItem }"
+                    :aria-label="cartItem ? 'Удалить из корзины' : 'Добавить в корзину'"
+                    @click="handleCartClick"
+                >
                     <svg width="24" height="24">
                         <use href="/images/icons.svg#cart" />
                     </svg>

@@ -3,7 +3,7 @@ export default defineNuxtConfig({
         compatibilityVersion: 4,
     },
     devtools: { enabled: false },
-    modules: ['nuxt-swiper'],
+    modules: ['nuxt-swiper', 'nuxt-toastify'],
     runtimeConfig: {
         public: {
             backendUrl: process.env.NUXT_PUBLIC_BACKEND_URL,
@@ -30,6 +30,14 @@ export default defineNuxtConfig({
                 },
             },
         },
+    },
+    toastify: {
+        autoClose: 1500,
+        position: 'bottom-right',
+        theme: 'light',
+        hideProgressBar: true,
+        closeButton: false,
+        toastClassName: 'toastify-toast',
     },
     compatibilityDate: '2025-03-30',
 })
