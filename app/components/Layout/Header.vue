@@ -152,7 +152,8 @@ onUnmounted(() => {
                             <use href="/images/icons.svg#search" />
                         </svg>
                     </button>
-                    <a
+
+                        <a
                         href="#"
                         class="header__action"
                         :title="`Избранное${favoritesCount ? `: ${favoritesCount} товаров` : ''}`"
@@ -160,8 +161,12 @@ onUnmounted(() => {
                         <svg width="30" height="30">
                             <use href="/images/icons.svg#favorite" />
                         </svg>
-                        <span v-if="favoritesCount">{{ favoritesCount }}</span>
+                        <Transition>
+                            <span v-if="favoritesCount">{{ favoritesCount }}</span>
+                        </Transition>
                     </a>
+
+
                     <a
                         href="#"
                         class="header__action"
@@ -170,7 +175,9 @@ onUnmounted(() => {
                         <svg width="30" height="30">
                             <use href="/images/icons.svg#cart" />
                         </svg>
-                        <span v-if="cartCount">{{ cartCount }}</span>
+                        <Transition>
+                            <span v-if="cartCount">{{ cartCount }}</span>
+                        </Transition>
                     </a>
                 </div>
             </div>
@@ -393,4 +400,28 @@ onUnmounted(() => {
     }
 }
 */
+
+.v-enter-active {
+    transition: transform 0.2s ease;
+    animation: bounce-in 0.5s;
+}
+
+.v-leave-to {
+    animation: bounce-in 0.5s reverse;
+
+}
+
+@keyframes bounce-in {
+    0% {
+        transform: scale(0);
+    }
+
+	40% {
+    transform: scale(1.3);
+  }
+
+	60% {
+    transform: scale(1);
+  }
+}
 </style>
