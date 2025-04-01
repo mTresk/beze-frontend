@@ -34,7 +34,6 @@ export function useScrollDirection() {
     watch(() => route.fullPath, () => {
         lastScroll = 0
         direction.value = null
-        window.scrollTo(0, 0)
     })
 
     return { direction }

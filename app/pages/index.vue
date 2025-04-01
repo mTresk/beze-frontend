@@ -1,7 +1,18 @@
+<script setup>
+definePageMeta({
+    pageTransition: {
+        name: 'layout',
+        mode: 'out-in',
+    },
+})
+</script>
+
 <template>
-    <Hero />
-    <Advantages />
-    <Directions />
-    <Bestsellers />
-    <Collections />
+    <div>
+        <Hero />
+        <Advantages />
+        <Directions />
+        <Bestsellers />
+        <Collections />
+    </div>
 </template>

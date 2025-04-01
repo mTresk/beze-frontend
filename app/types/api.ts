@@ -2,6 +2,7 @@ export interface IProduct {
     id: number
     name: string
     slug: string
+    description: string
     sku: string
     price: number
     images: {

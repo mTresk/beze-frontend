@@ -8,6 +8,19 @@ const scrollClass = computed(() => {
         return 'scroll-up'
     return ''
 })
+
+gsap.config({
+    nullTargetWarn: false,
+})
+
+useHead({
+    htmlAttrs: {
+        lang: 'ru',
+    },
+    titleTemplate: (titleChunk) => {
+        return titleChunk ? `${titleChunk} — BEZE Exclusive Studio` : 'BEZE Exclusive Studio'
+    },
+})
 </script>
 
 <template>
@@ -34,5 +47,16 @@ const scrollClass = computed(() => {
     svg {
         fill: $extraColor;
     }
+}
+
+.layout-enter-active,
+.layout-leave-active {
+    transition: all 0.4s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+}
+
+.layout-enter-from,
+.layout-leave-to {
+    opacity: 0;
+    filter: grayscale(1) blur(5px);
 }
 </style>

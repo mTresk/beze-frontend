@@ -1,17 +1,29 @@
 <script setup lang="ts">
 const props = defineProps<{
     options: any
+    placeholder: string
+    isError?: boolean
 }>()
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits<{
+    (e: 'update:modelValue', value: string | null): void
+    (e: 'clearError'): void
+}>()
+
+defineExpose({ openOptions })
 
 const isOptionsOpen = ref(false)
-const selectedOption = ref(props.options[0].name)
+const selectedOption = ref(props.placeholder)
 
 function toggleOption(option: any) {
     selectedOption.value = option.name
     isOptionsOpen.value = false
     emit('update:modelValue', option)
+}
+
+function openOptions() {
+    isOptionsOpen.value = true
+    emit('clearError')
 }
 
 function closeOptions() {
@@ -20,8 +32,8 @@ function closeOptions() {
 </script>
 
 <template>
-    <div v-click-outside="closeOptions" class="product__select select" :class="{ 'select--opened': isOptionsOpen }">
-        <div class="select__selected" @click="isOptionsOpen = true">
+    <div v-click-outside="closeOptions" class="product__select select" :class="{ 'select--opened': isOptionsOpen, 'select--error': isError }">
+        <div class="select__selected" @click="openOptions">
             <span>{{ selectedOption }}</span>
             <svg width="10" height="10">
                 <use href="/images/icons.svg#arrow-down" />
@@ -52,6 +64,7 @@ function closeOptions() {
         cursor: pointer;
         border: 2px solid $extraColor;
         border-radius: rem(4);
+        transition: all 0.3s ease-in-out;
 
         svg {
             transition: transform 0.3s ease-in-out;
@@ -61,6 +74,10 @@ function closeOptions() {
             svg {
                 transform: rotate(-180deg);
             }
+        }
+
+        .select--error & {
+            border-color: $redColor;
         }
     }
 
@@ -93,16 +110,16 @@ function closeOptions() {
 }
 
 .slide-enter-active {
-    transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+    transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
 .slide-leave-active {
-    transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+    transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
 .slide-enter-from,
 .slide-leave-to {
     opacity: 0;
-    transform: translateY(-5px);
+    transform: translateY(-5px) scale(0.9);
 }
 </style>

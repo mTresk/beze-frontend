@@ -2,9 +2,18 @@
 import type { IColor, IProduct } from '@/types/api'
 import { useQuery } from '@tanstack/vue-query'
 
+definePageMeta({
+    pageTransition: {
+        name: 'layout',
+        mode: 'out-in',
+    },
+})
+
 const route = useRoute()
 const { isInCart, toggleCartItem } = useCart()
 const { isFavorite, toggleFavorite } = useFavorites()
+
+const selectError = ref(false)
 
 async function fetcher() {
     return await useFetcher<IProduct>(`/api/products/${route.params.slug}`)
@@ -23,18 +32,22 @@ await suspense()
 
 const colorId = ref()
 const colorName = ref()
-const size = ref(product.value?.sizes[0])
+const size = ref()
+
+const cartStatus = computed(() => isInCart(String(product.value?.id), String(colorId.value), String(size.value?.id)).value)
+
+const favoriteStatus = isFavorite(String(product.value?.id))
 
 function setColor(color: IColor) {
     colorId.value = color.id
     colorName.value = color.name
 }
 
-const cartStatus = computed(() => isInCart(String(product.value?.id), String(colorId.value), String(size.value?.id)).value)
-
-const favoriteStatus = isFavorite(String(product.value?.id))
-
 function handleCartClick() {
+    if (!size.value) {
+        selectError.value = true
+    }
+
     if (!product.value || !colorId.value || !size.value)
         return
 
@@ -58,6 +71,10 @@ function handleFavoriteClick() {
     )
 }
 
+function clearError() {
+    selectError.value = false
+}
+
 onMounted(() => {
     if (product.value?.colors.length) {
         colorId.value = product.value.colors[0]!.id
@@ -67,93 +84,99 @@ onMounted(() => {
 </script>
 
 <template>
-    <section class="product">
-        <div class="product__container">
-            <ul class="breadcrumb">
-                <li>
-                    <NuxtLink to="/">
-                        Главная
-                    </NuxtLink>
-                </li>
-                <li>
-                    <NuxtLink to="/catalog">
-                        Каталог
-                    </NuxtLink>
-                </li>
-                <li><span>Костюм пижамный с перьями</span></li>
-            </ul>
-            <UiSpinner v-if="isLoading" />
-            <div v-if="!isLoading" class="product__body">
-                <div class="product__images">
-                    <div class="product__image">
-                        <img src="/images/products/1.jpg" alt="" loading="lazy">
-                    </div>
-                    <div class="product__image">
-                        <img src="/images/products/1-hover.jpg" alt="" loading="lazy">
-                    </div>
-                    <div class="product__image">
-                        <img src="/images/products/2.jpg" alt="" loading="lazy">
-                    </div>
-                    <div class="product__image">
-                        <img src="/images/products/2-hover.jpg" alt="" loading="lazy">
-                    </div>
-                </div>
-                <div class="product__content">
-                    <div class="product__info">
-                        <p class="product__sku">
-                            Артикул: {{ product?.sku }}
-                        </p>
-                        <h1 class="product__title">
-                            {{ product?.name }}
-                        </h1>
-                        <div class="product__price">
-                            {{ product?.price }} ₽
+    <div>
+        <Head>
+            <Title>{{ product?.name }}</Title>
+            <Meta name="description" :content="product?.description" />
+        </Head>
+        <section class="product">
+            <div class="product__container">
+                <ul class="breadcrumb">
+                    <li>
+                        <NuxtLink to="/">
+                            Главная
+                        </NuxtLink>
+                    </li>
+                    <li>
+                        <NuxtLink to="/catalog">
+                            Каталог
+                        </NuxtLink>
+                    </li>
+                    <li><span>Костюм пижамный с перьями</span></li>
+                </ul>
+                <UiSpinner v-if="isLoading" />
+                <div v-if="!isLoading" class="product__body">
+                    <div class="product__images">
+                        <div class="product__image">
+                            <img src="/images/products/1.jpg" alt="" loading="lazy">
+                        </div>
+                        <div class="product__image">
+                            <img src="/images/products/1-hover.jpg" alt="" loading="lazy">
+                        </div>
+                        <div class="product__image">
+                            <img src="/images/products/2.jpg" alt="" loading="lazy">
+                        </div>
+                        <div class="product__image">
+                            <img src="/images/products/2-hover.jpg" alt="" loading="lazy">
                         </div>
                     </div>
-                    <div class="product__colors product-colors">
-                        <div class="product-colors__options">
-                            <label
-                                v-for="(color, index) in product?.colors"
-                                :key="color.id"
-                                :style="`background-color: ${color.code};`"
-                                class="product-colors__item"
-                                @click="setColor(color)"
-                            >
-                                <input :checked="index === 0 ? true : false" class="product-colors__input" type="radio" :value="color.id" name="color">
-                            </label>
+                    <div class="product__content">
+                        <div class="product__info">
+                            <p class="product__sku">
+                                Артикул: {{ product?.sku }}
+                            </p>
+                            <h1 class="product__title">
+                                {{ product?.name }}
+                            </h1>
+                            <div class="product__price">
+                                {{ product?.price }} ₽
+                            </div>
                         </div>
-                        <p class="product-colors__label">
-                            {{ colorName }}
+                        <div class="product__colors product-colors">
+                            <div class="product-colors__options">
+                                <label
+                                    v-for="(color, index) in product?.colors"
+                                    :key="color.id"
+                                    :style="`background-color: ${color.code};`"
+                                    class="product-colors__item"
+                                    @click="setColor(color)"
+                                >
+                                    <input :checked="index === 0 ? true : false" class="product-colors__input" type="radio" :value="color.id" name="color">
+                                </label>
+                            </div>
+                            <p class="product-colors__label">
+                                {{ colorName }}
+                            </p>
+                        </div>
+                        <div class="product__size">
+                            <FormSelect v-model="size" :is-error="selectError" placeholder="Выберите размер" :options="product?.sizes" @clear-error="clearError" />
+                            <UiLink>Размерная сетка</UiLink>
+                        </div>
+                        <div class="product__actions">
+                            <UiButton wide class="product__action" @click="handleCartClick">
+                                <span>{{ cartStatus ? 'Убрать' : 'В корзину' }}</span>
+                                <svg width="16" height="16">
+                                    <use href="/images/icons.svg#cart" />
+                                </svg>
+                            </UiButton>
+                            <UiButton wide outline class="product__action" @click="handleFavoriteClick">
+                                <span>{{ favoriteStatus ? 'Убрать' : 'В избранное' }}</span>
+                                <svg width="16" height="16">
+                                    <use href="/images/icons.svg#favorite" />
+                                </svg>
+                            </UiButton>
+                        </div>
+                        <p class="product__description">
+                            Комплект пижамный из шелка Армани. <br>
+                            Рубашка с английским воротником. Длинный рукав с перьями в два слоя и боа на кнопках. <br>
+                            Брюки на завязках с перьями в два слоя и боа на кнопках. <br>
+                            Состав: 97% полиэстер 3% спандекс
                         </p>
                     </div>
-                    <div class="product__size">
-                        <FormSelect v-model="size" :options="product?.sizes" />
-                        <UiLink>Размерная сетка</UiLink>
-                    </div>
-                    <div class="product__actions">
-                        <UiButton wide class="product__action" @click="handleCartClick">
-                            <span>{{ cartStatus ? 'Убрать' : 'В корзину' }}</span>
-                            <svg width="16" height="16">
-                                <use href="/images/icons.svg#cart" />
-                            </svg>
-                        </UiButton>
-                        <UiButton wide outline class="product__action" @click="handleFavoriteClick">
-                            <span>{{ favoriteStatus ? 'Убрать' : 'В избранное' }}</span>
-                            <svg width="16" height="16">
-                                <use href="/images/icons.svg#favorite" />
-                            </svg>
-                        </UiButton>
-                    </div>
-                    <p class="product__description">
-                        Комплект пижамный из шелка Армани. <br>
-                        Рубашка с английским воротником. Длинный рукав с перьями в два слоя и боа на кнопках. <br>
-                        Брюки на завязках с перьями в два слоя и боа на кнопках. <br>
-                        Состав: 97% полиэстер 3% спандекс
-                    </p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 </template>
 
 <style lang="scss">

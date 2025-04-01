@@ -1,3 +1,5 @@
 <template>
-    Каталог
+    <div>
+        Каталог
+    </div>
 </template>
