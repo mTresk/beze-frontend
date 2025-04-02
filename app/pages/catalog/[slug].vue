@@ -12,7 +12,9 @@ definePageMeta({
 })
 
 const route = useRoute()
+
 const { isInCart, toggleCartItem } = useCart()
+
 const { isFavorite, toggleFavorite } = useFavorites()
 
 async function fetcher() {
@@ -31,11 +33,15 @@ const {
 await suspense()
 
 const colorId = ref()
+
 const colorName = ref()
+
 const size = ref()
+
 const selectError = ref(false)
 
 const cartStatus = computed(() => isInCart(String(product.value?.id), String(colorId.value), String(size.value?.id)).value)
+
 const favoriteStatus = isFavorite(String(product.value?.id))
 
 function setColor(color: IColor) {
@@ -58,6 +64,7 @@ function handleCartClick() {
         colorName.value,
         String(size.value.id),
         size.value.name,
+        1,
     )
 }
 
@@ -276,42 +283,6 @@ onMounted(() => {
         margin-top: rem(25);
         font-size: 16px;
         line-height: 140%;
-    }
-}
-
-.breadcrumb {
-    display: flex;
-    gap: rem(17);
-    align-items: center;
-    margin-bottom: rem(30);
-
-    li {
-        position: relative;
-        font-size: 16px;
-        line-height: 140%;
-        transition: color 0.3s ease-in-out;
-
-        &:not(:last-child) {
-            &::before {
-                position: absolute;
-                right: -10px;
-                font-size: 14px;
-                line-height: 140%;
-                color: rgb(54 54 54 / 50%);
-                content:'/';
-            }
-        }
-
-        &:last-child{
-            color: rgb(54 54 54 / 50%);
-            pointer-events: none;
-        }
-
-        @media (any-hover: hover){
-            &:hover{
-                color: $accentColor;
-            }
-        }
     }
 }
 

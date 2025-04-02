@@ -25,7 +25,6 @@ defineProps<{
 .link {
     font-size: 16px;
     line-height: 130%;
-    text-align: center;
     text-decoration: underline;
     text-decoration-thickness: 10%;
     text-decoration-style: dotted;

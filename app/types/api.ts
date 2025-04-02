@@ -4,17 +4,31 @@ export interface IProduct {
     slug: string
     description: string
     sku: string
-    price: number
+    price: string
     images: IImage[]
     colors: IColor[]
     chips: IChip[]
     sizes: ISize[]
 }
 
+export interface ICartProduct {
+    id: number
+    name: string
+    slug: string
+    description: string
+    sku: string
+    price: string
+    images: IImage[]
+    color: IColor
+    size: ISize
+    quantity: number
+}
+
 export interface IImage {
     normal: string
     retina: string
     original: string
+    thumb: string
 }
 
 export interface IColor {

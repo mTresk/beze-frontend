@@ -142,8 +142,8 @@ const cartCount = computed(() => cartItems.value.length)
                         </Transition>
                     </NuxtLink>
 
-                    <a
-                        href="#"
+                    <NuxtLink
+                        to="/cart"
                         class="header__action"
                         :title="`Корзина${cartCount ? `: ${cartCount} товаров` : ''}`"
                     >
@@ -153,7 +153,7 @@ const cartCount = computed(() => cartItems.value.length)
                         <Transition>
                             <span v-if="cartCount">{{ cartCount }}</span>
                         </Transition>
-                    </a>
+                    </NuxtLink>
                 </div>
             </div>
         </div>

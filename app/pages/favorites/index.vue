@@ -14,16 +14,16 @@ const products = ref<IProduct[]>()
 
 const isLoading = ref(false)
 
-async function fetchFovorites() {
+async function fetchProducts() {
     isLoading.value = true
 
-    const data = await useFetcher<IProduct[]>(`/api/favorites?ids=${favorites.value}`)
+    const data = await useFetcher<IProduct[]>(`/api/products/selected?ids=${favorites.value}`)
 
     products.value = data
     isLoading.value = false
 }
 
-watch(() => favorites.value, () => fetchFovorites())
+watch(() => favorites.value, () => fetchProducts())
 </script>
 
 <template>
@@ -42,6 +42,9 @@ watch(() => favorites.value, () => fetchFovorites())
                 <UiSpinner v-if="isLoading" />
                 <div class="favorites__body">
                     <ProductItem v-for="product in products" :key="product.id" :product="product" />
+                    <p v-if="!favorites.length" class="favorites__empty">
+                        Ваш вишлист пока пуст
+                    </p>
                 </div>
             </div>
         </section>
@@ -60,11 +63,10 @@ watch(() => favorites.value, () => fetchFovorites())
         gap: rem(45) rem(25);
 	}
 
-	// .favorites__footer
-	&__footer {
-		display: flex;
-        align-items: center;
-        justify-content: center;
+	// .favorites__empty
+	&__empty {
+		font-size: rem(16);
+		line-height: 125%;
 	}
 }
 </style>
