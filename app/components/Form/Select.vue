@@ -66,6 +66,12 @@ function closeOptions() {
         border-radius: rem(4);
         transition: all 0.3s ease-in-out;
 
+        @media (any-hover: hover){
+            &:hover{
+                border-color: $accentColor;
+            }
+        }
+
         svg {
             transition: transform 0.3s ease-in-out;
         }
@@ -88,7 +94,7 @@ function closeOptions() {
         display: grid;
         width: 100%;
         overflow: hidden;
-        background-color: $lightColor;
+        background-color: $whiteColor;
         border-radius: rem(4);
         box-shadow: 0 0 14px 0 rgb(0 0 0 / 10%);
     }

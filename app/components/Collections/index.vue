@@ -15,7 +15,7 @@ useSwiper(containerRef, {
 </script>
 
 <template>
-    <section class="collections">
+    <section class="collections spacer">
         <div class="collections__container">
             <UiTitle class="collections__title">
                 Коллекции
@@ -102,8 +102,6 @@ useSwiper(containerRef, {
 
 <style lang="scss">
 .collections {
-    margin-bottom: rem(160);
-
     // .collections__title
     &__title {
         margin-bottom: rem(40);

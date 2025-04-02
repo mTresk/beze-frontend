@@ -30,7 +30,7 @@ useSwiper(containerRef, {
                     <h1 class="hero__title">
                         BEZE exclusive studio – <br>ОДЕЖДА, СОЗДАЮЩАЯ ОСОБОЕ НАСТРОЕНИЕ
                     </h1>
-                    <UiButton href="#" outline white>
+                    <UiButton href="/catalog" outline white>
                         В каталог
                     </UiButton>
                 </div>

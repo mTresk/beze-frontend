@@ -37,7 +37,7 @@ useHead({
 
 <style lang="scss">
 body {
-    background-color: $lightColor;
+    background-color: $whiteColor;
 
     .lock & {
         overflow: hidden;
@@ -66,7 +66,7 @@ body {
 }
 
 [class*='__container'] {
-        max-width: rem(1280);
+        max-width: rem(1480);
         padding-inline: rem(20);
         margin-inline: auto;
 }
@@ -76,6 +76,10 @@ body {
     margin-inline: auto;
 
     @include adaptive-value('padding-inline', 80, 20);
+}
+
+.spacer {
+    margin-bottom: rem(160);
 }
 
 .toastify-toast {

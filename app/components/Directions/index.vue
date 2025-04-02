@@ -15,7 +15,7 @@ useSwiper(containerRef, {
 </script>
 
 <template>
-    <section class="directions">
+    <section class="directions spacer">
         <div class="directions__inner">
             <div class="directions__body">
                 <swiper-container ref="containerRef" :init="false" class="directions__slider">
@@ -93,8 +93,6 @@ useSwiper(containerRef, {
 <style lang="scss" scoped>
 // ========================================================================================================================================================
 .directions {
-    margin-bottom: rem(160);
-
     // .directions__body
     &__body {
         position: relative;

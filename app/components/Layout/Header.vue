@@ -129,8 +129,8 @@ const cartCount = computed(() => cartItems.value.length)
                         </svg>
                     </button>
 
-                    <a
-                        href="#"
+                    <NuxtLink
+                        to="/favorites"
                         class="header__action"
                         :title="`Избранное${favoritesCount ? `: ${favoritesCount} товаров` : ''}`"
                     >
@@ -140,7 +140,7 @@ const cartCount = computed(() => cartItems.value.length)
                         <Transition>
                             <span v-if="favoritesCount">{{ favoritesCount }}</span>
                         </Transition>
-                    </a>
+                    </NuxtLink>
 
                     <a
                         href="#"

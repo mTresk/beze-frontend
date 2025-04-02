@@ -31,7 +31,7 @@ await suspense()
 </script>
 
 <template>
-    <section class="bestsellers">
+    <section class="bestsellers spacer">
         <div class="bestsellers__container">
             <UiTitle tag="h2" class="bestsellers__title">
                 Рекомендуем
@@ -60,8 +60,6 @@ await suspense()
 
 <style lang="scss" scoped>
 .bestsellers {
-    margin-bottom: rem(160);
-
     // .bestsellers__inner
     &__inner {
         position: relative;
@@ -70,6 +68,11 @@ await suspense()
     // .bestsellers__title
     &__title {
         margin-bottom: rem(40);
+    }
+
+    &__wrapper {
+        display: grid;
+        gap: rem(30);
     }
 
     // .bestsellers__body
@@ -84,7 +87,6 @@ await suspense()
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-top: rem(30);
     }
 }
 </style>

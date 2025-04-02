@@ -186,11 +186,6 @@ onMounted(() => {
 .product {
     padding-top: rem(130);
 
-    // .product__container
-    &__container {
-        max-width: rem(1480);
-    }
-
     // .product__body
     &__body {
         display: flex;
