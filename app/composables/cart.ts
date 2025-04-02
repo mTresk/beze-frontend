@@ -37,6 +37,12 @@ export function useCart() {
         }
     }
 
+    function clearCartItems() {
+        if (import.meta.client) {
+            localStorage.setItem('beze-cart', '')
+        }
+    }
+
     function isInCart(productId: string, colorId: string, sizeId: string) {
         return computed(() =>
             cartItems.value.some(item => item.productId === productId && item.colorId === colorId && item.sizeId === sizeId),
@@ -58,5 +64,5 @@ export function useCart() {
         window.removeEventListener('storage', handleStorageChange)
     })
 
-    return { cartItems, isInCart, toggleCartItem, updateCartItem }
+    return { cartItems, isInCart, toggleCartItem, updateCartItem, clearCartItems }
 }

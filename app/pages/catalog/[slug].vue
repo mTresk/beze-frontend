@@ -162,14 +162,13 @@ onMounted(() => {
                             <UiLink>Размерная сетка</UiLink>
                         </div>
                         <div class="product__actions">
-                            <UiButton wide class="product__action" @click="handleCartClick">
-                                <span>{{ cartStatus ? 'Убрать' : 'В корзину' }}</span>
+                            <UiButton :active="cartStatus" wide class="product__action" @click="handleCartClick">
+                                <span>{{ cartStatus ? 'Убрать из корзины' : 'В корзину' }}</span>
                                 <svg width="16" height="16">
                                     <use href="/images/icons.svg#cart" />
                                 </svg>
                             </UiButton>
-                            <UiButton wide outline class="product__action" @click="handleFavoriteClick">
-                                <span>{{ favoriteStatus ? 'Убрать' : 'В избранное' }}</span>
+                            <UiButton :active="favoriteStatus" wide lite square aria-label="В избранное" class="product__action" @click="handleFavoriteClick">
                                 <svg width="16" height="16">
                                     <use href="/images/icons.svg#favorite" />
                                 </svg>
@@ -273,8 +272,7 @@ onMounted(() => {
 
     // .product__actions
     &__actions {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        display: flex;
         gap: rem(20);
     }
 

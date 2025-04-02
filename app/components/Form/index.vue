@@ -1,6 +1,12 @@
 <script setup lang="ts">
+import type { ValidationErrors } from '@/types/api'
+
+defineProps<{
+    errors: ValidationErrors
+}>()
+
 const emit = defineEmits<{
-    (event: 'update:modelValue', value: typeof form): void
+    (event: 'update:modelValue', value: typeof form | null): void
 }>()
 
 const options = [
@@ -27,35 +33,39 @@ watch(form, (newForm) => {
     <form class="form">
         <div class="form__body">
             <div class="form__block">
-                <div class="form__field form__field--error">
+                <div class="form__field" :class="{ 'form__field--error': errors.name }">
                     <label for="name" class="form__label">Ваше имя *</label>
                     <input id="name" v-model="form.name" class="form__input" autocomplete="off" type="text" placeholder="Введите имя">
                 </div>
-                <small class="form__error">Error in form</small>
+                <small v-if="errors.name" class="form__error">{{ errors.name[0] }}</small>
             </div>
             <div class="form__block">
-                <div class="form__field">
+                <div class="form__field" :class="{ 'form__field--error': errors.email }">
                     <label for="email" class="form__label">Ваш email *</label>
                     <input id="email" v-model="form.email" class="form__input" autocomplete="off" type="text" placeholder="Введите email">
                 </div>
+                <small v-if="errors.email" class="form__error">{{ errors.email[0] }}</small>
             </div>
             <div class="form__block">
-                <div class="form__field">
+                <div class="form__field" :class="{ 'form__field--error': errors.phone }">
                     <label for="phone" class="form__label">Ваш телефон *</label>
-                    <input id="phone" v-model="form.phone" class="form__input" autocomplete="off" type="tel" placeholder="Введите телефон">
+                    <input id="phone" v-model="form.phone" v-maska="'+7 (###) ### ## ##'" class="form__input" autocomplete="off" type="tel" placeholder="Введите телефон">
                 </div>
+                <small v-if="errors.phone" class="form__error">{{ errors.phone[0] }}</small>
             </div>
             <div class="form__block">
-                <div class="form__field">
+                <div class="form__field" :class="{ 'form__field--error': errors.address }">
                     <label for="address" class="form__label">Адрес доставки</label>
                     <input id="address" v-model="form.address" class="form__input" autocomplete="off" type="text" placeholder="Если необходимо">
                 </div>
+                <small v-if="errors.address" class="form__error">{{ errors.address[0] }}</small>
             </div>
             <div class="form__block">
-                <div class="form__field">
+                <div class="form__field" :class="{ 'form__field--error': errors.communication }">
                     <label for="address" class="form__label">Как с вами связаться?</label>
                     <FormSelect v-model="form.communication" placeholder="Способ связи" :options="options" />
                 </div>
+                <small v-if="errors.communication" class="form__error">{{ errors.communication[0] }}</small>
             </div>
         </div>
     </form>
@@ -122,7 +132,7 @@ watch(form, (newForm) => {
     // .form__error
     &__error {
         position: absolute;
-        bottom: -12px;
+        bottom: rem(-15);
         font-size: rem(12);
         color: $redColor;
     }

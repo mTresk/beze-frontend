@@ -47,6 +47,22 @@ export interface ISize {
     name: string
 }
 
+export interface IOrder {
+    products: {
+        id: number
+        quantity: number
+    }[]
+    name: string
+    email: string
+    phone: string
+    address?: string
+    communication: {
+        id: number
+        name: string
+    }
+
+}
+
 export interface ProductsResponse {
     pageData: IProduct[]
     cursor?: number
@@ -62,4 +78,21 @@ export interface ApiPaginationMeta {
 export interface ApiResponse<T> {
     data: T
     meta: ApiPaginationMeta
+}
+
+export type ValidationErrors = Record<string, string[]>
+
+export interface IApiErrorResponse {
+    data?: {
+        errors?: ValidationErrors
+    }
+    response?: {
+        status: number
+    }
+    message: string
+}
+
+export interface IUseSubmitOptions<T> {
+    onSuccess?: (result: T) => void
+    onError?: (error: IApiErrorResponse) => void
 }

@@ -1,18 +1,7 @@
 <script setup lang="ts">
-const props = defineProps<{
-    outline?: boolean
-    white?: boolean
-    wide?: boolean
+defineProps<{
     href?: string
 }>()
-
-const classes = [
-    {
-        'button--outline': props.outline,
-        'button--white': props.white,
-        'button--wide': props.wide,
-    },
-]
 </script>
 
 <template>
@@ -20,14 +9,12 @@ const classes = [
         v-if="href"
         :to="href"
         class="button"
-        :class="classes"
     >
         <slot />
     </NuxtLink>
     <button
         v-else
         class="button"
-        :class="classes"
     >
         <slot />
     </button>
@@ -39,15 +26,20 @@ const classes = [
     gap: rem(8);
     align-items: center;
     justify-content: center;
-    padding: rem(16) rem(80);
+    height: rem(55);
+    padding: rem(5) rem(80);
     font-size: 16px;
     line-height: 130%;
     color: $whiteColor;
     text-align: center;
     white-space: nowrap;
     background-color: $accentColor;
-    border-radius: 4px;
+    border-radius: rem(4);
     transition: all 0.3s ease-in-out;
+
+    &[active='true'] {
+        background-color: $extraColor;
+    }
 
     @media (any-hover: hover) {
         &:hover {
@@ -55,7 +47,7 @@ const classes = [
         }
     }
 
-    &--outline {
+    &[outline] {
         color: $accentColor;
         background-color: transparent;
         border: 2px solid $accentColor;
@@ -68,25 +60,47 @@ const classes = [
         }
     }
 
-    &--white {
+    &[white] {
         color: $whiteColor;
         border-color: $whiteColor;
 
         @media (any-hover: hover) {
             &:hover {
+                background-color: $extraColor;
                 border-color: $extraColor;
             }
         }
     }
 
-    &--wide {
+    &[wide]  {
         width: 100%;
         padding: rem(16) rem(20);
+    }
+
+    &[square] {
+        flex-shrink: 0;
+        width: rem(55);
+        padding: rem(5);
+    }
+
+    &[lite] {
+        background-color: $extraColor;
+
+        @media (any-hover: hover){
+            &:hover{
+                background-color: $accentColor;
+            }
+        }
+
+        &[active='true'] {
+            background-color: $accentColor;
+        }
     }
 
     &[disabled] {
         pointer-events: none;
         opacity: 0.4;
     }
+
 }
 </style>

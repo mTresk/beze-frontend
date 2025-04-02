@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ICartProduct, IColor, IProduct, ISize } from '@/types/api'
+import type { ICartProduct, IColor, IOrder, IProduct, ISize } from '@/types/api'
 
 definePageMeta({
     pageTransition: {
@@ -8,7 +8,7 @@ definePageMeta({
     },
 })
 
-const { cartItems } = useCart()
+const { cartItems, clearCartItems } = useCart()
 
 const products = ref<IProduct[]>()
 
@@ -26,12 +26,10 @@ const productsIds = computed(() => {
     return cartItems.value.map(item => item.productId)
 })
 
-const form = ref()
+const form = ref<IOrder>()
 
 async function fetchProducts() {
-    isLoading.value = true
     products.value = await useFetcher<IProduct[]>(`/api/products/selected?ids=${productsIds.value}`)
-    isLoading.value = false
 }
 
 async function fetchColors() {
@@ -40,6 +38,20 @@ async function fetchColors() {
 
 async function fetcSizes() {
     sizes.value = await useFetcher<ISize[]>(`/api/sizes`)
+}
+
+async function fetchAllData() {
+    isLoading.value = true
+    await Promise.all([fetchProducts(), fetchColors(), fetcSizes()])
+    isLoading.value = false
+    checkDataLoaded()
+}
+
+function checkDataLoaded() {
+    if (products.value && colors.value && sizes.value) {
+        isDataLoaded.value = true
+        calculateTotal()
+    }
 }
 
 const productCartItems = computed(() => {
@@ -67,20 +79,6 @@ const productCartItems = computed(() => {
     })
 })
 
-async function fetchAllData() {
-    isLoading.value = true
-    await Promise.all([fetchProducts(), fetchColors(), fetcSizes()])
-    isLoading.value = false
-    checkDataLoaded()
-}
-
-function checkDataLoaded() {
-    if (products.value && colors.value && sizes.value) {
-        isDataLoaded.value = true
-        calculateTotal()
-    }
-}
-
 async function calculateTotal() {
     if (!isDataLoaded.value)
         return
@@ -97,6 +95,42 @@ async function calculateTotal() {
 
     cartTotal.value = total
 }
+
+async function submitOrder() {
+    const products = productCartItems.value.map((item) => {
+        return {
+            id: item?.id,
+            quantity: item?.quantity,
+        }
+    })
+
+    const payload = {
+        products,
+        ...form.value,
+        communication: form.value?.communication.name,
+    }
+
+    await useFetcher('/api/order', {
+        body: payload,
+        method: 'post',
+    })
+}
+
+const {
+    submit: handleSubmit,
+    validationErrors: errors,
+    isLoading: isFormSending,
+} = useSubmit(
+    () => {
+        return submitOrder()
+    },
+    {
+        onSuccess: () => {
+            clearCartItems()
+            navigateTo('/order', { replace: true })
+        },
+    },
+)
 
 watch(
     () => productCartItems.value.map(item => item?.quantity),
@@ -131,7 +165,7 @@ onMounted(() => {
                         <div class="cart__table">
                             <CartItem v-for="product in productCartItems" :key="product?.id" :product="product as ICartProduct" />
                         </div>
-                        <Form v-model="form" class="cart__form" />
+                        <Form v-model="form" :errors="errors" class="cart__form" />
                     </div>
                     <div class="cart__checkout">
                         <div class="cart__links">
@@ -165,7 +199,7 @@ onMounted(() => {
                             </div>
                         </div>
                         <div class="cart__footer">
-                            <UiButton class="cart__button">
+                            <UiButton :disabled="isFormSending" class="cart__button" @click="handleSubmit">
                                 Сделать заказ
                             </UiButton>
                             <p class="cart__policy">
@@ -189,6 +223,7 @@ onMounted(() => {
 
 	// .cart__body
 	&__body {
+        position: relative;
 		display: flex;
 		gap: rem(60);
 		align-items: flex-start;
