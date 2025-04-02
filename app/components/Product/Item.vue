@@ -8,6 +8,16 @@ const props = defineProps<{
 const { toggleFavorite, isFavorite } = useFavorites()
 
 const favoriteStatus = isFavorite(String(props.product.id))
+
+function handleFavoriteClick() {
+    if (!props.product)
+        return
+
+    toggleFavorite(
+        String(props.product.id),
+        props.product.name,
+    )
+}
 </script>
 
 <template>
@@ -42,7 +52,7 @@ const favoriteStatus = isFavorite(String(props.product.id))
                     class="product-card__action"
                     :class="{ 'product-card__action--selected': favoriteStatus }"
                     :aria-label="favoriteStatus ? 'Удалить из избранного' : 'Добавить в избранное'"
-                    @click="toggleFavorite(String(product.id), product.name)"
+                    @click="handleFavoriteClick"
                 >
                     <svg width="24" height="24">
                         <use href="/images/icons.svg#favorite" />

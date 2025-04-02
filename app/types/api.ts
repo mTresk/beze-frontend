@@ -5,13 +5,16 @@ export interface IProduct {
     description: string
     sku: string
     price: number
-    images: {
-        normal: string
-        retina: string
-    }[]
+    images: IImage[]
     colors: IColor[]
     chips: IChip[]
     sizes: ISize[]
+}
+
+export interface IImage {
+    normal: string
+    retina: string
+    original: string
 }
 
 export interface IColor {

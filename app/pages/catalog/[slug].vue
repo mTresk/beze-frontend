@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { IColor, IProduct } from '@/types/api'
 import { useQuery } from '@tanstack/vue-query'
+import { VueImageZoomer } from 'vue-image-zoomer'
+import 'vue-image-zoomer/dist/style.css'
 
 definePageMeta({
     pageTransition: {
@@ -12,8 +14,6 @@ definePageMeta({
 const route = useRoute()
 const { isInCart, toggleCartItem } = useCart()
 const { isFavorite, toggleFavorite } = useFavorites()
-
-const selectError = ref(false)
 
 async function fetcher() {
     return await useFetcher<IProduct>(`/api/products/${route.params.slug}`)
@@ -33,9 +33,9 @@ await suspense()
 const colorId = ref()
 const colorName = ref()
 const size = ref()
+const selectError = ref(false)
 
 const cartStatus = computed(() => isInCart(String(product.value?.id), String(colorId.value), String(size.value?.id)).value)
-
 const favoriteStatus = isFavorite(String(product.value?.id))
 
 function setColor(color: IColor) {
@@ -62,7 +62,7 @@ function handleCartClick() {
 }
 
 function handleFavoriteClick() {
-    if (!product.value || !colorId.value || !size.value)
+    if (!product.value)
         return
 
     toggleFavorite(
@@ -107,18 +107,20 @@ onMounted(() => {
                 <UiSpinner v-if="isLoading" />
                 <div v-if="!isLoading" class="product__body">
                     <div class="product__images">
-                        <div class="product__image">
-                            <img src="/images/products/1.jpg" alt="" loading="lazy">
-                        </div>
-                        <div class="product__image">
-                            <img src="/images/products/1-hover.jpg" alt="" loading="lazy">
-                        </div>
-                        <div class="product__image">
-                            <img src="/images/products/2.jpg" alt="" loading="lazy">
-                        </div>
-                        <div class="product__image">
-                            <img src="/images/products/2-hover.jpg" alt="" loading="lazy">
-                        </div>
+                        <ClientOnly>
+                            <template v-for="(image, index) in product?.images" :key="index">
+                                <VueImageZoomer
+                                    :zoom-amount="3"
+                                    :show-message="false"
+                                    :show-message-touch="false"
+                                    :alt="product?.name"
+                                    :lazyload="true"
+                                    img-class="product__zoom"
+                                    :regular="image.retina"
+                                    :zoom="image.original"
+                                />
+                            </template>
+                        </ClientOnly>
                     </div>
                     <div class="product__content">
                         <div class="product__info">
@@ -176,6 +178,7 @@ onMounted(() => {
                 </div>
             </div>
         </section>
+        <UiCursor />
     </div>
 </template>
 
@@ -205,15 +208,15 @@ onMounted(() => {
     }
 
     // .product__image
-    &__image {
+    &__image, .vh--outer {
         position: relative;
         aspect-ratio: 450 / 675;
         overflow: hidden;
         border-radius: rem(4);
+    }
 
-        img {
-            @include image;
-        }
+    &__zoom {
+        @include image;
     }
 
     // .product__content
@@ -365,5 +368,10 @@ onMounted(() => {
         line-height: 140%;
         color: rgb(54 54 54 / 50%);
     }
+}
+
+.vh--holder {
+    width: 100%;
+    height: 100%;
 }
 </style>

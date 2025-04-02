@@ -87,6 +87,7 @@ function closeOptions() {
         top: calc(100% + 2px);
         display: grid;
         width: 100%;
+        overflow: hidden;
         background-color: $lightColor;
         border-radius: rem(4);
         box-shadow: 0 0 14px 0 rgb(0 0 0 / 10%);

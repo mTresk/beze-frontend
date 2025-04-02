@@ -33,10 +33,51 @@ useHead({
             </LayoutSmoothScroll>
         </main>
     </div>
-    <UiCursor />
 </template>
 
 <style lang="scss">
+body {
+    background-color: $lightColor;
+
+    .lock & {
+        overflow: hidden;
+        overscroll-behavior: none;
+        touch-action: none;
+    }
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    overflow: hidden;
+
+    @supports (overflow: clip) {
+        overflow: clip;
+    }
+
+    > main {
+        flex: 1 1 auto;
+    }
+
+    > * {
+        min-width: 0;
+    }
+}
+
+[class*='__container'] {
+        max-width: rem(1280);
+        padding-inline: rem(20);
+        margin-inline: auto;
+}
+
+[class*='__inner'] {
+    max-width: rem(1920);
+    margin-inline: auto;
+
+    @include adaptive-value('padding-inline', 80, 20);
+}
+
 .toastify-toast {
     font-family: 'Tilda Sans', sans-serif;
     font-size: rem(14);
