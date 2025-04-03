@@ -13,9 +13,11 @@ export function useCart() {
 
         if (inCart) {
             cartItems.value = cartItems.value.filter(item => item.variantId !== variantId)
+            useToastify(`Товар удален из корзины`, { type: 'success' })
         }
         else {
             cartItems.value = [...cartItems.value, { variantId, qty }]
+            useToastify(`Товар добавлен в корзину`, { type: 'success' })
         }
 
         if (import.meta.client) {

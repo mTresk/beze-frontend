@@ -8,16 +8,16 @@ export function useFavorites() {
         }
     }
 
-    function toggleFavorite(productId: string, productName: string) {
+    function toggleFavorite(productId: string) {
         const isFav = favorites.value.includes(productId)
 
         if (isFav) {
             favorites.value = favorites.value.filter(id => id !== productId)
-            useToastify(`${productName} удален из избранного`, { type: 'success' })
+            useToastify(`Товар удален из вишлиста`, { type: 'success' })
         }
         else {
             favorites.value = [...favorites.value, productId]
-            useToastify(`${productName} добавлен в избранное`, { type: 'success' })
+            useToastify(`Товар добавлен в вишлист`, { type: 'success' })
         }
 
         if (import.meta.client) {

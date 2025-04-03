@@ -122,7 +122,6 @@ function handleFavoriteClick() {
 
     toggleFavorite(
         String(product.value.id),
-        product.value.name,
     )
 }
 

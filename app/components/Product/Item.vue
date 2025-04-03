@@ -18,7 +18,6 @@ function handleFavoriteClick() {
 
     toggleFavorite(
         String(props.product.id),
-        props.product.name,
     )
 }
 </script>
