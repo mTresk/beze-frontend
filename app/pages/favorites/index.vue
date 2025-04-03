@@ -17,7 +17,7 @@ const isLoading = ref(false)
 async function fetchProducts() {
     isLoading.value = true
 
-    const data = await useFetcher<IProduct[]>(`/api/products/selected?ids=${favorites.value}`)
+    const data = await useFetcher<IProduct[]>(`/api/products/favorites?ids=${favorites.value}`)
 
     products.value = data
     isLoading.value = false

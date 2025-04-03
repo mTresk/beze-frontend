@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ICartProduct, IColor, IOrder, IProduct, ISize } from '@/types/api'
+import type { ICartProduct, IOrder, IProductVariant } from '@/types/api'
 
 definePageMeta({
     pageTransition: {
@@ -10,11 +10,7 @@ definePageMeta({
 
 const { cartItems, clearCartItems } = useCart()
 
-const products = ref<IProduct[]>()
-
-const colors = ref<IColor[]>()
-
-const sizes = ref<ISize[]>()
+const products = ref<IProductVariant[]>()
 
 const isLoading = ref(false)
 
@@ -22,61 +18,62 @@ const isDataLoaded = ref(false)
 
 const cartTotal = ref()
 
-const productsIds = computed(() => {
-    return cartItems.value.map(item => item.productId)
+const variantIds = computed(() => {
+    return cartItems.value.map(item => item.variantId)
 })
 
 const form = ref<IOrder>()
 
 async function fetchProducts() {
-    products.value = await useFetcher<IProduct[]>(`/api/products/selected?ids=${productsIds.value}`)
-}
+    if (!variantIds.value.length) {
+        products.value = []
+        return
+    }
 
-async function fetchColors() {
-    colors.value = await useFetcher<IColor[]>(`/api/colors`)
-}
-
-async function fetcSizes() {
-    sizes.value = await useFetcher<ISize[]>(`/api/sizes`)
+    products.value = await useFetcher<IProductVariant[]>(`/api/products/variants?ids=${variantIds.value.join(',')}`)
 }
 
 async function fetchAllData() {
     isLoading.value = true
-    await Promise.all([fetchProducts(), fetchColors(), fetcSizes()])
+    await fetchProducts()
     isLoading.value = false
     checkDataLoaded()
 }
 
 function checkDataLoaded() {
-    if (products.value && colors.value && sizes.value) {
+    if (products.value) {
         isDataLoaded.value = true
         calculateTotal()
     }
 }
 
 const productCartItems = computed(() => {
-    if (!products.value)
+    if (!products.value) {
         return []
+    }
 
     return cartItems.value.map((item) => {
-        const product = products.value?.find(product => product.id === Number(item.productId))
+        const variant = products.value?.find(
+            variant => String(variant.id) === item.variantId,
+        )
 
-        if (!product)
+        if (!variant) {
             return null
+        }
 
         return {
-            id: product.id,
-            name: product.name,
-            slug: product.slug,
-            description: product.description,
-            sku: product.sku,
-            price: product.price,
-            images: product.images,
-            color: product.colors.filter(color => color.id === Number(item.colorId))[0],
-            size: product.sizes.filter(size => size.id === Number(item.sizeId))[0],
-            quantity: item.qty,
-        }
-    })
+            id: variant.id,
+            name: variant.product.name,
+            slug: variant.product.slug,
+            description: variant.product.description || '',
+            sku: variant.sku,
+            price: variant.price,
+            images: variant.product.images || [],
+            color: variant.color,
+            size: variant.size,
+            quantity: Number(item.qty),
+        } as ICartProduct
+    }).filter(Boolean)
 })
 
 async function calculateTotal() {

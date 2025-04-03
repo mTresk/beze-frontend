@@ -1,22 +1,27 @@
 <script setup lang="ts">
 const props = defineProps<{
+    modelValue: any
     options: any
     placeholder: string
     isError?: boolean
 }>()
 
 const emit = defineEmits<{
-    (e: 'update:modelValue', value: string | null): void
+    (e: 'update:modelValue', value: any): void
     (e: 'clearError'): void
 }>()
 
 defineExpose({ openOptions })
 
 const isOptionsOpen = ref(false)
-const selectedOption = ref(props.placeholder)
+
+const selectedOption = computed(() => {
+    if (!props.modelValue)
+        return props.placeholder
+    return props.modelValue.name
+})
 
 function toggleOption(option: any) {
-    selectedOption.value = option.name
     isOptionsOpen.value = false
     emit('update:modelValue', option)
 }
@@ -41,7 +46,13 @@ function closeOptions() {
         </div>
         <Transition name="slide">
             <ul v-if="isOptionsOpen" class="select__options">
-                <li v-for="option in options" :key="option.id" class="select__option" @click.stop="toggleOption(option)">
+                <li
+                    v-for="option in options"
+                    :key="option.id"
+                    class="select__option"
+                    :class="{ 'select__option--active': modelValue?.id === option.id }"
+                    @click.stop="toggleOption(option)"
+                >
                     {{ option.name }}
                 </li>
             </ul>
@@ -107,6 +118,11 @@ function closeOptions() {
         line-height: 125%;
         cursor: pointer;
         transition: all 0.3s ease-in-out;
+
+        &--active {
+            color: $whiteColor;
+            background-color: $accentColor;
+        }
 
         @media (any-hover: hover) {
             &:hover {

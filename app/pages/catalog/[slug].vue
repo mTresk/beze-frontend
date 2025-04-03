@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { IColor, IProduct } from '@/types/api'
+import type { IColor, IProduct, ISize } from '@/types/api'
+import { getUniqueColors } from '@/types/api'
 import { useQuery } from '@tanstack/vue-query'
 import { VueImageZoomer } from 'vue-image-zoomer'
 import 'vue-image-zoomer/dist/style.css'
@@ -40,30 +41,77 @@ const size = ref()
 
 const selectError = ref(false)
 
-const cartStatus = computed(() => isInCart(String(product.value?.id), String(colorId.value), String(size.value?.id)).value)
+const colors = computed(() => product.value ? getUniqueColors(product.value.variants) : [])
+
+const availableSizes = computed(() => {
+    if (!product.value?.variants || !colorId.value)
+        return []
+
+    // Фильтруем варианты по выбранному цвету и получаем уникальные размеры
+    const sizesForColor = product.value.variants
+        .filter(variant => variant.color.id === colorId.value)
+        .map(variant => variant.size)
+
+    // Убираем дубликаты размеров
+    const uniqueSizes = new Map<number, ISize>()
+    sizesForColor.forEach((size) => {
+        if (!uniqueSizes.has(size.id)) {
+            uniqueSizes.set(size.id, size)
+        }
+    })
+
+    return Array.from(uniqueSizes.values())
+})
+
+const selectedVariant = computed(() => {
+    if (!product.value?.variants || !colorId.value || !size.value?.id)
+        return null
+
+    return product.value.variants.find(
+        variant => variant.color.id === colorId.value && variant.size.id === size.value.id,
+    )
+})
+
+const cartStatus = computed(() => {
+    const variant = selectedVariant.value
+    if (!variant)
+        return false
+    return isInCart(String(variant.id)).value
+})
 
 const favoriteStatus = isFavorite(String(product.value?.id))
+
+// Следим за статусом корзины и обновляем размер
+watch(cartStatus, (newStatus) => {
+    if (!newStatus) {
+        size.value = undefined
+    }
+    else {
+        const variant = selectedVariant.value
+        if (variant) {
+            size.value = variant.size
+        }
+    }
+})
 
 function setColor(color: IColor) {
     colorId.value = color.id
     colorName.value = color.name
+    size.value = undefined
 }
 
 function handleCartClick() {
     if (!size.value) {
         selectError.value = true
+        return
     }
 
-    if (!product.value || !colorId.value || !size.value)
+    const variant = selectedVariant.value
+    if (!variant)
         return
 
     toggleCartItem(
-        String(product.value.id),
-        product.value.name,
-        String(colorId.value),
-        colorName.value,
-        String(size.value.id),
-        size.value.name,
+        String(variant.id),
         1,
     )
 }
@@ -83,9 +131,12 @@ function clearError() {
 }
 
 onMounted(() => {
-    if (product.value?.colors.length) {
-        colorId.value = product.value.colors[0]!.id
-        colorName.value = product.value.colors[0]!.name
+    if (colors.value?.length) {
+        const firstColor = colors.value[0]
+        if (firstColor) {
+            colorId.value = firstColor.id
+            colorName.value = firstColor.name
+        }
     }
 })
 </script>
@@ -144,7 +195,7 @@ onMounted(() => {
                         <div class="product__colors product-colors">
                             <div class="product-colors__options">
                                 <label
-                                    v-for="(color, index) in product?.colors"
+                                    v-for="(color, index) in colors"
                                     :key="color.id"
                                     :style="`background-color: ${color.code};`"
                                     class="product-colors__item"
@@ -158,7 +209,14 @@ onMounted(() => {
                             </p>
                         </div>
                         <div class="product__size">
-                            <VFormSelect v-model="size" :is-error="selectError" placeholder="Выберите размер" :options="product?.sizes" @clear-error="clearError" />
+                            <VFormSelect
+                                v-model="size"
+                                :is-error="selectError"
+                                placeholder="Выберите размер"
+                                :options="availableSizes"
+                                @clear-error="clearError"
+                                @update:model-value="value => size = value"
+                            />
                             <UiLink>Размерная сетка</UiLink>
                         </div>
                         <div class="product__actions">
@@ -174,12 +232,7 @@ onMounted(() => {
                                 </svg>
                             </UiButton>
                         </div>
-                        <p class="product__description">
-                            Комплект пижамный из шелка Армани. <br>
-                            Рубашка с английским воротником. Длинный рукав с перьями в два слоя и боа на кнопках. <br>
-                            Брюки на завязках с перьями в два слоя и боа на кнопках. <br>
-                            Состав: 97% полиэстер 3% спандекс
-                        </p>
+                        <div class="product__description" v-html="product?.description" />
                     </div>
                 </div>
             </div>

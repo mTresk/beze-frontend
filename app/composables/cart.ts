@@ -1,5 +1,5 @@
 export function useCart() {
-    const cartItems = useState<{ productId: string, colorId: string, sizeId: string, qty?: number }[]>('beze-cart', () => [])
+    const cartItems = useState<{ variantId: string, qty?: number }[]>('beze-cart', () => [])
 
     function updateCartFromStorage() {
         if (import.meta.client) {
@@ -8,16 +8,14 @@ export function useCart() {
         }
     }
 
-    function toggleCartItem(productId: string, productName: string, colorId: string, colorName: string, sizeId: string, sizeName: string, qty?: number) {
-        const inCart = cartItems.value.some(item => item.productId === productId && item.colorId === colorId && item.sizeId === sizeId)
+    function toggleCartItem(variantId: string, qty?: number) {
+        const inCart = cartItems.value.some(item => item.variantId === variantId)
 
         if (inCart) {
-            cartItems.value = cartItems.value.filter(item => !(item.productId === productId && item.colorId === colorId && item.sizeId === sizeId))
-            useToastify(`${productName} (${colorName}, размер ${sizeName}) удален из корзины`, { type: 'success' })
+            cartItems.value = cartItems.value.filter(item => item.variantId !== variantId)
         }
         else {
-            cartItems.value = [...cartItems.value, { productId, colorId, sizeId, qty }]
-            useToastify(`${productName} (${colorName}, размер ${sizeName}) добавлен в корзину`, { type: 'success' })
+            cartItems.value = [...cartItems.value, { variantId, qty }]
         }
 
         if (import.meta.client) {
@@ -25,8 +23,8 @@ export function useCart() {
         }
     }
 
-    function updateCartItem(productId: string, colorId: string, sizeId: string, qty: number) {
-        const itemIndex = cartItems.value.findIndex(item => item.productId === productId && item.colorId === colorId && item.sizeId === sizeId)
+    function updateCartItem(variantId: string, qty: number) {
+        const itemIndex = cartItems.value.findIndex(item => item.variantId === variantId)
 
         if (itemIndex !== -1) {
             cartItems.value[itemIndex]!.qty = qty
@@ -38,15 +36,14 @@ export function useCart() {
     }
 
     function clearCartItems() {
+        cartItems.value = []
         if (import.meta.client) {
             localStorage.setItem('beze-cart', '')
         }
     }
 
-    function isInCart(productId: string, colorId: string, sizeId: string) {
-        return computed(() =>
-            cartItems.value.some(item => item.productId === productId && item.colorId === colorId && item.sizeId === sizeId),
-        )
+    function isInCart(variantId: string) {
+        return computed(() => cartItems.value.some(item => item.variantId === variantId))
     }
 
     function handleStorageChange(event: StorageEvent) {
