@@ -3,13 +3,13 @@ const ctx = ref()
 
 onMounted(() => {
     ctx.value = gsap.context(() => {
-        gsap.from('[data-js-animate-card]', {
+        gsap.from('.advantages__item', {
             duration: 2,
             y: 140,
             ease: 'cubic-bezier(0.25, 0.45, 0.45, 0.95)',
             stagger: 1,
             scrollTrigger: {
-                trigger: '[data-js-animate-trigger]',
+                trigger: '.advantages',
                 scrub: true,
                 end: 'bottom 30%',
             },
@@ -23,10 +23,10 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <div data-js-animate-trigger class="advantages">
+    <div class="advantages">
         <div class="advantages__container">
             <div class="advantages__body">
-                <div data-js-animate-card class="advantages__item">
+                <div class="advantages__item">
                     <div class="advantages__icon">
                         <svg width="80" height="80">
                             <use href="/images/icons.svg#advantage-1" />
@@ -36,7 +36,7 @@ onBeforeUnmount(() => {
                         Собственное <br>производство
                     </p>
                 </div>
-                <div data-js-animate-card class="advantages__item">
+                <div class="advantages__item">
                     <div class="advantages__icon">
                         <svg width="80" height="80">
                             <use href="/images/icons.svg#advantage-2" />
@@ -46,7 +46,7 @@ onBeforeUnmount(() => {
                         Размерный ряд <br>от 40 до 60 размера
                     </p>
                 </div>
-                <div data-js-animate-card class="advantages__item">
+                <div class="advantages__item">
                     <div class="advantages__icon">
                         <svg width="80" height="80">
                             <use href="/images/icons.svg#advantage-3" />
@@ -84,7 +84,7 @@ onBeforeUnmount(() => {
         align-items: center;
         padding: rem(28) rem(16);
         background: rgb(255 255 255 / 40%);
-        border: 1px solid rgb(255 255 255 / 34%);
+        border: 1px solid rgb(222 206 190 / 25%);
         backdrop-filter: blur(6px);
 
         &::before {

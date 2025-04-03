@@ -55,6 +55,7 @@ defineProps<{
         @media (any-hover: hover) {
             &:hover {
                 color: $whiteColor;
+                background-color: $extraColor;
                 border-color: $extraColor;
             }
         }

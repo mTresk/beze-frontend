@@ -17,6 +17,7 @@ definePageMeta({
         <About />
         <Review />
         <Customers />
+        <Certificate />
         <UiCursor />
     </div>
 </template>

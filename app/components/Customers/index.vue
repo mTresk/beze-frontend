@@ -6,14 +6,14 @@ onMounted(() => {
         ctx.value = gsap.context(() => {
             gsap.from('.customers-card', {
                 duration: 2,
-                y: 100,
+                y: 300,
                 ease: 'cubic-bezier(0.25, 0.45, 0.45, 0.95)',
-                stagger: 1,
+                stagger: 0.5,
                 scrollTrigger: {
                     trigger: '.customers__body',
                     scrub: true,
                     start: '0% 100%',
-                    end: 'bottom 30%',
+                    end: 'bottom 50%',
                 },
             })
         })
@@ -38,7 +38,7 @@ onBeforeUnmount(() => {
             </div>
             <div class="customers__container">
                 <div class="customers__body">
-                    <article data-js-animate-card class="customers-card">
+                    <article class="customers-card">
                         <div class="customers-card__content">
                             <h3 class="customers-card__title">
                                 Состав наших изделий
@@ -51,7 +51,7 @@ onBeforeUnmount(() => {
                             Подробнее о составе
                         </UiLink>
                     </article>
-                    <article data-js-animate-card class="customers-card">
+                    <article class="customers-card">
                         <div class="customers-card__content">
                             <h3 class="customers-card__title">
                                 Уход за шёлком
@@ -64,7 +64,7 @@ onBeforeUnmount(() => {
                             Рекомендации по уходу
                         </UiLink>
                     </article>
-                    <article data-js-animate-card class="customers-card">
+                    <article class="customers-card">
                         <div class="customers-card__content">
                             <h3 class="customers-card__title">
                                 Размерный ряд
