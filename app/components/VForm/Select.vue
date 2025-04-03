@@ -40,9 +40,7 @@ function closeOptions() {
     <div v-click-outside="closeOptions" class="product__select select" :class="{ 'select--opened': isOptionsOpen, 'select--error': isError }">
         <div class="select__selected" @click="openOptions">
             <span>{{ selectedOption }}</span>
-            <svg width="10" height="10">
-                <use href="/images/icons.svg#arrow-down" />
-            </svg>
+            <UiIcon name="arrow-down" size="10" />
         </div>
         <Transition name="slide">
             <ul v-if="isOptionsOpen" class="select__options">

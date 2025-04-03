@@ -68,9 +68,7 @@ watch(() => quantity.value, () => handleUpdateCartValues())
                 {{ totalPrice }} ₽
             </div>
             <button type="button" aria-label="Убрать из корзины" class="cart-item__remove" @click="handleCartClick">
-                <svg width="20" height="20">
-                    <use href="/images/icons.svg#can" />
-                </svg>
+                <UiIcon name="can" size="20" />
             </button>
         </div>
     </div>

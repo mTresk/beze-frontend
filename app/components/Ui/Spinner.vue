@@ -21,14 +21,14 @@ defineProps<{
     text-indent: -9999em;
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    animation: load4 1.3s infinite linear;
+    animation: load 1.3s infinite linear 1s;
 
     &--light {
         color: $whiteColor;
     }
 }
 
-@keyframes load4 {
+@keyframes load {
     0%,
     100% {
         box-shadow:

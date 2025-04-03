@@ -217,14 +217,10 @@ onMounted(() => {
                         <div class="product__actions">
                             <UiButton :active="cartStatus" wide class="product__action" @click="handleCartClick">
                                 <span>{{ cartStatus ? 'Убрать из корзины' : 'В корзину' }}</span>
-                                <svg width="16" height="16">
-                                    <use href="/images/icons.svg#cart" />
-                                </svg>
+                                <UiIcon name="cart" size="16" />
                             </UiButton>
                             <UiButton :active="favoriteStatus" wide lite square aria-label="В избранное" class="product__action" @click="handleFavoriteClick">
-                                <svg width="16" height="16">
-                                    <use href="/images/icons.svg#favorite" />
-                                </svg>
+                                <UiIcon name="favorite" size="16" />
                             </UiButton>
                         </div>
                         <div class="product__description" v-html="product?.description" />

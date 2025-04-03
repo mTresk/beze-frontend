@@ -57,9 +57,7 @@ function handleFavoriteClick() {
                     :aria-label="favoriteStatus ? 'Удалить из избранного' : 'Добавить в избранное'"
                     @click="handleFavoriteClick"
                 >
-                    <svg width="24" height="24">
-                        <use href="/images/icons.svg#favorite" />
-                    </svg>
+                    <UiIcon name="favorite" size="24" />
                 </button>
             </div>
         </div>

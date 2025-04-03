@@ -22,9 +22,7 @@ const cartCount = computed(() => cartItems.value.length)
                             <li class="menu__item">
                                 <div class="menu__link">
                                     <span>Для невест</span>
-                                    <svg width="10" height="10">
-                                        <use href="/images/icons.svg#arrow-down" />
-                                    </svg>
+                                    <UiIcon name="arrow-down" size="10" />
                                 </div>
                                 <ul class="menu__sublist">
                                     <li class="menu__subitem">
@@ -41,9 +39,7 @@ const cartCount = computed(() => cartItems.value.length)
                             <li class="menu__item">
                                 <div class="menu__link">
                                     <span>Для дома</span>
-                                    <svg width="10" height="10">
-                                        <use href="/images/icons.svg#arrow-down" />
-                                    </svg>
+                                    <UiIcon name="arrow-down" size="10" />
                                 </div>
                                 <ul class="menu__sublist">
                                     <li class="menu__subitem">
@@ -69,9 +65,7 @@ const cartCount = computed(() => cartItems.value.length)
                             <li class="menu__item">
                                 <div class="menu__link">
                                     <span>Коллекции</span>
-                                    <svg width="10" height="10">
-                                        <use href="/images/icons.svg#arrow-down" />
-                                    </svg>
+                                    <UiIcon name="arrow-down" size="10" />
                                 </div>
                                 <ul class="menu__sublist">
                                     <li class="menu__subitem">
@@ -97,9 +91,7 @@ const cartCount = computed(() => cartItems.value.length)
                             <li class="menu__item">
                                 <div class="menu__link">
                                     <span>Покупателям</span>
-                                    <svg width="10" height="10">
-                                        <use href="/images/icons.svg#arrow-down" />
-                                    </svg>
+                                    <UiIcon name="arrow-down" size="10" />
                                 </div>
                                 <ul class="menu__sublist">
                                     <li class="menu__subitem">
@@ -124,19 +116,14 @@ const cartCount = computed(() => cartItems.value.length)
                 </div>
                 <div class="header__actions">
                     <button aria-label="Поиск" type="button" class="header__action">
-                        <svg width="30" height="30">
-                            <use href="/images/icons.svg#search" />
-                        </svg>
+                        <UiIcon name="search" size="30" />
                     </button>
-
                     <NuxtLink
                         to="/favorites"
                         class="header__action"
                         :title="`Избранное${favoritesCount ? `: ${favoritesCount} товаров` : ''}`"
                     >
-                        <svg width="30" height="30">
-                            <use href="/images/icons.svg#favorite" />
-                        </svg>
+                        <UiIcon name="favorite" size="30" />
                         <Transition>
                             <span v-if="favoritesCount">{{ favoritesCount }}</span>
                         </Transition>
@@ -147,9 +134,7 @@ const cartCount = computed(() => cartItems.value.length)
                         class="header__action"
                         :title="`Корзина${cartCount ? `: ${cartCount} товаров` : ''}`"
                     >
-                        <svg width="30" height="30">
-                            <use href="/images/icons.svg#cart" />
-                        </svg>
+                        <UiIcon name="cart" size="30" />
                         <Transition>
                             <span v-if="cartCount">{{ cartCount }}</span>
                         </Transition>

@@ -208,9 +208,22 @@ onMounted(() => {
                         </div>
                     </div>
                 </div>
-                <p v-else class="favorites__empty">
-                    Ваша корзина пока пуста
-                </p>
+                <LayoutEmpty v-else>
+                    <template #icon>
+                        <UiIcon name="cart" size="48" />
+                    </template>
+                    <template #title>
+                        Ваша корзина пока пуста
+                    </template>
+                    <template #text>
+                        Добавьте товары в корзину, чтобы просматривать их здесь
+                    </template>
+                    <template #button>
+                        <UiButton outline href="/catalog">
+                            Перейти в каталог
+                        </UiButton>
+                    </template>
+                </LayoutEmpty>
             </div>
         </section>
     </div>
