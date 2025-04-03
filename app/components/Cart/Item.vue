@@ -17,27 +17,21 @@ const totalPrice = computed(() => {
 })
 
 function handleCartClick() {
-    if (!props.product || !props.product.color.id || !props.product.size.id)
+    if (!props.product)
         return
 
     toggleCartItem(
         String(props.product.id),
-        props.product.name,
-        String(props.product.color.id),
-        props.product.color.name,
-        String(props.product.size.id),
-        props.product.size.name,
+        1,
     )
 }
 
 function handleUpdateCartValues() {
-    if (!props.product || !props.product.color.id || !props.product.size.id)
+    if (!props.product)
         return
 
     updateCartItem(
         String(props.product.id),
-        String(props.product.color.id),
-        String(props.product.size.id),
         quantity.value,
     )
 }
@@ -50,7 +44,7 @@ watch(() => quantity.value, () => handleUpdateCartValues())
     <div class="cart-item">
         <div class="cart-item__info">
             <NuxtLink :to="`/catalog/${product?.slug}`" class="cart-item__image">
-                <img :src="product?.images[0]?.thumb" alt="" loading="lazy">
+                <img :src="product?.image?.thumb" :alt="product?.name" loading="lazy">
             </NuxtLink>
             <div class="cart-item__block">
                 <div class="cart-item__sku">

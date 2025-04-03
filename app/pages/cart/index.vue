@@ -68,7 +68,7 @@ const productCartItems = computed(() => {
             description: variant.product.description || '',
             sku: variant.sku,
             price: variant.price,
-            images: variant.product.images || [],
+            image: variant.image,
             color: variant.color,
             size: variant.size,
             quantity: Number(item.qty),

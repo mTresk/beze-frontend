@@ -16,6 +16,7 @@ export interface IProductVariant {
     price: string
     color: IColor
     size: ISize
+    image: IImage
     product: {
         id: number
         name: string
@@ -32,7 +33,7 @@ export interface ICartProduct {
     description: string
     sku: string
     price: string
-    images: IImage[]
+    image: IImage
     color: IColor
     size: ISize
     quantity: number
