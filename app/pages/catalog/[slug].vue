@@ -16,6 +16,8 @@ const { isInCart, toggleCartItem } = useCart()
 
 const { isFavorite, toggleFavorite } = useFavorites()
 
+const { addToViewed } = useViewed()
+
 async function fetcher() {
     return await useFetcher<IProduct>(`/api/products/${route.params.slug}`)
 }
@@ -136,6 +138,10 @@ onMounted(() => {
             colorId.value = firstColor.id
             colorName.value = firstColor.name
         }
+    }
+
+    if (product.value?.id) {
+        addToViewed(String(product.value.id))
     }
 })
 </script>
