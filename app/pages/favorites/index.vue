@@ -28,7 +28,7 @@ watch(() => favorites.value, () => fetchProducts())
 
 <template>
     <div>
-        <section class="favorites">
+        <section class="favorites spacer">
             <div class="favorites__container">
                 <ul class="breadcrumb">
                     <li>
@@ -54,7 +54,6 @@ watch(() => favorites.value, () => fetchProducts())
 <style lang="scss">
 .favorites {
 	padding-top: rem(130);
-	padding-bottom: rem(160);
 
 	// .favorites__body
 	&__body {

@@ -96,7 +96,7 @@ onMounted(() => {
             <Title>{{ product?.name }}</Title>
             <Meta name="description" :content="product?.description" />
         </Head>
-        <section class="product">
+        <section class="product spacer">
             <div class="product__container">
                 <ul class="breadcrumb">
                     <li>

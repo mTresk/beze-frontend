@@ -1,6 +1,6 @@
 <template>
     <div>
-        <section class="cart">
+        <section class="cart spacer">
             <div class="cart__container">
                 <ul class="breadcrumb">
                     <li>

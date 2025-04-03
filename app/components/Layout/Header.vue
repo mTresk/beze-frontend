@@ -14,7 +14,7 @@ const cartCount = computed(() => cartItems.value.length)
         <div class="header__inner">
             <div class="header__body">
                 <NuxtLink to="/" class="header__logo">
-                    <img src="/images/logo.svg" alt="Beze exclusive studio" loading="lazy">
+                    <img src="/images/logo.svg" alt="Beze Exclusive Studio" loading="lazy">
                 </NuxtLink>
                 <div class="header__menu menu">
                     <nav class="menu__body">

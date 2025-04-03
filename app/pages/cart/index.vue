@@ -148,7 +148,7 @@ onMounted(() => {
 
 <template>
     <div>
-        <section class="cart">
+        <section class="cart spacer">
             <div class="cart__container">
                 <ul class="breadcrumb">
                     <li>
@@ -222,7 +222,6 @@ onMounted(() => {
 <style lang="scss">
 .cart {
 	padding-top: rem(130);
-	padding-bottom: rem(160);
 
 	// .cart__body
 	&__body {

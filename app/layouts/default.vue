@@ -32,6 +32,7 @@ useHead({
                 <slot />
             </LayoutSmoothScroll>
         </main>
+        <LayoutFooter />
     </div>
 </template>
 
@@ -49,7 +50,7 @@ body {
 .wrapper {
     display: flex;
     flex-direction: column;
-    min-height: 100%;
+    min-height: 100dvh;
     overflow: hidden;
 
     @supports (overflow: clip) {
