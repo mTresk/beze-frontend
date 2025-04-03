@@ -94,6 +94,7 @@ watch(form, (newForm) => {
                     Адрес доставки
                 </VFormLabel>
                 <VFormSelect
+                    id="communication"
                     v-model="form.communication"
                     :error="errors.address"
                     placeholder="Способ связи"

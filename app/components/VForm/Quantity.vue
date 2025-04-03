@@ -38,7 +38,7 @@ const quantity = computed({
     align-items: center;
     width: rem(100);
     height: rem(45);
-    border: 2px solid $extraColor;
+    border: 1px solid $extraColor;
     border-radius: rem(4);
 
     // .quantity__button

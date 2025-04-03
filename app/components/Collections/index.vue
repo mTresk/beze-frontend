@@ -100,7 +100,7 @@ useSwiper(containerRef, {
     </section>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .collections {
     // .collections__title
     &__title {

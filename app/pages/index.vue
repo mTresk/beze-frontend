@@ -15,6 +15,7 @@ definePageMeta({
         <Bestsellers />
         <Collections />
         <About />
+        <Review />
         <UiCursor />
     </div>
 </template>

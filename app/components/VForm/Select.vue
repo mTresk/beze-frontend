@@ -59,10 +59,11 @@ function closeOptions() {
         gap: rem(30);
         align-items: center;
         justify-content: space-between;
-        padding: rem(12) rem(16);
+        height: rem(45);
+        padding: rem(5) rem(16);
         white-space: nowrap;
         cursor: pointer;
-        border: 2px solid $extraColor;
+        border: 1px solid $extraColor;
         border-radius: rem(4);
         transition: all 0.3s ease-in-out;
 
@@ -90,12 +91,12 @@ function closeOptions() {
     // .select__options
     &__options {
         position: absolute;
-        top: calc(100% + 2px);
+        top: calc(100% + 4px);
         display: grid;
         width: 100%;
         overflow: hidden;
         background-color: $whiteColor;
-        border-radius: rem(4);
+        border-radius: 0 0 rem(4) rem(4);
         box-shadow: 0 0 14px 0 rgb(0 0 0 / 10%);
     }
 
