@@ -56,7 +56,7 @@ export interface IOrder {
     email: string
     phone: string
     address?: string
-    communication: {
+    communication?: {
         id: number
         name: string
     }

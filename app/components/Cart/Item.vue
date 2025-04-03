@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type { ICartProduct } from '@/types/api'
-import { FormQuantity } from '#components'
 
 const props = defineProps<{ product: ICartProduct }>()
 
-const emit = defineEmits(['updateQuantity'])
+const emit = defineEmits<{
+    (event: 'updateQuantity'): void
+}>()
 
 const { toggleCartItem, updateCartItem } = useCart()
 
@@ -67,7 +68,7 @@ watch(() => quantity.value, () => handleUpdateCartValues())
         <div class="cart-item__size">
             <span>размер:</span>{{ product?.size?.name }}
         </div>
-        <FormQuantity v-model="quantity" :min="1" :max="10" />
+        <VFormQuantity v-model="quantity" :min="1" :max="10" />
         <div class="cart-item__wrapper">
             <div class="cart-item__price">
                 {{ totalPrice }} ₽

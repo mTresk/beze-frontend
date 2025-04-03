@@ -107,7 +107,7 @@ async function submitOrder() {
     const payload = {
         products,
         ...form.value,
-        communication: form.value?.communication.name,
+        communication: form.value?.communication?.name,
     }
 
     await useFetcher('/api/order', {
@@ -165,7 +165,10 @@ onMounted(() => {
                         <div class="cart__table">
                             <CartItem v-for="product in productCartItems" :key="product?.id" :product="product as ICartProduct" />
                         </div>
-                        <Form v-model="form" :errors="errors" class="cart__form" />
+                        <div class="cart__form">
+                            <UiSpinner v-if="isFormSending" />
+                            <CartForm v-model="form" :errors="errors" />
+                        </div>
                     </div>
                     <div class="cart__checkout">
                         <div class="cart__links">
@@ -246,6 +249,7 @@ onMounted(() => {
 
 	// .cart__form
 	&__form {
+        position: relative;
         max-width: rem(330);
 	}
 

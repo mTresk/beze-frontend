@@ -158,7 +158,7 @@ onMounted(() => {
                             </p>
                         </div>
                         <div class="product__size">
-                            <FormSelect v-model="size" :is-error="selectError" placeholder="Выберите размер" :options="product?.sizes" @clear-error="clearError" />
+                            <VFormSelect v-model="size" :is-error="selectError" placeholder="Выберите размер" :options="product?.sizes" @clear-error="clearError" />
                             <UiLink>Размерная сетка</UiLink>
                         </div>
                         <div class="product__actions">
