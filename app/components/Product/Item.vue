@@ -191,7 +191,6 @@ function handleFavoriteClick() {
     &__info {
         display: grid;
         gap: rem(6);
-        padding-bottom: rem(20);
     }
 
     // .product-card__title

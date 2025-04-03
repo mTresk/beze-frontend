@@ -30,7 +30,7 @@
 
     &.swiper-button-disabled {
         visibility: hidden;
-        opacity: 1;
+        opacity: 0;
     }
 }
 </style>

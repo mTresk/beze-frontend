@@ -41,7 +41,7 @@ export function useViewed() {
     })
 
     return {
-        viewedProducts,
+        viewedProductsIds: viewedProducts,
         isViewed,
         addToViewed,
     }

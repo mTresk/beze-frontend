@@ -68,8 +68,9 @@ body {
 
 [class*='__container'] {
     max-width: rem(1480);
-    padding-inline: rem(20);
     margin-inline: auto;
+
+    @include adaptive-value('padding-inline', 40, 20);
 }
 
 [class*='__inner'] {
@@ -77,10 +78,14 @@ body {
     margin-inline: auto;
 
     @include adaptive-value('padding-inline', 80, 20);
+
+    @media (max-width: em(1600)) {
+        @include adaptive-value('padding-inline', 40, 20);
+    }
 }
 
 .spacer {
-    margin-bottom: rem(160);
+    @include adaptive-value('margin-bottom', 160, 80);
 }
 
 .breadcrumb {

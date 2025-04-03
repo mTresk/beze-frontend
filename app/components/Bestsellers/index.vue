@@ -45,10 +45,10 @@ await suspense()
                         <ProductItem v-for="product in page.pageData" :key="product.id" :product="product" />
                     </template>
                 </div>
-                <div class="bestsellers__footer">
+                <div v-if="hasNextPage" class="bestsellers__footer">
                     <UiButton
-                        v-if="hasNextPage"
-                        :disabled="isFetchingNextPage" @click="fetchNextPage"
+                        :disabled="isFetchingNextPage"
+                        @click="fetchNextPage"
                     >
                         {{ isFetchingNextPage ? 'Загружаем' : 'Показать еще' }}
                     </UiButton>
@@ -72,7 +72,7 @@ await suspense()
 
     &__wrapper {
         display: grid;
-        gap: rem(30);
+        gap: rem(45);
     }
 
     // .bestsellers__body

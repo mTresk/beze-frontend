@@ -15,7 +15,7 @@ definePageMeta({
         <Bestsellers />
         <Collections />
         <About />
-        <Review />
+        <Reviews />
         <Customers />
         <Certificate />
         <UiCursor />

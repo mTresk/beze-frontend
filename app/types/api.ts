@@ -26,6 +26,11 @@ export interface IProductVariant {
     }
 }
 
+export interface IProductWithFeatured {
+    data: IProduct
+    featured: IProduct[]
+}
+
 export interface ICartProduct {
     id: number
     name: string

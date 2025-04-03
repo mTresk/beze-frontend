@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IColor, IProduct, ISize } from '@/types/api'
+import type { IColor, IProduct, IProductVariant, IProductWithFeatured, ISize } from '@/types/api'
 import { getUniqueColors } from '@/helpers'
 import { useQuery } from '@tanstack/vue-query'
 
@@ -16,10 +16,12 @@ const { isInCart, toggleCartItem } = useCart()
 
 const { isFavorite, toggleFavorite } = useFavorites()
 
-const { addToViewed } = useViewed()
+const { addToViewed, viewedProductsIds } = useViewed()
+
+const viewedProducts = ref<IProduct[]>([])
 
 async function fetcher() {
-    return await useFetcher<IProduct>(`/api/products/${route.params.slug}`)
+    return await useFetcher<IProductWithFeatured>(`/api/products/${route.params.slug}`)
 }
 
 const {
@@ -33,6 +35,13 @@ const {
 
 await suspense()
 
+async function getViewedProducts() {
+    const filteredIds = viewedProductsIds.value.filter(id => id !== String(product.value?.data.id))
+    if (!filteredIds.length)
+        return
+    viewedProducts.value = await useFetcher<IProduct[]>(`/api/products/favorites?ids=${filteredIds}`)
+}
+
 const colorId = ref()
 
 const colorName = ref()
@@ -41,18 +50,18 @@ const size = ref()
 
 const selectError = ref(false)
 
-const colors = computed(() => product.value ? getUniqueColors(product.value.variants) : [])
+const colors = computed(() => product.value ? getUniqueColors(product.value.data.variants) : [])
 
 const availableSizes = computed(() => {
-    if (!product.value?.variants || !colorId.value)
+    if (!product.value?.data.variants || !colorId.value)
         return []
 
-    const sizesForColor = product.value.variants
-        .filter(variant => variant.color.id === colorId.value)
-        .map(variant => variant.size)
+    const sizesForColor = product.value.data.variants
+        .filter((variant: IProductVariant) => variant.color.id === colorId.value)
+        .map((variant: IProductVariant) => variant.size)
 
     const uniqueSizes = new Map<number, ISize>()
-    sizesForColor.forEach((size) => {
+    sizesForColor.forEach((size: ISize) => {
         if (!uniqueSizes.has(size.id)) {
             uniqueSizes.set(size.id, size)
         }
@@ -62,11 +71,11 @@ const availableSizes = computed(() => {
 })
 
 const selectedVariant = computed(() => {
-    if (!product.value?.variants || !colorId.value || !size.value?.id)
+    if (!product.value?.data.variants || !colorId.value || !size.value?.id)
         return null
 
-    return product.value.variants.find(
-        variant => variant.color.id === colorId.value && variant.size.id === size.value.id,
+    return product.value.data.variants.find(
+        (variant: IProductVariant) => variant.color.id === colorId.value && variant.size.id === size.value.id,
     )
 })
 
@@ -77,11 +86,11 @@ const cartStatus = computed(() => {
     return isInCart(String(variant.id)).value
 })
 
-const favoriteStatus = isFavorite(String(product.value?.id))
+const favoriteStatus = isFavorite(String(product.value?.data.id))
 
 const currentPrice = computed(() => {
     const variant = selectedVariant.value
-    return variant?.price || product.value?.price || ''
+    return variant?.price || product.value?.data.price || ''
 })
 
 watch(cartStatus, (newStatus) => {
@@ -123,7 +132,7 @@ function handleFavoriteClick() {
         return
 
     toggleFavorite(
-        String(product.value.id),
+        String(product.value.data.id),
     )
 }
 
@@ -140,8 +149,9 @@ onMounted(() => {
         }
     }
 
-    if (product.value?.id) {
-        addToViewed(String(product.value.id))
+    if (product.value?.data.id) {
+        addToViewed(String(product.value.data.id))
+        getViewedProducts()
     }
 })
 </script>
@@ -149,8 +159,8 @@ onMounted(() => {
 <template>
     <div>
         <Head>
-            <Title>{{ product?.name }}</Title>
-            <Meta name="description" :content="product?.description" />
+            <Title>{{ product?.data.name }}</Title>
+            <Meta name="description" :content="product?.data.description" />
         </Head>
         <section class="product spacer">
             <div class="product__container">
@@ -171,9 +181,9 @@ onMounted(() => {
                 <div v-if="!isLoading" class="product__body">
                     <div class="product__images">
                         <ClientOnly>
-                            <template v-for="(image, index) in product?.images" :key="index">
+                            <template v-for="(image, index) in product?.data.images" :key="index">
                                 <ProductImage
-                                    :alt="product?.name || ''"
+                                    :alt="product?.data.name || ''"
                                     :regular="image.retina"
                                     :zoom="image.original"
                                 />
@@ -183,10 +193,10 @@ onMounted(() => {
                     <div class="product__content">
                         <div class="product__info">
                             <p class="product__sku">
-                                Артикул: {{ product?.sku }}
+                                Артикул: {{ product?.data.sku }}
                             </p>
                             <h1 class="product__title">
-                                {{ product?.name }}
+                                {{ product?.data.name }}
                             </h1>
                             <div class="product__price">
                                 {{ currentPrice }} ₽
@@ -224,15 +234,25 @@ onMounted(() => {
                                 <span>{{ cartStatus ? 'Убрать из корзины' : 'В корзину' }}</span>
                                 <UiIcon name="cart" size="16" />
                             </UiButton>
-                            <UiButton :active="favoriteStatus" wide lite square aria-label="В избранное" class="product__action" @click="handleFavoriteClick">
+                            <UiButton :active="favoriteStatus" wide square aria-label="В избранное" class="product__action" @click="handleFavoriteClick">
                                 <UiIcon name="favorite" size="16" />
                             </UiButton>
                         </div>
-                        <div class="product__description" v-html="product?.description" />
+                        <div class="product__description" v-html="product?.data.description" />
                     </div>
                 </div>
             </div>
         </section>
+        <Featured name="featured" :products="product?.featured">
+            <template #title>
+                Возможно, вам понравится
+            </template>
+        </Featured>
+        <Featured v-if="viewedProducts.length" name="viewed" :products="viewedProducts">
+            <template #title>
+                Вы недавно смотрели
+            </template>
+        </Featured>
         <UiCursor />
     </div>
 </template>

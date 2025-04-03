@@ -91,7 +91,7 @@ watch(form, (newForm) => {
         <VFormBlock :error="errors.communication">
             <VFormField>
                 <VFormLabel for="communication">
-                    Адрес доставки
+                    Как с вами связаться?
                 </VFormLabel>
                 <VFormSelect
                     id="communication"
