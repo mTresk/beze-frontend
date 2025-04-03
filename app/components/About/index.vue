@@ -1,5 +1,40 @@
 <script setup lang="ts">
-import { UiTitle } from '#components'
+const ctx = ref()
+
+onMounted(() => {
+    setTimeout(() => {
+        ctx.value = gsap.context(() => {
+            gsap.from('.about__image', {
+                duration: 2,
+                y: 110,
+                ease: 'cubic-bezier(0.25, 0.45, 0.45, 0.95)',
+                stagger: 1,
+                scrollTrigger: {
+                    trigger: '.about__image',
+                    scrub: true,
+                    start: '0% 100%',
+                    end: 'bottom 30%',
+                },
+            })
+            gsap.from('.about__small-image', {
+                duration: 2,
+                y: 110,
+                ease: 'cubic-bezier(0.25, 0.45, 0.45, 0.95)',
+                stagger: 1,
+                scrollTrigger: {
+                    trigger: '.about__image',
+                    scrub: true,
+                    start: '0% 100%',
+                    end: 'bottom 30%',
+                },
+            })
+        })
+    }, 100)
+})
+
+onBeforeUnmount(() => {
+    ctx.value.revert()
+})
 </script>
 
 <template>

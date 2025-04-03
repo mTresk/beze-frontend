@@ -1,3 +1,30 @@
+<script setup>
+const ctx = ref()
+
+onMounted(() => {
+    setTimeout(() => {
+        ctx.value = gsap.context(() => {
+            gsap.from('.customers-card', {
+                duration: 2,
+                y: 100,
+                ease: 'cubic-bezier(0.25, 0.45, 0.45, 0.95)',
+                stagger: 1,
+                scrollTrigger: {
+                    trigger: '.customers__body',
+                    scrub: true,
+                    start: '0% 100%',
+                    end: 'bottom 30%',
+                },
+            })
+        })
+    }, 100)
+})
+
+onBeforeUnmount(() => {
+    ctx.value.revert()
+})
+</script>
+
 <template>
     <section class="customers spacer">
         <div class="customers__container">
@@ -11,7 +38,7 @@
             </div>
             <div class="customers__container">
                 <div class="customers__body">
-                    <article class="customers-card">
+                    <article data-js-animate-card class="customers-card">
                         <div class="customers-card__content">
                             <h3 class="customers-card__title">
                                 Состав наших изделий
@@ -24,7 +51,7 @@
                             Подробнее о составе
                         </UiLink>
                     </article>
-                    <article class="customers-card">
+                    <article data-js-animate-card class="customers-card">
                         <div class="customers-card__content">
                             <h3 class="customers-card__title">
                                 Уход за шёлком
@@ -37,7 +64,7 @@
                             Рекомендации по уходу
                         </UiLink>
                     </article>
-                    <article class="customers-card">
+                    <article data-js-animate-card class="customers-card">
                         <div class="customers-card__content">
                             <h3 class="customers-card__title">
                                 Размерный ряд
