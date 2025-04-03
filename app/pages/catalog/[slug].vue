@@ -77,6 +77,11 @@ const cartStatus = computed(() => {
 
 const favoriteStatus = isFavorite(String(product.value?.id))
 
+const currentPrice = computed(() => {
+    const variant = selectedVariant.value
+    return variant?.price || product.value?.price || ''
+})
+
 watch(cartStatus, (newStatus) => {
     if (!newStatus) {
         size.value = undefined
@@ -179,7 +184,7 @@ onMounted(() => {
                                 {{ product?.name }}
                             </h1>
                             <div class="product__price">
-                                {{ product?.price }} ₽
+                                {{ currentPrice }} ₽
                             </div>
                         </div>
                         <div class="product__colors product-colors">
