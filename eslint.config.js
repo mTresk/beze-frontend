@@ -5,6 +5,10 @@ export default antfu({
         indent: 4,
         quotes: 'single',
     },
+    formatters: {
+
+        css: true,
+    },
     rules: {
         'node/prefer-global/process': 0,
     },

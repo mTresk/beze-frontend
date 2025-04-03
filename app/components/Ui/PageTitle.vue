@@ -6,8 +6,8 @@
 
 <style lang="scss" scoped>
 .title {
-	margin-bottom: rem(30);
-	font-size: 28px;
-	line-height: 140%;
+    margin-bottom: rem(30);
+    font-size: 28px;
+    line-height: 140%;
 }
 </style>

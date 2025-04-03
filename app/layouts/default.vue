@@ -67,9 +67,9 @@ body {
 }
 
 [class*='__container'] {
-        max-width: rem(1480);
-        padding-inline: rem(20);
-        margin-inline: auto;
+    max-width: rem(1480);
+    padding-inline: rem(20);
+    margin-inline: auto;
 }
 
 [class*='__inner'] {
@@ -102,17 +102,17 @@ body {
                 font-size: 14px;
                 line-height: 140%;
                 color: rgb(54 54 54 / 50%);
-                content:'/';
+                content: '/';
             }
         }
 
-        &:last-child{
+        &:last-child {
             color: rgb(54 54 54 / 50%);
             pointer-events: none;
         }
 
-        @media (any-hover: hover){
-            &:hover{
+        @media (any-hover: hover) {
+            &:hover {
                 color: $accentColor;
             }
         }

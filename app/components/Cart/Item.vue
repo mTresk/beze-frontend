@@ -84,73 +84,75 @@ watch(() => quantity.value, () => handleUpdateCartValues())
 
 <style lang="scss" scoped>
 .cart-item {
-	display: grid;
-	grid-template-columns: minmax(auto, rem(320)) minmax(auto, rem(110)) minmax(auto, rem(100)) minmax(auto, rem(100)) minmax(auto, rem(120));
-	align-items: center;
-	justify-content: space-between;
-	width: 100%;
+    display: grid;
+    grid-template-columns:
+        minmax(auto, rem(320)) minmax(auto, rem(110)) minmax(auto, rem(100)) minmax(auto, rem(100))
+        minmax(auto, rem(120));
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 
-	// .cart-item__info
-	&__info {
-		display: flex;
-		gap: rem(16);
-		align-items: flex-start;
-	}
+    // .cart-item__info
+    &__info {
+        display: flex;
+        gap: rem(16);
+        align-items: flex-start;
+    }
 
-	// .cart-item__image
-	&__image {
-		position: relative;
-		display: block;
-		width: rem(60);
-		aspect-ratio: 60 / 90;
+    // .cart-item__image
+    &__image {
+        position: relative;
+        display: block;
+        width: rem(60);
+        aspect-ratio: 60 / 90;
 
-		img {
-			@include image
-		}
-	}
+        img {
+            @include image;
+        }
+    }
 
-	// .cart-item__block
-	&__block {
-		display: grid;
-		gap: rem(2);
-		margin-top: rem(8);
-	}
+    // .cart-item__block
+    &__block {
+        display: grid;
+        gap: rem(2);
+        margin-top: rem(8);
+    }
 
-	// .cart-item__sku
-	&__sku {
-		font-size: 14px;
-		line-height: 140%;
-		color: rgb(54 54 54 / 50%);
-	}
+    // .cart-item__sku
+    &__sku {
+        font-size: 14px;
+        line-height: 140%;
+        color: rgb(54 54 54 / 50%);
+    }
 
-	// .cart-item__title
-	&__title {
-		font-size: 18px;
-		line-height: 140%;
-	}
+    // .cart-item__title
+    &__title {
+        font-size: 18px;
+        line-height: 140%;
+    }
 
-	// .cart-item__color
-	&__color {
-		display: flex;
-		gap: rem(8);
-		align-items: center;
-		font-size: 14px;
-		line-height: 140%;
-		color: rgb(54 54 54 / 50%);
+    // .cart-item__color
+    &__color {
+        display: flex;
+        gap: rem(8);
+        align-items: center;
+        font-size: 14px;
+        line-height: 140%;
+        color: rgb(54 54 54 / 50%);
         white-space: nowrap;
-	}
+    }
 
-	// .cart-item__icon
-	&__icon {
-		flex-shrink: 0;
-		width: rem(20);
-		height: rem(20);
+    // .cart-item__icon
+    &__icon {
+        flex-shrink: 0;
+        width: rem(20);
+        height: rem(20);
         border: 1px solid $lightColor;
-		border-radius: 50%;
-	}
+        border-radius: 50%;
+    }
 
     // .cart-item__size
-	&__size {
+    &__size {
         display: flex;
         gap: rem(5);
         align-items: center;
@@ -159,38 +161,38 @@ watch(() => quantity.value, () => handleUpdateCartValues())
 
         span {
             font-size: 14px;
-		    line-height: 140%;
-		    color: rgb(54 54 54 / 50%);
+            line-height: 140%;
+            color: rgb(54 54 54 / 50%);
         }
-	}
+    }
 
-	// .cart-item__wrapper
-	&__wrapper {
-		display: flex;
-		gap: rem(20);
-		align-items: center;
-		justify-content: space-between;
-	}
+    // .cart-item__wrapper
+    &__wrapper {
+        display: flex;
+        gap: rem(20);
+        align-items: center;
+        justify-content: space-between;
+    }
 
-	// .cart-item__price
-	&__price {
-		font-size: 18px;
-		line-height: 140%;
-		white-space: nowrap;
-	}
+    // .cart-item__price
+    &__price {
+        font-size: 18px;
+        line-height: 140%;
+        white-space: nowrap;
+    }
 
-	// .cart-item__remove
-	&__remove {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		transition: color 0.3s ease-in-out;
+    // .cart-item__remove
+    &__remove {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.3s ease-in-out;
 
-		@media (any-hover: hover){
-			&:hover{
-				color: $accentColor;
-			}
-		}
-	}
+        @media (any-hover: hover) {
+            &:hover {
+                color: $accentColor;
+            }
+        }
+    }
 }
 </style>

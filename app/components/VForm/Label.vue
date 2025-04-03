@@ -5,7 +5,7 @@
 </template>
 
 <style lang="scss" scoped>
-.form-label{
+.form-label {
     font-size: 16px;
     line-height: 130%;
 }

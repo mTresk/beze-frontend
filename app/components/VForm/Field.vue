@@ -5,8 +5,8 @@
 </template>
 
 <style lang="scss" scoped>
-.form-field{
-	display: grid;
-        gap: rem(6);
+.form-field {
+    display: grid;
+    gap: rem(6);
 }
 </style>

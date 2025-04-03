@@ -52,8 +52,8 @@ defineProps<{
         background-color: transparent;
         border: 2px solid $accentColor;
 
-        @media (any-hover: hover){
-            &:hover{
+        @media (any-hover: hover) {
+            &:hover {
                 color: $whiteColor;
                 border-color: $extraColor;
             }
@@ -72,7 +72,7 @@ defineProps<{
         }
     }
 
-    &[wide]  {
+    &[wide] {
         width: 100%;
         padding: rem(16) rem(20);
     }
@@ -86,8 +86,8 @@ defineProps<{
     &[lite] {
         background-color: $extraColor;
 
-        @media (any-hover: hover){
-            &:hover{
+        @media (any-hover: hover) {
+            &:hover {
                 background-color: $accentColor;
             }
         }
@@ -101,6 +101,5 @@ defineProps<{
         pointer-events: none;
         opacity: 0.4;
     }
-
 }
 </style>

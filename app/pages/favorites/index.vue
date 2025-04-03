@@ -53,19 +53,19 @@ watch(() => favorites.value, () => fetchProducts())
 
 <style lang="scss">
 .favorites {
-	padding-top: rem(130);
+    padding-top: rem(130);
 
-	// .favorites__body
-	&__body {
-		display: grid;
+    // .favorites__body
+    &__body {
+        display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: rem(45) rem(25);
-	}
+    }
 
-	// .favorites__empty
-	&__empty {
-		font-size: rem(16);
-		line-height: 125%;
-	}
+    // .favorites__empty
+    &__empty {
+        font-size: rem(16);
+        line-height: 125%;
+    }
 }
 </style>

@@ -59,7 +59,7 @@ useSwiper(containerRef, {
     // .hero__slide
     &__slide {
         position: relative;
-		display: block;
+        display: block;
         height: 100%;
 
         img {

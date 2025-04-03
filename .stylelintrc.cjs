@@ -4,7 +4,6 @@ module.exports = {
         'stylelint-config-standard-scss',
         'stylelint-config-recommended-vue',
         'stylelint-config-recess-order',
-        'stylelint-prettier',
     ],
     rules: {
         'at-rule-no-unknown': null,
@@ -16,5 +15,4 @@ module.exports = {
         'no-descending-specificity': null,
         'declaration-property-value-no-unknown': null,
     },
-    ignoreFiles: ['scss/libs/gallery/**/*.scss'],
 }

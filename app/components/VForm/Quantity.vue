@@ -35,21 +35,21 @@ const quantity = computed({
 <style lang="scss" scoped>
 .quantity {
     display: flex;
-	align-items: center;
+    align-items: center;
     width: rem(100);
     height: rem(45);
     border: 2px solid $extraColor;
-	border-radius: rem(4);
+    border-radius: rem(4);
 
     // .quantity__button
     &__button {
         position: relative;
-		display: flex;
+        display: flex;
         flex-shrink: 0;
-		align-items: center;
-		justify-content: center;
-		width: rem(30);
-		height: rem(30);
+        align-items: center;
+        justify-content: center;
+        width: rem(30);
+        height: rem(30);
         cursor: pointer;
 
         &::before,
@@ -78,9 +78,9 @@ const quantity = computed({
             }
         }
 
-		&[disabled]{
-			pointer-events: none;
-		}
+        &[disabled] {
+            pointer-events: none;
+        }
     }
 
     // .quantity__input
@@ -88,11 +88,11 @@ const quantity = computed({
         flex: 1 1 auto;
 
         input {
-			width: 100%;
-			height: 100%;
+            width: 100%;
+            height: 100%;
             font-size: 16px;
-			line-height: 115%;
-			text-align: center;
+            line-height: 115%;
+            text-align: center;
         }
     }
 }

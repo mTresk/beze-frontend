@@ -66,8 +66,8 @@ function closeOptions() {
         border-radius: rem(4);
         transition: all 0.3s ease-in-out;
 
-        @media (any-hover: hover){
-            &:hover{
+        @media (any-hover: hover) {
+            &:hover {
                 border-color: $accentColor;
             }
         }
@@ -107,8 +107,8 @@ function closeOptions() {
         cursor: pointer;
         transition: all 0.3s ease-in-out;
 
-        @media (any-hover: hover){
-            &:hover{
+        @media (any-hover: hover) {
+            &:hover {
                 color: $whiteColor;
                 background-color: $accentColor;
             }

@@ -100,22 +100,22 @@ useSwiper(containerRef, {
     }
 
     // .directions__button
-	&__button {
-		position: absolute;
+    &__button {
+        position: absolute;
         top: 50%;
-		z-index: 10;
-		transform: translateY(-50%);
+        z-index: 10;
+        transform: translateY(-50%);
 
-		// .directions__button--prev
-		&--prev {
-			left: -30px;
-		}
+        // .directions__button--prev
+        &--prev {
+            left: -30px;
+        }
 
-		// .directions__button--next
-		&--next {
-			right: -30px;
-		}
-	}
+        // .directions__button--next
+        &--next {
+            right: -30px;
+        }
+    }
 }
 
 .direction-card {

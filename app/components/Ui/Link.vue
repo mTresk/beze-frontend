@@ -30,8 +30,8 @@ defineProps<{
     text-decoration-style: dotted;
     transition: color 0.3s ease-in-out;
 
-    @media (any-hover: hover){
-        &:hover{
+    @media (any-hover: hover) {
+        &:hover {
             color: $accentColor;
         }
     }

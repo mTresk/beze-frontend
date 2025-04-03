@@ -387,7 +387,6 @@ const cartCount = computed(() => cartItems.value.length)
 
 .v-leave-to {
     animation: bounce-in 0.5s reverse;
-
 }
 
 @keyframes bounce-in {
@@ -395,12 +394,12 @@ const cartCount = computed(() => cartItems.value.length)
         transform: scale(0);
     }
 
-	40% {
-    transform: scale(1.3);
-  }
+    40% {
+        transform: scale(1.3);
+    }
 
-	60% {
-    transform: scale(1);
-  }
+    60% {
+        transform: scale(1);
+    }
 }
 </style>

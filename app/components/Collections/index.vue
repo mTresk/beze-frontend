@@ -121,60 +121,60 @@ useSwiper(containerRef, {
 
     // .collections__button
     &__button {
-		position: absolute;
+        position: absolute;
         top: 50%;
-		z-index: 10;
-		transform: translateY(-50%);
+        z-index: 10;
+        transform: translateY(-50%);
 
-		// .collections__button--prev
-		&--prev {
-			left: -30px;
-		}
+        // .collections__button--prev
+        &--prev {
+            left: -30px;
+        }
 
-		// .collections__button--next
-		&--next {
-			right: -30px;
-		}
-	}
+        // .collections__button--next
+        &--next {
+            right: -30px;
+        }
+    }
 }
 
 .collection-card {
-    &__content{
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    aspect-ratio: 1;
-    padding: rem(24);
-    overflow: hidden;
+    &__content {
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        aspect-ratio: 1;
+        padding: rem(24);
+        overflow: hidden;
 
-    &::before {
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-        content: '';
-        background: linear-gradient(0deg, rgb(0 0 0 / 30%) 0%, rgb(0 0 0 / 0%) 100%);
-    }
+        &::before {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            content: '';
+            background: linear-gradient(0deg, rgb(0 0 0 / 30%) 0%, rgb(0 0 0 / 0%) 100%);
+        }
 
-    &::after {
-        position: absolute;
-        inset: 0;
-        content: '';
-        background-color: $mainColor;
-        opacity: 0.05;
-        transition: opacity 0.3s ease-in-out;
-    }
+        &::after {
+            position: absolute;
+            inset: 0;
+            content: '';
+            background-color: $mainColor;
+            opacity: 0.05;
+            transition: opacity 0.3s ease-in-out;
+        }
 
-    @media (any-hover: hover) {
-        &:hover {
-            .collection-card__image {
-                transform: scale(1.05);
-            }
+        @media (any-hover: hover) {
+            &:hover {
+                .collection-card__image {
+                    transform: scale(1.05);
+                }
 
-            &::after {
-                opacity: 0.2;
+                &::after {
+                    opacity: 0.2;
+                }
             }
         }
-    }
     }
 
     // .collection-card__image

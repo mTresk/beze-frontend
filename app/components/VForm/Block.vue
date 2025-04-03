@@ -13,7 +13,7 @@ defineProps<{
 
 <style lang="scss" scoped>
 .form-block {
-	position: relative;
+    position: relative;
 }
 
 .form-error {

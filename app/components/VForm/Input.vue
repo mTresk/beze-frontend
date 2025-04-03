@@ -35,11 +35,11 @@ defineEmits<{
     border-radius: rem(4);
     transition: all 0.3s ease-in-out;
 
-    &::placeholder{
+    &::placeholder {
         color: rgb(54 54 54 / 50%);
     }
 
-    &:focus{
+    &:focus {
         border-color: $accentColor;
 
         &::placeholder {

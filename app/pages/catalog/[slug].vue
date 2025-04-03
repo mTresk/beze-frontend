@@ -209,7 +209,8 @@ onMounted(() => {
     }
 
     // .product__image
-    &__image, .vh--outer {
+    &__image,
+    .vh--outer {
         position: relative;
         aspect-ratio: 450 / 675;
         overflow: hidden;
@@ -267,7 +268,6 @@ onMounted(() => {
         padding-bottom: rem(35);
         margin-bottom: rem(35);
         border-bottom: 1px solid rgb(54 54 54 / 10%);
-
     }
 
     // .product__actions
@@ -313,7 +313,7 @@ onMounted(() => {
                 z-index: -1;
                 width: calc(100% + 8px);
                 height: calc(100% + 8px);
-                content:'';
+                content: '';
                 background-color: $accentColor;
                 border-radius: inherit;
                 transform: translate(-50%, -50%);
