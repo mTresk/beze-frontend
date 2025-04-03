@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import type { IColor, IProduct, ISize } from '@/types/api'
-import { getUniqueColors } from '@/types/api'
+import { getUniqueColors } from '@/helpers'
 import { useQuery } from '@tanstack/vue-query'
-import { VueImageZoomer } from 'vue-image-zoomer'
-import 'vue-image-zoomer/dist/style.css'
 
 definePageMeta({
     pageTransition: {
@@ -47,12 +45,10 @@ const availableSizes = computed(() => {
     if (!product.value?.variants || !colorId.value)
         return []
 
-    // Фильтруем варианты по выбранному цвету и получаем уникальные размеры
     const sizesForColor = product.value.variants
         .filter(variant => variant.color.id === colorId.value)
         .map(variant => variant.size)
 
-    // Убираем дубликаты размеров
     const uniqueSizes = new Map<number, ISize>()
     sizesForColor.forEach((size) => {
         if (!uniqueSizes.has(size.id)) {
@@ -81,7 +77,6 @@ const cartStatus = computed(() => {
 
 const favoriteStatus = isFavorite(String(product.value?.id))
 
-// Следим за статусом корзины и обновляем размер
 watch(cartStatus, (newStatus) => {
     if (!newStatus) {
         size.value = undefined
@@ -167,13 +162,8 @@ onMounted(() => {
                     <div class="product__images">
                         <ClientOnly>
                             <template v-for="(image, index) in product?.images" :key="index">
-                                <VueImageZoomer
-                                    :zoom-amount="3"
-                                    :show-message="false"
-                                    :show-message-touch="false"
-                                    :alt="product?.name"
-                                    :lazyload="true"
-                                    img-class="product__zoom"
+                                <ProductImage
+                                    :alt="product?.name || ''"
                                     :regular="image.retina"
                                     :zoom="image.original"
                                 />

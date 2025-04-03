@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { IProduct } from '@/types/api'
+import { getUniqueColors } from '@/helpers'
 
 const props = defineProps<{
     product: IProduct
@@ -8,6 +9,8 @@ const props = defineProps<{
 const { toggleFavorite, isFavorite } = useFavorites()
 
 const favoriteStatus = isFavorite(String(props.product.id))
+
+const colors = computed(() => getUniqueColors(props.product.variants))
 
 function handleFavoriteClick() {
     if (!props.product)
@@ -69,7 +72,12 @@ function handleFavoriteClick() {
                     {{ product.price }} ₽
                 </div>
                 <div class="product-card__colors">
-                    <div v-for="color in product.colors" :key="color.id" :style="{ backgroundColor: color.code }" class="product-card__color" />
+                    <div
+                        v-for="color in colors"
+                        :key="color.id"
+                        :style="{ backgroundColor: color.code }"
+                        class="product-card__color"
+                    />
                 </div>
             </div>
         </div>
