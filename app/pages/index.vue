@@ -16,6 +16,7 @@ definePageMeta({
         <Collections />
         <About />
         <Review />
+        <Customers />
         <UiCursor />
     </div>
 </template>
