@@ -4,9 +4,7 @@
         type="button"
         class="slider-button"
     >
-        <svg width="40" height="40">
-            <use href="/images/icons.svg#arrow-right" />
-        </svg>
+        <UiIcon name="arrow-right" size="40" />
     </button>
 </template>
 

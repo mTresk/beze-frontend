@@ -3,7 +3,7 @@ import type { ApiResponse, IProduct, ProductsResponse } from '@/types/api'
 import { useInfiniteQuery } from '@tanstack/vue-query'
 
 async function fetcher({ pageParam = 1 }): Promise<ProductsResponse> {
-    const data = await useFetcher<ApiResponse<IProduct[]>>(`api/bestsellers?page=${pageParam}`)
+    const data = await useFetcher<ApiResponse<IProduct[]>>(`api/products/bestsellers?page=${pageParam}`)
 
     return {
         pageData: data?.data || [],
