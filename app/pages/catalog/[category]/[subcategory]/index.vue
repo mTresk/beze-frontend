@@ -12,6 +12,7 @@ const currentPage = ref(Number(route.query.page) || 1)
 const category = ref<ICategory>()
 
 const categorySlug = computed(() => route.params.category)
+const subcategorySlug = computed(() => route.params.subcategory)
 
 const selectedSort = ref(route.query.sort || 'default')
 
@@ -23,7 +24,7 @@ const sort = computed({
 })
 
 const query = useQuery({
-    queryKey: [`categories-${categorySlug.value}${route.params.slug ? `-${route.params.slug}` : ''}`, currentPage, selectedSort],
+    queryKey: [`categories-${categorySlug.value}-${subcategorySlug.value}`, currentPage, selectedSort],
     queryFn: async () => {
         const params = new URLSearchParams()
 
@@ -36,9 +37,7 @@ const query = useQuery({
         }
 
         const queryString = params.toString()
-        const url = route.params.slug
-            ? `api/products/categories/${categorySlug.value}/${route.params.slug}${queryString ? `?${queryString}` : ''}`
-            : `api/products/categories/${categorySlug.value}${queryString ? `?${queryString}` : ''}`
+        const url = `api/products/categories/${categorySlug.value}/${subcategorySlug.value}${queryString ? `?${queryString}` : ''}`
         const data = await useFetcher<ApiResponse<IProduct[]>>(url)
         return data
     },
@@ -126,18 +125,17 @@ watch(query.data, (newData) => {
                 <div class="catalog__filters">
                     <div class="catalog__categories">
                         <NuxtLink
-                            to="/catalog"
+                            :to="`/catalog/${categorySlug}`"
                             class="catalog__category"
                         >
-                            Все товары
+                            {{ category?.name }}
                         </NuxtLink>
                         <NuxtLink
                             v-for="subcategory in category?.subcategories"
                             :key="subcategory.id"
                             :to="`/catalog/${categorySlug}/${subcategory.slug}`"
-                            class="catalog__category"
-                            :class="[
-                                { 'catalog__category--active': route.params.subcategory === subcategory.slug },
+                            class="catalog__category" :class="[
+                                { 'catalog__category--active': subcategorySlug === subcategory.slug },
                             ]"
                         >
                             {{ subcategory.name }}

@@ -13,7 +13,7 @@ const { addToViewed, viewedProductsIds } = useViewed()
 
 const viewedProducts = ref<IProduct[]>([])
 
-const productSlug = computed(() => route.params.product)
+const productSlug = computed(() => route.params.id)
 
 const categorySlug = computed(() => route.params.category)
 
