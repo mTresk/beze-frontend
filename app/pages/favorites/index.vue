@@ -1,13 +1,6 @@
 <script setup lang="ts">
 import type { IProduct } from '@/types/api'
 
-definePageMeta({
-    pageTransition: {
-        name: 'layout',
-        mode: 'out-in',
-    },
-})
-
 const { favorites } = useFavorites()
 
 const products = ref<IProduct[]>()

@@ -4,6 +4,9 @@ export default defineNuxtConfig({
     },
     devtools: { enabled: false },
     modules: ['nuxt-swiper', 'nuxt-toastify'],
+    app: {
+        pageTransition: { name: 'layout', mode: 'out-in' },
+    },
     runtimeConfig: {
         public: {
             backendUrl: process.env.NUXT_PUBLIC_BACKEND_URL,

@@ -1,13 +1,6 @@
 <script setup lang="ts">
 import type { ICartProduct, IOrder, IProductVariant } from '@/types/api'
 
-definePageMeta({
-    pageTransition: {
-        name: 'layout',
-        mode: 'out-in',
-    },
-})
-
 const { cartItems, clearCartItems } = useCart()
 
 const products = ref<IProductVariant[]>()

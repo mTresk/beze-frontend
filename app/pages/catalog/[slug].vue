@@ -3,13 +3,6 @@ import type { IColor, IProduct, IProductVariant, IProductWithFeatured, ISize } f
 import { getUniqueColors } from '@/helpers'
 import { useQuery } from '@tanstack/vue-query'
 
-definePageMeta({
-    pageTransition: {
-        name: 'layout',
-        mode: 'out-in',
-    },
-})
-
 const route = useRoute()
 
 const { isInCart, toggleCartItem } = useCart()
