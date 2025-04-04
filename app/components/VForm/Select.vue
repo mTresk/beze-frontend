@@ -40,7 +40,7 @@ function closeOptions() {
     <div v-click-outside="closeOptions" class="product__select select" :class="{ 'select--opened': isOptionsOpen, 'select--error': isError }">
         <div class="select__selected" @click="openOptions">
             <span>{{ selectedOption }}</span>
-            <UiIcon name="arrow-down" size="10" />
+            <UiIcon class="select__icon" name="arrow-down" size="10" />
         </div>
         <Transition name="slide">
             <ul v-if="isOptionsOpen" class="select__options">
@@ -49,6 +49,7 @@ function closeOptions() {
                     :key="option.id"
                     class="select__option"
                     :class="{ 'select__option--active': modelValue?.id === option.id }"
+                    :value="option.value"
                     @click.stop="toggleOption(option)"
                 >
                     {{ option.name }}
@@ -128,6 +129,11 @@ function closeOptions() {
                 background-color: $accentColor;
             }
         }
+    }
+
+    // .select__icon
+    &__icon {
+        flex-shrink: 0;
     }
 }
 

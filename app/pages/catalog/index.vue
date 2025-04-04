@@ -6,6 +6,38 @@ const route = useRoute()
 const meta = ref<ApiPaginationMeta>()
 const currentPage = ref(Number(route.query.page) || 1)
 
+const sortOptions = [
+    {
+        id: 1,
+        value: 'default',
+        name: 'По умолчанию',
+    },
+    {
+        id: 2,
+        value: 'price_asc',
+        name: 'Сначала дешевле',
+    },
+    {
+        id: 3,
+        value: 'price_desc',
+        name: 'Сначала дороже',
+    },
+
+    {
+        id: 4,
+        value: 'newest',
+        name: 'Сначала новые',
+    },
+]
+
+const selectedSort = ref(route.query.sort || 'default')
+const sort = computed({
+    get: () => sortOptions.find(option => option.value === selectedSort.value) || sortOptions[0],
+    set: (option) => {
+        selectedSort.value = option?.value || 'default'
+    },
+})
+
 const pages = computed(() => {
     if (!meta.value)
         return []
@@ -41,9 +73,21 @@ const pages = computed(() => {
 })
 
 const query = useQuery({
-    queryKey: ['products', currentPage],
+    queryKey: ['products', currentPage, selectedSort],
     queryFn: async () => {
-        const data = await useFetcher<ApiResponse<IProduct[]>>(`api/products?page=${currentPage.value}`)
+        const params = new URLSearchParams()
+
+        if (currentPage.value > 1) {
+            params.append('page', String(currentPage.value))
+        }
+
+        if (selectedSort.value !== 'default') {
+            params.append('sort', String(selectedSort.value))
+        }
+
+        const queryString = params.toString()
+        const url = `api/products${queryString ? `?${queryString}` : ''}`
+        const data = await useFetcher<ApiResponse<IProduct[]>>(url)
         return data
     },
 })
@@ -56,12 +100,16 @@ async function handlePageClick(page: number) {
     if (page === meta.value?.current_page)
         return
 
-    await navigateTo({
-        query: {
-            ...route.query,
-            page: page.toString(),
-        },
-    })
+    const query = { ...route.query }
+
+    if (page === 1) {
+        delete query.page
+    }
+    else {
+        query.page = page.toString()
+    }
+
+    await navigateTo({ query })
 }
 
 watch(
@@ -73,6 +121,31 @@ watch(
         }
     },
 )
+
+watch(
+    () => route.query.sort,
+    (newSort) => {
+        if (newSort !== selectedSort.value) {
+            selectedSort.value = newSort || 'default'
+        }
+    },
+)
+
+watch(selectedSort, async (newSort) => {
+    const query = { ...route.query }
+
+    if (newSort === 'default') {
+        delete query.sort
+    }
+    else {
+        query.sort = newSort
+    }
+
+    delete query.page
+
+    await navigateTo({ query })
+    currentPage.value = 1
+})
 
 watch(query.data, (newData) => {
     if (newData?.meta) {
@@ -91,11 +164,28 @@ watch(query.data, (newData) => {
                     ]"
                 />
                 <UiPageTitle>Каталог</UiPageTitle>
+                <div class="catalog__filters">
+                    <div class="catalog__categories">
+                        <a href="#" class="catalog__category catalog__category--active">
+                            Все товары
+                        </a>
+                        <a href="#" class="catalog__category">
+                            Для невест
+                        </a>
+                        <a href="#" class="catalog__category">
+                            Для дома
+                        </a>
+                    </div>
+                    <div class="catalog__sort">
+                        <VFormSelect
+                            v-model="sort"
+                            placeholder="По умолчанию"
+                            :options="sortOptions"
+                        />
+                    </div>
+                </div>
             </div>
             <div class="catalog__inner">
-                <div class="catalog__filters">
-                    ---
-                </div>
                 <div class="catalog__wrapper">
                     <UiSpinner v-if="query.isLoading.value" />
                     <div v-if="!query.isLoading.value" class="catalog__body">
@@ -105,8 +195,7 @@ watch(query.data, (newData) => {
                             :product="product"
                         />
                     </div>
-
-                    <div v-if="!query.isLoading.value && meta" class="catalog__pagination pagination">
+                    <div v-if="!query.isLoading.value && meta && meta.last_page > 1" class="catalog__pagination pagination">
                         <UiButton
                             v-if="meta.current_page > 1"
                             square
@@ -151,11 +240,47 @@ watch(query.data, (newData) => {
 
     // .catalog__filters
     &__filters {
-        // Стили для фильтров
+        position: relative;
+        z-index: 20;
+        display: flex;
+        gap: rem(20);
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: rem(40);
+    }
+
+    // .catalog__categories
+    &__categories {
+        display: flex;
+        gap: rem(20);
+    }
+
+    // .catalog__category
+    &__category {
+        padding: rem(10) rem(20);
+        border: 1px solid $extraColor;
+        border-radius: rem(4);
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+            color: $whiteColor;
+            background-color: $extraColor;
+        }
+
+        &--active {
+            color: $whiteColor;
+            background-color: $extraColor;
+        }
+    }
+
+    // .catalog__sort
+    &__sort {
+        min-width: rem(200);
     }
 
     // .catalog__wrapper
     &__wrapper {
+        position: relative;
         display: grid;
         gap: rem(40);
     }
@@ -192,12 +317,14 @@ watch(query.data, (newData) => {
             transition: all 0.3s ease-in-out;
 
             &:not(.dots):hover {
-                background-color: $lightColor;
+                color: $whiteColor;
+                background-color: $extraColor;
             }
 
             &.active {
+                color: $whiteColor;
                 pointer-events: none;
-                background-color: $lightColor;
+                background-color: $extraColor;
             }
 
             &.dots {

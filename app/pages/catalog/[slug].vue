@@ -229,7 +229,7 @@ onMounted(() => {
                 </div>
             </div>
         </section>
-        <Featured name="featured" :products="product?.featured">
+        <Featured name="featured" :products="product?.featured || []">
             <template #title>
                 Возможно, вам понравится
             </template>
