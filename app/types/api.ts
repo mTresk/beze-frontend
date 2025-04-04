@@ -91,6 +91,10 @@ export interface ICategory {
     label?: string
     description?: string
     subcategories: ISubCategory[]
+    image: {
+        normal: string
+        retina: string
+    }
 }
 
 export interface ISubCategory {

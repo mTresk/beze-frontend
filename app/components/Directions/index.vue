@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import type { ICategory } from '@/types/api'
+import { useQuery } from '@tanstack/vue-query'
+
 const containerRef = ref(null)
 
 useSwiper(containerRef, {
@@ -12,72 +15,54 @@ useSwiper(containerRef, {
         nextEl: '.directions__button--next',
     },
 })
+
+async function fetcher() {
+    return await useFetcher<ICategory[]>(`/api/categories`)
+}
+
+const {
+    data: categories,
+    suspense,
+    isLoading,
+} = useQuery({
+    queryKey: ['categories'],
+    queryFn: fetcher,
+})
+
+await suspense()
 </script>
 
 <template>
     <section class="directions spacer">
         <div class="directions__inner">
             <div class="directions__body">
-                <swiper-container ref="containerRef" :init="false" class="directions__slider">
-                    <swiper-slide class="direction-card">
-                        <a data-js-cursor href="#" class="direction-card__wrapper">
+                <UiSpinner v-if="isLoading" />
+                <swiper-container v-else ref="containerRef" :init="false" class="directions__slider">
+                    <swiper-slide v-for="category in categories" :key="category.id" class="direction-card">
+                        <NuxtLink :to="`/catalog/${category.slug}`" data-js-cursor class="direction-card__wrapper">
                             <img
                                 class="direction-card__image"
-                                src="/images/directions/1.webp"
-                                alt="Для невест"
                                 loading="lazy"
+                                :src="category.image.normal"
+                                :srcset="`${category.image.normal} 1x, ${category.image.retina} 2x`"
+                                :alt="category.name"
+                                width="880"
+                                height="880"
                             >
                             <div class="direction-card__content">
                                 <div class="direction-card__header">
-                                    <p class="direction-card__label">Одежда</p>
-                                    <UiTitle class="direction-card__title">Для невест</UiTitle>
+                                    <p class="direction-card__label">
+                                        {{ category.label }}
+                                    </p>
+                                    <UiTitle class="direction-card__title">
+                                        {{ category.name }}
+                                    </UiTitle>
                                 </div>
                                 <p class="direction-card__description">
-                                    Wedding - наряды на утро невесты, как нашего собственного производства, так
-                                    и других производителей.
+                                    {{ category.description }}
                                 </p>
                             </div>
-                        </a>
-                    </swiper-slide>
-                    <swiper-slide class="direction-card">
-                        <a data-js-cursor href="#" class="direction-card__wrapper">
-                            <img
-                                class="direction-card__image"
-                                src="/images/directions/2.webp"
-                                alt="Для невест"
-                                loading="lazy"
-                            >
-                            <div class="direction-card__content">
-                                <div class="direction-card__header">
-                                    <p class="direction-card__label">Одежда</p>
-                                    <UiTitle class="direction-card__title">Для дома</UiTitle>
-                                </div>
-                                <p class="direction-card__description">
-                                    Home - домашняя одежда и аксессуары, которые мы разрабатываем и производим
-                                    сами.
-                                </p>
-                            </div>
-                        </a>
-                    </swiper-slide>
-                    <swiper-slide class="direction-card">
-                        <a data-js-cursor href="#" class="direction-card__wrapper">
-                            <img
-                                class="direction-card__image"
-                                src="/images/directions/1.webp"
-                                alt="Для невест"
-                                loading="lazy"
-                            >
-                            <div class="direction-card__content">
-                                <div class="direction-card__header">
-                                    <p class="direction-card__label">Одежда</p>
-                                    <UiTitle class="direction-card__title">Для невест</UiTitle>
-                                </div>
-                                <p class="direction-card__description">
-                                    Wedding - наряды на утро невесты, как нашего собственного производства, так
-                                    и других производителей.
-                                </p>
-                            </div>
-                        </a>
+                        </NuxtLink>
                     </swiper-slide>
                 </swiper-container>
 
