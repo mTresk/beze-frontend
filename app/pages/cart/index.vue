@@ -147,14 +147,11 @@ onMounted(() => {
     <div>
         <section class="cart spacer">
             <div class="cart__container">
-                <ul class="breadcrumb">
-                    <li>
-                        <NuxtLink to="/">
-                            Главная
-                        </NuxtLink>
-                    </li>
-                    <li><span>Корзина</span></li>
-                </ul>
+                <LayoutBreadcrumb
+                    :items="[
+                        { title: 'Корзина' },
+                    ]"
+                />
                 <UiPageTitle>Корзина</UiPageTitle>
                 <UiSpinner v-if="isLoading" />
                 <div v-if="productCartItems.length" class="cart__body">

@@ -164,19 +164,12 @@ onMounted(() => {
         </Head>
         <section class="product spacer">
             <div class="product__container">
-                <ul class="breadcrumb">
-                    <li>
-                        <NuxtLink to="/">
-                            Главная
-                        </NuxtLink>
-                    </li>
-                    <li>
-                        <NuxtLink to="/catalog">
-                            Каталог
-                        </NuxtLink>
-                    </li>
-                    <li><span>Костюм пижамный с перьями</span></li>
-                </ul>
+                <LayoutBreadcrumb
+                    :items="[
+                        { title: 'Каталог', link: '/catalog' },
+                        { title: product?.data.name || '' },
+                    ]"
+                />
                 <UiSpinner v-if="isLoading" />
                 <div v-if="!isLoading" class="product__body">
                     <div class="product__images">

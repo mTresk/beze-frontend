@@ -2,7 +2,7 @@
     <button
         aria-label="Вперед"
         type="button"
-        class="slider-button slider-button--next"
+        class="slider-button"
     >
         <svg width="40" height="40">
             <use href="/images/icons.svg#arrow-right" />

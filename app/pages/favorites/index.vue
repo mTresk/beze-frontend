@@ -17,9 +17,8 @@ const isLoading = ref(false)
 async function fetchProducts() {
     isLoading.value = true
 
-    const data = await useFetcher<IProduct[]>(`/api/products/favorites?ids=${favorites.value}`)
+    products.value = await useFetcher<IProduct[]>(`/api/products/favorites?ids=${favorites.value}`)
 
-    products.value = data
     isLoading.value = false
 }
 
@@ -30,14 +29,11 @@ watch(() => favorites.value, () => fetchProducts())
     <div>
         <section class="favorites spacer">
             <div class="favorites__container">
-                <ul class="breadcrumb">
-                    <li>
-                        <NuxtLink to="/">
-                            Главная
-                        </NuxtLink>
-                    </li>
-                    <li><span>Избранное</span></li>
-                </ul>
+                <LayoutBreadcrumb
+                    :items="[
+                        { title: 'Вишлист' },
+                    ]"
+                />
                 <UiPageTitle>Вишлист</UiPageTitle>
                 <UiSpinner v-if="isLoading" />
                 <div class="favorites__wrapper">
