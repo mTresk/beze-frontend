@@ -13,8 +13,12 @@ const { addToViewed, viewedProductsIds } = useViewed()
 
 const viewedProducts = ref<IProduct[]>([])
 
+const productSlug = computed(() => route.params.product)
+
+const categorySlug = computed(() => route.params.category)
+
 async function fetcher() {
-    return await useFetcher<IProductWithFeatured>(`/api/products/${route.params.slug}`)
+    return await useFetcher<IProductWithFeatured>(`/api/products/${categorySlug.value}/${productSlug.value}`)
 }
 
 const {
@@ -22,7 +26,7 @@ const {
     suspense,
     isLoading,
 } = useQuery({
-    queryKey: [route.params.slug],
+    queryKey: ['product', categorySlug.value, productSlug.value],
     queryFn: fetcher,
 })
 

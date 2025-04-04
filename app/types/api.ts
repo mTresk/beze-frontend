@@ -8,6 +8,7 @@ export interface IProduct {
     images: IImage[]
     chips: IChip[]
     variants: IProductVariant[]
+    category: ICategory
 }
 
 export interface IProductVariant {
@@ -83,6 +84,22 @@ export interface IOrder {
 
 }
 
+export interface ICategory {
+    id: number
+    name: string
+    slug: string
+    label?: string
+    description?: string
+    subcategories: ISubCategory[]
+}
+
+export interface ISubCategory {
+    id: number
+    name: string
+    slug: string
+    label?: string
+    description?: string
+}
 export interface ProductsResponse {
     pageData: IProduct[]
     cursor?: number

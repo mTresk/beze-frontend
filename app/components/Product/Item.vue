@@ -24,7 +24,7 @@ function handleFavoriteClick() {
 
 <template>
     <article class="product-card">
-        <NuxtLink :to="`/catalog/${product.slug}`" class="product-card__image">
+        <NuxtLink :to="`/catalog/${product.category.slug}/${product.slug}`" class="product-card__image">
             <img
                 loading="lazy"
                 :src="product.images[0]?.normal"

@@ -9,7 +9,9 @@ const meta = ref<ApiPaginationMeta>()
 
 const currentPage = ref(Number(route.query.page) || 1)
 
-const categories = ref<ICategory[]>([])
+const category = ref<ICategory>()
+
+const categorySlug = computed(() => route.params.category)
 
 const selectedSort = ref(route.query.sort || 'default')
 
@@ -21,7 +23,7 @@ const sort = computed({
 })
 
 const query = useQuery({
-    queryKey: ['products', currentPage, selectedSort],
+    queryKey: [`categories-${categorySlug.value}${route.params.slug ? `-${route.params.slug}` : ''}`, currentPage, selectedSort],
     queryFn: async () => {
         const params = new URLSearchParams()
 
@@ -34,7 +36,9 @@ const query = useQuery({
         }
 
         const queryString = params.toString()
-        const url = `api/products${queryString ? `?${queryString}` : ''}`
+        const url = route.params.slug
+            ? `api/products/categories/${categorySlug.value}/${route.params.slug}${queryString ? `?${queryString}` : ''}`
+            : `api/products/categories/${categorySlug.value}${queryString ? `?${queryString}` : ''}`
         const data = await useFetcher<ApiResponse<IProduct[]>>(url)
         return data
     },
@@ -60,11 +64,11 @@ async function handlePageClick(page: number) {
     await navigateTo({ query })
 }
 
-async function getCategories() {
-    return categories.value = await useFetcher<ICategory[]>(`api/categories`)
+async function getCategory() {
+    return category.value = await useFetcher<ICategory>(`api/categories/${categorySlug.value}`)
 }
 
-await getCategories()
+await getCategory()
 
 watch(
     () => route.query.page,
@@ -114,14 +118,28 @@ watch(query.data, (newData) => {
             <div class="catalog__container">
                 <LayoutBreadcrumb
                     :items="[
-                        { title: 'Каталог' },
+                        { title: 'Каталог', link: '/catalog' },
+                        { title: category?.name || '' },
                     ]"
                 />
                 <UiPageTitle>Каталог</UiPageTitle>
                 <div class="catalog__filters">
                     <div class="catalog__categories">
-                        <NuxtLink v-for="category in categories" :key="category.id" :to="`/catalog/${category.slug}`" class="catalog__category">
-                            {{ category.name }}
+                        <NuxtLink
+                            to="/catalog"
+                            class="catalog__category"
+                        >
+                            Все товары
+                        </NuxtLink>
+                        <NuxtLink
+                            v-for="subcategory in category?.subcategories"
+                            :key="subcategory.id"
+                            :to="`/catalog/${categorySlug}/${subcategory.slug}`"
+                            class="catalog__category" :class="[
+                                { 'catalog__category--active': route.params.slug === subcategory.slug },
+                            ]"
+                        >
+                            {{ subcategory.name }}
                         </NuxtLink>
                     </div>
                     <div class="catalog__sort">
