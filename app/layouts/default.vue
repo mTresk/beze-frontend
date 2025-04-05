@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import type { Menu } from '@/types/api'
+import { useQuery } from '@tanstack/vue-query'
+
 const { direction } = useScrollDirection()
 
 const scrollClass = computed(() => {
@@ -21,6 +24,20 @@ useHead({
         return titleChunk ? `${titleChunk} — BEZE Exclusive Studio` : 'BEZE Exclusive Studio'
     },
 })
+
+const fetcher = async () => await useFetcher<Menu>('/api/menu')
+
+const {
+    data: menu,
+    suspense,
+} = useQuery({
+    queryKey: ['menu'],
+    queryFn: fetcher,
+})
+
+await suspense()
+
+useState('menu', () => menu.value)
 </script>
 
 <template>

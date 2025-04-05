@@ -157,3 +157,26 @@ export interface IUseSubmitOptions<T> {
     onSuccess?: (result: T) => void
     onError?: (error: IApiErrorResponse) => void
 }
+
+export interface Subcategory {
+    name: string
+    slug: string
+}
+
+export interface Category {
+    name: string
+    slug: string
+    subcategories?: Subcategory[]
+}
+
+export interface MenuItem {
+    name: string
+    slug?: string
+    items?: MenuItem[]
+}
+
+export interface Menu {
+    categories: Category[]
+    header_menu: MenuItem[]
+    footer_menu: MenuItem[]
+}

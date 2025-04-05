@@ -1,12 +1,19 @@
 <script setup lang="ts">
+import type { Menu } from '@/types/api'
+
 const route = useRoute()
+
 const isInnerPage = computed(() => route.path !== '/')
 
 const { favorites } = useFavorites()
+
 const { cartItems } = useCart()
 
 const favoritesCount = computed(() => favorites.value.length)
+
 const cartCount = computed(() => cartItems.value.length)
+
+const menu = useState<Menu>('menu')
 </script>
 
 <template>
@@ -19,97 +26,56 @@ const cartCount = computed(() => cartItems.value.length)
                 <div class="header__menu menu">
                     <nav class="menu__body">
                         <ul class="menu__list">
-                            <li class="menu__item">
-                                <div class="menu__link">
-                                    <span>Для невест</span>
-                                    <UiIcon name="arrow-down" size="10" />
-                                </div>
-                                <ul class="menu__sublist">
-                                    <li class="menu__subitem">
-                                        <a href="#" class="menu__sublink">Халаты и пеньюары</a>
-                                    </li>
-                                    <li class="menu__subitem">
-                                        <a href="#" class="menu__sublink">Пижамы</a>
-                                    </li>
-                                    <li class="menu__subitem">
-                                        <a href="#" class="menu__sublink">Все товары раздела</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="menu__item">
-                                <div class="menu__link">
-                                    <span>Для дома</span>
-                                    <UiIcon name="arrow-down" size="10" />
-                                </div>
-                                <ul class="menu__sublist">
-                                    <li class="menu__subitem">
-                                        <a href="#" class="menu__sublink">Костюмы</a>
-                                    </li>
-                                    <li class="menu__subitem">
-                                        <a href="#" class="menu__sublink">Халаты и пеньюары</a>
-                                    </li>
-                                    <li class="menu__subitem">
-                                        <a href="#" class="menu__sublink">Топы, майки, футболки</a>
-                                    </li>
-                                    <li class="menu__subitem">
-                                        <a href="#" class="menu__sublink">Брюки, шорты</a>
-                                    </li>
-                                    <li class="menu__subitem">
-                                        <a href="#" class="menu__sublink">Рубашки</a>
-                                    </li>
-                                    <li class="menu__subitem">
-                                        <a href="#" class="menu__sublink">Все товары раздела</a>
+                            <!-- Категории -->
+                            <li v-for="category in menu?.categories" :key="category.slug" class="menu__item">
+                                <NuxtLink :to="`/catalog/${category.slug}`" class="menu__link">
+                                    <span>{{ category.name }}</span>
+                                    <UiIcon v-if="category.subcategories?.length" name="arrow-down" size="10" />
+                                </NuxtLink>
+                                <ul v-if="category.subcategories?.length" class="menu__sublist">
+                                    <li
+                                        v-for="subcategory in category.subcategories"
+                                        :key="subcategory.slug"
+                                        class="menu__subitem"
+                                    >
+                                        <NuxtLink
+                                            :to="`/catalog/${category.slug}/${subcategory.slug}`"
+                                            class="menu__sublink"
+                                        >
+                                            {{ subcategory.name }}
+                                        </NuxtLink>
                                     </li>
                                 </ul>
                             </li>
-                            <li class="menu__item">
-                                <div class="menu__link">
-                                    <span>Коллекции</span>
-                                    <UiIcon name="arrow-down" size="10" />
-                                </div>
-                                <ul class="menu__sublist">
-                                    <li class="menu__subitem">
-                                        <a href="#" class="menu__sublink">Утро невесты</a>
-                                    </li>
-                                    <li class="menu__subitem">
-                                        <a href="#" class="menu__sublink">Соблазн</a>
-                                    </li>
-                                    <li class="menu__subitem">
-                                        <a href="#" class="menu__sublink">Для дома</a>
-                                    </li>
-                                    <li class="menu__subitem">
-                                        <a href="#" class="menu__sublink">Отпуск</a>
-                                    </li>
-                                    <li class="menu__subitem">
-                                        <a href="#" class="menu__sublink">Gold</a>
-                                    </li>
-                                    <li class="menu__subitem">
-                                        <a href="#" class="menu__sublink">Cotton</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="menu__item">
-                                <div class="menu__link">
-                                    <span>Покупателям</span>
-                                    <UiIcon name="arrow-down" size="10" />
-                                </div>
-                                <ul class="menu__sublist">
-                                    <li class="menu__subitem">
-                                        <a href="#" class="menu__sublink">Оплата и доставка</a>
-                                    </li>
-                                    <li class="menu__subitem">
-                                        <a href="#" class="menu__sublink">Возврат</a>
-                                    </li>
-                                    <li class="menu__subitem">
-                                        <a href="#" class="menu__sublink">Размерная сетка</a>
-                                    </li>
-                                    <li class="menu__subitem">
-                                        <a href="#" class="menu__sublink">Контакты</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="menu__item">
-                                <a href="#" class="menu__link">О нас</a>
+                            <!-- Меню хедера -->
+                            <li v-for="item in menu?.header_menu" :key="item.name" class="menu__item">
+                                <template v-if="item.items">
+                                    <div class="menu__link">
+                                        <span>{{ item.name }}</span>
+                                        <UiIcon name="arrow-down" size="10" />
+                                    </div>
+                                    <ul class="menu__sublist">
+                                        <li
+                                            v-for="subitem in item.items"
+                                            :key="subitem.slug"
+                                            class="menu__subitem"
+                                        >
+                                            <NuxtLink
+                                                :to="`/${subitem.slug}`"
+                                                class="menu__sublink"
+                                            >
+                                                {{ subitem.name }}
+                                            </NuxtLink>
+                                        </li>
+                                    </ul>
+                                </template>
+                                <NuxtLink
+                                    v-else
+                                    :to="`/${item.slug}`"
+                                    class="menu__link"
+                                >
+                                    {{ item.name }}
+                                </NuxtLink>
                             </li>
                         </ul>
                     </nav>

@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import type { Menu } from '@/types/api'
+
 const currentYear = new Date().getFullYear()
+
+const menu = useState<Menu>('menu')
 </script>
 
 <template>
@@ -16,6 +20,7 @@ const currentYear = new Date().getFullYear()
                     </div>
                 </div>
                 <div class="footer__blocks">
+                    <!-- Блок "Магазин" -->
                     <div class="footer__block">
                         <h4 class="footer__label">
                             Магазин
@@ -28,25 +33,23 @@ const currentYear = new Date().getFullYear()
                                             Каталог
                                         </NuxtLink>
                                     </li>
-                                    <li class="footer-menu__item">
-                                        <NuxtLink to="/catalog/home" class="footer-menu__link">
-                                            Для дома
-                                        </NuxtLink>
-                                    </li>
-                                    <li class="footer-menu__item">
-                                        <NuxtLink to="/catalog/brides" class="footer-menu__link">
-                                            Для невест
-                                        </NuxtLink>
-                                    </li>
-                                    <li class="footer-menu__item">
-                                        <NuxtLink to="/catalog/collections" class="footer-menu__link">
-                                            Коллекции
+                                    <li
+                                        v-for="category in menu?.categories"
+                                        :key="category.slug"
+                                        class="footer-menu__item"
+                                    >
+                                        <NuxtLink
+                                            :to="`/catalog/${category.slug}`"
+                                            class="footer-menu__link"
+                                        >
+                                            {{ category.name }}
                                         </NuxtLink>
                                     </li>
                                 </ul>
                             </nav>
                         </div>
                     </div>
+                    <!-- Блок "Покупателям" -->
                     <div class="footer__block">
                         <h4 class="footer__label">
                             Покупателям
@@ -54,30 +57,23 @@ const currentYear = new Date().getFullYear()
                         <div class="footer__menu footer-menu">
                             <nav class="footer-menu__body">
                                 <ul class="footer-menu__list">
-                                    <li class="footer-menu__item">
-                                        <NuxtLink to="/info/delivery" class="footer-menu__link">
-                                            Оплата и доставка
-                                        </NuxtLink>
-                                    </li>
-                                    <li class="footer-menu__item">
-                                        <NuxtLink to="/info/refund" class="footer-menu__link">
-                                            Возврат
-                                        </NuxtLink>
-                                    </li>
-                                    <li class="footer-menu__item">
-                                        <NuxtLink to="/info/sizes" class="footer-menu__link">
-                                            Размерная сетка
-                                        </NuxtLink>
-                                    </li>
-                                    <li class="footer-menu__item">
-                                        <NuxtLink to="/contacts" class="footer-menu__link">
-                                            Контакты
+                                    <li
+                                        v-for="item in menu?.footer_menu?.find(item => item.name === 'Покупателям')?.items"
+                                        :key="item?.slug"
+                                        class="footer-menu__item"
+                                    >
+                                        <NuxtLink
+                                            :to="`/${item.slug}`"
+                                            class="footer-menu__link"
+                                        >
+                                            {{ item.name }}
                                         </NuxtLink>
                                     </li>
                                 </ul>
                             </nav>
                         </div>
                     </div>
+                    <!-- Блок "Контакты" -->
                     <div class="footer__block">
                         <h4 class="footer__label">
                             Контакты
