@@ -57,11 +57,11 @@ onBeforeUnmount(() => {
                         </ul>
                     </div>
                     <div class="about__small-image">
-                        <img src="/images/about/about-sm.webp" alt="" loading="lazy">
+                        <img src="/images/about/about-sm.webp" alt="" loading="lazy" srcset="/images/about/about-sm.webp 1x, /images/about/about-sm@2x.webp 2x">
                     </div>
                 </div>
                 <div class="about__image">
-                    <img src="/images/about/about.webp" alt="" loading="lazy">
+                    <img src="/images/about/about.webp" alt="" loading="lazy" srcset="/images/about/about.webp 1x, /images/about/about@2x.webp 2x">
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@ const containerRef = ref(null)
 
 useSwiper(containerRef, {
     loop: true,
-    speed: 1200,
+    speed: 1500,
     autoplay: {
         delay: 5000,
     },
@@ -17,10 +17,13 @@ useSwiper(containerRef, {
             ref="containerRef" class="hero__slider" :init="false"
         >
             <swiper-slide class="hero__slide">
-                <img src="/images/hero-1.webp" alt="" loading="lazy">
+                <img src="/images/hero-1.webp" alt="" loading="lazy" srcset="/images/hero-1.webp 1x, /images/hero-1@2x.webp 2x">
             </swiper-slide>
             <swiper-slide class="hero__slide">
-                <img src="/images/hero-2.webp" alt="" loading="lazy">
+                <img src="/images/hero-2.webp" alt="" loading="lazy" srcset="/images/hero-2.webp 1x, /images/hero-2@2x.webp 2x">
+            </swiper-slide>
+            <swiper-slide class="hero__slide">
+                <img src="/images/hero-3.webp" alt="" loading="lazy" srcset="/images/hero-3.webp 1x, /images/hero-3@2x.webp 2x">
             </swiper-slide>
         </swiper-container>
 
@@ -28,7 +31,7 @@ useSwiper(containerRef, {
             <div class="hero__container">
                 <div class="hero__body">
                     <h1 class="hero__title">
-                        BEZE exclusive studio – <br>ОДЕЖДА, СОЗДАЮЩАЯ ОСОБОЕ НАСТРОЕНИЕ
+                        BEZE Exclusive Studio – <br>ОДЕЖДА, СОЗДАЮЩАЯ ОСОБОЕ НАСТРОЕНИЕ
                     </h1>
                     <UiButton href="/catalog" outline white>
                         В каталог

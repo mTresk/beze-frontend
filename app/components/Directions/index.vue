@@ -110,29 +110,50 @@ await suspense()
 
     &::before {
         position: absolute;
-        inset: 0;
+        top: 0;
+        left: 0;
         z-index: 2;
+        width: 100%;
+        height: rem(200);
         content: '';
-        background: linear-gradient(180deg, rgb(0 0 0 / 30%) 0%, rgb(0 0 0 / 0%) 100%);
+        background: linear-gradient(
+            0deg,
+            rgb(28 27 26 / 0%),
+            rgb(28 27 26 / 0%) 4%,
+            rgb(28 27 26 / 1.2%) 12%,
+            rgb(28 27 26 / 3.6%) 24%,
+            rgb(28 27 26 / 9%) 40%,
+            rgb(28 27 26 / 18%) 56%,
+            rgb(28 27 26 / 30.6%) 72%,
+            rgb(28 27 26 / 60%)
+        );
     }
 
     &::after {
         position: absolute;
-        inset: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 2;
+        width: 100%;
+        height: rem(200);
         content: '';
-        background-color: $mainColor;
-        opacity: 0.05;
-        transition: opacity 0.3s ease-in-out;
+        background: linear-gradient(
+            180deg,
+            rgb(28 27 26 / 0%),
+            rgb(28 27 26 / 0%) 4%,
+            rgb(28 27 26 / 1.2%) 12%,
+            rgb(28 27 26 / 3.6%) 24%,
+            rgb(28 27 26 / 9%) 40%,
+            rgb(28 27 26 / 18%) 56%,
+            rgb(28 27 26 / 30.6%) 72%,
+            rgb(28 27 26 / 60%)
+        );
     }
 
     @media (any-hover: hover) {
         &:hover {
             .direction-card__image {
                 transform: scale(1.05);
-            }
-
-            &::after {
-                opacity: 0.2;
             }
         }
     }
