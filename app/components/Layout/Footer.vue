@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import type { Menu } from '@/types/api'
+import type { IMenu, ISettings } from '@/types/api'
 
 const currentYear = new Date().getFullYear()
 
-const menu = useState<Menu>('menu')
+const menu = useState<IMenu>('menu')
+
+const settings = useState<ISettings>('settings')
+
+const formattedPhone = computed(() => settings?.value?.phone?.replace(/\s+/g, ''))
 </script>
 
 <template>
@@ -80,18 +84,18 @@ const menu = useState<Menu>('menu')
                         </h4>
                         <div class="footer__contacts">
                             <p class="footer__address">
-                                г. Тюмень, ул.Малыгина, 71
+                                {{ settings.address }}
                             </p>
-                            <a href="mailto:beze72@yandex.ru" class="footer__email">beze72@yandex.ru</a>
-                            <a href="tel:+79044990980" class="footer__phone">+7 (904) 499-09-80</a>
+                            <a :href="`mailto:${settings.email}`" class="footer__email">{{ settings.email }}</a>
+                            <a :href="`tel:${formattedPhone}`" class="footer__phone">{{ settings.phone }}</a>
                             <div class="footer__socials">
-                                <a title="Vk" href="#" class="footer__soicial">
+                                <a v-if="settings.vk" target="_blank" title="Vk" :href="settings.vk" class="footer__soicial">
                                     <img src="/images/icons/vk.svg" alt="" loading="lazy">
                                 </a>
-                                <a title="Telegram" href="#" class="footer__soicial">
+                                <a v-if="settings.telegram" target="_blank" title="Telegram" :href="settings.telegram" class="footer__soicial">
                                     <img src="/images/icons/tg.svg" alt="" loading="lazy">
                                 </a>
-                                <a title="Whatsapp" href="#" class="footer__soicial">
+                                <a v-if="settings.whatsapp" target="_blank" title="Whatsapp" :href="settings.whatsapp" class="footer__soicial">
                                     <img src="/images/icons/wa.svg" alt="" loading="lazy">
                                 </a>
                             </div>

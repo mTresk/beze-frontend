@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Menu } from '@/types/api'
+import type { IMenu, ISettings } from '@/types/api'
 import { useQuery } from '@tanstack/vue-query'
 
 const { direction } = useScrollDirection()
@@ -25,19 +25,26 @@ useHead({
     },
 })
 
-const fetcher = async () => await useFetcher<Menu>('/api/menu')
+async function fetcher() {
+    const [menuData, settingsData] = await Promise.all([
+        useFetcher<IMenu>('/api/menu'),
+        useFetcher<ISettings>('/api/settings'),
+    ])
+    return { menu: menuData, settings: settingsData }
+}
 
 const {
-    data: menu,
+    data,
     suspense,
 } = useQuery({
-    queryKey: ['menu'],
+    queryKey: ['app-data'],
     queryFn: fetcher,
 })
 
 await suspense()
 
-useState('menu', () => menu.value)
+useState('menu', () => data.value?.menu)
+useState('settings', () => data.value?.settings)
 </script>
 
 <template>

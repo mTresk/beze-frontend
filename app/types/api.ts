@@ -158,25 +158,34 @@ export interface IUseSubmitOptions<T> {
     onError?: (error: IApiErrorResponse) => void
 }
 
-export interface Subcategory {
+export interface IMenuSubcategory {
     name: string
     slug: string
 }
 
-export interface Category {
+export interface IMenuCategory {
     name: string
     slug: string
-    subcategories?: Subcategory[]
+    subcategories?: IMenuSubcategory[]
 }
 
-export interface MenuItem {
+export interface IMenuItem {
     name: string
     slug?: string
-    items?: MenuItem[]
+    items?: IMenuItem[]
 }
 
-export interface Menu {
-    categories: Category[]
-    header_menu: MenuItem[]
-    footer_menu: MenuItem[]
+export interface IMenu {
+    categories: IMenuCategory[]
+    header_menu: IMenuItem[]
+    footer_menu: IMenuItem[]
+}
+
+export interface ISettings {
+    phone: string
+    email: string
+    address: string
+    vk: string
+    telegram: string
+    whatsapp: string
 }

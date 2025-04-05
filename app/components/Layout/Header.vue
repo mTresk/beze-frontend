@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Menu } from '@/types/api'
+import type { IMenu } from '@/types/api'
 
 const route = useRoute()
 
@@ -13,7 +13,7 @@ const favoritesCount = computed(() => favorites.value.length)
 
 const cartCount = computed(() => cartItems.value.length)
 
-const menu = useState<Menu>('menu')
+const menu = useState<IMenu>('menu')
 
 const isMenuBlocked = ref(false)
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IFeedback } from '@/types/api'
+import type { IFeedback, ISettings } from '@/types/api'
 import { yandexMap } from '@/helpers'
 
 const form = reactive<IFeedback>({
@@ -10,6 +10,10 @@ const form = reactive<IFeedback>({
 })
 
 const mapRoot = ref<HTMLElement | null>(null)
+
+const settings = useState<ISettings>('settings')
+
+const formattedPhone = computed(() => settings.value.phone?.replace(/\s+/g, ''))
 
 function handleForm() {
     return useFetcher<IFeedback>('/api/feedback', {
@@ -66,20 +70,20 @@ onMounted(() => {
                                 <p class="contacts__label">
                                     Телефон
                                 </p>
-                                <a class="contacts__value" href="tel:+79044990980">+7 (904) 499-09-80</a>
+                                <a class="contacts__value" :href="`tel:${formattedPhone}`">{{ settings.phone }}</a>
                             </div>
                             <div class="contacts__block">
                                 <p class="contacts__label">
                                     Email
                                 </p>
-                                <a class="contacts__value" href="mailto:beze72@yandex.ru">beze72@yandex.ru</a>
+                                <a class="contacts__value" :href="`mailto:${settings.email}`">{{ settings.email }}</a>
                             </div>
                             <div class="contacts__block">
                                 <p class="contacts__label">
                                     Адрес
                                 </p>
-                                <p class="contacts__value" href="mailto:beze72@yandex.ru">
-                                    г. Тюмень, ул.Малыгина, 71
+                                <p class="contacts__value">
+                                    {{ settings.address }}
                                 </p>
                             </div>
                             <div class="contacts__block">
@@ -87,15 +91,15 @@ onMounted(() => {
                                     Мессенджеры
                                 </p>
                                 <div class="contacts__socials">
-                                    <a title="VK" href="#" class="contacts__social">
+                                    <NuxtLink v-if="settings.vk" target="_blank" title="VK" :href="settings.vk" class="contacts__social">
                                         <img src="/images/icons/vk.svg" alt="VK" loading="lazy">
-                                    </a>
-                                    <a title="Telegram" href="#" class="contacts__social">
+                                    </NuxtLink>
+                                    <NuxtLink v-if="settings.telegram" target="_blank" title="Telegram" :href="settings.telegram" class="contacts__social">
                                         <img src="/images/icons/tg.svg" alt="Telegram" loading="lazy">
-                                    </a>
-                                    <a title="WhatsApp" href="#" class="contacts__social">
+                                    </NuxtLink>
+                                    <NuxtLink v-if="settings.whatsapp" target="_blank" title="WhatsApp" :href="settings.whatsapp" class="contacts__social">
                                         <img src="/images/icons/wa.svg" alt="WhatsApp" loading="lazy">
-                                    </a>
+                                    </NuxtLink>
                                 </div>
                             </div>
                         </div>
