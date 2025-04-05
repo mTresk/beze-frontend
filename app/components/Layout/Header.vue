@@ -14,6 +14,15 @@ const favoritesCount = computed(() => favorites.value.length)
 const cartCount = computed(() => cartItems.value.length)
 
 const menu = useState<Menu>('menu')
+
+const isMenuBlocked = ref(false)
+
+function handleLinkClick() {
+    isMenuBlocked.value = true
+    setTimeout(() => {
+        isMenuBlocked.value = false
+    }, 100)
+}
 </script>
 
 <template>
@@ -23,12 +32,20 @@ const menu = useState<Menu>('menu')
                 <NuxtLink to="/" class="header__logo">
                     <img src="/images/logo.svg" alt="Beze Exclusive Studio" loading="lazy">
                 </NuxtLink>
-                <div class="header__menu menu">
+                <div class="header__menu menu" :class="{ 'menu--blocked': isMenuBlocked }">
                     <nav class="menu__body">
                         <ul class="menu__list">
                             <!-- Категории -->
-                            <li v-for="category in menu?.categories" :key="category.slug" class="menu__item">
-                                <NuxtLink :to="`/catalog/${category.slug}`" class="menu__link">
+                            <li
+                                v-for="category in menu?.categories"
+                                :key="category.slug"
+                                class="menu__item"
+                            >
+                                <NuxtLink
+                                    :to="`/catalog/${category.slug}`"
+                                    class="menu__link"
+                                    @click="handleLinkClick"
+                                >
                                     <span>{{ category.name }}</span>
                                     <UiIcon v-if="category.subcategories?.length" name="arrow-down" size="10" />
                                 </NuxtLink>
@@ -41,6 +58,7 @@ const menu = useState<Menu>('menu')
                                         <NuxtLink
                                             :to="`/catalog/${category.slug}/${subcategory.slug}`"
                                             class="menu__sublink"
+                                            @click="handleLinkClick"
                                         >
                                             {{ subcategory.name }}
                                         </NuxtLink>
@@ -48,7 +66,11 @@ const menu = useState<Menu>('menu')
                                 </ul>
                             </li>
                             <!-- Меню хедера -->
-                            <li v-for="item in menu?.header_menu" :key="item.name" class="menu__item">
+                            <li
+                                v-for="item in menu?.header_menu"
+                                :key="item.name"
+                                class="menu__item"
+                            >
                                 <template v-if="item.items">
                                     <div class="menu__link">
                                         <span>{{ item.name }}</span>
@@ -63,6 +85,7 @@ const menu = useState<Menu>('menu')
                                             <NuxtLink
                                                 :to="`/${subitem.slug}`"
                                                 class="menu__sublink"
+                                                @click="handleLinkClick"
                                             >
                                                 {{ subitem.name }}
                                             </NuxtLink>
@@ -73,6 +96,7 @@ const menu = useState<Menu>('menu')
                                     v-else
                                     :to="`/${item.slug}`"
                                     class="menu__link"
+                                    @click="handleLinkClick"
                                 >
                                     {{ item.name }}
                                 </NuxtLink>
@@ -199,8 +223,8 @@ const menu = useState<Menu>('menu')
     &__item {
         position: relative;
 
-        &:hover {
-            .menu__link {
+        .menu:not(.menu--blocked) &:hover {
+            & > .menu__link {
                 color: $accentColor;
 
                 svg {
@@ -208,11 +232,11 @@ const menu = useState<Menu>('menu')
                 }
             }
 
-            .menu__sublist {
+            & > .menu__sublist {
                 visibility: visible;
                 pointer-events: auto;
                 opacity: 1;
-                transform: translateX(0);
+                transform: translateY(0);
             }
         }
     }
