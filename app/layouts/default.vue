@@ -169,6 +169,51 @@ body {
     strong {
         font-weight: 500;
     }
+
+    table {
+        width: 100%;
+        border-spacing: 0;
+        border-collapse: collapse;
+
+        thead {
+            tr {
+                td {
+                    padding-inline: rem(20);
+                    padding-bottom: rem(20);
+                    font-size: rem(16);
+                    line-height: 140%;
+                    color: rgb(54 54 54 / 60%);
+                }
+            }
+        }
+
+        tbody {
+            tr {
+                &:nth-child(odd) {
+                    td {
+                        background-color: $lightColor;
+                    }
+                }
+
+                td {
+                    padding-block: rem(20);
+                    padding-inline: rem(20);
+                    font-size: rem(16);
+                    line-height: 140%;
+
+                    &:first-child {
+                        border-top-left-radius: rem(4);
+                        border-bottom-left-radius: rem(4);
+                    }
+
+                    &:last-child {
+                        border-top-right-radius: rem(4);
+                        border-bottom-right-radius: rem(4);
+                    }
+                }
+            }
+        }
+    }
 }
 
 .layout-enter-active,

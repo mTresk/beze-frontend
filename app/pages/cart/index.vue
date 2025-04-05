@@ -159,12 +159,16 @@ onMounted(() => {
                     </div>
                     <div class="cart__checkout">
                         <div class="cart__links">
-                            <UiLink href="#">
-                                Условия оплаты и доставки
-                            </UiLink>
-                            <UiLink href="#">
-                                Условия возврата и обмена
-                            </UiLink>
+                            <NuxtLink to="/info/delivery">
+                                <UiLink>
+                                    Условия оплаты и доставки
+                                </UiLink>
+                            </NuxtLink>
+                            <NuxtLink to="/info/refund">
+                                <UiLink>
+                                    Условия возврата и обмена
+                                </UiLink>
+                            </NuxtLink>
                         </div>
                         <div class="cart__caution">
                             <span>!</span>
@@ -193,7 +197,11 @@ onMounted(() => {
                                 Сделать заказ
                             </UiButton>
                             <p class="cart__policy">
-                                Нажимая на кнопку «сделать заказ», я принимаю условия <a href="#">публичной оферты</a> и <a href="#">политики конфиденциальности</a>
+                                Нажимая на кнопку «сделать заказ», я принимаю условия <NuxtLink to="/info/offer">
+                                    публичной оферты
+                                </NuxtLink> и <NuxtLink to="/info/privacy">
+                                    политики конфиденциальности
+                                </NuxtLink>
                             </p>
                         </div>
                     </div>

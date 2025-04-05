@@ -24,16 +24,24 @@ const currentYear = new Date().getFullYear()
                             <nav class="footer-menu__body">
                                 <ul class="footer-menu__list">
                                     <li class="footer-menu__item">
-                                        <a href="" class="footer-menu__link">Каталог</a>
+                                        <NuxtLink to="/catalog" class="footer-menu__link">
+                                            Каталог
+                                        </NuxtLink>
                                     </li>
                                     <li class="footer-menu__item">
-                                        <a href="" class="footer-menu__link">Для дома</a>
+                                        <NuxtLink to="/catalog/home" class="footer-menu__link">
+                                            Для дома
+                                        </NuxtLink>
                                     </li>
                                     <li class="footer-menu__item">
-                                        <a href="" class="footer-menu__link">Для невест</a>
+                                        <NuxtLink to="/catalog/brides" class="footer-menu__link">
+                                            Для невест
+                                        </NuxtLink>
                                     </li>
                                     <li class="footer-menu__item">
-                                        <a href="" class="footer-menu__link">Декор</a>
+                                        <NuxtLink to="/catalog/collections" class="footer-menu__link">
+                                            Коллекции
+                                        </NuxtLink>
                                     </li>
                                 </ul>
                             </nav>
@@ -57,7 +65,9 @@ const currentYear = new Date().getFullYear()
                                         </NuxtLink>
                                     </li>
                                     <li class="footer-menu__item">
-                                        <a href="" class="footer-menu__link">Размерная сетка</a>
+                                        <NuxtLink to="/info/sizes" class="footer-menu__link">
+                                            Размерная сетка
+                                        </NuxtLink>
                                     </li>
                                     <li class="footer-menu__item">
                                         <a href="" class="footer-menu__link">Контакты</a>
