@@ -24,6 +24,21 @@ useHead({
 </script>
 
 <template>
+    <Head>
+        <Meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=0" />
+        <Meta name="description" content="Одежда, создающая особое настроение" />
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+        <link rel="shortcut icon" href="/favicon.ico">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <!-- FB meta -->
+        <Meta property="og:description" content="Одежда, создающая особое настроение" />
+        <Meta property="og:image" content="/images/og.png" />
+        <!-- Twitter meta -->
+        <Meta name="twitter:description" content="Одежда, создающая особое настроение" />
+        <Meta name="twitter:image" content="/images/og.png" />
+    </Head>
     <NuxtLoadingIndicator color="#b79d83" />
     <div class="wrapper" :class="scrollClass">
         <LayoutHeader />

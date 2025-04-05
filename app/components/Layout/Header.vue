@@ -275,7 +275,7 @@ const cartCount = computed(() => cartItems.value.length)
         display: grid;
         visibility: hidden;
         gap: rem(12);
-        min-width: rem(200);
+        min-width: rem(220);
         padding: rem(20);
         pointer-events: none;
         background-color: $extraColor;
