@@ -115,13 +115,13 @@ const cartCount = computed(() => cartItems.value.length)
                     </nav>
                 </div>
                 <div class="header__actions">
-                    <button aria-label="Поиск" type="button" class="header__action">
+                    <button title="Поиск" aria-label="Поиск" type="button" class="header__action">
                         <UiIcon name="search" size="30" />
                     </button>
                     <NuxtLink
                         to="/favorites"
                         class="header__action"
-                        :title="`Избранное${favoritesCount ? `: ${favoritesCount} товаров` : ''}`"
+                        title="Избранное"
                     >
                         <UiIcon name="favorite" size="30" />
                         <Transition>
@@ -132,7 +132,7 @@ const cartCount = computed(() => cartItems.value.length)
                     <NuxtLink
                         to="/cart"
                         class="header__action"
-                        :title="`Корзина${cartCount ? `: ${cartCount} товаров` : ''}`"
+                        title="Корзина"
                     >
                         <UiIcon name="cart" size="30" />
                         <Transition>
@@ -279,6 +279,7 @@ const cartCount = computed(() => cartItems.value.length)
         padding: rem(20);
         pointer-events: none;
         background-color: $extraColor;
+        border-radius: rem(4);
         box-shadow: 0 0 14px 0 rgb(0 0 0 / 10%);
         opacity: 0;
         transform: translateY(rem(10));

@@ -70,7 +70,9 @@ const currentYear = new Date().getFullYear()
                                         </NuxtLink>
                                     </li>
                                     <li class="footer-menu__item">
-                                        <a href="" class="footer-menu__link">Контакты</a>
+                                        <NuxtLink to="/contacts" class="footer-menu__link">
+                                            Контакты
+                                        </NuxtLink>
                                     </li>
                                 </ul>
                             </nav>

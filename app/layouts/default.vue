@@ -115,6 +115,10 @@ body {
     }
 }
 
+.icon-marker {
+    transform: translate(-18px, -18px);
+}
+
 .content {
     h2 {
         line-height: 140%;

@@ -84,6 +84,13 @@ export interface IOrder {
 
 }
 
+export interface IFeedback {
+    name: string
+    phone: string
+    email?: string
+    message?: string
+}
+
 export interface ICategory {
     id: number
     name: string
