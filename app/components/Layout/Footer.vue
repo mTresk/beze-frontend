@@ -47,10 +47,14 @@ const currentYear = new Date().getFullYear()
                             <nav class="footer-menu__body">
                                 <ul class="footer-menu__list">
                                     <li class="footer-menu__item">
-                                        <a href="" class="footer-menu__link">Оплата и доставка</a>
+                                        <NuxtLink to="/info/delivery" class="footer-menu__link">
+                                            Оплата и доставка
+                                        </NuxtLink>
                                     </li>
                                     <li class="footer-menu__item">
-                                        <a href="" class="footer-menu__link">Возврат</a>
+                                        <NuxtLink to="/info/refund" class="footer-menu__link">
+                                            Возврат
+                                        </NuxtLink>
                                     </li>
                                     <li class="footer-menu__item">
                                         <a href="" class="footer-menu__link">Размерная сетка</a>
@@ -89,12 +93,18 @@ const currentYear = new Date().getFullYear()
             </div>
             <div class="footer__bottom">
                 <div class="footer__links">
-                    <a href="#" class="footer__link">Политика конфиденциальности</a>
-                    <a href="#" class="footer__link">Договор оферты</a>
+                    <UiLink class="footer__link" href="/info/privacy">
+                        Политика конфиденциальности
+                    </UiLink>
+                    <UiLink class="footer__link" href="/info/offer">
+                        Договор оферты
+                    </UiLink>
                 </div>
                 <div class="footer__developer">
                     <span>Разработка:</span>
-                    <a href="https://tresksites.ru">Tresk</a>
+                    <UiLink target="_blank" href="https://tresksites.ru">
+                        Tresk
+                    </UiLink>
                 </div>
             </div>
         </div>
@@ -234,16 +244,6 @@ const currentYear = new Date().getFullYear()
     &__link {
         font-size: 14px;
         line-height: 140%;
-        text-decoration: underline;
-        text-decoration-thickness: 10%;
-        text-decoration-style: dotted;
-        transition: color 0.3s ease-in-out;
-
-        @media (any-hover: hover) {
-            &:hover {
-                color: $accentColor;
-            }
-        }
     }
 
     // .footer__developer

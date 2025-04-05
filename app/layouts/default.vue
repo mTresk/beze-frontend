@@ -100,6 +100,77 @@ body {
     }
 }
 
+.content {
+    h2 {
+        line-height: 140%;
+
+        @include adaptive-value('margin-bottom', 30, 20);
+        @include adaptive-value('font-size', 28, 24);
+        @include adaptive-value('margin-top', 30, 20);
+    }
+
+    h3 {
+        line-height: 140%;
+
+        @include adaptive-value('margin-bottom', 20, 16);
+        @include adaptive-value('font-size', 24, 20);
+        @include adaptive-value('margin-top', 30, 20);
+    }
+
+    p {
+        line-height: 140%;
+
+        @include adaptive-value('margin-bottom', 20, 16);
+        @include adaptive-value('font-size', 18, 16);
+    }
+
+    a {
+        line-height: 140%;
+        text-decoration: underline;
+        text-decoration-thickness: 10%;
+        text-decoration-style: dotted;
+        text-underline-offset: rem(3);
+        transition: color 0.3s ease-in-out;
+        text-decoration-skip-ink: none;
+
+        @media (any-hover: hover) {
+            &:hover {
+                color: $accentColor;
+            }
+        }
+    }
+
+    ul {
+        display: grid;
+
+        @include adaptive-value('gap', 20, 16);
+        @include adaptive-value('margin-bottom', 20, 16);
+
+        li {
+            position: relative;
+            padding-left: rem(18);
+            line-height: 140%;
+
+            @include adaptive-value('font-size', 18, 16);
+
+            &::before {
+                position: absolute;
+                top: 9px;
+                left: 0;
+                width: rem(8);
+                height: rem(8);
+                content: '';
+                background-color: $accentColor;
+                transform: rotate(45deg);
+            }
+        }
+    }
+
+    strong {
+        font-weight: 500;
+    }
+}
+
 .layout-enter-active,
 .layout-leave-active {
     transition: all 0.4s cubic-bezier(0.25, 0.45, 0.45, 0.95);

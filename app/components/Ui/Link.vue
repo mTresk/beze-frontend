@@ -23,13 +23,20 @@ defineProps<{
 
 <style lang="scss">
 .link {
-    font-size: 16px;
-    line-height: 130%;
+    font-size: rem(16);
+    line-height: 140%;
     text-decoration: underline;
     text-decoration-thickness: 10%;
     text-decoration-style: dotted;
-    text-decoration-skip-ink: none;
+    text-underline-offset: rem(3);
     transition: color 0.3s ease-in-out;
+    text-decoration-skip-ink: none;
+
+    @media (any-hover: hover) {
+        &:hover {
+            color: $accentColor;
+        }
+    }
 
     &[medium] {
         font-size: rem(18);

@@ -104,6 +104,19 @@ export interface ISubCategory {
     label?: string
     description?: string
 }
+
+export interface IInfoPage {
+    id: number
+    name: string
+    slug: string
+    content: string
+}
+
+export interface IInfoPageContent {
+    data: IInfoPage
+    otherPages: IInfoPage[]
+}
+
 export interface ProductsResponse {
     pageData: IProduct[]
     cursor?: number
