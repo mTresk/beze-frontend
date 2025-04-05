@@ -50,6 +50,11 @@ function handlePageClick(page: number | string) {
     if (typeof page === 'string' || page === props.meta?.current_page || props.isLoading)
         return
 
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+    })
+
     emit('pageClick', page)
 }
 </script>
