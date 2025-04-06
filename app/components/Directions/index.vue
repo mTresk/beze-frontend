@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { ICategory } from '@/types/api'
-import { useQuery } from '@tanstack/vue-query'
 
 const containerRef = ref(null)
 

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { IMenu, ISettings } from '@/types/api'
-import { useQuery } from '@tanstack/vue-query'
 
 const { direction } = useScrollDirection()
 

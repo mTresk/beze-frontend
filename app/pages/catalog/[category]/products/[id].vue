@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { IColor, IInfoPageContent, IProduct, IProductVariant, IProductWithFeatured, ISize } from '@/types/api'
 import { getUniqueColors } from '@/helpers'
-import { useQuery } from '@tanstack/vue-query'
 
 const route = useRoute()
 

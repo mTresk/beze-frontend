@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { ApiPaginationMeta, ApiResponse, ICategory, IProduct } from '@/types/api'
 import { sortOptions } from '@/data/sort-options'
-import { useQuery } from '@tanstack/vue-query'
 
 interface Props {
     apiUrl: string

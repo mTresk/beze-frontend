@@ -191,3 +191,7 @@ export interface ISettings {
     telegram?: string
     whatsapp?: string
 }
+
+export interface IGallery {
+    images: Partial<IImage>[]
+}

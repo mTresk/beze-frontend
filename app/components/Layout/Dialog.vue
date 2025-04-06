@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type Lenis from 'lenis'
-import { onMounted, onUnmounted, ref } from 'vue'
 
 const props = defineProps<{
     modelValue: boolean

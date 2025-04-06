@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { IInfoPageContent } from '@/types/api'
-import { useQuery } from '@tanstack/vue-query'
 
 const fetcher = async () => await useFetcher<IInfoPageContent>(`/api/pages/sizes`)
 
