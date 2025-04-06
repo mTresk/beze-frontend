@@ -65,6 +65,7 @@ const productCartItems = computed(() => {
             color: variant.color,
             size: variant.size,
             quantity: Number(item.qty),
+            category: variant.category,
         } as ICartProduct
     }).filter(Boolean)
 })

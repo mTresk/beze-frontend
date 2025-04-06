@@ -18,6 +18,7 @@ export interface IProductVariant {
     color: IColor
     size: ISize
     image: IImage
+    category: ICategory
     product: {
         id: number
         name: string
@@ -43,6 +44,7 @@ export interface ICartProduct {
     color: IColor
     size: ISize
     quantity: number
+    category: ICategory
 }
 
 export interface IImage {
@@ -185,7 +187,7 @@ export interface ISettings {
     phone: string
     email: string
     address: string
-    vk: string
-    telegram: string
-    whatsapp: string
+    vk?: string
+    telegram?: string
+    whatsapp?: string
 }

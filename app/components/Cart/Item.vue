@@ -43,8 +43,8 @@ watch(() => quantity.value, () => handleUpdateCartValues())
 <template>
     <div class="cart-item">
         <div class="cart-item__info">
-            <NuxtLink :to="`/catalog/${product?.slug}`" class="cart-item__image">
-                <img :src="product?.image?.thumb" :alt="product?.name" loading="lazy">
+            <NuxtLink :to="`/catalog/${product.category.slug}/products/${product.slug}`" class="cart-item__image">
+                <img :src="product.image.thumb" :alt="product.name" loading="lazy">
             </NuxtLink>
             <div class="cart-item__block">
                 <div class="cart-item__sku">
@@ -56,11 +56,11 @@ watch(() => quantity.value, () => handleUpdateCartValues())
             </div>
         </div>
         <div class="cart-item__color">
-            <span :style="`background-color: ${product?.color?.code};`" class="cart-item__icon" />
-            <span>{{ product?.color?.name }}</span>
+            <span :style="`background-color: ${product.color.code};`" class="cart-item__icon" />
+            <span>{{ product.color.name }}</span>
         </div>
         <div class="cart-item__size">
-            <span>размер:</span>{{ product?.size?.name }}
+            <span>размер:</span> {{ product.size.name }}
         </div>
         <VFormQuantity v-model="quantity" :min="1" :max="10" />
         <div class="cart-item__wrapper">
