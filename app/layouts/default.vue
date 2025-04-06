@@ -149,7 +149,10 @@ body {
 
         @include adaptive-value('margin-bottom', 30, 20);
         @include adaptive-value('font-size', 28, 24);
-        @include adaptive-value('margin-top', 30, 20);
+
+        &:not(:first-child) {
+            @include adaptive-value('margin-top', 30, 20);
+        }
     }
 
     h3 {
@@ -157,13 +160,16 @@ body {
 
         @include adaptive-value('margin-bottom', 20, 16);
         @include adaptive-value('font-size', 24, 20);
-        @include adaptive-value('margin-top', 30, 20);
+
+        &:not(:first-child) {
+            @include adaptive-value('margin-top', 30, 20);
+        }
     }
 
     p {
         line-height: 140%;
 
-        @include adaptive-value('margin-bottom', 20, 16);
+        @include adaptive-value('margin-bottom', 18, 14);
         @include adaptive-value('font-size', 18, 16);
     }
 
@@ -187,7 +193,7 @@ body {
         display: grid;
 
         @include adaptive-value('gap', 20, 16);
-        @include adaptive-value('margin-bottom', 20, 16);
+        @include adaptive-value('margin-bottom', 18, 14);
 
         li {
             position: relative;

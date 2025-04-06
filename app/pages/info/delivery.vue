@@ -3,9 +3,7 @@ import type { IInfoPageContent } from '@/types/api'
 import { UiSpinner } from '#components'
 import { useQuery } from '@tanstack/vue-query'
 
-async function fetcher() {
-    return await useFetcher<IInfoPageContent>(`/api/pages/delivery`)
-}
+const fetcher = async () => await useFetcher<IInfoPageContent>(`/api/pages/delivery`)
 
 const {
     data: delivery,
@@ -24,13 +22,13 @@ await suspense()
         <UiSpinner v-if="isLoading" />
         <InfoPage
             v-else
-            :title="delivery?.data.name"
+            :title="delivery!.data.name"
             :breadcrumb-items="[
-                { title: delivery?.data.name },
+                { title: delivery!.data.name },
             ]"
-            :sidebar-links="delivery?.otherPages.map(page => ({ title: page.name, to: `/info/${page.slug}` }))"
+            :sidebar-links="delivery!.otherPages.map(page => ({ title: page.name, to: `/info/${page.slug}` }))"
         >
-            <div v-html="delivery?.data.content" />
+            <div v-html="delivery!.data.content" />
         </InfoPage>
     </div>
 </template>

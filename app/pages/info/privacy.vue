@@ -3,9 +3,7 @@ import type { IInfoPageContent } from '@/types/api'
 import { UiSpinner } from '#components'
 import { useQuery } from '@tanstack/vue-query'
 
-async function fetcher() {
-    return await useFetcher<IInfoPageContent>(`/api/pages/privacy`)
-}
+const fetcher = async () => await useFetcher<IInfoPageContent>(`/api/pages/privacy`)
 
 const {
     data: privacy,
@@ -24,13 +22,13 @@ await suspense()
         <UiSpinner v-if="isLoading" />
         <InfoPage
             v-else
-            :title="privacy?.data.name"
+            :title="privacy!.data.name"
             :breadcrumb-items="[
-                { title: privacy?.data.name },
+                { title: privacy!.data.name },
             ]"
-            :sidebar-links="privacy?.otherPages.map(page => ({ title: page.name, to: `/info/${page.slug}` }))"
+            :sidebar-links="privacy!.otherPages.map(page => ({ title: page.name, to: `/info/${page.slug}` }))"
         >
-            <div v-html="privacy?.data.content" />
+            <div v-html="privacy!.data.content" />
         </InfoPage>
     </div>
 </template>

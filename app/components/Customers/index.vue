@@ -1,5 +1,25 @@
-<script setup>
+<script setup lang="ts">
+import type { IInfoPageContent } from '@/types/api'
+import { useQuery } from '@tanstack/vue-query'
+
+const fetcher = async () => await useFetcher<IInfoPageContent>(`/api/pages/sizes`)
+
+const {
+    data: sizes,
+    suspense,
+} = useQuery({
+    queryKey: ['sizes'],
+    queryFn: fetcher,
+})
+
+await suspense()
 const ctx = ref()
+
+const isCompositionModalOpen = ref(false)
+
+const isCareModalOpen = ref(false)
+
+const isSizesModalOpen = ref(false)
 
 onMounted(() => {
     setTimeout(() => {
@@ -47,7 +67,7 @@ onBeforeUnmount(() => {
                                 Для производства изделий мы используем шёлк Армани – он состоит из 97% полиэстера и 3% эластана, но это не мешает ткани быть легкой, нежной и приятной на ощупь.
                             </p>
                         </div>
-                        <UiLink medium>
+                        <UiLink medium @click="isCompositionModalOpen = true">
                             Подробнее о составе
                         </UiLink>
                     </article>
@@ -60,7 +80,7 @@ onBeforeUnmount(() => {
                                 Наши изделия требуют не слишком сложного, но тем не менее бережного ухода.
                             </p>
                         </div>
-                        <UiLink medium>
+                        <UiLink medium @click="isCareModalOpen = true">
                             Рекомендации по уходу
                         </UiLink>
                     </article>
@@ -73,13 +93,59 @@ onBeforeUnmount(() => {
                                 Мы отшиваем изделия от 40 до 60 размера. Вы можете ознакомиться с размерной сеткой ниже.
                             </p>
                         </div>
-                        <UiLink medium>
+                        <UiLink medium @click="isSizesModalOpen = true">
                             Размерная сетка
                         </UiLink>
                     </article>
                 </div>
             </div>
         </div>
+
+        <!-- Модальное окно с составом -->
+        <LayoutDialog v-model="isCompositionModalOpen">
+            <div class="content">
+                <h2>
+                    Атлас «Армани»
+                </h2>
+                <ul>
+                    <li>Тонкая гладкая ткань с гладкокрашенной отделкой;</li>
+                    <li>Поверхность полотна ровная, плотная, с матовым блеском;</li>
+                    <li>Материал эластичный, при драпировке образует мягкие струящиеся складки;</li>
+                </ul>
+                <p>Вещи из шёлковой ткани настоящий подарок для тела!</p>
+                <p>
+                    Состав: 97% п/э, 3% спандекс
+                    <br>
+                    Плотность: 144 гр/м. пог
+                    <br>
+                    Без узора
+                </p>
+            </div>
+        </LayoutDialog>
+
+        <!-- Модальное окно с уходом -->
+        <LayoutDialog v-model="isCareModalOpen">
+            <div class="content">
+                <h2>
+                    Рекомендации по уходу за шёлком
+                </h2>
+                <ul>
+                    <li>Стирайте изделия вручную или на деликатном режиме в растворе нейтральных моющих средств (гель подойдёт идеально) и в воде не выше 30 градусов;</li>
+                    <li>Пожалуйста, без резких движений! Не трите отдельные участки изделия, не выкручивайте и не оставляйте в воде слишком долго;</li>
+                    <li>После стирки изделие следует прополоскать в тёплой, а затем в холодной воде. Никаких скручиваний и отчаянных выжиманий;</li>
+                    <li>После нехитрых манипуляций встряхиваем изделие и оставляем сушиться на плечиках, оставив нагревательные приборы подальше;</li>
+                    <li>Гладить изделие при необходимости через увлажненную хлопчатобумажную ткань на деликатном режиме.</li>
+                </ul>
+            </div>
+        </LayoutDialog>
+
+        <!-- Модальное окно с размерами -->
+        <LayoutDialog v-model="isSizesModalOpen">
+            <div class="content">
+                <h2>{{ sizes?.data.name }}</h2>
+                <div v-html="sizes?.data.content" />
+            </div>
+        </LayoutDialog>
     </section>
 </template>
 
@@ -89,8 +155,6 @@ onBeforeUnmount(() => {
     &__wrapper {
         position: relative;
         padding-block: rem(100);
-
-        // background-color: $extraColor;
     }
 
     // .customers__background
