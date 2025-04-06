@@ -195,3 +195,7 @@ export interface ISettings {
 export interface IGallery {
     images: Partial<IImage>[]
 }
+
+export interface IReview {
+    images: Partial<IImage>[]
+}

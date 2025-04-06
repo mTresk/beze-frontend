@@ -1,5 +1,20 @@
 <script setup lang="ts">
+import type { IReview } from '@/types/api'
+
 const containerRef = ref(null)
+
+const fetcher = async () => await useFetcher<IReview>(`/api/reviews`)
+
+const {
+    data: reviews,
+    suspense,
+    isLoading,
+} = useQuery({
+    queryKey: ['reviews'],
+    queryFn: fetcher,
+})
+
+await suspense()
 
 useSwiper(containerRef, {
     speed: 1200,
@@ -25,43 +40,24 @@ useSwiper(containerRef, {
         </div>
         <div class="reviews__inner">
             <div class="reviews__body">
-                <swiper-container ref="containerRef" :init="false" class="reviews__slider">
-                    <swiper-slide class="review">
-                        <div class="review__content">
-                            <div class="review__image">
-                                <img src="/images/reviews/1.jpg" alt="" loading="lazy">
+                <UiSpinner v-if="isLoading" />
+                <ClientOnly v-else>
+                    <swiper-container ref="containerRef" :init="false" class="reviews__slider">
+                        <swiper-slide v-for="(review, index) in reviews?.images" :key="index" class="review">
+                            <div class="review__content">
+                                <div class="review__image">
+                                    <img
+                                        class="gallery__image"
+                                        :src="review.normal"
+                                        :srcset="`${review.normal} 1x, ${review.retina} 2x`"
+                                        alt=""
+                                        loading="lazy"
+                                    >
+                                </div>
                             </div>
-                        </div>
-                    </swiper-slide>
-                    <swiper-slide class="review">
-                        <div class="review__content">
-                            <div class="review__image">
-                                <img src="/images/reviews/2.jpg" alt="" loading="lazy">
-                            </div>
-                        </div>
-                    </swiper-slide>
-                    <swiper-slide class="review">
-                        <div class="review__content">
-                            <div class="review__image">
-                                <img src="/images/reviews/3.jpg" alt="" loading="lazy">
-                            </div>
-                        </div>
-                    </swiper-slide>
-                    <swiper-slide class="review">
-                        <div class="review__content">
-                            <div class="review__image">
-                                <img src="/images/reviews/4.jpg" alt="" loading="lazy">
-                            </div>
-                        </div>
-                    </swiper-slide>
-                    <swiper-slide class="review">
-                        <div class="review__content">
-                            <div class="review__image">
-                                <img src="/images/reviews/5.jpg" alt="" loading="lazy">
-                            </div>
-                        </div>
-                    </swiper-slide>
-                </swiper-container>
+                        </swiper-slide>
+                    </swiper-container>
+                </ClientOnly>
                 <nav class="reviews__navigation slider-navigation">
                     <UiSliderButtonPrev class="reviews__button reviews__button--prev" />
                     <UiSliderButtonNext class="reviews__button reviews__button--next" />
@@ -145,7 +141,7 @@ useSwiper(containerRef, {
         aspect-ratio: 370 / 500;
 
         img {
-            max-width: 100%;
+            max-height: 100%;
         }
     }
 }
