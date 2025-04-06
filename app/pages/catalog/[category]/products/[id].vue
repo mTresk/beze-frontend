@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IColor, IProduct, IProductVariant, IProductWithFeatured, ISize } from '@/types/api'
+import type { IColor, IInfoPageContent, IProduct, IProductVariant, IProductWithFeatured, ISize } from '@/types/api'
 import { getUniqueColors } from '@/helpers'
 import { useQuery } from '@tanstack/vue-query'
 
@@ -13,16 +13,22 @@ const { addToViewed, viewedProductsIds } = useViewed()
 
 const viewedProducts = ref<IProduct[]>([])
 
+const isModalOpen = ref(false)
+
 const productSlug = computed(() => route.params.id)
 
 const categorySlug = computed(() => route.params.category)
 
 async function fetcher() {
-    return await useFetcher<IProductWithFeatured>(`/api/products/${categorySlug.value}/${productSlug.value}`)
+    const [productData, sizesData] = await Promise.all([
+        useFetcher<IProductWithFeatured>(`/api/products/${categorySlug.value}/${productSlug.value}`),
+        useFetcher<IInfoPageContent>(`/api/pages/sizes`),
+    ])
+    return { product: productData, sizes: sizesData }
 }
 
 const {
-    data: product,
+    data,
     suspense,
     isLoading,
 } = useQuery({
@@ -31,6 +37,10 @@ const {
 })
 
 await suspense()
+
+const product = computed(() => data.value?.product)
+
+const sizes = computed(() => data.value?.sizes)
 
 async function getViewedProducts() {
     const filteredIds = viewedProductsIds.value.filter(id => id !== String(product.value?.data.id))
@@ -217,7 +227,9 @@ onMounted(() => {
                                 @clear-error="clearError"
                                 @update:model-value="value => size = value"
                             />
-                            <UiLink>Размерная сетка</UiLink>
+                            <UiLink @click="isModalOpen = true">
+                                Размерная сетка
+                            </UiLink>
                         </div>
                         <div class="product__actions">
                             <UiButton :active="cartStatus" wide class="product__action" @click="handleCartClick">
@@ -244,6 +256,12 @@ onMounted(() => {
             </template>
         </Featured>
         <UiCursor />
+        <LayoutDialog v-model="isModalOpen">
+            <div class="content">
+                <h2>{{ sizes?.data.name }}</h2>
+                <div v-html="sizes?.data.content" />
+            </div>
+        </LayoutDialog>
     </div>
 </template>
 

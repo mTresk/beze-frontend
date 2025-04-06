@@ -88,7 +88,7 @@ onUnmounted(() => {
             <div class="modal__wrapper" @click="handleBackdropClick">
                 <div class="modal__content" @click.stop>
                     <button class="modal__close" @click="handleClose">
-                        <UiIcon size="24" name="close" />
+                        <UiIcon size="32" name="close" />
                     </button>
                     <slot />
                 </div>
