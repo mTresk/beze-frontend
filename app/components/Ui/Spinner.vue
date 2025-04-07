@@ -21,7 +21,7 @@ defineProps<{
     text-indent: -9999em;
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    animation: load 1.3s infinite linear 0.5s;
+    animation: load 1.3s infinite linear 0.1s;
 
     &--light {
         color: $whiteColor;

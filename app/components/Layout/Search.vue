@@ -2,6 +2,7 @@
 import type { IProduct, ISearchResult } from '@/types/api'
 import type Lenis from 'lenis'
 import { watchDebounced } from '@vueuse/core'
+import { computed } from 'vue'
 
 const { closeSearch } = useSearch()
 
@@ -16,6 +17,8 @@ const searchResult = ref<ISearchResult>()
 const isLoading = ref(false)
 
 const searchHistory = ref<string[]>([])
+
+const productsPerRow = ref(6)
 
 function updateSearchHistory(query: string) {
     if (!query)
@@ -35,19 +38,20 @@ function updateSearchHistory(query: string) {
     localStorage.setItem('searchHistory', JSON.stringify(searchHistory.value))
 }
 
-onMounted(() => {
-    const savedHistory = localStorage.getItem('searchHistory')
-    if (savedHistory) {
-        searchHistory.value = JSON.parse(savedHistory)
-    }
-})
-
 const {
     data: featured,
     suspense,
 } = useQuery({
     queryKey: ['featured'],
     queryFn: fetcher,
+})
+
+const displayedProducts = computed(() => {
+    if ((searchQuery.value && !searchResult.value?.products?.length) || (searchQuery.value && isLoading.value)) {
+        return []
+    }
+
+    return (searchResult.value?.products?.length ? searchResult.value.products : featured?.value)?.slice(0, productsPerRow.value)
 })
 
 await suspense()
@@ -58,10 +62,6 @@ async function handleSearch() {
         params: { search: searchQuery.value },
     })
     isLoading.value = false
-
-    if (searchResult.value?.products?.length) {
-        updateSearchHistory(searchQuery.value)
-    }
 }
 
 function handleClose() {
@@ -69,6 +69,35 @@ function handleClose() {
 
     if (lenis.value) {
         lenis.value.start()
+    }
+
+    document.documentElement.classList.remove('lock')
+}
+
+function handleSubmit() {
+    if (searchQuery.value) {
+        updateSearchHistory(searchQuery.value)
+    }
+    navigateTo(`/catalog/search?search=${encodeURIComponent(searchQuery.value)}`)
+    handleClose()
+}
+
+function updateProductsPerRow() {
+    const width = window.innerWidth
+    if (width < 1100) {
+        productsPerRow.value = 2
+    }
+    else if (width < 1440) {
+        productsPerRow.value = 3
+    }
+    else if (width < 1600) {
+        productsPerRow.value = 4
+    }
+    else if (width < 1800) {
+        productsPerRow.value = 5
+    }
+    else {
+        productsPerRow.value = 6
     }
 }
 
@@ -84,6 +113,20 @@ watchDebounced(
     },
     { debounce: 200, maxWait: 1000 },
 )
+
+onMounted(() => {
+    const savedHistory = localStorage.getItem('searchHistory')
+    if (savedHistory) {
+        searchHistory.value = JSON.parse(savedHistory)
+    }
+
+    updateProductsPerRow()
+    window.addEventListener('resize', updateProductsPerRow)
+})
+
+onUnmounted(() => {
+    window.removeEventListener('resize', updateProductsPerRow)
+})
 </script>
 
 <template>
@@ -92,7 +135,7 @@ watchDebounced(
             <div class="search__inner">
                 <div class="search__header">
                     <h2 class="search__title">
-                        {{ searchResult?.products?.length ? 'Вот, что мы нашли' : 'Вам может понравиться' }}
+                        {{ searchQuery && !searchResult?.products?.length ? '' : (searchResult?.products?.length ? 'Вот, что мы нашли' : 'Вам может понравиться') }}
                     </h2>
                     <button
                         type="button"
@@ -105,11 +148,13 @@ watchDebounced(
                 <div class="search__body">
                     <div class="search__results">
                         <UiSpinner v-if="isLoading" />
-                        <div v-else-if="searchResult?.products?.length" class="search__result">
-                            <ProductItem v-for="product in searchResult.products.slice(0, 6)" :key="product.id" small :product="product" />
-                        </div>
                         <div v-else class="search__result">
-                            <ProductItem v-for="product in featured?.slice(0, 6)" :key="product.id" small :product="product" />
+                            <ProductItem
+                                v-for="product in displayedProducts"
+                                :key="product.id"
+                                small
+                                :product="product"
+                            />
                         </div>
                         <UiButton
                             v-if="searchResult?.products?.length && !isLoading"
@@ -120,10 +165,32 @@ watchDebounced(
                             Показать все
                         </UiButton>
                     </div>
-                    <div class="search__form">
+                    <div v-if="searchQuery && !isLoading && searchResult && !searchResult.products?.length" class="search__empty">
+                        <LayoutEmpty>
+                            <template #icon>
+                                <UiIcon name="sad" size="48" />
+                            </template>
+                            <template #title>
+                                Ничего не нашлось
+                            </template>
+                            <template #text>
+                                Проверьте, правильно ли введен запрос
+                            </template>
+                        </LayoutEmpty>
+                    </div>
+
+                    <form class="search__form" @submit.prevent="handleSubmit">
                         <label class="search__field">
                             <UiIcon name="search" size="20" />
                             <input v-model="searchQuery" type="text" autocomplete="off" class="search__input" placeholder="Поиск">
+                            <UiButtonSpinner v-if="isLoading" size="20" />
+                            <button v-else-if="searchQuery" class="search__reset">
+                                <UiIcon
+                                    name="close"
+                                    size="20"
+                                    @click="searchQuery = ''"
+                                />
+                            </button>
                         </label>
                         <div v-if="searchResult?.taps?.length" class="search__taps">
                             <div
@@ -151,7 +218,7 @@ watchDebounced(
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -178,8 +245,10 @@ watchDebounced(
     &__content {
         position: relative;
         z-index: 10;
+        max-height: 100vh;
         padding-top: rem(20);
         padding-bottom: rem(30);
+        overflow-y: auto;
         background-color: $whiteColor;
     }
 
@@ -227,6 +296,31 @@ watchDebounced(
         display: grid;
         grid-template-columns: repeat(6, 1fr);
         gap: rem(20);
+
+        @media (max-width: em(1799)) {
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        @media (max-width: em(1599)) {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        @media (max-width: em(1439)) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @media (max-width: em(1099)) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    // .search__empty
+    &__empty {
+        display: flex;
+        align-items: center;
+        align-self: center;
+        justify-content: center;
+        width: 100%;
     }
 
     // .search__button
@@ -277,6 +371,18 @@ watchDebounced(
             &::placeholder {
                 opacity: 0;
             }
+        }
+    }
+
+    // .search__reset
+    &__reset {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.3s ease-in-out;
+
+        &:hover {
+            color: $accentColor;
         }
     }
 

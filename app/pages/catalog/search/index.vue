@@ -43,13 +43,13 @@ await suspense()
                     </div>
                     <LayoutEmpty v-else>
                         <template #icon>
-                            <UiIcon name="search" size="48" />
+                            <UiIcon name="sad" size="48" />
                         </template>
                         <template #title>
-                            По вашему запросу ничего не найдено
+                            Ничего не нашлось
                         </template>
                         <template #text>
-                            Попробуйте изменить запрос или воспользоваться поиском по каталогу
+                            Проверьте, правильно ли введен запрос
                         </template>
                         <template #button>
                             <UiButton outline href="/catalog">

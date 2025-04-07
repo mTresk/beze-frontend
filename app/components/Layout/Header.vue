@@ -33,8 +33,10 @@ function handleSearchClick() {
     openSearch()
 
     if (lenis.value) {
-        lenis.value.stop()
+        lenis.value.destroy()
     }
+
+    document.documentElement.classList.add('lock')
 }
 </script>
 
