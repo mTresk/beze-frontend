@@ -130,7 +130,7 @@ function handleSearchClick() {
                     <NuxtLink
                         to="/favorites"
                         class="header__action"
-                        title="Избранное"
+                        title="Вишлист"
                     >
                         <UiIcon name="favorite" size="30" />
                         <Transition>

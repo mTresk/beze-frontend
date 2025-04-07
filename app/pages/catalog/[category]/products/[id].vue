@@ -231,11 +231,24 @@ onMounted(() => {
                             </UiLink>
                         </div>
                         <div class="product__actions">
-                            <UiButton :active="cartStatus" wide class="product__action" @click="handleCartClick">
+                            <UiButton
+                                :title="cartStatus ? 'Убрать из корзины' : 'В корзину'"
+                                :active="cartStatus"
+                                wide
+                                class="product__action"
+                                @click="handleCartClick"
+                            >
                                 <span>{{ cartStatus ? 'Убрать из корзины' : 'В корзину' }}</span>
                                 <UiIcon name="cart" size="16" />
                             </UiButton>
-                            <UiButton :active="favoriteStatus" wide square aria-label="В избранное" class="product__action" @click="handleFavoriteClick">
+                            <UiButton
+                                :title="favoriteStatus ? 'Убрать из вишлиста' : 'В вишлист'"
+                                :active="favoriteStatus"
+                                wide
+                                square
+                                aria-label="В вишлист" class="product__action"
+                                @click="handleFavoriteClick"
+                            >
                                 <UiIcon name="favorite" size="16" />
                             </UiButton>
                         </div>

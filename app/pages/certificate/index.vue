@@ -171,7 +171,7 @@ watch(
     </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .certificate {
     padding-top: rem(130);
 
