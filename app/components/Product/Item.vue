@@ -153,6 +153,11 @@ function handleFavoriteClick() {
         justify-content: space-between;
         width: 100%;
         padding-inline: rem(20);
+
+        [small] & {
+            top: rem(10);
+            padding-inline: rem(10);
+        }
     }
 
     // .product-card__chips
@@ -185,6 +190,13 @@ function handleFavoriteClick() {
         &--selected {
             color: $redColor;
         }
+
+        [small] & {
+            svg {
+                width: rem(20);
+                height: rem(20);
+            }
+        }
     }
 
     // .product-card__info
@@ -195,8 +207,15 @@ function handleFavoriteClick() {
 
     // .product-card__title
     &__title {
+        overflow: hidden;
+        text-overflow: ellipsis;
         font-size: 18px;
         line-height: 140%;
+        white-space: nowrap;
+
+        [small] & {
+            font-size: 16px;
+        }
     }
 
     // .product-card__line
@@ -211,6 +230,10 @@ function handleFavoriteClick() {
         font-size: 18px;
         font-weight: 500;
         line-height: 125%;
+
+        [small] & {
+            font-size: 16px;
+        }
     }
 
     // .product-card__colors

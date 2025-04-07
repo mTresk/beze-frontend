@@ -343,7 +343,7 @@ onMounted(() => {
         gap: rem(20);
         padding-bottom: rem(35);
         margin-bottom: rem(35);
-        border-bottom: 1px solid rgb(54 54 54 / 10%);
+        border-bottom: 1px solid $extraColor;
     }
 
     // .product__actions

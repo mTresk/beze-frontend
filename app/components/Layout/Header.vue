@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { IMenu } from '@/types/api'
+import type Lenis from 'lenis'
 
 const route = useRoute()
 
@@ -17,11 +18,23 @@ const menu = useState<IMenu>('menu')
 
 const isMenuBlocked = ref(false)
 
+const { openSearch } = useSearch()
+
+const lenis = useState<Lenis | null>('lenisVS')
+
 function handleLinkClick() {
     isMenuBlocked.value = true
     setTimeout(() => {
         isMenuBlocked.value = false
     }, 100)
+}
+
+function handleSearchClick() {
+    openSearch()
+
+    if (lenis.value) {
+        lenis.value.stop()
+    }
 }
 </script>
 
@@ -105,7 +118,13 @@ function handleLinkClick() {
                     </nav>
                 </div>
                 <div class="header__actions">
-                    <button title="Поиск" aria-label="Поиск" type="button" class="header__action">
+                    <button
+                        title="Поиск"
+                        aria-label="Поиск"
+                        type="button"
+                        class="header__action"
+                        @click="handleSearchClick"
+                    >
                         <UiIcon name="search" size="30" />
                     </button>
                     <NuxtLink
@@ -377,5 +396,15 @@ function handleLinkClick() {
     60% {
         transform: scale(1);
     }
+}
+
+.search-enter-active,
+.search-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.search-enter-from,
+.search-leave-to {
+    opacity: 0;
 }
 </style>

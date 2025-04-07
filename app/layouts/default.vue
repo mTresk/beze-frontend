@@ -3,6 +3,8 @@ import type { IMenu, ISettings } from '@/types/api'
 
 const { direction } = useScrollDirection()
 
+const { isSearchOpen } = useSearch()
+
 const scrollClass = computed(() => {
     if (direction.value === 'down')
         return 'scroll-down'
@@ -43,6 +45,7 @@ const {
 await suspense()
 
 useState('menu', () => data.value?.menu)
+
 useState('settings', () => data.value?.settings)
 </script>
 
@@ -65,6 +68,9 @@ useState('settings', () => data.value?.settings)
     <NuxtLoadingIndicator color="#b79d83" />
     <div class="wrapper" :class="scrollClass">
         <LayoutHeader />
+        <Transition name="search">
+            <LayoutSearch v-if="isSearchOpen" />
+        </Transition>
         <main class="page">
             <LayoutSmoothScroll>
                 <slot />

@@ -123,6 +123,7 @@ export interface ICategory {
         normal: string
         retina: string
     }
+    products?: IProduct[]
 }
 
 export interface ISubCategory {
@@ -223,4 +224,14 @@ export interface ICertificate {
     id: number
     name: string
     amount: number
+}
+
+export interface ISearchResult {
+    products: IProduct[]
+    categories: ICategory[]
+    subcategories: ISubCategory[]
+    taps: {
+        title: string
+        relatedSearch: string
+    }[]
 }
