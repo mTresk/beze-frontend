@@ -43,7 +43,7 @@ onBeforeUnmount(() => {
                             </li>
                         </ul>
                     </div>
-                    <UiButton href="#" outline>
+                    <UiButton href="/certificate" outline>
                         Заказать
                     </UiButton>
                 </div>

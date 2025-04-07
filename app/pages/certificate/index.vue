@@ -1,104 +1,62 @@
 <script setup lang="ts">
-import type { ICartProduct, IOrder, IProductVariant } from '@/types/api'
+import type { ICertificate, ICertificateOrder } from '@/types/api'
 
-const { cartItems, clearCartItems } = useCart()
-
-const products = ref<IProductVariant[]>()
+const certificates = ref<ICertificate[]>()
 
 const isLoading = ref(false)
 
-const isDataLoaded = ref(false)
+const certificateTotal = ref(0)
 
-const cartTotal = ref()
+const form = ref<ICertificateOrder>()
 
-const variantIds = computed(() => {
-    return cartItems.value.map(item => item.variantId)
+const quantity = ref(1)
+
+const amount = ref<number>()
+
+const selectedOption = ref<any>(null)
+
+const certificateOptions = computed(() => {
+    return certificates.value?.map(cert => ({
+        id: cert.id,
+        name: cert.name,
+        value: cert.amount,
+    })) || []
 })
 
-const form = ref<IOrder>()
+async function fetchCertificates() {
+    try {
+        isLoading.value = true
+        certificates.value = await useFetcher<ICertificate[]>(`/api/certificates`)
 
-async function fetchProducts() {
-    if (!variantIds.value.length) {
-        products.value = []
-        return
-    }
-
-    products.value = await useFetcher<IProductVariant[]>(`/api/products/variants?ids=${variantIds.value.join(',')}`)
-}
-
-async function fetchAllData() {
-    isLoading.value = true
-    await fetchProducts()
-    isLoading.value = false
-    checkDataLoaded()
-}
-
-function checkDataLoaded() {
-    if (products.value) {
-        isDataLoaded.value = true
-        calculateTotal()
-    }
-}
-
-const productCartItems = computed(() => {
-    if (!products.value) {
-        return []
-    }
-
-    return cartItems.value.map((item) => {
-        const variant = products.value?.find(
-            variant => String(variant.id) === item.variantId,
-        )
-
-        if (!variant) {
-            return null
+        if (certificates.value && certificates.value.length > 0) {
+            amount.value = certificates.value[0]!.amount
+            selectedOption.value = certificateOptions.value[0]
+            calculateTotal()
         }
+    }
+    finally {
+        isLoading.value = false
+    }
+}
 
-        return {
-            id: variant.id,
-            name: variant.product.name,
-            slug: variant.product.slug,
-            description: variant.product.description || '',
-            sku: variant.sku,
-            price: variant.price,
-            image: variant.image,
-            color: variant.color,
-            size: variant.size,
-            quantity: Number(item.qty),
-            category: variant.category,
-        } as ICartProduct
-    }).filter(Boolean)
-})
+fetchCertificates()
 
 async function calculateTotal() {
-    if (!isDataLoaded.value)
-        return
-
-    let total = 0
-
-    productCartItems.value.forEach((item) => {
-        if (item) {
-            const price = Number.parseFloat(item.price.replace(/\s+/g, ''))
-            const quantity = Number(item.quantity)
-            total += price * quantity
-        }
-    })
-
-    cartTotal.value = total
+    if (amount.value) {
+        certificateTotal.value = amount.value * quantity.value
+    }
+    else {
+        certificateTotal.value = 0
+    }
 }
 
 async function submitOrder() {
-    const products = productCartItems.value.map((item) => {
-        return {
-            id: item?.id,
-            quantity: item?.quantity,
-        }
-    })
+    const certificate = certificates.value?.find(cert => cert.id === selectedOption.value.id)
 
     const payload = {
-        products,
+        certificate: certificate!,
+        quantity: quantity.value,
         ...form.value,
-        communication: form.value?.communication?.name,
     }
 
     await useFetcher('/api/order', {
@@ -117,49 +75,50 @@ const {
     },
     {
         onSuccess: () => {
-            clearCartItems()
             navigateTo('/order', { replace: true })
         },
     },
 )
 
 watch(
-    () => productCartItems.value.map(item => item?.quantity),
+    [amount, quantity],
     () => {
-        if (isDataLoaded.value) {
-            calculateTotal()
-        }
+        calculateTotal()
     },
+    { immediate: true },
 )
-
-onMounted(() => {
-    fetchAllData()
-})
 </script>
 
 <template>
     <div>
-        <section class="cart spacer">
-            <div class="cart__container">
+        <section class="certificate spacer">
+            <div class="certificate__container">
                 <LayoutBreadcrumb
                     :items="[
                         { title: 'Корзина' },
                     ]"
                 />
-                <UiPageTitle>Корзина</UiPageTitle>
+                <UiPageTitle>Купить подарочный сертификат</UiPageTitle>
                 <UiSpinner v-if="isLoading" />
-                <div v-if="productCartItems.length" class="cart__body">
-                    <div class="cart__wrapper">
-                        <div class="cart__table">
-                            <CartItem v-for="product in productCartItems" :key="product?.id" :product="product as ICartProduct" />
+                <div v-if="certificates?.length" class="certificate__body">
+                    <div class="certificate__wrapper">
+                        <div class="certificate__item">
+                            <VFormSelect
+                                v-model="selectedOption"
+                                placeholder="Выберите номинал"
+                                :options="certificateOptions"
+                                @update:model-value="value => amount = value.value"
+                                @clear-error="clearError"
+                            />
+                            <VFormQuantity v-model="quantity" :min="1" :max="10" />
                         </div>
-                        <div class="cart__form">
+                        <div class="certificate__form">
                             <UiSpinner v-if="isFormSending" />
                             <CartForm v-model="form" :errors="errors" />
                         </div>
                     </div>
-                    <div class="cart__checkout">
-                        <div class="cart__links">
+                    <div class="certificate__checkout">
+                        <div class="certificate__links">
                             <NuxtLink to="/info/delivery">
                                 <UiLink>
                                     Условия оплаты и доставки
@@ -171,33 +130,33 @@ onMounted(() => {
                                 </UiLink>
                             </NuxtLink>
                         </div>
-                        <div class="cart__caution">
+                        <div class="certificate__caution">
                             <span>!</span>
                             После оплаты менеджер свяжется с вами для уточнения деталей заказа
                         </div>
-                        <div class="cart__total">
-                            <div class="cart__line">
-                                <div class="cart__key">
+                        <div class="certificate__total">
+                            <div class="certificate__line">
+                                <div class="certificate__key">
                                     Доставка
                                 </div>
-                                <div class="cart__value">
+                                <div class="certificate__value">
                                     0 ₽
                                 </div>
                             </div>
-                            <div class="cart__line">
-                                <div class="cart__key">
+                            <div class="certificate__line">
+                                <div class="certificate__key">
                                     Итого
                                 </div>
-                                <div class="cart__value cart__value--lg">
-                                    {{ cartTotal }} ₽
+                                <div class="certificate__value certificate__value--lg">
+                                    {{ certificateTotal }} ₽
                                 </div>
                             </div>
                         </div>
-                        <div class="cart__footer">
-                            <UiButton :disabled="isFormSending" class="cart__button" @click="handleSubmit">
+                        <div class="certificate__footer">
+                            <UiButton :disabled="isFormSending" class="certificate__button" @click="handleSubmit">
                                 Сделать заказ
                             </UiButton>
-                            <p class="cart__policy">
+                            <p class="certificate__policy">
                                 Нажимая на кнопку «сделать заказ», я принимаю условия <NuxtLink to="/info/offer">
                                     публичной оферты
                                 </NuxtLink> и <NuxtLink to="/info/privacy">
@@ -207,32 +166,16 @@ onMounted(() => {
                         </div>
                     </div>
                 </div>
-                <LayoutEmpty v-else>
-                    <template #icon>
-                        <UiIcon name="cart" size="48" />
-                    </template>
-                    <template #title>
-                        Ваша корзина пока пуста
-                    </template>
-                    <template #text>
-                        Добавьте товары в корзину, чтобы просматривать их здесь
-                    </template>
-                    <template #button>
-                        <UiButton outline href="/catalog">
-                            Перейти в каталог
-                        </UiButton>
-                    </template>
-                </LayoutEmpty>
             </div>
         </section>
     </div>
 </template>
 
 <style lang="scss">
-.cart {
+.certificate {
     padding-top: rem(130);
 
-    // .cart__body
+    // .certificate__body
     &__body {
         position: relative;
         display: flex;
@@ -241,27 +184,29 @@ onMounted(() => {
         justify-content: space-between;
     }
 
-    // .cart__wrapper
+    // .certificate__wrapper
     &__wrapper {
         flex: 0 1 rem(1000);
     }
 
-    // .cart__table
-    &__table {
-        display: grid;
-        gap: rem(40);
+    // .certificate__item
+    &__item {
+        display: flex;
+        gap: rem(20);
+        align-items: center;
+        justify-content: space-between;
         padding-bottom: rem(40);
         margin-bottom: rem(40);
         border-bottom: 1px solid rgb(54 54 54 / 10%);
     }
 
-    // .cart__form
+    // .certificate__form
     &__form {
         position: relative;
         max-width: rem(330);
     }
 
-    // .cart__checkout
+    // .certificate__checkout
     &__checkout {
         position: sticky;
         top: rem(100);
@@ -270,13 +215,13 @@ onMounted(() => {
         gap: rem(20);
     }
 
-    // .cart__links
+    // .certificate__links
     &__links {
         display: grid;
         gap: rem(16);
     }
 
-    // .cart__link
+    // .certificate__link
     &__link {
         font-size: 16px;
         line-height: 130%;
@@ -285,7 +230,7 @@ onMounted(() => {
         text-decoration-style: dotted;
     }
 
-    // .cart__caution
+    // .certificate__caution
     &__caution {
         display: flex;
         gap: rem(8);
@@ -311,13 +256,13 @@ onMounted(() => {
         }
     }
 
-    // .cart__total
+    // .certificate__total
     &__total {
         display: grid;
         gap: rem(10);
     }
 
-    // .cart__line
+    // .certificate__line
     &__line {
         display: flex;
         gap: rem(20);
@@ -325,38 +270,38 @@ onMounted(() => {
         justify-content: space-between;
     }
 
-    // .cart__key
+    // .certificate__key
     &__key {
         font-size: 16px;
         line-height: 140%;
         text-transform: uppercase;
     }
 
-    // .cart__value
+    // .certificate__value
     &__value {
         font-size: 16px;
         line-height: 140%;
         text-align: right;
 
-        // .cart__value--lg
+        // .certificate__value--lg
         &--lg {
             font-size: 28px;
             font-weight: 500;
         }
     }
 
-    // .cart__footer
+    // .certificate__footer
     &__footer {
         display: grid;
         gap: rem(10);
     }
 
-    // .cart__button
+    // .certificate__button
     &__button {
         width: 100%;
     }
 
-    // .cart__policy
+    // .certificate__policy
     &__policy {
         font-size: 14px;
         line-height: 140%;

@@ -102,6 +102,7 @@ function closeOptions() {
     &__options {
         position: absolute;
         top: calc(100% + 4px);
+        z-index: 10;
         display: grid;
         width: 100%;
         overflow: hidden;

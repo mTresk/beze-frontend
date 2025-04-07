@@ -47,6 +47,12 @@ export interface ICartProduct {
     category: ICategory
 }
 
+export interface ICertificate {
+    id: number
+    name: string
+    amount: number
+}
+
 export interface IImage {
     normal: string
     retina: string
@@ -84,6 +90,19 @@ export interface IOrder {
         name: string
     }
 
+}
+
+export interface ICertificateOrder {
+    certificate: ICertificate
+    quantity: number
+    name: string
+    email: string
+    phone: string
+    address: string
+    communication: {
+        id: number
+        name: string
+    }
 }
 
 export interface IFeedback {
@@ -198,4 +217,10 @@ export interface IGallery {
 
 export interface IReview {
     images: Partial<IImage>[]
+}
+
+export interface ICertificate {
+    id: number
+    name: string
+    amount: number
 }
