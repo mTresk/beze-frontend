@@ -12,6 +12,21 @@ const favoriteStatus = isFavorite(String(props.product.id))
 
 const colors = computed(() => getUniqueColors(props.product.variants))
 
+const containerRef = ref(null)
+const activeSlide = ref(0)
+
+const paginationItemWidth = computed(() => {
+    return `${100 / (props.product.images?.length || 1)}%`
+})
+
+function handleSlideChange(index: number) {
+    if (!containerRef.value)
+        return
+
+    // @ts-expect-error - swiper методы доступны, но TS их не видит
+    containerRef.value.swiper.slideTo(index)
+}
+
 function handleFavoriteClick() {
     if (!props.product)
         return
@@ -20,27 +35,49 @@ function handleFavoriteClick() {
         String(props.product.id),
     )
 }
+
+useSwiper(containerRef, {
+    speed: 300,
+    slidesPerView: 1,
+    on: {
+        slideChange: (swiper: any) => {
+            activeSlide.value = swiper.activeIndex
+        },
+    },
+})
 </script>
 
 <template>
     <article class="product-card">
-        <NuxtLink :to="`/catalog/${product.category.slug}/products/${product.slug}`" class="product-card__image">
-            <img
-                loading="lazy"
-                :src="product.images[0]?.normal"
-                :srcset="`${product.images[0]?.normal} 1x, ${product.images[0]?.retina} 2x`"
-                :alt="product.name"
-                width="420"
-                height="630"
-            >
-            <img
-                loading="lazy"
-                :src="product.images[1]?.normal"
-                :srcset="`${product.images[1]?.normal} 1x, ${product.images[1]?.retina} 2x`"
-                :alt="product.name"
-                width="420"
-                height="630"
-            >
+        <NuxtLink :to="`/catalog/${product.category.slug}/products/${product.slug}`" class="product-card__picture">
+            <ClientOnly>
+                <swiper-container
+                    ref="containerRef"
+                    :init="false"
+                    class="product-card__slider"
+                >
+                    <swiper-slide v-for="(image, index) in product.images" :key="index" class="product-card__slide">
+                        <img
+                            loading="lazy"
+                            :src="image.normal"
+                            :srcset="`${image.normal} 1x, ${image.retina} 2x`"
+                            :alt="product.name"
+                            width="420"
+                            height="630"
+                        >
+                    </swiper-slide>
+                </swiper-container>
+                <div class="product-card__pagination">
+                    <div
+                        v-for="(image, index) in product.images"
+                        :key="index"
+                        class="product-card__pagination-item"
+                        :class="{ 'product-card__pagination-item--active': index === activeSlide }"
+                        :style="{ width: paginationItemWidth }"
+                        @mouseenter="handleSlideChange(index)"
+                    />
+                </div>
+            </ClientOnly>
         </NuxtLink>
         <div class="product-card__header">
             <div class="product-card__chips">
@@ -77,9 +114,6 @@ function handleFavoriteClick() {
                     />
                 </div>
             </div>
-            <div class="product-card__collection">
-                {{ product.category.subcategories[0]?.name }}
-            </div>
         </div>
     </article>
 </template>
@@ -111,33 +145,71 @@ function handleFavoriteClick() {
         border-radius: rem(4);
     }
 
-    // .product-card__image
-    &__image {
+    &__slider {
+        height: 100%;
+    }
+
+    &__picture {
+        position: relative;
+        display: block;
+        overflow: hidden;
+        border-radius: rem(4);
+    }
+
+    &__slide {
         position: relative;
         display: block;
         aspect-ratio: 410 / 615;
-        overflow: hidden;
-        border-radius: rem(4);
 
         img {
-            transition: opacity 0.3s ease-in-out;
-
             @include image;
-
-            &:last-child {
-                opacity: 0;
-            }
         }
+    }
+
+    // .product-card__pagination
+    &__pagination {
+        position: absolute;
+        inset: 0;
+        z-index: 10;
+        display: flex;
+        gap: rem(4);
+        align-items: flex-end;
+        justify-content: center;
+        padding: 0 rem(5) rem(5);
+        pointer-events: none;
 
         @media (any-hover: hover) {
-            &:hover {
-                img {
-                    &:first-child {
-                        opacity: 0;
-                    }
+            pointer-events: auto;
+        }
 
-                    &:last-child {
-                        opacity: 1;
+        &-item {
+            position: relative;
+            height: 100%;
+
+            @media (any-hover: hover) {
+                cursor: pointer;
+            }
+
+            &::before {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: rem(2);
+                content: '';
+                background-color: rgb(255 255 255 / 30%);
+                border-radius: rem(2);
+                transition: background-color 0.3s ease-in-out;
+            }
+
+            &--active::before {
+                background-color: $whiteColor;
+            }
+
+            @media (any-hover: hover) {
+                &:hover {
+                    &::before {
+                        background-color: $whiteColor;
                     }
                 }
             }
