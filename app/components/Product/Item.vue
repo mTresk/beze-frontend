@@ -77,6 +77,9 @@ function handleFavoriteClick() {
                     />
                 </div>
             </div>
+            <div class="product-card__collection">
+                {{ product.category.subcategories[0]?.name }}
+            </div>
         </div>
     </article>
 </template>

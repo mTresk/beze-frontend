@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { IProduct, ISearchResult } from '@/types/api'
 import type Lenis from 'lenis'
-import { watchDebounced } from '@vueuse/core'
 import { computed } from 'vue'
 
 const { closeSearch } = useSearch()
@@ -19,6 +18,22 @@ const isLoading = ref(false)
 const searchHistory = ref<string[]>([])
 
 const productsPerRow = ref(6)
+
+const currentProducts = ref<IProduct[]>([])
+
+const currentTitle = ref('Вам может понравиться')
+
+const displayedTitle = computed(() => {
+    if (isLoading.value) {
+        return currentTitle.value
+    }
+
+    if (searchQuery.value && !searchResult.value?.products?.length) {
+        return ''
+    }
+
+    return searchResult.value?.products?.length ? 'Вот, что мы нашли' : 'Вам может понравиться'
+})
 
 function updateSearchHistory(query: string) {
     if (!query)
@@ -47,11 +62,16 @@ const {
 })
 
 const displayedProducts = computed(() => {
-    if ((searchQuery.value && !searchResult.value?.products?.length) || (searchQuery.value && isLoading.value)) {
+    if (isLoading.value) {
+        return currentProducts.value
+    }
+
+    if ((searchQuery.value && !searchResult.value?.products?.length)) {
         return []
     }
 
-    return (searchResult.value?.products?.length ? searchResult.value.products : featured?.value)?.slice(0, productsPerRow.value)
+    const products = searchResult.value?.products || featured?.value
+    return products?.slice(0, productsPerRow.value)
 })
 
 await suspense()
@@ -101,20 +121,23 @@ function updateProductsPerRow() {
     }
 }
 
-watchDebounced(
+watch(
     () => searchQuery.value,
     (value) => {
         if (value?.length) {
+            currentProducts.value = displayedProducts.value || featured?.value?.slice(0, productsPerRow.value) || []
+            currentTitle.value = displayedTitle.value
             handleSearch()
         }
         else {
             searchResult.value = undefined
         }
     },
-    { debounce: 200, maxWait: 1000 },
 )
 
 onMounted(() => {
+    currentProducts.value = featured?.value?.slice(0, productsPerRow.value) || []
+
     const savedHistory = localStorage.getItem('searchHistory')
     if (savedHistory) {
         searchHistory.value = JSON.parse(savedHistory)
@@ -135,7 +158,7 @@ onUnmounted(() => {
             <div class="search__inner">
                 <div class="search__header">
                     <h2 class="search__title">
-                        {{ searchQuery && !searchResult?.products?.length ? '' : (searchResult?.products?.length ? 'Вот, что мы нашли' : 'Вам может понравиться') }}
+                        {{ displayedTitle }}
                     </h2>
                     <button
                         type="button"
@@ -146,9 +169,9 @@ onUnmounted(() => {
                     </button>
                 </div>
                 <div class="search__body">
-                    <div class="search__results">
+                    <div class="search__results" :class="{ 'search__results--loading': isLoading }">
                         <UiSpinner v-if="isLoading" />
-                        <div v-else class="search__result">
+                        <div class="search__result">
                             <ProductItem
                                 v-for="product in displayedProducts"
                                 :key="product.id"
@@ -157,7 +180,7 @@ onUnmounted(() => {
                             />
                         </div>
                         <UiButton
-                            v-if="searchResult?.products?.length && !isLoading"
+                            v-if="searchResult?.products?.length"
                             class="search__button"
                             :href="`/catalog/search?search=${encodeURIComponent(searchQuery)}`"
                             @click="handleClose"
@@ -286,9 +309,16 @@ onUnmounted(() => {
 
     // .search__results
     &__results {
+        position: relative;
         display: grid;
         flex: 1;
         gap: rem(30);
+        min-height: rem(390);
+
+        &--loading {
+            pointer-events: none;
+            opacity: 0.5;
+        }
     }
 
     // .search__result
