@@ -44,13 +44,16 @@
 
 <style lang="scss" scoped>
 .about-page {
-    padding-top: rem(130);
-
     // .about-page__body
     &__body {
         display: flex;
-        gap: rem(30);
         align-items: center;
+
+        @include adaptive-value('gap', 30, 20);
+
+        @media (max-width: $tablet) {
+            display: grid;
+        }
     }
 
     // .about-page__content
@@ -63,19 +66,22 @@
     // .about-page__title
     &__title {
         font-family: 'Quincy CF', sans-serif;
-        font-size: 100px;
         line-height: 120%;
         letter-spacing: 0.01em;
+
+        @include adaptive-value('font-size', 100, 50);
     }
 
     // .about-page__text
     &__text {
         display: grid;
-        gap: rem(20);
+
+        @include adaptive-value('gap', 20, 15);
 
         p {
-            font-size: 18px;
             line-height: 140%;
+
+            @include adaptive-value('font-size', 18, 14);
         }
     }
 
@@ -84,13 +90,14 @@
         display: grid;
         flex: 0 1 rem(900);
         grid-template-columns: repeat(3, 1fr);
-        gap: rem(20);
+
+        @include adaptive-value('gap', 20, 5);
     }
 
     // .about-page__image
     &__image {
         position: relative;
-        height: rem(285);
+        aspect-ratio: 285 / 285;
         overflow: hidden;
         border-radius: rem(4);
 
@@ -102,6 +109,11 @@
 
         &:nth-child(4) {
             grid-column: span 2;
+            aspect-ratio: 570 / 275;
+
+            @media (max-width: $tablet) {
+                aspect-ratio: 570 / 278;
+            }
         }
 
         @media (any-hover: hover) {

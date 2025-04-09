@@ -11,6 +11,23 @@ useSwiper(containerRef, {
         prevEl: '.collections__button--prev',
         nextEl: '.collections__button--next',
     },
+    breakpoints: {
+        320: {
+            slidesPerView: 1.1,
+        },
+        480: {
+            slidesPerView: 1.6,
+        },
+        768: {
+            slidesPerView: 2.2,
+        },
+        992: {
+            slidesPerView: 2.6,
+        },
+        1200: {
+            slidesPerView: 4,
+        },
+    },
 })
 </script>
 
@@ -104,7 +121,7 @@ useSwiper(containerRef, {
 .collections {
     // .collections__title
     &__title {
-        margin-bottom: rem(40);
+        @include adaptive-value('margin-bottom', 40, 18);
     }
 
     // .collections__body
@@ -117,6 +134,13 @@ useSwiper(containerRef, {
     &__slider {
         position: relative;
         overflow: visible;
+    }
+
+    // .collections__navigation
+    &__navigation {
+        @media (max-width: em(1199)) {
+            display: none;
+        }
     }
 
     // .collections__button
@@ -189,10 +213,11 @@ useSwiper(containerRef, {
         position: relative;
         z-index: 5;
         font-family: 'Quincy CF', sans-serif;
-        font-size: 24px;
         line-height: 120%;
         color: $whiteColor;
         letter-spacing: 0.01em;
+
+        @include adaptive-value('font-size', 24, 18);
     }
 }
 </style>

@@ -2,23 +2,29 @@
 const ctx = ref()
 
 onMounted(() => {
-    ctx.value = gsap.context(() => {
-        gsap.from('.advantages__item', {
-            duration: 2,
-            y: 140,
-            ease: 'cubic-bezier(0.25, 0.45, 0.45, 0.95)',
-            stagger: 1,
-            scrollTrigger: {
-                trigger: '.advantages',
-                scrub: true,
-                end: 'bottom 30%',
-            },
+    const mm = gsap.matchMedia()
+
+    mm.add('(min-width: 991px)', () => {
+        ctx.value = gsap.context(() => {
+            gsap.from('.advantages__item', {
+                duration: 2,
+                y: 140,
+                ease: 'cubic-bezier(0.25, 0.45, 0.45, 0.95)',
+                stagger: 1,
+                scrollTrigger: {
+                    trigger: '.advantages',
+                    scrub: true,
+                    end: 'bottom 30%',
+                },
+            })
         })
     })
 })
 
 onBeforeUnmount(() => {
-    ctx.value.revert()
+    if (ctx.value) {
+        ctx.value.revert()
+    }
 })
 </script>
 
@@ -66,26 +72,40 @@ onBeforeUnmount(() => {
 .advantages {
     position: relative;
     z-index: 10;
-    margin-bottom: rem(120);
     transform: translateY(-70px);
+
+    @include adaptive-value('margin-bottom', 120, 80);
+
+    @media (max-width: $tablet) {
+        margin-top: rem(60);
+        transform: none;
+    }
 
     // .advantages__body
     &__body {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: rem(54);
+
+        @include adaptive-value('gap', 54, 10);
+
+        @media (max-width: $tablet) {
+            grid-template-columns: 1fr;
+        }
     }
 
     // .advantages__item
     &__item {
         position: relative;
         display: flex;
-        gap: rem(30);
         align-items: center;
-        padding: rem(28) rem(16);
         background: rgb(255 255 255 / 40%);
         border: 1px solid rgb(222 206 190 / 25%);
         backdrop-filter: blur(6px);
+
+        @include adaptive-value('padding-block', 28, 18);
+        @include adaptive-value('padding-inline', 16, 10);
+        @include adaptive-value('gap', 30, 20);
 
         &::before {
             position: absolute;
@@ -100,6 +120,10 @@ onBeforeUnmount(() => {
             filter: blur(50px);
             transform: translateX(-50%);
         }
+
+        @media (max-width: $tablet) {
+            background-color: $lightColor;
+        }
     }
 
     // .advantages__icon
@@ -108,15 +132,23 @@ onBeforeUnmount(() => {
         flex-shrink: 0;
         align-items: center;
         justify-content: center;
-        width: rem(80);
-        height: rem(80);
         color: $accentColor;
+
+        @include adaptive-value('width', 80, 40);
+        @include adaptive-value('height', 80, 40);
     }
 
     // .advantages__text
     &__text {
-        font-size: 22px;
         line-height: 125%;
+
+        @include adaptive-value('font-size', 22, 18);
+
+        @media (max-width: $tablet) {
+            br {
+                display: none;
+            }
+        }
     }
 }
 </style>

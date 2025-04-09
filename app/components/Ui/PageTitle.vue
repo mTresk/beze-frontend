@@ -6,8 +6,9 @@
 
 <style lang="scss" scoped>
 .title {
-    margin-bottom: rem(30);
-    font-size: 28px;
     line-height: 140%;
+
+    @include adaptive-value('font-size', 28, 22);
+    @include adaptive-value('margin-bottom', 30, 20);
 }
 </style>

@@ -14,6 +14,16 @@ const viewedProducts = ref<IProduct[]>([])
 
 const isModalOpen = ref(false)
 
+const containerRef = ref(null)
+
+const colorId = ref()
+
+const colorName = ref()
+
+const size = ref()
+
+const selectError = ref(false)
+
 const productSlug = computed(() => route.params.id)
 
 const categorySlug = computed(() => route.params.category)
@@ -47,14 +57,6 @@ async function getViewedProducts() {
         return
     viewedProducts.value = await useFetcher<IProduct[]>(`/api/products/favorites?ids=${filteredIds}`)
 }
-
-const colorId = ref()
-
-const colorName = ref()
-
-const size = ref()
-
-const selectError = ref(false)
 
 const colors = computed(() => product.value ? getUniqueColors(product.value.data.variants) : [])
 
@@ -146,6 +148,15 @@ function clearError() {
     selectError.value = false
 }
 
+useSwiper(containerRef, {
+    speed: 1200,
+    slidesPerView: 1,
+    navigation: {
+        prevEl: '.product__button--prev',
+        nextEl: '.product__button--next',
+    },
+})
+
 onMounted(() => {
     if (colors.value?.length) {
         const firstColor = colors.value[0]
@@ -189,6 +200,23 @@ onMounted(() => {
                             </template>
                         </ClientOnly>
                     </div>
+                    <ClientOnly>
+                        <div class="product__mobile">
+                            <swiper-container ref="containerRef" :init="false" class="product__slider">
+                                <swiper-slide v-for="(image, index) in product?.data.images" :key="index" class="product__slide">
+                                    <img :src="image.retina" :alt="product?.data.name || ''" :srcset="`${image.normal} 1x, ${image.retina} 2x`">
+                                </swiper-slide>
+                            </swiper-container>
+                            <nav class="product__navigation">
+                                <button aria-label="Назад" type="button" class="product__button product__button--prev">
+                                    <UiIcon name="arrow-left" size="45" />
+                                </button>
+                                <button aria-label="Вперед" type="button" class="product__button product__button--next">
+                                    <UiIcon name="arrow-right" size="45" />
+                                </button>
+                            </nav>
+                        </div>
+                    </ClientOnly>
                     <div class="product__content">
                         <div class="product__info">
                             <p class="product__sku">
@@ -279,14 +307,29 @@ onMounted(() => {
 
 <style lang="scss">
 .product {
-    padding-top: rem(130);
+    .breadcrumb {
+        @media (max-width: $mobile) {
+            @include adaptive-value('padding-inline', 40, 20);
+        }
+    }
+
+    &__container {
+        @media (max-width: $mobile) {
+            padding: 0 !important;
+        }
+    }
 
     // .product__body
     &__body {
         display: flex;
-        gap: rem(40);
         align-items: flex-start;
         justify-content: space-between;
+
+        @include adaptive-value('gap', 40, 20);
+
+        @media (max-width: $mobile) {
+            display: block;
+        }
     }
 
     // .product__images
@@ -294,16 +337,79 @@ onMounted(() => {
         display: grid;
         flex: 0 1 rem(920);
         grid-template-columns: 1fr 1fr;
-        gap: rem(20);
+
+        @include adaptive-value('gap', 20, 10);
+
+        @media (max-width: $mobile) {
+            display: none;
+        }
+    }
+
+    // .product__mobile
+    &__mobile {
+        position: relative;
+        display: none;
+
+        @media (max-width: $mobile) {
+            display: block;
+        }
+    }
+
+    &__slider {
+        width: 100%;
+        min-width: 0;
+
+        @media (max-width: $mobile) {
+            margin-bottom: rem(20);
+        }
+    }
+
+    // .product__navigation
+    &__navigation {
+        position: absolute;
+        top: 50%;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        transform: translateY(-50%);
+    }
+
+    // .product__button
+    &__button {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: rem(40);
+        height: rem(40);
+        color: $whiteColor;
+
+        &.swiper-button-disabled {
+            pointer-events: none;
+            opacity: 0.4;
+        }
     }
 
     // .product__image
     &__image,
-    .vh--outer {
+    .vh--outer,
+    &__slide {
         position: relative;
         aspect-ratio: 450 / 675;
         overflow: hidden;
         border-radius: rem(4);
+
+        @media (max-width: $mobile) {
+            border-radius: 0;
+        }
+    }
+
+    &__slide {
+        img {
+            @include image;
+        }
     }
 
     &__zoom {
@@ -315,6 +421,10 @@ onMounted(() => {
         position: sticky;
         top: rem(100);
         flex: 0 1 rem(460);
+
+        @media (max-width: $mobile) {
+            @include adaptive-value('padding-inline', 40, 20);
+        }
     }
 
     // .product__info
@@ -326,22 +436,25 @@ onMounted(() => {
 
     // .product__sku
     &__sku {
-        font-size: 16px;
         line-height: 140%;
         color: rgb(54 54 54 / 50%);
+
+        @include adaptive-value('font-size', 16, 14);
     }
 
     // .product__title
     &__title {
-        font-size: 28px;
         line-height: 140%;
+
+        @include adaptive-value('font-size', 28, 20);
     }
 
     // .product__price
     &__price {
-        font-size: 28px;
         font-weight: 500;
         line-height: 125%;
+
+        @include adaptive-value('font-size', 28, 20);
     }
 
     // .product__colors
@@ -354,22 +467,25 @@ onMounted(() => {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: rem(20);
-        padding-bottom: rem(35);
-        margin-bottom: rem(35);
         border-bottom: 1px solid $extraColor;
+
+        @include adaptive-value('padding-bottom', 35, 20);
+        @include adaptive-value('margin-bottom', 35, 20);
     }
 
     // .product__actions
     &__actions {
         display: flex;
-        gap: rem(20);
+
+        @include adaptive-value('gap', 20, 10);
     }
 
     // .product__description
     &__description {
-        margin-top: rem(25);
-        font-size: 16px;
         line-height: 140%;
+
+        @include adaptive-value('font-size', 16, 14);
+        @include adaptive-value('margin-top', 25, 20);
     }
 }
 
@@ -387,21 +503,22 @@ onMounted(() => {
     // .product-colors__item
     &__item {
         position: relative;
-        width: 36px;
-        height: 36px;
         cursor: pointer;
         border-radius: 50%;
 
+        @include adaptive-value('width', 36, 30);
+        @include adaptive-value('height', 36, 30);
+
         &:has(input:checked) {
-            border: 3px solid $whiteColor;
+            border: rem(3) solid $whiteColor;
 
             &::before {
                 position: absolute;
                 top: 50%;
                 left: 50%;
                 z-index: -1;
-                width: calc(100% + 8px);
-                height: calc(100% + 8px);
+                width: calc(100% + rem(8));
+                height: calc(100% + rem(8));
                 content: '';
                 background-color: $accentColor;
                 border-radius: inherit;
@@ -417,9 +534,10 @@ onMounted(() => {
 
     // .product-colors__label
     &__label {
-        font-size: 14px;
         line-height: 140%;
         color: rgb(54 54 54 / 50%);
+
+        @include adaptive-value('font-size', 14, 12);
     }
 }
 

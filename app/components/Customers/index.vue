@@ -21,26 +21,32 @@ const isCareModalOpen = ref(false)
 const isSizesModalOpen = ref(false)
 
 onMounted(() => {
-    setTimeout(() => {
-        ctx.value = gsap.context(() => {
-            gsap.from('.customers-card', {
-                duration: 2,
-                y: 300,
-                ease: 'cubic-bezier(0.25, 0.45, 0.45, 0.95)',
-                stagger: 0.5,
-                scrollTrigger: {
-                    trigger: '.customers__body',
-                    scrub: true,
-                    start: '0% 100%',
-                    end: 'bottom 50%',
-                },
+    const mm = gsap.matchMedia()
+
+    mm.add('(min-width: 1100px)', () => {
+        setTimeout(() => {
+            ctx.value = gsap.context(() => {
+                gsap.from('.customers-card', {
+                    duration: 2,
+                    y: 300,
+                    ease: 'cubic-bezier(0.25, 0.45, 0.45, 0.95)',
+                    stagger: 0.5,
+                    scrollTrigger: {
+                        trigger: '.customers__body',
+                        scrub: true,
+                        start: '0% 100%',
+                        end: 'bottom 50%',
+                    },
+                })
             })
-        })
-    }, 100)
+        }, 100)
+    })
 })
 
 onBeforeUnmount(() => {
-    ctx.value.revert()
+    if (ctx.value) {
+        ctx.value.revert()
+    }
 })
 </script>
 
@@ -150,10 +156,17 @@ onBeforeUnmount(() => {
 
 <style lang="scss">
 .customers {
+    &__container {
+        @media (max-width: em(1100)) {
+            padding: 0 !important;
+        }
+    }
+
     // .customers__wrapper
     &__wrapper {
         position: relative;
-        padding-block: rem(100);
+
+        @include adaptive-value('padding-block', 100, 60);
     }
 
     // .customers__background
@@ -182,7 +195,12 @@ onBeforeUnmount(() => {
     &__title {
         position: relative;
         z-index: 5;
-        margin-bottom: rem(40);
+
+        @include adaptive-value('margin-bottom', 40, 18);
+
+        @media (max-width: em(1100)) {
+            @include adaptive-value('padding-inline', 40, 20);
+        }
     }
 
     // .customers__body
@@ -191,20 +209,41 @@ onBeforeUnmount(() => {
         z-index: 5;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: rem(120);
+        justify-content: space-between;
+
+        @include adaptive-value('gap', 120, 10, 0, 1920, 992);
+
+        @media (max-width: em(1100)) {
+            display: flex;
+            align-items: center;
+            overflow-x: auto;
+
+            @include adaptive-value('padding-inline', 40, 20);
+            @include hide-scroll;
+        }
     }
 }
 
 .customers-card {
     display: flex;
     flex-direction: column;
+    gap: rem(16);
     align-items: start;
     justify-content: space-between;
-    aspect-ratio: 1;
+    aspect-ratio: 100 / 100;
     padding: rem(50) rem(30) rem(40);
     background: rgb(255 255 255 / 35%);
     border: 1px solid rgb(255 255 255 / 50%);
     backdrop-filter: blur(9px);
+
+    @include adaptive-value('max-width', 400, 300);
+    @include adaptive-value('padding-top', 50, 30);
+    @include adaptive-value('padding-bottom', 40, 30);
+    @include adaptive-value('padding-inline', 30, 20);
+
+    @media (max-width: em(1100)) {
+        flex: 0 0 rem(300);
+    }
 
     // .customers-card__content
     &__content {
@@ -215,16 +254,17 @@ onBeforeUnmount(() => {
     // .customers-card__title
     &__title {
         font-family: 'Quincy CF', sans-serif;
-        font-size: 24px;
-        font-weight: 400;
         line-height: 120%;
         letter-spacing: 0.01em;
+
+        @include adaptive-value('font-size', 24, 20);
     }
 
     // .customers-card__text
     &__text {
-        font-size: 18px;
         line-height: 140%;
+
+        @include adaptive-value('font-size', 18, 14);
     }
 }
 </style>

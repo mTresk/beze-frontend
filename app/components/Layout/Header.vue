@@ -1,32 +1,48 @@
 <script setup lang="ts">
-import type { IMenu } from '@/types/api'
+import type { IMenu, ISettings } from '@/types/api'
 import type Lenis from 'lenis'
 
 const route = useRoute()
-
-const isInnerPage = computed(() => route.path !== '/')
 
 const { favorites } = useFavorites()
 
 const { cartItems } = useCart()
 
+const { openSearch } = useSearch()
+
+const lenis = useState<Lenis | null>('lenisVS')
+
+const menu = useState<IMenu>('menu')
+
+const settings = useState<ISettings>('settings')
+
+const isInnerPage = computed(() => route.path !== '/')
+
 const favoritesCount = computed(() => favorites.value.length)
 
 const cartCount = computed(() => cartItems.value.length)
 
-const menu = useState<IMenu>('menu')
+const formattedPhone = computed(() => settings?.value?.phone?.replace(/\s+/g, ''))
 
 const isMenuBlocked = ref(false)
 
-const { openSearch } = useSearch()
+const isMenuOpen = ref(false)
 
-const lenis = useState<Lenis | null>('lenisVS')
+const openSpoilers = ref<Record<string, boolean>>({})
+
+function toggleSpoiler(key: string) {
+    openSpoilers.value[key] = !openSpoilers.value[key]
+}
 
 function handleLinkClick() {
     isMenuBlocked.value = true
     setTimeout(() => {
         isMenuBlocked.value = false
     }, 100)
+
+    if (window.innerWidth < 992) {
+        toggleMenu()
+    }
 }
 
 function handleSearchClick() {
@@ -38,6 +54,23 @@ function handleSearchClick() {
 
     document.documentElement.classList.add('lock')
 }
+
+function toggleMenu() {
+    isMenuOpen.value = !isMenuOpen.value
+
+    if (lenis.value) {
+        lenis.value.destroy()
+    }
+
+    if (isMenuOpen.value) {
+        document.documentElement.classList.add('menu-open')
+        document.documentElement.classList.add('lock')
+    }
+    else {
+        document.documentElement.classList.remove('menu-open')
+        document.documentElement.classList.remove('lock')
+    }
+}
 </script>
 
 <template>
@@ -45,7 +78,7 @@ function handleSearchClick() {
         <div class="header__inner">
             <div class="header__body">
                 <NuxtLink to="/" class="header__logo">
-                    <img src="/images/logo.svg" alt="Beze Exclusive Studio" loading="lazy">
+                    <img src="/images/logo.svg" alt="Beze Studio" loading="lazy">
                 </NuxtLink>
                 <div class="header__menu menu" :class="{ 'menu--blocked': isMenuBlocked }">
                     <nav class="menu__body">
@@ -56,15 +89,19 @@ function handleSearchClick() {
                                 :key="category.slug"
                                 class="menu__item"
                             >
-                                <NuxtLink
-                                    :to="`/catalog/${category.slug}`"
+                                <div
                                     class="menu__link"
-                                    @click="handleLinkClick"
+                                    :class="{ 'menu__link--opened': openSpoilers[category.slug] }"
+                                    @click="() => toggleSpoiler(category.slug)"
                                 >
                                     <span>{{ category.name }}</span>
                                     <UiIcon v-if="category.subcategories?.length" name="arrow-down" size="10" />
-                                </NuxtLink>
-                                <ul v-if="category.subcategories?.length" class="menu__sublist">
+                                </div>
+                                <ul
+                                    v-if="category.subcategories?.length"
+                                    class="menu__sublist"
+                                    :class="{ 'menu__sublist--mobile-open': openSpoilers[category.slug] }"
+                                >
                                     <li
                                         v-for="subcategory in category.subcategories"
                                         :key="subcategory.slug"
@@ -87,11 +124,18 @@ function handleSearchClick() {
                                 class="menu__item"
                             >
                                 <template v-if="item.items">
-                                    <div class="menu__link">
+                                    <div
+                                        class="menu__link"
+                                        :class="{ 'menu__link--opened': openSpoilers[item.name] }"
+                                        @click="() => toggleSpoiler(item.name)"
+                                    >
                                         <span>{{ item.name }}</span>
                                         <UiIcon name="arrow-down" size="10" />
                                     </div>
-                                    <ul class="menu__sublist">
+                                    <ul
+                                        class="menu__sublist"
+                                        :class="{ 'menu__sublist--mobile-open': openSpoilers[item.name] }"
+                                    >
                                         <li
                                             v-for="subitem in item.items"
                                             :key="subitem.slug"
@@ -118,6 +162,24 @@ function handleSearchClick() {
                             </li>
                         </ul>
                     </nav>
+                    <div class="header__contacts">
+                        <p class="header__address">
+                            {{ settings.address }}
+                        </p>
+                        <a :href="`mailto:${settings.email}`" class="header__email">{{ settings.email }}</a>
+                        <a :href="`tel:${formattedPhone}`" class="header__phone">{{ settings.phone }}</a>
+                        <div class="header__socials">
+                            <a v-if="settings.vk" target="_blank" title="Vk" :href="settings.vk" class="header__social">
+                                <img src="/images/icons/vk.svg" alt="" loading="lazy">
+                            </a>
+                            <a v-if="settings.telegram" target="_blank" title="Telegram" :href="settings.telegram" class="header__social">
+                                <img src="/images/icons/tg.svg" alt="" loading="lazy">
+                            </a>
+                            <a v-if="settings.whatsapp" target="_blank" title="Whatsapp" :href="settings.whatsapp" class="header__social">
+                                <img src="/images/icons/wa.svg" alt="" loading="lazy">
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <div class="header__actions">
                     <button
@@ -150,6 +212,34 @@ function handleSearchClick() {
                             <span v-if="cartCount">{{ cartCount }}</span>
                         </Transition>
                     </NuxtLink>
+                    <NuxtLink
+                        to="#"
+                        class="header__action"
+                        title="Личный кабинет"
+                    >
+                        <UiIcon name="user" size="30" />
+                    </NuxtLink>
+                </div>
+                <div class="header__mobile-actions">
+                    <div class="header__search">
+                        <button
+                            title="Поиск"
+                            aria-label="Поиск"
+                            type="button"
+                            class="header__action"
+                            @click="handleSearchClick"
+                        >
+                            <UiIcon name="search" size="30" />
+                        </button>
+                    </div>
+                    <button
+                        aria-label="Меню"
+                        type="button"
+                        class="header__button"
+                        @click="toggleMenu"
+                    >
+                        <span class="menu-icon"><span /></span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -160,7 +250,7 @@ function handleSearchClick() {
 .header {
     position: fixed;
     left: 0;
-    z-index: 100;
+    z-index: 200;
     width: 100%;
     transition: all 0.5s ease-in-out;
 
@@ -172,6 +262,22 @@ function handleSearchClick() {
         transform: translateY(-100%);
     }
 
+    &::before {
+        position: absolute;
+        z-index: 5;
+        visibility: hidden;
+        width: 100%;
+        height: 100%;
+        content: '';
+        background-color: $extraColor;
+        opacity: 0;
+
+        .menu-open & {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+
     &--inner {
         background-color: $extraColor;
     }
@@ -180,24 +286,48 @@ function handleSearchClick() {
     &__body {
         display: grid;
         grid-template-columns: repeat(3, auto);
+        gap: rem(30);
         align-items: center;
         justify-content: space-between;
-        padding-block: rem(20);
+
+        @include adaptive-value('padding-block', 20, 15);
+
+        @media (max-width: $tablet) {
+            display: flex;
+        }
     }
 
     // .header__logo
     &__logo {
+        position: relative;
+        z-index: 10;
+
         img {
-            max-width: rem(135);
             height: auto;
+
+            @include adaptive-value('max-width', 135, 100);
         }
     }
 
     // .header__actions
     &__actions {
         display: flex;
-        gap: rem(30);
         align-items: center;
+
+        @include adaptive-value('gap', 25, 15, 0, 1920, 992);
+
+        @media (max-width: $tablet) {
+            display: none;
+        }
+    }
+
+    // .header__search
+    &__search {
+        display: none;
+
+        @media (max-width: $tablet) {
+            display: flex;
+        }
     }
 
     // .header__action
@@ -230,35 +360,150 @@ function handleSearchClick() {
             border-radius: 50%;
         }
     }
+
+    // .header__mobile-actions
+    &__mobile-actions {
+        display: none;
+
+        @media (max-width: $tablet) {
+            display: flex;
+            gap: rem(16);
+            align-items: center;
+        }
+    }
+
+    // .header__button
+    &__button {
+        display: none;
+
+        @media (max-width: $tablet) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    // .header__contacts
+    &__contacts {
+        display: none;
+
+        @media (max-width: $tablet) {
+            display: grid;
+            gap: rem(16);
+            padding-top: rem(30);
+            margin-top: rem(30);
+            border-top: 1px solid rgb(54 54 54 / 10%);
+        }
+    }
+
+    // .header__address
+    &__address {
+        font-size: rem(18);
+        line-height: 140%;
+    }
+
+    // .header__email
+    &__email {
+        font-size: rem(18);
+        line-height: 140%;
+        text-decoration: underline;
+        text-decoration-thickness: 10%;
+        text-decoration-style: dotted;
+        text-underline-offset: rem(3);
+        text-decoration-skip-ink: none;
+    }
+
+    // .header__phone
+    &__phone {
+        font-size: rem(18);
+        line-height: 140%;
+        text-decoration: underline;
+        text-decoration-thickness: 10%;
+        text-decoration-style: dotted;
+        text-underline-offset: rem(3);
+        text-decoration-skip-ink: none;
+    }
+
+    // .header__socials
+    &__socials {
+        display: flex;
+        gap: rem(8);
+        align-items: center;
+    }
+
+    // .header__social
+    &__social {
+        width: rem(40);
+        height: rem(40);
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
 }
 
 .menu {
+    @media (max-width: $tablet) {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        max-width: rem(500);
+        height: 100%;
+        padding-inline: rem(20);
+        padding-top: rem(80);
+        padding-bottom: rem(30);
+        overflow-y: auto;
+        background-color: $extraColor;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+
+        .menu-open & {
+            transform: translateX(0);
+        }
+    }
+
     // .menu__list
     &__list {
         display: flex;
         gap: rem(40);
         align-items: center;
+
+        @include adaptive-value('gap', 40, 20, 0, 1920, 992);
+
+        @media (max-width: $tablet) {
+            flex-direction: column;
+            align-items: flex-start;
+        }
     }
 
     // .menu__item
     &__item {
         position: relative;
 
-        .menu:not(.menu--blocked) &:hover {
-            & > .menu__link {
-                color: $accentColor;
+        @media (any-hover: hover) {
+            .menu:not(.menu--blocked) &:hover {
+                & > .menu__link {
+                    color: $accentColor;
 
-                svg {
-                    transform: rotate(-180deg);
+                    svg {
+                        transform: rotate(-180deg);
+                    }
+                }
+
+                & > .menu__sublist {
+                    visibility: visible;
+                    pointer-events: auto;
+                    opacity: 1;
+                    transform: translateY(0);
                 }
             }
+        }
 
-            & > .menu__sublist {
-                visibility: visible;
-                pointer-events: auto;
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @media (max-width: $tablet) {
+            width: 100%;
         }
     }
 
@@ -267,14 +512,32 @@ function handleSearchClick() {
         display: flex;
         gap: rem(8);
         align-items: center;
-        font-size: 18px;
         line-height: 125%;
         color: $whiteColor;
         cursor: pointer;
         transition: color 0.3s ease-in-out;
 
+        @include adaptive-value('font-size', 18, 16);
+
         svg {
             transition: transform 0.3s ease-in-out;
+        }
+
+        @media (max-width: $tablet) {
+            justify-content: space-between;
+            font-size: rem(22);
+            color: $mainColor;
+
+            svg {
+                width: rem(16);
+                height: rem(16);
+            }
+        }
+
+        &--opened {
+            svg {
+                transform: rotate(-180deg);
+            }
         }
     }
 
@@ -303,12 +566,34 @@ function handleSearchClick() {
             width: 100%;
             height: rem(10);
             content: '';
+
+            @media (max-width: $tablet) {
+                display: none;
+            }
+        }
+
+        @media (max-width: $tablet) {
+            position: static;
+            display: none;
+            visibility: visible;
+            padding: 0;
+            padding-block: rem(10);
+            pointer-events: auto;
+            background-color: transparent;
+            box-shadow: none;
+            opacity: 1;
+            transform: none;
+            transition: none;
+
+            &--mobile-open {
+                display: grid;
+            }
         }
     }
 
     // .menu__sublink
     &__sublink {
-        font-size: 18px;
+        font-size: rem(18);
         line-height: 125%;
         color: $whiteColor;
         transition: color 0.3s ease-in-out;
@@ -318,17 +603,20 @@ function handleSearchClick() {
                 color: $accentColor;
             }
         }
+
+        @media (max-width: $tablet) {
+            color: $mainColor;
+        }
     }
 }
 
-/*
 .menu-icon {
     position: relative;
     z-index: 5;
     display: none;
     display: block;
-    width: rem(30);
-    height: rem(18);
+    width: rem(24);
+    height: rem(16);
 
     @media (any-hover: none) {
         cursor: default;
@@ -340,9 +628,9 @@ function handleSearchClick() {
         position: absolute;
         right: 0;
         width: 100%;
-        height: rem(2);
+        height: rem(1);
         content: '';
-        background-color: #000;
+        background-color: $whiteColor;
         border-radius: rem(4);
         transition: all 0.3s ease 0s;
     }
@@ -353,10 +641,12 @@ function handleSearchClick() {
 
     &::after {
         bottom: 0;
+        width: 50%;
     }
 
     span {
         top: calc(50% - rem(1));
+        width: 75%;
     }
 
     .menu-open & {
@@ -371,11 +661,11 @@ function handleSearchClick() {
 
         &::after {
             bottom: calc(50% - rem(1));
+            width: 100%;
             transform: rotate(45deg);
         }
     }
 }
-*/
 
 .v-enter-active {
     transition: transform 0.2s ease;

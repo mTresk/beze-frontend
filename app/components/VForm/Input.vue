@@ -27,13 +27,14 @@ defineEmits<{
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: rem(45);
     padding: rem(5) rem(16);
-    font-size: 14px;
+    font-size: rem(14);
     line-height: 130%;
     border: 1px solid $extraColor;
     border-radius: rem(4);
     transition: all 0.3s ease-in-out;
+
+    @include adaptive-value('height', 45, 40);
 
     &::placeholder {
         color: rgb(54 54 54 / 50%);

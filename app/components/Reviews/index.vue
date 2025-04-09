@@ -28,6 +28,28 @@ useSwiper(containerRef, {
         prevEl: '.reviews__button--prev',
         nextEl: '.reviews__button--next',
     },
+    breakpoints: {
+        320: {
+            slidesPerView: 1.2,
+            spaceBetween: 10,
+        },
+        480: {
+            slidesPerView: 2.4,
+            spaceBetween: 10,
+        },
+        768: {
+            slidesPerView: 2.4,
+            spaceBetween: 20,
+        },
+        992: {
+            slidesPerView: 3,
+            spaceBetween: 20,
+        },
+        1200: {
+            slidesPerView: 4,
+            spaceBetween: 30,
+        },
+    },
 })
 </script>
 
@@ -71,12 +93,19 @@ useSwiper(containerRef, {
 .reviews {
     // .reviews__title
     &__title {
-        margin-bottom: rem(40);
+        @include adaptive-value('margin-bottom', 40, 18);
     }
 
     // .reviews__body
     &__body {
         position: relative;
+    }
+
+    // .reviews__navigation
+    &__navigation {
+        @media (max-width: $tablet) {
+            display: none;
+        }
     }
 
     // .reviews__button
@@ -88,12 +117,12 @@ useSwiper(containerRef, {
 
         // .reviews__button--prev
         &--prev {
-            left: -30px;
+            left: rem(-30);
         }
 
         // .reviews__button--next
         &--next {
-            right: -30px;
+            right: rem(-30);
         }
     }
 }
@@ -106,7 +135,7 @@ useSwiper(containerRef, {
 
     &::before {
         position: absolute;
-        bottom: -20px;
+        bottom: rem(-20);
         left: 50%;
         z-index: -1;
         width: 80%;

@@ -190,28 +190,34 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .contacts {
-    padding-top: rem(130);
-
     // .contacts__body
     &__body {
         display: flex;
-        gap: rem(60);
         justify-content: space-between;
+
+        @include adaptive-value('gap', 60, 30);
+
+        @media (max-width: $mobile) {
+            display: grid;
+            justify-content: unset;
+        }
     }
 
     // .contacts__wrapper
     &__wrapper {
         display: grid;
         flex: 0 1 rem(1000);
-        gap: rem(40);
+
+        @include adaptive-value('gap', 40, 30);
     }
 
     // .contacts__blocks
     &__blocks {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: rem(20);
         align-self: start;
+
+        @include adaptive-value('gap', 20, 16);
     }
 
     // .contacts__block
@@ -222,16 +228,18 @@ onMounted(() => {
 
     // .contacts__label
     &__label {
-        font-size: 14px;
         line-height: 140%;
         color: rgb(54 54 54 / 50%);
+
+        @include adaptive-value('font-size', 14, 12);
     }
 
     // .contacts__value
     &__value {
-        font-size: 18px;
         line-height: 140%;
         transition: color 0.3s ease-in-out;
+
+        @include adaptive-value('font-size', 18, 16);
 
         &:link {
             @media (any-hover: hover) {
@@ -266,11 +274,16 @@ onMounted(() => {
         height: auto;
         overflow: hidden;
         border-radius: rem(4);
+
+        @media (max-width: $mobile) {
+            height: rem(400);
+        }
     }
 
     // .contacts__form
     &__form {
         flex: 0 1 rem(340);
+        min-width: rem(280);
     }
 }
 
@@ -278,10 +291,11 @@ onMounted(() => {
     // .contacts-form__label
     &__label {
         margin-bottom: rem(10);
-        font-size: 14px;
         line-height: 140%;
         color: rgb(54 54 54 / 60%);
         text-transform: uppercase;
+
+        @include adaptive-value('font-size', 14, 12);
     }
 
     // .contacts-form__footer
@@ -298,7 +312,7 @@ onMounted(() => {
 
     // .contacts-form__policy
     &__policy {
-        font-size: 14px;
+        font-size: rem(14);
         line-height: 140%;
 
         a {
@@ -312,6 +326,10 @@ onMounted(() => {
                     color: $accentColor;
                 }
             }
+        }
+
+        @media (max-width: $mobile) {
+            text-align: center;
         }
     }
 }

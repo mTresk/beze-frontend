@@ -16,11 +16,10 @@ const formattedPhone = computed(() => settings?.value?.phone?.replace(/\s+/g, ''
             <div class="footer__body">
                 <div class="footer__info">
                     <NuxtLink to="/" class="footer__logo">
-                        <img src="/images/logo.svg" alt="Beze Exclusive Studio" loading="lazy">
+                        <img src="/images/logo-footer.svg" alt="Beze Studio" loading="lazy">
                     </NuxtLink>
                     <div class="footer__copyright">
-                        © {{ currentYear }} Beze exclusive studio <br>
-                        Все права защищены
+                        © {{ currentYear }} Все права защищены
                     </div>
                 </div>
                 <div class="footer__blocks">
@@ -125,9 +124,14 @@ const formattedPhone = computed(() => settings?.value?.phone?.replace(/\s+/g, ''
 
 <style lang="scss" scoped>
 .footer {
-    padding-top: rem(60);
     padding-bottom: rem(25);
     background-color: $extraColor;
+
+    @include adaptive-value('padding-top', 60, 35);
+
+    @media (max-width: $tablet) {
+        margin-bottom: rem(65);
+    }
 
     // .footer__body
     &__body {
@@ -135,7 +139,15 @@ const formattedPhone = computed(() => settings?.value?.phone?.replace(/\s+/g, ''
         grid-template-columns: auto auto;
         align-items: start;
         justify-content: space-between;
-        margin-bottom: rem(50);
+
+        @include adaptive-value('margin-bottom', 50, 20);
+        @include adaptive-value('gap', 60, 20);
+
+        @media (max-width: $mobile) {
+            grid-template-columns: 1fr;
+            justify-items: center;
+            text-align: center;
+        }
     }
 
     // .footer__info
@@ -147,14 +159,15 @@ const formattedPhone = computed(() => settings?.value?.phone?.replace(/\s+/g, ''
     // .footer__logo
     &__logo {
         img {
-            max-width: 100%;
+            @include adaptive-value('max-width', 320, 200);
         }
     }
 
     // .footer__copyright
     &__copyright {
-        font-size: 16px;
+        font-size: rem(16);
         line-height: 140%;
+        text-align: center;
     }
 
     // .footer__blocks
@@ -162,17 +175,30 @@ const formattedPhone = computed(() => settings?.value?.phone?.replace(/\s+/g, ''
         display: grid;
         grid-template-columns: repeat(3, minmax(auto, rem(220)));
         align-items: start;
+
+        @include adaptive-value('gap', 40, 20);
+
+        @media (max-width: $mobile) {
+            display: block;
+        }
     }
 
     // .footer__block
     &__block {
         display: grid;
         gap: rem(10);
+
+        @media (max-width: $mobile) {
+            &:nth-child(1),
+            &:nth-child(2) {
+                display: none;
+            }
+        }
     }
 
     // .footer__label
     &__label {
-        font-size: 11px;
+        font-size: rem(11);
         font-weight: 500;
         line-height: 140%;
         color: rgb(54 54 54 / 60%);
@@ -187,13 +213,13 @@ const formattedPhone = computed(() => settings?.value?.phone?.replace(/\s+/g, ''
 
     // .footer__address
     &__address {
-        font-size: 16px;
+        font-size: rem(16);
         line-height: 140%;
     }
 
     // .footer__email
     &__email {
-        font-size: 16px;
+        font-size: rem(16);
         line-height: 140%;
         transition: color 0.3s ease-in-out;
 
@@ -206,7 +232,7 @@ const formattedPhone = computed(() => settings?.value?.phone?.replace(/\s+/g, ''
 
     // .footer__phone
     &__phone {
-        font-size: 18px;
+        font-size: rem(18);
         font-weight: 500;
         line-height: 140%;
         transition: color 0.3s ease-in-out;
@@ -223,6 +249,10 @@ const formattedPhone = computed(() => settings?.value?.phone?.replace(/\s+/g, ''
         display: flex;
         gap: rem(6);
         align-items: center;
+
+        @media (max-width: $mobile) {
+            justify-content: center;
+        }
     }
 
     // .footer__soicial
@@ -242,19 +272,31 @@ const formattedPhone = computed(() => settings?.value?.phone?.replace(/\s+/g, ''
         align-items: center;
         justify-content: space-between;
 
-        @include adaptive-value('gap', 40, 20);
+        @include adaptive-value('gap', 40, 10);
+
+        @media (max-width: $mobile) {
+            display: grid;
+            grid-template-columns: 1fr;
+            justify-items: center;
+            text-align: center;
+        }
     }
 
     // .footer__links
     &__links {
         display: flex;
-        gap: rem(30);
         align-items: center;
+
+        @include adaptive-value('gap', 30, 10);
+
+        @media (max-width: $mobile) {
+            display: grid;
+        }
     }
 
     // .footer__link
     &__link {
-        font-size: 14px;
+        font-size: rem(14);
         line-height: 140%;
     }
 
@@ -265,13 +307,13 @@ const formattedPhone = computed(() => settings?.value?.phone?.replace(/\s+/g, ''
         align-items: center;
 
         span {
-            font-size: 14px;
+            font-size: rem(14);
             font-weight: 400;
             line-height: 140%;
         }
 
         a {
-            font-size: 16px;
+            font-size: rem(16);
             font-weight: 500;
             line-height: 140%;
             text-decoration: underline;
@@ -297,9 +339,10 @@ const formattedPhone = computed(() => settings?.value?.phone?.replace(/\s+/g, ''
 
     // .footer-menu__link
     &__link {
-        font-size: 18px;
         line-height: 140%;
         transition: color 0.3s ease-in-out;
+
+        @include adaptive-value('font-size', 18, 14);
 
         @media (any-hover: hover) {
             &:hover {

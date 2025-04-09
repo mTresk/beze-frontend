@@ -102,6 +102,11 @@ function handleSubmit() {
     handleClose()
 }
 
+function handleTapClick(tapTitle: string) {
+    searchQuery.value = tapTitle
+    updateSearchHistory(tapTitle)
+}
+
 function updateProductsPerRow() {
     const width = window.innerWidth
     if (width < 1100) {
@@ -157,37 +162,16 @@ onUnmounted(() => {
         <div class="search__content">
             <div class="search__inner">
                 <div class="search__header">
-                    <h2 class="search__title">
-                        {{ displayedTitle }}
-                    </h2>
                     <button
                         type="button"
                         class="search__close"
+                        title="Закрыть"
                         @click="handleClose"
                     >
-                        Закрыть
+                        <UiIcon name="close" size="32" />
                     </button>
                 </div>
                 <div class="search__body">
-                    <div class="search__results" :class="{ 'search__results--loading': isLoading }">
-                        <UiSpinner v-if="isLoading" />
-                        <div class="search__result">
-                            <ProductItem
-                                v-for="product in displayedProducts"
-                                :key="product.id"
-                                small
-                                :product="product"
-                            />
-                        </div>
-                        <UiButton
-                            v-if="searchResult?.products?.length"
-                            class="search__button"
-                            :href="`/catalog/search?search=${encodeURIComponent(searchQuery)}`"
-                            @click="handleClose"
-                        >
-                            Показать все
-                        </UiButton>
-                    </div>
                     <div v-if="searchQuery && !isLoading && searchResult && !searchResult.products?.length" class="search__empty">
                         <LayoutEmpty>
                             <template #icon>
@@ -201,26 +185,54 @@ onUnmounted(() => {
                             </template>
                         </LayoutEmpty>
                     </div>
+                    <div v-else class="search__results" :class="{ 'search__results--loading': isLoading }">
+                        <h2 class="search__title">
+                            {{ displayedTitle }}
+                        </h2>
+                        <UiSpinner v-if="isLoading" />
+                        <div class="search__result">
+                            <ProductItem
+                                v-for="product in displayedProducts"
+                                :key="product.id"
+                                small
+                                :product="product"
+                                @click="handleClose"
+                            />
+                        </div>
+                        <UiButton
+                            v-if="searchResult?.products?.length"
+                            class="search__button"
+                            :href="`/catalog/search?search=${encodeURIComponent(searchQuery)}`"
+                            @click="handleClose"
+                        >
+                            Показать все
+                        </UiButton>
+                    </div>
 
                     <form class="search__form" @submit.prevent="handleSubmit">
-                        <label class="search__field">
-                            <UiIcon name="search" size="20" />
-                            <input v-model="searchQuery" type="text" autocomplete="off" class="search__input" placeholder="Поиск">
-                            <UiButtonSpinner v-if="isLoading" size="20" />
-                            <button v-else-if="searchQuery" class="search__reset">
-                                <UiIcon
-                                    name="close"
-                                    size="20"
-                                    @click="searchQuery = ''"
-                                />
+                        <div class="search__wrapper">
+                            <button type="button" class="search__back" @click="handleClose">
+                                <UiIcon name="arrow-left" size="20" />
                             </button>
-                        </label>
+                            <label class="search__field">
+                                <UiIcon name="search" size="20" />
+                                <input v-model="searchQuery" type="text" autocomplete="off" class="search__input" placeholder="Поиск">
+                                <UiButtonSpinner v-if="isLoading" size="20" />
+                                <button v-else-if="searchQuery" class="search__reset">
+                                    <UiIcon
+                                        name="close"
+                                        size="20"
+                                        @click="searchQuery = ''"
+                                    />
+                                </button>
+                            </label>
+                        </div>
                         <div v-if="searchResult?.taps?.length" class="search__taps">
                             <div
                                 v-for="tap in searchResult.taps.slice(0, 8)"
                                 :key="tap.title"
                                 class="search__tap"
-                                @click="searchQuery = tap.title"
+                                @click="handleTapClick(tap.title)"
                             >
                                 {{ tap.title }}
                             </div>
@@ -269,10 +281,15 @@ onUnmounted(() => {
         position: relative;
         z-index: 10;
         max-height: 100vh;
-        padding-top: rem(20);
+        padding-top: rem(30);
         padding-bottom: rem(30);
         overflow-y: auto;
         background-color: $whiteColor;
+
+        @media (max-width: $mobile) {
+            height: 100%;
+            max-height: none;
+        }
     }
 
     // .search__header
@@ -281,18 +298,25 @@ onUnmounted(() => {
         align-items: center;
         justify-content: space-between;
         margin-bottom: rem(20);
+
+        @media (max-width: $mobile) {
+            display: none;
+        }
     }
 
     // .search__title
     &__title {
-        font-size: 24px;
         line-height: 140%;
+
+        @include adaptive-value('font-size', 24, 20);
     }
 
     // .search__close
     &__close {
-        font-size: 18px;
-        line-height: 140%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: auto;
         transition: color 0.3s ease-in-out;
 
         &:hover {
@@ -303,8 +327,13 @@ onUnmounted(() => {
     // .search__body
     &__body {
         display: flex;
-        gap: rem(50);
         align-items: flex-start;
+
+        @include adaptive-value('gap', 50, 30);
+
+        @media (max-width: $mobile) {
+            flex-direction: column-reverse;
+        }
     }
 
     // .search__results
@@ -312,12 +341,19 @@ onUnmounted(() => {
         position: relative;
         display: grid;
         flex: 1;
-        gap: rem(30);
+        gap: rem(20);
+        min-width: rem(360);
         min-height: rem(390);
+        margin-top: rem(-55);
 
         &--loading {
             pointer-events: none;
             opacity: 0.5;
+        }
+
+        @media (max-width: $mobile) {
+            min-height: auto;
+            margin: 0;
         }
     }
 
@@ -360,19 +396,32 @@ onUnmounted(() => {
 
     // .search__form
     &__form {
-        flex: 0 0 rem(370);
+        flex: 0 1 rem(370);
+
+        @media (max-width: $mobile) {
+            flex: unset;
+            width: 100%;
+        }
+    }
+
+    &__wrapper {
+        display: flex;
+        gap: rem(10);
+        align-items: center;
+        margin-bottom: rem(25);
     }
 
     // .search__field
     &__field {
         display: flex;
+        flex: 1;
         gap: rem(10);
         align-items: center;
-        height: rem(45);
-        padding-inline: rem(16);
-        margin-bottom: rem(25);
         border: rem(1) solid $extraColor;
         border-radius: rem(4);
+
+        @include adaptive-value('height', 45, 40);
+        @include adaptive-value('padding-inline', 16, 10);
 
         &:has(input:focus) {
             border-color: $accentColor;
@@ -384,6 +433,22 @@ onUnmounted(() => {
 
         svg {
             color: $extraColor;
+        }
+    }
+
+    &__back {
+        display: none;
+
+        @media (max-width: $mobile) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: $extraColor;
+            border: rem(1) solid $extraColor;
+            border-radius: rem(4);
+
+            @include adaptive-value('width', 45, 40);
+            @include adaptive-value('height', 45, 40);
         }
     }
 
@@ -422,6 +487,8 @@ onUnmounted(() => {
         flex-wrap: wrap;
         gap: rem(10);
         align-items: center;
+        padding-bottom: rem(25);
+        border-bottom: 1px solid $extraColor;
     }
 
     // .search__tap
@@ -446,9 +513,7 @@ onUnmounted(() => {
     &__history {
         display: grid;
         gap: rem(15);
-        padding-top: rem(25);
         margin-top: rem(25);
-        border-top: 1px solid $extraColor;
     }
 
     // .search__history-label

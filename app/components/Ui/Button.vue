@@ -26,9 +26,7 @@ defineProps<{
     gap: rem(8);
     align-items: center;
     justify-content: center;
-    height: rem(55);
-    padding: rem(5) rem(80);
-    font-size: 16px;
+    padding-block: rem(5);
     line-height: 130%;
     color: $whiteColor;
     text-align: center;
@@ -36,6 +34,10 @@ defineProps<{
     background-color: $accentColor;
     border-radius: rem(4);
     transition: all 0.3s ease-in-out;
+
+    @include adaptive-value('height', 55, 45);
+    @include adaptive-value('font-size', 16, 14);
+    @include adaptive-value('padding-inline', 80, 60);
 
     &[active='true'] {
         background-color: $extraColor;

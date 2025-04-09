@@ -30,6 +30,14 @@ useSwiper(containerRef, {
         `.swiper {overflow: visible;}`,
         `.swiper-wrapper {transition-timing-function: linear;}`,
     ],
+    breakpoints: {
+        320: {
+            spaceBetween: 10,
+        },
+        768: {
+            spaceBetween: 20,
+        },
+    },
 })
 </script>
 

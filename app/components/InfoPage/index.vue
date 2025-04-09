@@ -58,14 +58,17 @@ defineProps<Props>()
 
 <style lang="scss" scoped>
 .info {
-    padding-top: rem(130);
-
     // .info__body
     &__body {
         display: flex;
-        gap: rem(60);
         align-items: flex-start;
         justify-content: space-between;
+
+        @include adaptive-value('gap', 60, 30);
+
+        @media (max-width: $mobile) {
+            display: block;
+        }
     }
 
     // .info__content
@@ -77,7 +80,7 @@ defineProps<Props>()
     &__sidebar {
         position: sticky;
         top: rem(100);
-        flex: 0 1 rem(340);
+        flex: 0 0 rem(200);
     }
 }
 
@@ -85,12 +88,17 @@ defineProps<Props>()
     display: grid;
     gap: rem(10);
 
+    @media (max-width: $tablet) {
+        display: none;
+    }
+
     // .sidebar__label
     &__label {
-        font-size: 14px;
         line-height: 140%;
         color: rgb(54 54 54 / 60%);
         text-transform: uppercase;
+
+        @include adaptive-value('font-size', 14, 12);
     }
 
     // .sidebar__list
@@ -105,9 +113,9 @@ defineProps<Props>()
         align-items: center;
         justify-content: center;
         width: 100%;
-        padding: rem(16);
-        font-size: 16px;
         line-height: 140%;
+        text-align: center;
+        white-space: nowrap;
         text-decoration: underline;
         text-decoration-thickness: 10%;
         text-decoration-style: dotted;
@@ -116,6 +124,10 @@ defineProps<Props>()
         border-radius: rem(4);
         transition: all 0.3s ease-in-out;
         text-decoration-skip-ink: none;
+
+        @include adaptive-value('font-size', 16, 14);
+        @include adaptive-value('padding-inline', 20, 16);
+        @include adaptive-value('padding-block', 16, 8);
 
         @media (any-hover: hover) {
             &:hover {

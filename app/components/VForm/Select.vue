@@ -69,13 +69,15 @@ function closeOptions() {
         gap: rem(30);
         align-items: center;
         justify-content: space-between;
-        height: rem(45);
         padding: rem(5) rem(16);
+        font-size: rem(14);
         white-space: nowrap;
         cursor: pointer;
         border: 1px solid $extraColor;
         border-radius: rem(4);
         transition: all 0.3s ease-in-out;
+
+        @include adaptive-value('height', 45, 40);
 
         @media (any-hover: hover) {
             &:hover {
@@ -109,6 +111,8 @@ function closeOptions() {
         background-color: $whiteColor;
         border-radius: 0 0 rem(4) rem(4);
         box-shadow: 0 0 14px 0 rgb(0 0 0 / 10%);
+
+        @include adaptive-value('font-size', 16, 14);
     }
 
     // .select__option

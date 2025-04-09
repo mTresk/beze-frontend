@@ -10,10 +10,21 @@
 .form {
     position: relative;
 
+    &[grid] {
+        .form__body {
+            grid-template-columns: 1fr 1fr;
+
+            @media (max-width: $mobile) {
+                grid-template-columns: 1fr;
+            }
+        }
+    }
+
     // .form__body
     &__body {
         display: grid;
-        gap: rem(20);
+
+        @include adaptive-value('gap', 20, 15);
     }
 }
 </style>

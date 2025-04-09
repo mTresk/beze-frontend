@@ -7,6 +7,7 @@
 <style lang="scss" scoped>
 .form-field {
     display: grid;
-    gap: rem(6);
+
+    @include adaptive-value('gap', 6, 4);
 }
 </style>

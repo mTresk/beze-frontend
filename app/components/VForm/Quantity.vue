@@ -36,10 +36,11 @@ const quantity = computed({
 .quantity {
     display: flex;
     align-items: center;
-    width: rem(100);
-    height: rem(45);
     border: 1px solid $extraColor;
     border-radius: rem(4);
+
+    @include adaptive-value('height', 45, 40);
+    @include adaptive-value('width', 100, 80);
 
     // .quantity__button
     &__button {
@@ -90,9 +91,10 @@ const quantity = computed({
         input {
             width: 100%;
             height: 100%;
-            font-size: 16px;
             line-height: 115%;
             text-align: center;
+
+            @include adaptive-value('font-size', 16, 14);
         }
     }
 }

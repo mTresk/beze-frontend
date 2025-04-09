@@ -31,7 +31,7 @@ useSwiper(containerRef, {
             <div class="hero__container">
                 <div class="hero__body">
                     <h1 class="hero__title">
-                        BEZE Exclusive Studio – <br>ОДЕЖДА, СОЗДАЮЩАЯ ОСОБОЕ НАСТРОЕНИЕ
+                        BEZE Studio – <br>ОДЕЖДА, СОЗДАЮЩАЯ ОСОБОЕ НАСТРОЕНИЕ
                     </h1>
                     <UiButton href="/catalog" outline white>
                         В каталог
@@ -50,6 +50,11 @@ useSwiper(containerRef, {
     justify-content: center;
     min-height: 100vh;
     min-height: 100svh;
+
+    @media (max-width: $tablet) {
+        min-height: calc(100vh - rem(65));
+        min-height: calc(100svh - rem(65));
+    }
 
     // .hero__slider
     &__slider {
@@ -102,24 +107,27 @@ useSwiper(containerRef, {
         position: relative;
         z-index: 10;
         padding-block: rem(300);
+
+        @include adaptive-value('padding-block', 300, 100);
     }
 
     // .hero__body
     &__body {
         display: grid;
-        gap: rem(50);
         justify-items: center;
+
+        @include adaptive-value('gap', 50, 26);
     }
 
     // .hero__title
     &__title {
         font-family: 'Quincy CF', sans-serif;
-        font-size: 50px;
-        font-weight: 400;
         line-height: 150%;
         color: $whiteColor;
         text-align: center;
         letter-spacing: 0.01em;
+
+        @include adaptive-value('font-size', 50, 30);
     }
 }
 </style>

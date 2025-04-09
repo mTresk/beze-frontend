@@ -155,7 +155,7 @@ onMounted(() => {
                         </div>
                         <div class="cart__form">
                             <UiSpinner v-if="isFormSending" />
-                            <CartForm v-model="form" :errors="errors" />
+                            <CartForm v-model="form" grid :errors="errors" />
                         </div>
                     </div>
                     <div class="cart__checkout">
@@ -230,15 +230,19 @@ onMounted(() => {
 
 <style lang="scss">
 .cart {
-    padding-top: rem(130);
-
     // .cart__body
     &__body {
         position: relative;
         display: flex;
-        gap: rem(60);
         align-items: flex-start;
         justify-content: space-between;
+
+        @include adaptive-value('gap', 60, 20);
+
+        @media (max-width: $tablet) {
+            display: grid;
+            justify-content: unset;
+        }
     }
 
     // .cart__wrapper
@@ -249,16 +253,16 @@ onMounted(() => {
     // .cart__table
     &__table {
         display: grid;
-        gap: rem(40);
-        padding-bottom: rem(40);
-        margin-bottom: rem(40);
         border-bottom: 1px solid rgb(54 54 54 / 10%);
+
+        @include adaptive-value('padding-bottom', 40, 20);
+        @include adaptive-value('margin-bottom', 40, 20);
+        @include adaptive-value('gap', 40, 20);
     }
 
     // .cart__form
     &__form {
         position: relative;
-        max-width: rem(330);
     }
 
     // .cart__checkout
@@ -268,21 +272,27 @@ onMounted(() => {
         display: grid;
         flex: 0 1 rem(340);
         gap: rem(20);
+
+        @media (max-width: $tablet) {
+            position: static;
+        }
     }
 
     // .cart__links
     &__links {
         display: grid;
-        gap: rem(16);
+
+        @include adaptive-value('gap', 16, 10);
     }
 
     // .cart__link
     &__link {
-        font-size: 16px;
         line-height: 130%;
         text-decoration: underline;
         text-decoration-thickness: 10%;
         text-decoration-style: dotted;
+
+        @include adaptive-value('font-size', 16, 14);
     }
 
     // .cart__caution
@@ -358,7 +368,7 @@ onMounted(() => {
 
     // .cart__policy
     &__policy {
-        font-size: 14px;
+        font-size: rem(14);
         line-height: 140%;
 
         a {
@@ -372,6 +382,10 @@ onMounted(() => {
                     color: $accentColor;
                 }
             }
+        }
+
+        @media (max-width: $tablet) {
+            text-align: center;
         }
     }
 }

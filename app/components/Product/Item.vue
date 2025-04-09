@@ -85,17 +85,15 @@ useSwiper(containerRef, {
                     {{ chip.name }}
                 </div>
             </div>
-            <div class="product-card__actions">
-                <button
-                    type="button"
-                    class="product-card__action"
-                    :class="{ 'product-card__action--selected': favoriteStatus }"
-                    :aria-label="favoriteStatus ? 'Удалить из избранного' : 'Добавить в избранное'"
-                    @click="handleFavoriteClick"
-                >
-                    <UiIcon name="favorite" size="24" />
-                </button>
-            </div>
+            <button
+                type="button"
+                class="product-card__action"
+                :class="{ 'product-card__action--selected': favoriteStatus }"
+                :aria-label="favoriteStatus ? 'Удалить из избранного' : 'Добавить в избранное'"
+                @click="handleFavoriteClick"
+            >
+                <UiIcon name="favorite" size="24" />
+            </button>
         </div>
         <div class="product-card__info">
             <h3 class="product-card__title">
@@ -219,7 +217,6 @@ useSwiper(containerRef, {
     // .product-card__header
     &__header {
         position: absolute;
-        top: rem(20);
         left: 0;
         z-index: 10;
         display: flex;
@@ -227,7 +224,9 @@ useSwiper(containerRef, {
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        padding-inline: rem(20);
+
+        @include adaptive-value('top', 20, 10);
+        @include adaptive-value('padding-inline', 20, 10);
 
         [small] & {
             top: rem(10);
@@ -243,17 +242,16 @@ useSwiper(containerRef, {
         align-items: center;
     }
 
-    // .product-card__actions
-    &__actions {
-        display: flex;
-        gap: rem(20);
-        align-items: center;
-    }
-
     // .product-card__action
     &__action {
         color: $whiteColor;
         transition: color 0.3s ease-in-out;
+
+        svg {
+            height: auto;
+
+            @include adaptive-value('max-width', 24, 18);
+        }
 
         @media (any-hover: hover) {
             &:hover {
@@ -268,8 +266,7 @@ useSwiper(containerRef, {
 
         [small] & {
             svg {
-                width: rem(20);
-                height: rem(20);
+                @include adaptive-value('max-width', 20, 18);
             }
         }
     }
@@ -284,9 +281,10 @@ useSwiper(containerRef, {
     &__title {
         overflow: hidden;
         text-overflow: ellipsis;
-        font-size: 18px;
         line-height: 140%;
         white-space: nowrap;
+
+        @include adaptive-value('font-size', 18, 14);
 
         [small] & {
             font-size: 16px;
@@ -296,44 +294,49 @@ useSwiper(containerRef, {
     // .product-card__line
     &__line {
         display: flex;
-        gap: rem(16);
         align-items: center;
+
+        @include adaptive-value('gap', 16, 10);
     }
 
     // .product-card__price
     &__price {
-        font-size: 18px;
         font-weight: 500;
         line-height: 125%;
 
+        @include adaptive-value('font-size', 18, 14);
+
         [small] & {
-            font-size: 16px;
+            @include adaptive-value('font-size', 16, 14);
         }
     }
 
     // .product-card__colors
     &__colors {
         display: flex;
-        gap: rem(6);
         align-items: center;
+
+        @include adaptive-value('gap', 6, 4);
     }
 
     // .product-card__color
     &__color {
-        width: rem(8);
-        height: rem(8);
         border-radius: 50%;
+
+        @include adaptive-value('width', 8, 6);
+        @include adaptive-value('height', 8, 6);
     }
 }
 
 .chip {
     padding: rem(4) rem(8);
-    font-size: rem(12);
     line-height: 136%;
     color: $whiteColor;
     text-transform: lowercase;
     white-space: nowrap;
     background-color: $redColor;
     border-radius: rem(20);
+
+    @include adaptive-value('font-size', 12, 10);
 }
 </style>

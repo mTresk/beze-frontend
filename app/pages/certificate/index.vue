@@ -173,8 +173,6 @@ watch(
 
 <style lang="scss" scoped>
 .certificate {
-    padding-top: rem(130);
-
     // .certificate__body
     &__body {
         position: relative;

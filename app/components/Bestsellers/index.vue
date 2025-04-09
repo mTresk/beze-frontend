@@ -67,19 +67,26 @@ await suspense()
 
     // .bestsellers__title
     &__title {
-        margin-bottom: rem(40);
+        @include adaptive-value('margin-bottom', 40, 18);
     }
 
     &__wrapper {
         display: grid;
-        gap: rem(45);
+
+        @include adaptive-value('gap', 45, 30);
     }
 
     // .bestsellers__body
     &__body {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: rem(45) rem(25);
+
+        @include adaptive-value('column-gap', 25, 10);
+        @include adaptive-value('row-gap', 45, 20);
+
+        @media (max-width: $tablet) {
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
 
     // .bestsellers__footer

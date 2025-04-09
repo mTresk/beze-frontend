@@ -148,7 +148,7 @@ body {
         position: relative;
         width: 100%;
         max-width: rem(600);
-        padding: rem(40);
+        padding: rem(60) rem(40);
         margin: auto;
         background-color: $whiteColor;
         border-radius: rem(8);
@@ -157,6 +157,9 @@ body {
             0 rem(2) rem(4) -1px rgb(0 0 0 / 6%);
         transform: scale(0.5);
         animation: content-show 0.3s ease forwards;
+
+        @include adaptive-value('padding-inline', 40, 20);
+        @include adaptive-value('padding-block', 60, 40);
     }
 
     &[closing] .modal__content {
@@ -164,11 +167,20 @@ body {
     }
 
     &__close {
-        float: right;
+        position: absolute;
         display: flex;
         align-items: center;
         justify-content: center;
         transition: color 0.3s ease-in-out;
+
+        @include adaptive-value('top', 20, 10);
+        @include adaptive-value('right', 20, 10);
+
+        svg {
+            height: auto;
+
+            @include adaptive-value('max-width', 32, 24);
+        }
 
         @media (any-hover: hover) {
             &:hover {

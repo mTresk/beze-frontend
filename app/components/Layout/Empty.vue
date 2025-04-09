@@ -16,8 +16,9 @@
 <style lang="scss" scoped>
 .page-empty {
     display: grid;
-    gap: rem(25);
     justify-items: center;
+
+    @include adaptive-value('gap', 25, 10);
 
     // .page-empty__icon
     &__icon {
@@ -32,9 +33,10 @@
     // .page-empty__text
     &__text {
         max-width: rem(300);
-        font-size: rem(16);
         line-height: 140%;
         text-align: center;
+
+        @include adaptive-value('font-size', 16, 14);
     }
 }
 </style>

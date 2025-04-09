@@ -189,8 +189,6 @@ watch(query.data, (newData) => {
 
 <style lang="scss" scoped>
 .catalog {
-    padding-top: rem(130);
-
     // .catalog__filters
     &__filters {
         position: relative;
@@ -199,23 +197,36 @@ watch(query.data, (newData) => {
         gap: rem(20);
         align-items: center;
         justify-content: space-between;
-        padding-bottom: rem(40);
-        margin-bottom: rem(40);
         border-bottom: 1px solid rgb(54 54 54 / 10%);
+
+        @include adaptive-value('padding-bottom', 40, 20);
+        @include adaptive-value('margin-bottom', 40, 20);
+
+        @media (max-width: $tablet) {
+            display: grid;
+            justify-content: unset;
+        }
     }
 
     // .catalog__categories
     &__categories {
         display: flex;
-        gap: rem(20);
+        flex-wrap: wrap;
+
+        @include adaptive-value('gap', 20, 10);
     }
 
     // .catalog__category
     &__category {
-        padding: rem(10) rem(20);
+        line-height: 120%;
+        white-space: nowrap;
         border: 1px solid $extraColor;
         border-radius: rem(4);
         transition: all 0.3s ease-in-out;
+
+        @include adaptive-value('font-size', 16, 12);
+        @include adaptive-value('padding-block', 10, 6);
+        @include adaptive-value('padding-inline', 20, 10);
 
         &:hover {
             color: $whiteColor;
@@ -231,6 +242,7 @@ watch(query.data, (newData) => {
 
     // .catalog__sort
     &__sort {
+        align-self: flex-start;
         min-width: rem(200);
     }
 
@@ -245,7 +257,13 @@ watch(query.data, (newData) => {
     &__body {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: rem(45) rem(25);
+
+        @include adaptive-value('column-gap', 25, 10);
+        @include adaptive-value('row-gap', 45, 20);
+
+        @media (max-width: $tablet) {
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
 }
 </style>

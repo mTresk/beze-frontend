@@ -65,8 +65,6 @@ await suspense()
 
 <style lang="scss" scoped>
 .search-page {
-    padding-top: rem(130);
-
     // .search-page__filters
     &__filters {
         position: relative;

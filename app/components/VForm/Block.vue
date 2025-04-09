@@ -18,8 +18,9 @@ defineProps<{
 
 .form-error {
     position: absolute;
-    bottom: rem(-15);
-    font-size: rem(12);
     color: $redColor;
+
+    @include adaptive-value('font-size', 12, 10);
+    @include adaptive-value('bottom', -15, -12);
 }
 </style>

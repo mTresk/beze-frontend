@@ -6,7 +6,8 @@
 
 <style lang="scss" scoped>
 .form-label {
-    font-size: 16px;
     line-height: 130%;
+
+    @include adaptive-value('font-size', 16, 14);
 }
 </style>

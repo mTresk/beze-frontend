@@ -2,11 +2,17 @@
 const ctx = ref()
 
 onMounted(() => {
+    let y = 110
+
+    if (window.innerWidth < 768) {
+        y = 40
+    }
+
     setTimeout(() => {
         ctx.value = gsap.context(() => {
             gsap.from('.about__image', {
                 duration: 2,
-                y: 110,
+                y,
                 ease: 'cubic-bezier(0.25, 0.45, 0.45, 0.95)',
                 stagger: 1,
                 scrollTrigger: {
@@ -18,7 +24,7 @@ onMounted(() => {
             })
             gsap.from('.about__small-image', {
                 duration: 2,
-                y: 110,
+                y,
                 ease: 'cubic-bezier(0.25, 0.45, 0.45, 0.95)',
                 stagger: 1,
                 scrollTrigger: {
@@ -72,19 +78,31 @@ onBeforeUnmount(() => {
 .about {
     padding-bottom: rem(80);
 
+    @include adaptive-value('padding-bottom', 80, 0);
+
     // .about__body
     &__body {
         display: flex;
-        gap: rem(120);
         align-items: flex-end;
+
+        @include adaptive-value('gap', 120, 40);
+
+        @media (max-width: $tablet) {
+            align-items: center;
+        }
+
+        @media (max-width: $mobile) {
+            display: block;
+        }
     }
 
     // .about__wrapper
     &__wrapper {
         position: relative;
         flex: 0 1 rem(520);
-        padding-top: rem(64);
-        padding-bottom: rem(165);
+
+        @include adaptive-value('padding-top', 64, 30);
+        @include adaptive-value('padding-bottom', 165, 70);
 
         &::before {
             position: absolute;
@@ -96,12 +114,17 @@ onBeforeUnmount(() => {
             background-color: $extraColor;
             transform: translateX(-50%);
         }
+
+        @media (max-width: $mobile) {
+            padding-bottom: rem(100);
+        }
     }
 
     // .about__content
     &__content {
         display: grid;
-        gap: rem(20);
+
+        @include adaptive-value('gap', 20, 10);
     }
 
     // .about__title
@@ -119,8 +142,9 @@ onBeforeUnmount(() => {
     &__item {
         position: relative;
         padding-left: rem(18);
-        font-size: 18px;
         line-height: 140%;
+
+        @include adaptive-value('font-size', 18, 14);
 
         &::before {
             position: absolute;
@@ -141,10 +165,11 @@ onBeforeUnmount(() => {
     // .about__small-image
     &__small-image {
         position: absolute;
-        bottom: -80px;
         left: 0;
-        width: 200px;
-        height: 200px;
+
+        @include adaptive-value('width', 200, 120);
+        @include adaptive-value('height', 200, 120);
+        @include adaptive-value('bottom', -80, -40);
 
         img {
             @include image;
@@ -163,6 +188,11 @@ onBeforeUnmount(() => {
             filter: blur(50px);
             transform: translateX(-50%);
         }
+
+        @media (max-width: $mobile) {
+            right: 0;
+            left: auto;
+        }
     }
 
     // .about__image
@@ -170,7 +200,8 @@ onBeforeUnmount(() => {
         position: relative;
         flex: 0 1 rem(520);
         aspect-ratio: 527 / 642;
-        margin-bottom: rem(-80);
+
+        @include adaptive-value('margin-bottom', -80, -40);
 
         img {
             @include image;
@@ -188,6 +219,10 @@ onBeforeUnmount(() => {
             border-radius: rem(10);
             filter: blur(50px);
             transform: translateX(-50%);
+        }
+
+        @media (max-width: $mobile) {
+            display: none;
         }
     }
 }

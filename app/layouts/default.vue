@@ -22,7 +22,7 @@ useHead({
         lang: 'ru',
     },
     titleTemplate: (titleChunk) => {
-        return titleChunk ? `${titleChunk} — BEZE Exclusive Studio` : 'BEZE Exclusive Studio'
+        return titleChunk ? `${titleChunk} — BEZE Studio` : 'BEZE Studio'
     },
 })
 
@@ -77,6 +77,7 @@ useState('settings', () => data.value?.settings)
             </LayoutSmoothScroll>
         </main>
         <LayoutFooter />
+        <LayoutNavigation />
     </div>
 </template>
 
@@ -92,6 +93,7 @@ body {
 }
 
 .wrapper {
+    position: relative;
     display: flex;
     flex-direction: column;
     min-height: 100dvh;
@@ -107,6 +109,27 @@ body {
 
     > * {
         min-width: 0;
+    }
+
+    &::before {
+        position: absolute;
+        inset: 0;
+        z-index: 120;
+        visibility: hidden;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        content: '';
+        background-color: rgb(0 0 0 / 50%);
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+
+        .menu-open & {
+            visibility: visible;
+            pointer-events: auto;
+            opacity: 1;
+        }
     }
 }
 
@@ -129,7 +152,7 @@ body {
 }
 
 .spacer {
-    @include adaptive-value('margin-bottom', 160, 80);
+    @include adaptive-value('margin-bottom', 160, 70);
 }
 
 .toastify-toast {
@@ -209,13 +232,14 @@ body {
 
             &::before {
                 position: absolute;
-                top: 9px;
+                top: rem(8);
                 left: 0;
-                width: rem(8);
-                height: rem(8);
                 content: '';
                 background-color: $accentColor;
                 transform: rotate(45deg);
+
+                @include adaptive-value('width', 8, 6);
+                @include adaptive-value('height', 8, 6);
             }
         }
     }
@@ -225,18 +249,26 @@ body {
     }
 
     table {
+        display: block;
         width: 100%;
+        max-width: 100%;
+        height: 100% !important;
+        overflow-x: auto;
+        white-space: nowrap;
         border-spacing: 0;
         border-collapse: collapse;
+
+        @include hide-scroll;
 
         thead {
             tr {
                 td {
-                    padding-inline: rem(20);
-                    padding-bottom: rem(20);
-                    font-size: rem(16);
                     line-height: 140%;
                     color: rgb(54 54 54 / 60%);
+
+                    @include adaptive-value('font-size', 16, 14);
+                    @include adaptive-value('padding-block', 20, 16);
+                    @include adaptive-value('padding-inline', 20, 16);
                 }
             }
         }
@@ -250,10 +282,12 @@ body {
                 }
 
                 td {
-                    padding-block: rem(20);
-                    padding-inline: rem(20);
-                    font-size: rem(16);
                     line-height: 140%;
+                    white-space: nowrap;
+
+                    @include adaptive-value('font-size', 16, 14);
+                    @include adaptive-value('padding-block', 20, 16);
+                    @include adaptive-value('padding-inline', 20, 16);
 
                     &:first-child {
                         border-top-left-radius: rem(4);

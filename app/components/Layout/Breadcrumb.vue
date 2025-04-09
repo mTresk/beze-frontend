@@ -39,14 +39,17 @@ const breadcrumbs = computed<IBreadcrumbItem[]>(() => [HOME_CRUMB, ...props.item
     flex-wrap: wrap;
     gap: rem(4) rem(17);
     align-items: center;
-    margin-bottom: rem(30);
+
+    @include adaptive-value('margin-bottom', 30, 16);
+    @include adaptive-value('margin-top', 130, 80);
 
     // .breadcrumb__item
     &__item {
         position: relative;
-        font-size: 16px;
         line-height: 140%;
         transition: color 0.3s ease-in-out;
+
+        @include adaptive-value('font-size', 16, 14);
 
         &:not(:last-child) {
             &::before {

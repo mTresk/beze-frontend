@@ -2,26 +2,32 @@
 const ctx = ref()
 
 onMounted(() => {
-    setTimeout(() => {
-        ctx.value = gsap.context(() => {
-            gsap.from('.certificate__image', {
-                duration: 2,
-                y: 110,
-                ease: 'cubic-bezier(0.25, 0.45, 0.45, 0.95)',
-                stagger: 1,
-                scrollTrigger: {
-                    trigger: '.certificate__image',
-                    scrub: true,
-                    start: '0% 100%',
-                    end: 'bottom 30%',
-                },
+    const mm = gsap.matchMedia()
+
+    mm.add('(min-width: 992px)', () => {
+        setTimeout(() => {
+            ctx.value = gsap.context(() => {
+                gsap.from('.certificate__image', {
+                    duration: 2,
+                    y: 110,
+                    ease: 'cubic-bezier(0.25, 0.45, 0.45, 0.95)',
+                    stagger: 1,
+                    scrollTrigger: {
+                        trigger: '.certificate__image',
+                        scrub: true,
+                        start: '0% 100%',
+                        end: 'bottom 30%',
+                    },
+                })
             })
-        })
-    }, 100)
+        }, 100)
+    })
 })
 
 onBeforeUnmount(() => {
-    ctx.value.revert()
+    if (ctx.value) {
+        ctx.value.revert()
+    }
 })
 </script>
 
@@ -39,7 +45,7 @@ onBeforeUnmount(() => {
                                 Хотите сделать подарок любимому человеку, но боитесь ошибиться с размером? Закажите сертификат на нужную сумму.
                             </li>
                             <li class="certificate__item">
-                                Порадуйте дорогого вам человека сертификатом в наш магазин. Сертификаты представлены номиналом от 2000 ₽.
+                                Порадуйте дорогого вам человека сертификатом в наш магазин. Сертификаты представлены номиналом от 2000&nbsp;₽.
                             </li>
                         </ul>
                     </div>
@@ -59,16 +65,25 @@ onBeforeUnmount(() => {
 .certificate {
     // .certificate__body
     &__body {
+        position: relative;
         display: flex;
-        gap: rem(120);
         align-items: center;
+
+        @include adaptive-value('gap', 120, 40);
+
+        @media (max-width: $mobile) {
+            display: block;
+        }
     }
 
     // .certificate__wrapper
     &__wrapper {
+        position: relative;
+        z-index: 5;
         display: grid;
         flex: 0 1 rem(520);
-        gap: rem(32);
+
+        @include adaptive-value('gap', 32, 20);
     }
 
     // .certificate__content
@@ -87,8 +102,9 @@ onBeforeUnmount(() => {
     &__item {
         position: relative;
         padding-left: rem(18);
-        font-size: 18px;
         line-height: 140%;
+
+        @include adaptive-value('font-size', 18, 14);
 
         &::before {
             position: absolute;
@@ -110,6 +126,7 @@ onBeforeUnmount(() => {
     &__image {
         position: relative;
         flex: 0 1 rem(520);
+        min-width: rem(320);
         aspect-ratio: 527 / 642;
 
         img {
@@ -128,6 +145,10 @@ onBeforeUnmount(() => {
             border-radius: rem(10);
             filter: blur(50px);
             transform: translateX(-50%);
+        }
+
+        @media (max-width: $mobile) {
+            display: none;
         }
     }
 }

@@ -19,15 +19,39 @@ useSwiper(containerRef, {
         prevEl: `.${props.name}--prev`,
         nextEl: `.${props.name}--next`,
     },
+    breakpoints: {
+        320: {
+            slidesPerView: 1.6,
+            spaceBetween: 10,
+        },
+        480: {
+            slidesPerView: 2.2,
+            spaceBetween: 10,
+        },
+        768: {
+            slidesPerView: 3.2,
+            spaceBetween: 15,
+        },
+        1100: {
+            slidesPerView: 4,
+            spaceBetween: 25,
+        },
+    },
 })
 </script>
 
 <template>
     <section class="featured spacer">
         <div class="featured__container">
-            <h2 class="featured__title">
-                <slot name="title" />
-            </h2>
+            <div class="featured__header">
+                <h2 class="featured__title">
+                    <slot name="title" />
+                </h2>
+                <nav class="featured__navigation slider-navigation">
+                    <UiSliderButtonPrev class="featured__button featured__button--prev" :class="`${props.name}--prev`" />
+                    <UiSliderButtonNext class="featured__button featured__button--next" :class="`${props.name}--next`" />
+                </nav>
+            </div>
         </div>
         <div class="featured__inner">
             <div class="featured__body">
@@ -36,10 +60,6 @@ useSwiper(containerRef, {
                         <ProductItem :product="product" />
                     </swiper-slide>
                 </swiper-container>
-                <nav class="featured__navigation slider-navigation">
-                    <UiSliderButtonPrev class="featured__button featured__button--prev" :class="`${props.name}--prev`" />
-                    <UiSliderButtonNext class="featured__button featured__button--next" :class="`${props.name}--next`" />
-                </nav>
             </div>
         </div>
     </section>
@@ -47,34 +67,33 @@ useSwiper(containerRef, {
 
 <style lang="scss">
 .featured {
+    &__header {
+        display: flex;
+        gap: rem(20);
+        align-items: center;
+        justify-content: space-between;
+
+        @include adaptive-value('margin-bottom', 40, 20);
+    }
+
     // .featured__title
     &__title {
-        margin-bottom: rem(40);
-        font-size: 40px;
         line-height: 140%;
+
+        @include adaptive-value('font-size', 40, 24);
+    }
+
+    // .featured__navigation
+    &__navigation {
+        display: flex;
+        align-items: center;
+
+        @include adaptive-value('gap', 10, 8);
     }
 
     // .featured__body
     &__body {
         position: relative;
-    }
-
-    // .featured__button
-    &__button {
-        position: absolute;
-        top: 50%;
-        z-index: 10;
-        transform: translateY(-50%);
-
-        // .featured__button--prev
-        &--prev {
-            left: -30px;
-        }
-
-        // .featured__button--next
-        &--next {
-            right: -30px;
-        }
     }
 }
 </style>

@@ -42,34 +42,40 @@ watch(() => quantity.value, () => handleUpdateCartValues())
 
 <template>
     <div class="cart-item">
-        <div class="cart-item__info">
-            <NuxtLink :to="`/catalog/${product.category.slug}/products/${product.slug}`" class="cart-item__image">
-                <img :src="product.image.thumb" :alt="product.name" loading="lazy">
-            </NuxtLink>
-            <div class="cart-item__block">
-                <div class="cart-item__sku">
-                    Артикул: {{ product?.sku }}
+        <div class="cart-item__section">
+            <div class="cart-item__info">
+                <NuxtLink :to="`/catalog/${product.category.slug}/products/${product.slug}`" class="cart-item__image">
+                    <img :src="product.image.thumb" :alt="product.name" loading="lazy">
+                </NuxtLink>
+                <div class="cart-item__block">
+                    <div class="cart-item__sku">
+                        Артикул: {{ product?.sku }}
+                    </div>
+                    <h3 class="cart-item__title">
+                        {{ product?.name }}
+                    </h3>
                 </div>
-                <h3 class="cart-item__title">
-                    {{ product?.name }}
-                </h3>
+            </div>
+            <div class="cart-item__options">
+                <div class="cart-item__color">
+                    <span :style="`background-color: ${product.color.code};`" class="cart-item__icon" />
+                    <span>{{ product.color.name }}</span>
+                </div>
+                <div class="cart-item__size">
+                    <span>размер:</span> {{ product.size.name }}
+                </div>
             </div>
         </div>
-        <div class="cart-item__color">
-            <span :style="`background-color: ${product.color.code};`" class="cart-item__icon" />
-            <span>{{ product.color.name }}</span>
-        </div>
-        <div class="cart-item__size">
-            <span>размер:</span> {{ product.size.name }}
-        </div>
-        <VFormQuantity v-model="quantity" :min="1" :max="10" />
-        <div class="cart-item__wrapper">
-            <div class="cart-item__price">
-                {{ totalPrice }} ₽
+        <div class="cart-item__actions">
+            <VFormQuantity v-model="quantity" :min="1" :max="10" />
+            <div class="cart-item__wrapper">
+                <div class="cart-item__price">
+                    {{ totalPrice }} ₽
+                </div>
+                <button type="button" aria-label="Убрать из корзины" class="cart-item__remove" @click="handleCartClick">
+                    <UiIcon name="can" size="20" />
+                </button>
             </div>
-            <button type="button" aria-label="Убрать из корзины" class="cart-item__remove" @click="handleCartClick">
-                <UiIcon name="can" size="20" />
-            </button>
         </div>
     </div>
 </template>
@@ -78,11 +84,53 @@ watch(() => quantity.value, () => handleUpdateCartValues())
 .cart-item {
     display: grid;
     grid-template-columns:
-        minmax(auto, rem(320)) minmax(auto, rem(110)) minmax(auto, rem(100)) minmax(auto, rem(100))
+        minmax(rem(200), rem(320)) minmax(auto, rem(100)) minmax(auto, rem(100)) minmax(auto, rem(100))
         minmax(auto, rem(120));
     align-items: center;
     justify-content: space-between;
     width: 100%;
+
+    @include adaptive-value('gap', 20, 10, 0, 1920, 992);
+
+    @media (max-width: $mobile) {
+        display: flex;
+        gap: rem(20);
+        align-items: start;
+    }
+
+    &__section {
+        display: contents;
+
+        @media (max-width: $mobile) {
+            display: grid;
+            gap: rem(10);
+        }
+    }
+
+    &__options {
+        display: contents;
+
+        @media (max-width: $mobile) {
+            display: flex;
+            gap: rem(10);
+            align-items: center;
+        }
+    }
+
+    &__actions {
+        display: contents;
+
+        @media (max-width: $mobile) {
+            display: flex;
+            gap: rem(10);
+            align-items: center;
+        }
+
+        @media (max-width: $mobileSmall) {
+            display: grid;
+            justify-items: end;
+        }
+    }
 
     // .cart-item__info
     &__info {
@@ -95,8 +143,10 @@ watch(() => quantity.value, () => handleUpdateCartValues())
     &__image {
         position: relative;
         display: block;
-        width: rem(60);
+        flex-shrink: 0;
         aspect-ratio: 60 / 90;
+
+        @include adaptive-value('width', 60, 50);
 
         img {
             @include image;
@@ -108,19 +158,25 @@ watch(() => quantity.value, () => handleUpdateCartValues())
         display: grid;
         gap: rem(2);
         margin-top: rem(8);
+
+        @media (max-width: $mobile) {
+            margin-top: 0;
+        }
     }
 
     // .cart-item__sku
     &__sku {
-        font-size: 14px;
         line-height: 140%;
         color: rgb(54 54 54 / 50%);
+
+        @include adaptive-value('font-size', 14, 12);
     }
 
     // .cart-item__title
     &__title {
-        font-size: 18px;
         line-height: 140%;
+
+        @include adaptive-value('font-size', 18, 16);
     }
 
     // .cart-item__color
@@ -128,7 +184,7 @@ watch(() => quantity.value, () => handleUpdateCartValues())
         display: flex;
         gap: rem(8);
         align-items: center;
-        font-size: 14px;
+        font-size: rem(14);
         line-height: 140%;
         color: rgb(54 54 54 / 50%);
         white-space: nowrap;
@@ -137,10 +193,11 @@ watch(() => quantity.value, () => handleUpdateCartValues())
     // .cart-item__icon
     &__icon {
         flex-shrink: 0;
-        width: rem(20);
-        height: rem(20);
         border: 1px solid $lightColor;
         border-radius: 50%;
+
+        @include adaptive-value('width', 20, 16);
+        @include adaptive-value('height', 20, 16);
     }
 
     // .cart-item__size
@@ -152,7 +209,7 @@ watch(() => quantity.value, () => handleUpdateCartValues())
         line-height: 125%;
 
         span {
-            font-size: 14px;
+            font-size: rem(14);
             line-height: 140%;
             color: rgb(54 54 54 / 50%);
         }
@@ -161,16 +218,18 @@ watch(() => quantity.value, () => handleUpdateCartValues())
     // .cart-item__wrapper
     &__wrapper {
         display: flex;
-        gap: rem(20);
         align-items: center;
         justify-content: space-between;
+
+        @include adaptive-value('gap', 20, 10);
     }
 
     // .cart-item__price
     &__price {
-        font-size: 18px;
         line-height: 140%;
         white-space: nowrap;
+
+        @include adaptive-value('font-size', 18, 16);
     }
 
     // .cart-item__remove

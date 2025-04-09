@@ -13,6 +13,17 @@ useSwiper(containerRef, {
         prevEl: '.directions__button--prev',
         nextEl: '.directions__button--next',
     },
+    breakpoints: {
+        320: {
+            slidesPerView: 1.1,
+        },
+        768: {
+            slidesPerView: 1.4,
+        },
+        992: {
+            slidesPerView: 2,
+        },
+    },
 })
 
 async function fetcher() {
@@ -83,6 +94,13 @@ await suspense()
         overflow: visible;
     }
 
+    // .directions__navigation
+    &__navigation {
+        @media (max-width: $tablet) {
+            display: none;
+        }
+    }
+
     // .directions__button
     &__button {
         position: absolute;
@@ -113,7 +131,6 @@ await suspense()
         left: 0;
         z-index: 2;
         width: 100%;
-        height: rem(200);
         content: '';
         background: linear-gradient(
             0deg,
@@ -126,6 +143,8 @@ await suspense()
             rgb(28 27 26 / 30.6%) 72%,
             rgb(28 27 26 / 60%)
         );
+
+        @include adaptive-value('height', 200, 100);
     }
 
     &::after {
@@ -134,7 +153,6 @@ await suspense()
         left: 0;
         z-index: 2;
         width: 100%;
-        height: rem(200);
         content: '';
         background: linear-gradient(
             180deg,
@@ -147,6 +165,8 @@ await suspense()
             rgb(28 27 26 / 30.6%) 72%,
             rgb(28 27 26 / 60%)
         );
+
+        @include adaptive-value('height', 200, 100);
     }
 
     @media (any-hover: hover) {
@@ -179,7 +199,9 @@ await suspense()
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
-        padding: rem(64) rem(32);
+
+        @include adaptive-value('padding-block', 64, 20);
+        @include adaptive-value('padding-inline', 32, 20);
     }
 
     // .direction-card__header
@@ -189,10 +211,11 @@ await suspense()
 
     // .direction-card__label
     &__label {
-        font-size: 12px;
         line-height: 125%;
         color: rgb(255 255 255 / 80%);
         text-transform: uppercase;
+
+        @include adaptive-value('font-size', 12, 10);
     }
 
     // .direction-card__title
@@ -204,14 +227,16 @@ await suspense()
     &__description {
         align-self: flex-end;
         max-width: rem(480);
-        min-height: rem(132);
-        padding: rem(24) rem(40);
-        font-size: 20px;
         line-height: 140%;
         color: $whiteColor;
         background: rgb(255 255 255 / 14%);
         border: 1px solid rgb(255 255 255 / 34%);
         backdrop-filter: blur(6px);
+
+        @include adaptive-value('font-size', 20, 14);
+        @include adaptive-value('padding-block', 24, 16);
+        @include adaptive-value('padding-inline', 40, 16);
+        @include adaptive-value('min-height', 132, 112);
     }
 }
 </style>
