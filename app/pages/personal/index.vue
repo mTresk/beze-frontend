@@ -15,7 +15,7 @@ const { logout } = useSanctumAuth()
                     <UiPageTitle flat class="personal__title">
                         Личный кабинет
                     </UiPageTitle>
-                    <UiLink medium @click="logout()">
+                    <UiLink medium @click="logout">
                         Выйти
                     </UiLink>
                 </div>

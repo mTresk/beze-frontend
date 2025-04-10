@@ -1,68 +1,80 @@
 <script setup lang="ts">
-import type { ICartProduct } from '@/types/api'
+import type { ICartItem } from '@/types/api'
 
-const props = defineProps<{ product: ICartProduct }>()
-
-const emit = defineEmits<{
-    (event: 'updateQuantity'): void
+const props = defineProps<{
+    cartItem: ICartItem
 }>()
 
-const { toggleCartItem, updateCartItem } = useCart()
+const { removeFromCart, updateCartItem } = useCart()
 
-const quantity = ref(props.product.quantity)
+const quantity = ref(props.cartItem.quantity)
 
-const totalPrice = computed(() => {
-    const price = props.product.price.replace(/\s+/g, '')
-    return Number.parseFloat(price) * quantity.value
+const updateTimeout = ref<NodeJS.Timeout | null>(null)
+
+const selectedVariant = computed(() => {
+    if (!props.cartItem.product?.variants)
+        return null
+
+    return props.cartItem.product.variants.find(
+        variant => variant.id === props.cartItem.productVariant.id,
+    )
 })
 
-function handleCartClick() {
-    if (!props.product)
-        return
+const totalPrice = computed(() => {
+    return props.cartItem.price * quantity.value
+})
 
-    toggleCartItem(
-        String(props.product.id),
-        1,
-    )
+function handleCartRemove() {
+    removeFromCart(props.cartItem.id)
 }
 
 function handleUpdateCartValues() {
-    if (!props.product)
-        return
+    if (updateTimeout.value) {
+        clearTimeout(updateTimeout.value)
+    }
 
-    updateCartItem(
-        String(props.product.id),
-        quantity.value,
-    )
+    updateTimeout.value = setTimeout(async () => {
+        await updateCartItem(props.cartItem.id, quantity.value)
+    }, 300)
 }
 
-watch(() => quantity.value, () => emit('updateQuantity'))
-watch(() => quantity.value, () => handleUpdateCartValues())
+watch(() => quantity.value, handleUpdateCartValues)
 </script>
 
 <template>
     <div class="cart-item">
         <div class="cart-item__section">
             <div class="cart-item__info">
-                <NuxtLink :to="`/catalog/${product.category.slug}/products/${product.slug}`" class="cart-item__image">
-                    <img :src="product.image.thumb" :alt="product.name" loading="lazy">
+                <NuxtLink
+                    :to="`/catalog/${props.cartItem.product.category?.slug}/products/${props.cartItem.product.slug}`"
+                    class="cart-item__image"
+                >
+                    <img
+                        v-if="props.cartItem.product.images?.length"
+                        :src="props.cartItem.product.images[0]?.thumb"
+                        :alt="props.cartItem.product.name"
+                        loading="lazy"
+                    >
                 </NuxtLink>
                 <div class="cart-item__block">
                     <div class="cart-item__sku">
-                        Артикул: {{ product?.sku }}
+                        Артикул: {{ selectedVariant?.sku || props.cartItem.product.sku }}
                     </div>
                     <h3 class="cart-item__title">
-                        {{ product?.name }}
+                        {{ props.cartItem.product.name }}
                     </h3>
                 </div>
             </div>
             <div class="cart-item__options">
-                <div class="cart-item__color">
-                    <span :style="`background-color: ${product.color.code};`" class="cart-item__icon" />
-                    <span>{{ product.color.name }}</span>
+                <div v-if="selectedVariant?.color" class="cart-item__color">
+                    <span
+                        :style="`background-color: ${selectedVariant.color.code};`"
+                        class="cart-item__icon"
+                    />
+                    <span>{{ selectedVariant.color.name }}</span>
                 </div>
-                <div class="cart-item__size">
-                    <span>размер:</span> {{ product.size.name }}
+                <div v-if="selectedVariant?.size" class="cart-item__size">
+                    <span>размер:</span> {{ selectedVariant.size.name }}
                 </div>
             </div>
         </div>
@@ -72,7 +84,12 @@ watch(() => quantity.value, () => handleUpdateCartValues())
                 <div class="cart-item__price">
                     {{ totalPrice }} ₽
                 </div>
-                <button type="button" aria-label="Убрать из корзины" class="cart-item__remove" @click="handleCartClick">
+                <button
+                    type="button"
+                    aria-label="Убрать из корзины"
+                    class="cart-item__remove"
+                    @click="handleCartRemove"
+                >
                     <UiIcon name="can" size="20" />
                 </button>
             </div>

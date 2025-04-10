@@ -1,99 +1,17 @@
 <script setup lang="ts">
-import type { ICartProduct, IOrder, IProductVariant } from '@/types/api'
+import type { IOrder } from '@/types/api'
 
-const { cartItems, clearCartItems } = useCart()
+const { cartItems, cartTotal, isLoading, clearCartItems } = useCart()
 
 const client = useSanctumClient()
 
-const products = ref<IProductVariant[]>()
-
-const isLoading = ref(false)
-
-const isDataLoaded = ref(false)
-
-const cartTotal = ref()
-
-const variantIds = computed(() => {
-    return cartItems.value.map(item => item.variantId)
-})
-
 const form = ref<IOrder>()
 
-async function fetchProducts() {
-    if (!variantIds.value.length) {
-        products.value = []
-        return
-    }
-
-    products.value = await client<IProductVariant[]>(`/api/products/variants?ids=${variantIds.value.join(',')}`)
-}
-
-async function fetchAllData() {
-    isLoading.value = true
-    await fetchProducts()
-    isLoading.value = false
-    checkDataLoaded()
-}
-
-function checkDataLoaded() {
-    if (products.value) {
-        isDataLoaded.value = true
-        calculateTotal()
-    }
-}
-
-const productCartItems = computed(() => {
-    if (!products.value) {
-        return []
-    }
-
-    return cartItems.value.map((item) => {
-        const variant = products.value?.find(
-            variant => String(variant.id) === item.variantId,
-        )
-
-        if (!variant) {
-            return null
-        }
-
-        return {
-            id: variant.id,
-            name: variant.product.name,
-            slug: variant.product.slug,
-            description: variant.product.description || '',
-            sku: variant.sku,
-            price: variant.price,
-            image: variant.image,
-            color: variant.color,
-            size: variant.size,
-            quantity: Number(item.qty),
-            category: variant.category,
-        } as ICartProduct
-    }).filter(Boolean)
-})
-
-async function calculateTotal() {
-    if (!isDataLoaded.value)
-        return
-
-    let total = 0
-
-    productCartItems.value.forEach((item) => {
-        if (item) {
-            const price = Number.parseFloat(item.price.replace(/\s+/g, ''))
-            const quantity = Number(item.quantity)
-            total += price * quantity
-        }
-    })
-
-    cartTotal.value = total
-}
-
 async function submitOrder() {
-    const products = productCartItems.value.map((item) => {
+    const products = cartItems.value.map((item) => {
         return {
-            id: item?.id,
-            quantity: item?.quantity,
+            id: item.productVariant.id,
+            quantity: item.quantity,
         }
     })
 
@@ -124,19 +42,6 @@ const {
         },
     },
 )
-
-watch(
-    () => productCartItems.value.map(item => item?.quantity),
-    () => {
-        if (isDataLoaded.value) {
-            calculateTotal()
-        }
-    },
-)
-
-onMounted(() => {
-    fetchAllData()
-})
 </script>
 
 <template>
@@ -150,10 +55,10 @@ onMounted(() => {
                 />
                 <UiPageTitle>Корзина</UiPageTitle>
                 <UiSpinner v-if="isLoading" />
-                <div v-if="productCartItems.length" class="cart__body">
+                <div v-if="cartItems.length" class="cart__body" :class="{ 'cart__body--disabled': isLoading }">
                     <div class="cart__wrapper">
                         <div class="cart__table">
-                            <CartItem v-for="product in productCartItems" :key="product?.id" :product="product as ICartProduct" />
+                            <CartItem v-for="item in cartItems" :key="item.id" :cart-item="item" />
                         </div>
                         <div class="cart__form">
                             <UiSpinner v-if="isFormSending" />
@@ -244,6 +149,11 @@ onMounted(() => {
         @media (max-width: $tablet) {
             display: grid;
             justify-content: unset;
+        }
+
+        &--disabled {
+            pointer-events: none;
+            opacity: 0.5;
         }
     }
 

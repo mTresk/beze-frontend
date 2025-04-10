@@ -33,20 +33,6 @@ export interface IProductWithFeatured {
     featured: IProduct[]
 }
 
-export interface ICartProduct {
-    id: number
-    name: string
-    slug: string
-    description: string
-    sku: string
-    price: string
-    image: IImage
-    color: IColor
-    size: ISize
-    quantity: number
-    category: ICategory
-}
-
 export interface ICertificate {
     id: number
     name: string
@@ -260,4 +246,50 @@ export interface IResetPasswordCredentials {
     password: string
     password_confirmation: string
     token: string
+}
+
+export interface ICartItem {
+    readonly id: number
+    readonly product_id: number
+    readonly product_variant_id: number
+    readonly quantity: number
+    readonly price: number
+    readonly subtotal: number
+    readonly product: {
+        readonly id: number
+        readonly name: string
+        readonly slug: string
+        readonly description: string
+        readonly sku: string
+        readonly price: string
+        readonly images: readonly {
+            readonly normal: string
+            readonly retina: string
+            readonly original: string
+            readonly thumb: string
+        }[]
+        readonly category?: {
+            readonly id: number
+            readonly name: string
+            readonly slug: string
+        }
+        readonly variants: readonly {
+            readonly id: number
+            readonly sku: string
+            readonly price: string
+            readonly color: { readonly id: number, readonly name: string, readonly code: string }
+            readonly size: { readonly id: number, readonly name: string }
+        }[]
+    }
+    readonly productVariant: {
+        readonly id: number
+        readonly sku: string
+        readonly price: number
+    }
+}
+
+export interface ICartData {
+    id: number
+    total: number
+    items: ICartItem[]
 }

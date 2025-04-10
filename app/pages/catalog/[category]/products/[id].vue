@@ -6,7 +6,7 @@ const client = useSanctumClient()
 
 const route = useRoute()
 
-const { isInCart, toggleCartItem } = useCart()
+const { isProductInCart, toggleCartItem } = useCart()
 
 const { isFavorite, toggleFavorite } = useFavorites()
 
@@ -81,8 +81,9 @@ const availableSizes = computed(() => {
 })
 
 const selectedVariant = computed(() => {
-    if (!product.value?.data.variants || !colorId.value || !size.value?.id)
+    if (!product.value?.data.variants || !colorId.value || !size.value?.id) {
         return null
+    }
 
     return product.value.data.variants.find(
         (variant: IProductVariant) => variant.color.id === colorId.value && variant.size.id === size.value.id,
@@ -91,9 +92,11 @@ const selectedVariant = computed(() => {
 
 const cartStatus = computed(() => {
     const variant = selectedVariant.value
-    if (!variant)
+    if (!variant) {
         return false
-    return isInCart(String(variant.id)).value
+    }
+
+    return isProductInCart(variant.id).value
 })
 
 const favoriteStatus = isFavorite(String(product.value?.data.id))
@@ -122,18 +125,20 @@ function setColor(color: IColor) {
 }
 
 function handleCartClick() {
-    if (!size.value) {
+    if (!product.value?.data.id)
+        return
+
+    if (availableSizes.value.length > 0 && !size.value) {
         selectError.value = true
         return
     }
 
     const variant = selectedVariant.value
-    if (!variant)
-        return
 
     toggleCartItem(
-        String(variant.id),
+        variant ? variant.id : null,
         1,
+        product.value.data.id,
     )
 }
 

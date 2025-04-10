@@ -1,67 +1,229 @@
-export function useCart() {
-    const cartItems = useState<{ variantId: string, qty?: number }[]>('beze-cart', () => [])
+import type { ICartData, ICartItem } from '@/types/api'
 
-    function updateCartFromStorage() {
-        if (import.meta.client) {
-            const storedCart = localStorage.getItem('beze-cart')
-            cartItems.value = storedCart ? JSON.parse(storedCart) : []
+let isCartInitialized = false
+let isUpdatingCart = false
+let previousAuthState: boolean | null = null
+
+export function useCart() {
+    const cartItems = useState<ICartItem[]>('cart-items', () => [])
+    const cartTotal = useState<number>('cart-total', () => 0)
+    const cartId = useState<number | null>('cart-id', () => null)
+    const isLoading = useState<boolean>('cart-loading', () => false)
+
+    const client = useSanctumClient()
+    const { isAuthenticated } = useSanctumAuth()
+
+    async function fetchCart(force = false) {
+        if (isUpdatingCart && !force) {
+            return null
+        }
+
+        if (isLoading.value && !force) {
+            return null
+        }
+
+        if (isCartInitialized && !force) {
+            return null
+        }
+
+        isUpdatingCart = true
+        isLoading.value = true
+
+        try {
+            const response = await client<{ cart: ICartData }>('/api/cart')
+            if (response && response.cart) {
+                cartItems.value = response.cart.items || []
+                cartTotal.value = response.cart.total || 0
+                cartId.value = response.cart.id || null
+                isCartInitialized = true
+                return response.cart
+            }
+            else {
+                cartItems.value = []
+                cartTotal.value = 0
+                cartId.value = null
+                isCartInitialized = true
+                return null
+            }
+        }
+        catch (error) {
+            console.error('Ошибка при загрузке корзины:', error)
+            cartItems.value = []
+            cartTotal.value = 0
+            cartId.value = null
+            isCartInitialized = true
+            return null
+        }
+        finally {
+            isLoading.value = false
+            isUpdatingCart = false
         }
     }
 
-    function toggleCartItem(variantId: string, qty?: number) {
-        const inCart = cartItems.value.some(item => item.variantId === variantId)
+    async function addToCart(variantId: number | null, quantity: number = 1, productId: number) {
+        isLoading.value = true
+        try {
+            if (!productId) {
+                useToastify(`Ошибка при добавлении товара в корзину: не указан ID продукта`, { type: 'error' })
+                return null
+            }
 
-        if (inCart) {
-            cartItems.value = cartItems.value.filter(item => item.variantId !== variantId)
-            useToastify(`Товар удален из корзины`, { type: 'success' })
+            const productVariantId = variantId && variantId > 0 ? variantId : null
+
+            const response = await client<{ cart: ICartData }>('/api/cart/add', {
+                method: 'post',
+                body: {
+                    product_variant_id: productVariantId,
+                    product_id: productId,
+                    quantity,
+                },
+            })
+
+            if (response && response.cart) {
+                cartItems.value = response.cart.items || []
+                cartTotal.value = response.cart.total || 0
+                cartId.value = response.cart.id || null
+                isCartInitialized = true
+
+                useToastify(`Товар добавлен в корзину`, { type: 'success' })
+                return response.cart
+            }
+            return null
+        }
+        catch (error) {
+            console.error('Ошибка при добавлении товара в корзину:', error)
+            useToastify(`Ошибка при добавлении товара в корзину`, { type: 'error' })
+            return null
+        }
+        finally {
+            isLoading.value = false
+        }
+    }
+
+    async function removeFromCart(cartItemId: number) {
+        isLoading.value = true
+        try {
+            const response = await client<{ cart: ICartData }>(`/api/cart/items/${cartItemId}`, {
+                method: 'delete',
+            })
+
+            if (response && response.cart) {
+                cartItems.value = response.cart.items || []
+                cartTotal.value = response.cart.total || 0
+                cartId.value = response.cart.id || null
+                isCartInitialized = true
+
+                useToastify(`Товар удален из корзины`, { type: 'success' })
+                return response.cart
+            }
+            return null
+        }
+        catch (error) {
+            console.error('Ошибка при удалении товара из корзины:', error)
+            useToastify(`Ошибка при удалении товара из корзины`, { type: 'error' })
+            return null
+        }
+        finally {
+            isLoading.value = false
+        }
+    }
+
+    async function updateCartItem(cartItemId: number, quantity: number) {
+        if (quantity <= 0) {
+            return removeFromCart(cartItemId)
+        }
+
+        isLoading.value = true
+        try {
+            const response = await client<{ cart: ICartData }>(`/api/cart/items/${cartItemId}`, {
+                method: 'put',
+                body: { quantity },
+            })
+
+            if (response && response.cart) {
+                cartItems.value = response.cart.items || []
+                cartTotal.value = response.cart.total || 0
+                cartId.value = response.cart.id || null
+                isCartInitialized = true
+                return response.cart
+            }
+            return null
+        }
+        catch (error) {
+            console.error('Ошибка при обновлении товара в корзине:', error)
+            return null
+        }
+        finally {
+            isLoading.value = false
+        }
+    }
+
+    async function clearCartItems() {
+        isLoading.value = true
+        try {
+            await client('/api/cart/clear', { method: 'delete' })
+            cartItems.value = []
+            cartTotal.value = 0
+            cartId.value = null
+            isCartInitialized = true
+            return true
+        }
+        catch (error) {
+            console.error('Ошибка при очистке корзины:', error)
+            return false
+        }
+        finally {
+            isLoading.value = false
+        }
+    }
+
+    function isProductInCart(variantId: number) {
+        return computed(() => cartItems.value?.some(item => item.productVariant.id === variantId) || false)
+    }
+
+    async function toggleCartItem(variantId: number | null, quantity: number = 1, productId: number) {
+        if (variantId) {
+            const item = cartItems.value?.find(item => item.productVariant.id === variantId)
+            if (item) {
+                return await removeFromCart(item.id)
+            }
         }
         else {
-            cartItems.value = [...cartItems.value, { variantId, qty }]
-            useToastify(`Товар добавлен в корзину`, { type: 'success' })
+            const item = cartItems.value?.find(item => item.product.id === productId)
+            if (item) {
+                return await removeFromCart(item.id)
+            }
         }
 
-        if (import.meta.client) {
-            localStorage.setItem('beze-cart', JSON.stringify(cartItems.value))
-        }
+        return await addToCart(variantId, quantity, productId)
     }
 
-    function updateCartItem(variantId: string, qty: number) {
-        const itemIndex = cartItems.value.findIndex(item => item.variantId === variantId)
-
-        if (itemIndex !== -1) {
-            cartItems.value[itemIndex]!.qty = qty
+    watch(isAuthenticated, (newVal) => {
+        if (previousAuthState !== null && newVal !== previousAuthState) {
+            isCartInitialized = false
+            fetchCart(true)
         }
-
-        if (import.meta.client) {
-            localStorage.setItem('beze-cart', JSON.stringify(cartItems.value))
-        }
-    }
-
-    function clearCartItems() {
-        cartItems.value = []
-        if (import.meta.client) {
-            localStorage.setItem('beze-cart', '')
-        }
-    }
-
-    function isInCart(variantId: string) {
-        return computed(() => cartItems.value.some(item => item.variantId === variantId))
-    }
-
-    function handleStorageChange(event: StorageEvent) {
-        if (event.key === 'beze-cart' && import.meta.client) {
-            updateCartFromStorage()
-        }
-    }
+        previousAuthState = newVal
+    })
 
     onMounted(() => {
-        updateCartFromStorage()
-        window.addEventListener('storage', handleStorageChange)
+        previousAuthState = isAuthenticated.value
+        if (!isCartInitialized) {
+            fetchCart()
+        }
     })
 
-    onUnmounted(() => {
-        window.removeEventListener('storage', handleStorageChange)
-    })
-
-    return { cartItems, isInCart, toggleCartItem, updateCartItem, clearCartItems }
+    return {
+        cartItems: readonly(cartItems),
+        cartTotal: readonly(cartTotal),
+        cartId: readonly(cartId),
+        isLoading: readonly(isLoading),
+        fetchCart,
+        addToCart,
+        removeFromCart,
+        updateCartItem,
+        toggleCartItem,
+        clearCartItems,
+        isProductInCart,
+    }
 }

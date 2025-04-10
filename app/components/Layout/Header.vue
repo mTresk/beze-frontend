@@ -22,9 +22,9 @@ const settings = useState<ISettings>('settings')
 
 const isInnerPage = computed(() => route.path !== '/')
 
-const favoritesCount = computed(() => favorites.value.length)
+const favoritesCount = computed(() => favorites.value?.length || 0)
 
-const cartCount = computed(() => cartItems.value.length)
+const cartCount = computed(() => cartItems.value?.length || 0)
 
 const formattedPhone = computed(() => settings?.value?.phone?.replace(/\s+/g, ''))
 
