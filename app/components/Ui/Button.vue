@@ -1,6 +1,7 @@
 <script setup lang="ts">
 defineProps<{
     href?: string
+    isLoading?: boolean
 }>()
 </script>
 
@@ -9,14 +10,18 @@ defineProps<{
         v-if="href"
         :to="href"
         class="button"
+        :disabled="isLoading"
     >
         <slot />
+        <UiButtonSpinner v-if="isLoading" size="20" />
     </NuxtLink>
     <button
         v-else
         class="button"
+        :disabled="isLoading"
     >
         <slot />
+        <UiButtonSpinner v-if="isLoading" size="20" />
     </button>
 </template>
 

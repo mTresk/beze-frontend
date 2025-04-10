@@ -170,7 +170,7 @@ onMounted(() => {
                             </VForm>
                         </div>
                         <div class="contacts-form__footer">
-                            <UiButton :disabled="isFormSent || isLoading" class="contacts-form__button" @click="handleSubmit">
+                            <UiButton :disabled="isFormSent" :is-loading="isLoading" class="contacts-form__button" @click="handleSubmit">
                                 {{ isFormSent ? 'Отправлено' : 'Отправить' }}
                             </UiButton>
                             <p class="contacts-form__policy">

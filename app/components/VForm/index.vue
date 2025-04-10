@@ -9,6 +9,7 @@
 <style lang="scss" scoped>
 .form {
     position: relative;
+    width: 100%;
 
     &[grid] {
         .form__body {

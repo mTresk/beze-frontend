@@ -235,3 +235,29 @@ export interface ISearchResult {
         relatedSearch: string
     }[]
 }
+
+export interface IUser {
+    name: string
+    email?: string
+    id?: number
+    verified: boolean
+}
+
+export interface ILoginCredentials {
+    email: string
+    password: string
+}
+
+export interface IRegisterCredentials {
+    name: string
+    email: string
+    password: string
+    password_confirmation: string
+}
+
+export interface IResetPasswordCredentials {
+    email: string
+    password: string
+    password_confirmation: string
+    token: string
+}

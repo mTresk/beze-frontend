@@ -34,7 +34,7 @@ watch(form, (newForm) => {
         <VFormBlock :error="errors.name">
             <VFormField>
                 <VFormLabel for="name">
-                    Ваше имя *
+                    Ваше имя (полностью) *
                 </VFormLabel>
                 <VFormInput
                     id="name"

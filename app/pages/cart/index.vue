@@ -3,6 +3,8 @@ import type { ICartProduct, IOrder, IProductVariant } from '@/types/api'
 
 const { cartItems, clearCartItems } = useCart()
 
+const client = useSanctumClient()
+
 const products = ref<IProductVariant[]>()
 
 const isLoading = ref(false)
@@ -101,7 +103,7 @@ async function submitOrder() {
         communication: form.value?.communication?.name,
     }
 
-    await useFetcher('/api/order', {
+    await client('/api/order', {
         body: payload,
         method: 'post',
     })
@@ -194,7 +196,7 @@ onMounted(() => {
                             </div>
                         </div>
                         <div class="cart__footer">
-                            <UiButton :disabled="isFormSending" class="cart__button" @click="handleSubmit">
+                            <UiButton :is-loading="isFormSending" class="cart__button" @click="handleSubmit">
                                 Сделать заказ
                             </UiButton>
                             <p class="cart__policy">

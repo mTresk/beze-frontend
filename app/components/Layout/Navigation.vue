@@ -1,8 +1,13 @@
 <script setup lang="ts">
+import type { IUser } from '@/types/api'
+
 const { favorites } = useFavorites()
 
 const { cartItems } = useCart()
 
+const { isAuthenticated } = useSanctumAuth()
+
+const user = useSanctumUser<IUser>()
 const favoritesCount = computed(() => favorites.value.length)
 
 const cartCount = computed(() => cartItems.value.length)
@@ -57,14 +62,33 @@ const cartCount = computed(() => cartItems.value.length)
                     <span>Корзина</span>
                 </NuxtLink>
             </li>
-            <li class="navigation__item">
+            <li
+                v-if="isAuthenticated"
+                class="navigation__item"
+            >
                 <NuxtLink
                     class="navigation__link"
-                    to="#"
-                    title="Профиль"
+                    to="/personal"
+                    title="Личный кабинет"
                 >
                     <UiIcon name="user" size="24" />
-                    <span>Профиль</span>
+                    <Transition>
+                        <span v-if="user?.name" class="navigation__link-count">{{ user?.name.charAt(0) }}</span>
+                    </Transition>
+                    <span>Кабинет</span>
+                </NuxtLink>
+            </li>
+            <li
+                v-else
+                class="navigation__item"
+            >
+                <NuxtLink
+                    class="navigation__link"
+                    to="/auth/login"
+                    title="Войти"
+                >
+                    <UiIcon name="user" size="24" />
+                    <span>Кабинет</span>
                 </NuxtLink>
             </li>
         </ul>

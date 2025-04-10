@@ -3,7 +3,7 @@ export default defineNuxtConfig({
         compatibilityVersion: 4,
     },
     devtools: { enabled: false },
-    modules: ['nuxt-swiper', 'nuxt-toastify'],
+    modules: ['nuxt-swiper', 'nuxt-toastify', 'nuxt-auth-sanctum'],
     app: {
         pageTransition: { name: 'layout', mode: 'out-in' },
     },
@@ -11,6 +11,13 @@ export default defineNuxtConfig({
         public: {
             backendUrl: process.env.NUXT_PUBLIC_BACKEND_URL,
             yandexMapsApiKey: process.env.VITE_YANDEX_MAPS_API_KEY,
+        },
+    },
+    sanctum: {
+        baseUrl: process.env.NUXT_PUBLIC_BACKEND_URL,
+        redirect: {
+            onAuthOnly: '/auth/login',
+            onLogin: '/personal',
         },
     },
     nitro: {
@@ -21,7 +28,7 @@ export default defineNuxtConfig({
     },
     devServer: {
         port: 3000,
-        host: '0.0.0.0',
+        host: 'localhost',
     },
     postcss: {
         plugins: {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IMenu, ISettings } from '@/types/api'
+import type { IMenu, ISettings, IUser } from '@/types/api'
 import type Lenis from 'lenis'
 
 const route = useRoute()
@@ -9,6 +9,10 @@ const { favorites } = useFavorites()
 const { cartItems } = useCart()
 
 const { openSearch } = useSearch()
+
+const { isAuthenticated } = useSanctumAuth()
+
+const user = useSanctumUser<IUser>()
 
 const lenis = useState<Lenis | null>('lenisVS')
 
@@ -213,11 +217,23 @@ function toggleMenu() {
                         </Transition>
                     </NuxtLink>
                     <NuxtLink
-                        to="#"
+                        v-if="!isAuthenticated"
+                        to="/auth/login"
+                        class="header__action"
+                        title="Войти"
+                    >
+                        <UiIcon name="user" size="30" />
+                    </NuxtLink>
+                    <NuxtLink
+                        v-else
+                        to="/personal"
                         class="header__action"
                         title="Личный кабинет"
                     >
                         <UiIcon name="user" size="30" />
+                        <Transition>
+                            <span v-if="user?.name">{{ user?.name.charAt(0) }}</span>
+                        </Transition>
                     </NuxtLink>
                 </div>
                 <div class="header__mobile-actions">

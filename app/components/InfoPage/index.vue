@@ -80,7 +80,7 @@ defineProps<Props>()
     &__sidebar {
         position: sticky;
         top: rem(100);
-        flex: 0 0 rem(200);
+        flex: 0 1 rem(300);
     }
 }
 
