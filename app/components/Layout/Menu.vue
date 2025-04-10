@@ -26,7 +26,7 @@ function handleLinkClick() {
 </script>
 
 <template>
-    <div class="header__menu menu" :class="{ 'menu--blocked': isMenuBlocked }">
+    <div class="menu" :class="{ 'menu--blocked': isMenuBlocked }">
         <nav class="menu__body">
             <ul class="menu__list">
                 <!-- Категории -->
@@ -108,20 +108,20 @@ function handleLinkClick() {
                 </li>
             </ul>
         </nav>
-        <div class="header__contacts">
-            <p class="header__address">
+        <div class="menu__contacts">
+            <p class="menu__address">
                 {{ settings.address }}
             </p>
-            <a :href="`mailto:${settings.email}`" class="header__email">{{ settings.email }}</a>
-            <a :href="`tel:${formattedPhone}`" class="header__phone">{{ settings.phone }}</a>
-            <div class="header__socials">
-                <a v-if="settings.vk" target="_blank" title="Vk" :href="settings.vk" class="header__social">
+            <a :href="`mailto:${settings.email}`" class="menu__email">{{ settings.email }}</a>
+            <a :href="`tel:${formattedPhone}`" class="menu__phone">{{ settings.phone }}</a>
+            <div class="menu__socials">
+                <a v-if="settings.vk" target="_blank" title="Vk" :href="settings.vk" class="menu__social">
                     <img src="/images/icons/vk.svg" alt="" loading="lazy">
                 </a>
-                <a v-if="settings.telegram" target="_blank" title="Telegram" :href="settings.telegram" class="header__social">
+                <a v-if="settings.telegram" target="_blank" title="Telegram" :href="settings.telegram" class="menu__social">
                     <img src="/images/icons/tg.svg" alt="" loading="lazy">
                 </a>
-                <a v-if="settings.whatsapp" target="_blank" title="Whatsapp" :href="settings.whatsapp" class="header__social">
+                <a v-if="settings.whatsapp" target="_blank" title="Whatsapp" :href="settings.whatsapp" class="menu__social">
                     <img src="/images/icons/wa.svg" alt="" loading="lazy">
                 </a>
             </div>
@@ -129,68 +129,7 @@ function handleLinkClick() {
     </div>
 </template>
 
-<style lang="scss">
-.header {
-    // .header__contacts
-    &__contacts {
-        display: none;
-
-        @media (max-width: $tablet) {
-            display: grid;
-            gap: rem(16);
-            padding-top: rem(30);
-            margin-top: rem(30);
-            border-top: 1px solid rgb(54 54 54 / 10%);
-        }
-    }
-
-    // .header__address
-    &__address {
-        font-size: rem(18);
-        line-height: 140%;
-    }
-
-    // .header__email
-    &__email {
-        font-size: rem(18);
-        line-height: 140%;
-        text-decoration: underline;
-        text-decoration-thickness: 10%;
-        text-decoration-style: dotted;
-        text-underline-offset: rem(3);
-        text-decoration-skip-ink: none;
-    }
-
-    // .header__phone
-    &__phone {
-        font-size: rem(18);
-        line-height: 140%;
-        text-decoration: underline;
-        text-decoration-thickness: 10%;
-        text-decoration-style: dotted;
-        text-underline-offset: rem(3);
-        text-decoration-skip-ink: none;
-    }
-
-    // .header__socials
-    &__socials {
-        display: flex;
-        gap: rem(8);
-        align-items: center;
-    }
-
-    // .header__social
-    &__social {
-        width: rem(40);
-        height: rem(40);
-
-        img {
-            width: 100%;
-            height: 100%;
-        }
-    }
-}
-
+<style lang="scss" scoped>
 .menu {
     @media (max-width: $tablet) {
         position: fixed;
@@ -354,6 +293,65 @@ function handleLinkClick() {
 
         @media (max-width: $tablet) {
             color: $mainColor;
+        }
+    }
+
+    // .menu__contacts
+    &__contacts {
+        display: none;
+
+        @media (max-width: $tablet) {
+            display: grid;
+            gap: rem(16);
+            padding-top: rem(30);
+            margin-top: rem(30);
+            border-top: 1px solid rgb(54 54 54 / 10%);
+        }
+    }
+
+    // .menu__address
+    &__address {
+        font-size: rem(18);
+        line-height: 140%;
+    }
+
+    // .menu__email
+    &__email {
+        font-size: rem(18);
+        line-height: 140%;
+        text-decoration: underline;
+        text-decoration-thickness: 10%;
+        text-decoration-style: dotted;
+        text-underline-offset: rem(3);
+        text-decoration-skip-ink: none;
+    }
+
+    // .menu__phone
+    &__phone {
+        font-size: rem(18);
+        line-height: 140%;
+        text-decoration: underline;
+        text-decoration-thickness: 10%;
+        text-decoration-style: dotted;
+        text-underline-offset: rem(3);
+        text-decoration-skip-ink: none;
+    }
+
+    // .menu__socials
+    &__socials {
+        display: flex;
+        gap: rem(8);
+        align-items: center;
+    }
+
+    // .menu__social
+    &__social {
+        width: rem(40);
+        height: rem(40);
+
+        img {
+            width: 100%;
+            height: 100%;
         }
     }
 }
