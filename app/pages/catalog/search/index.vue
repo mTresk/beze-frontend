@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import type { ISearchResult } from '@/types/api'
 
+const client = useSanctumClient()
+
 const route = useRoute()
 const searchQuery = computed(() => route.query.search as string || '')
 
 async function fetcher() {
-    return await useFetcher<ISearchResult>(`/api/search`, {
+    return await client<ISearchResult>(`/api/search`, {
         params: { search: searchQuery.value },
     })
 }

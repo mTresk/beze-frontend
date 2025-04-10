@@ -3,9 +3,11 @@ import type { IProduct, ISearchResult } from '@/types/api'
 import type Lenis from 'lenis'
 import { computed } from 'vue'
 
+const client = useSanctumClient()
+
 const { closeSearch } = useSearch()
 
-const fetcher = async () => await useFetcher<IProduct[]>(`/api/products/featured`)
+const fetcher = async () => await client<IProduct[]>(`/api/products/featured`)
 
 const lenis = useState<Lenis | null>('lenisVS')
 
@@ -78,7 +80,7 @@ await suspense()
 
 async function handleSearch() {
     isLoading.value = true
-    searchResult.value = await useFetcher<ISearchResult>('/api/search', {
+    searchResult.value = await client<ISearchResult>('/api/search', {
         params: { search: searchQuery.value },
     })
     isLoading.value = false

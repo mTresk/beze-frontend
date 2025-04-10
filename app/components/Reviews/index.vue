@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { IReview } from '@/types/api'
 
+const client = useSanctumClient()
+
 const containerRef = ref(null)
 
-const fetcher = async () => await useFetcher<IReview>(`/api/reviews`)
+const fetcher = async () => await client<IReview>(`/api/reviews`)
 
 const {
     data: reviews,

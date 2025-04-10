@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { ICertificate, ICertificateOrder } from '@/types/api'
 
+const client = useSanctumClient()
+
 const certificates = ref<ICertificate[]>()
 
 const isLoading = ref(false)
@@ -26,7 +28,7 @@ const certificateOptions = computed(() => {
 async function fetchCertificates() {
     try {
         isLoading.value = true
-        certificates.value = await useFetcher<ICertificate[]>(`/api/certificates`)
+        certificates.value = await client<ICertificate[]>(`/api/certificates`)
 
         if (certificates.value && certificates.value.length > 0) {
             amount.value = certificates.value[0]!.amount
@@ -59,7 +61,7 @@ async function submitOrder() {
         ...form.value,
     }
 
-    await useFetcher('/api/order', {
+    await client('/api/order', {
         body: payload,
         method: 'post',
     })

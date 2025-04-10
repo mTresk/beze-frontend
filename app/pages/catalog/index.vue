@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import type { ICategory } from '@/types/api'
 
+const client = useSanctumClient()
+
 const categories = ref<ICategory[]>([])
 
 async function getCategories() {
-    return categories.value = await useFetcher<ICategory[]>('api/categories')
+    return categories.value = await client<ICategory[]>('api/categories')
 }
 
 await getCategories()

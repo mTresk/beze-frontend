@@ -2,6 +2,8 @@
 import type { IFeedback, ISettings } from '@/types/api'
 import { yandexMap } from '@/helpers'
 
+const client = useSanctumClient()
+
 const form = reactive<IFeedback>({
     name: '',
     email: '',
@@ -16,7 +18,7 @@ const settings = useState<ISettings>('settings')
 const formattedPhone = computed(() => settings.value.phone?.replace(/\s+/g, ''))
 
 function handleForm() {
-    return useFetcher<IFeedback>('/api/feedback', {
+    return client<IFeedback>('/api/feedback', {
         body: form,
         method: 'post',
     })

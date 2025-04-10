@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { IProduct } from '@/types/api'
 
+const client = useSanctumClient()
+
 const { favorites } = useFavorites()
 
 const products = ref<IProduct[]>()
@@ -10,7 +12,7 @@ const isLoading = ref(false)
 async function fetchProducts() {
     isLoading.value = true
 
-    products.value = await useFetcher<IProduct[]>(`/api/products/favorites?ids=${favorites.value}`)
+    products.value = await client<IProduct[]>(`/api/products/favorites?ids=${favorites.value}`)
 
     isLoading.value = false
 }

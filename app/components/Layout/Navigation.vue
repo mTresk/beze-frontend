@@ -8,6 +8,7 @@ const { cartItems } = useCart()
 const { isAuthenticated } = useSanctumAuth()
 
 const user = useSanctumUser<IUser>()
+
 const favoritesCount = computed(() => favorites.value.length)
 
 const cartCount = computed(() => cartItems.value.length)

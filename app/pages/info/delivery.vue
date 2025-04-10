@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import type { IInfoPageContent } from '@/types/api'
 
-const fetcher = async () => await useFetcher<IInfoPageContent>(`/api/pages/delivery`)
+const client = useSanctumClient()
+
+const fetcher = async () => await client<IInfoPageContent>(`/api/pages/delivery`)
 
 const {
     data: delivery,

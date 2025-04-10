@@ -25,7 +25,7 @@ async function fetchProducts() {
         return
     }
 
-    products.value = await useFetcher<IProductVariant[]>(`/api/products/variants?ids=${variantIds.value.join(',')}`)
+    products.value = await client<IProductVariant[]>(`/api/products/variants?ids=${variantIds.value.join(',')}`)
 }
 
 async function fetchAllData() {

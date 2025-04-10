@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import type { ICategory } from '@/types/api'
 
+const client = useSanctumClient()
+
 const route = useRoute()
+
 const category = ref<ICategory>()
+
 const categorySlug = computed(() => route.params.category)
 
 async function getCategory() {
-    return category.value = await useFetcher<ICategory>(`api/categories/${categorySlug.value}`)
+    return category.value = await client<ICategory>(`api/categories/${categorySlug.value}`)
 }
 
 await getCategory()

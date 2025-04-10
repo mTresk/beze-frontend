@@ -105,7 +105,7 @@ defineProps<{
         }
     }
 
-    &[disabled] {
+    &[disabled='true'] {
         pointer-events: none;
         opacity: 0.4;
     }

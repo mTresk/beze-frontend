@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { IGallery } from '@/types/api'
 
+const client = useSanctumClient()
+
 const containerRef = ref(null)
 
-const fetcher = async () => await useFetcher<IGallery>(`/api/gallery`)
+const fetcher = async () => await client<IGallery>(`/api/gallery`)
 
 const {
     data: gallery,

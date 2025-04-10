@@ -13,6 +13,8 @@ interface Props {
 
 const props = defineProps<Props>()
 
+const client = useSanctumClient()
+
 const route = useRoute()
 
 const meta = ref<ApiPaginationMeta>()
@@ -43,7 +45,7 @@ const query = useQuery({
 
         const queryString = params.toString()
         const url = `${props.apiUrl}${queryString ? `?${queryString}` : ''}`
-        const data = await useFetcher<ApiResponse<IProduct[]>>(url)
+        const data = await client<ApiResponse<IProduct[]>>(url)
         return data
     },
 })

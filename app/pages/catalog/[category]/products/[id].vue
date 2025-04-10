@@ -2,6 +2,8 @@
 import type { IColor, IInfoPageContent, IProduct, IProductVariant, IProductWithFeatured, ISize } from '@/types/api'
 import { getUniqueColors } from '@/helpers'
 
+const client = useSanctumClient()
+
 const route = useRoute()
 
 const { isInCart, toggleCartItem } = useCart()
@@ -30,8 +32,8 @@ const categorySlug = computed(() => route.params.category)
 
 async function fetcher() {
     const [productData, sizesData] = await Promise.all([
-        useFetcher<IProductWithFeatured>(`/api/products/${categorySlug.value}/${productSlug.value}`),
-        useFetcher<IInfoPageContent>(`/api/pages/sizes`),
+        client<IProductWithFeatured>(`/api/products/${categorySlug.value}/${productSlug.value}`),
+        client<IInfoPageContent>(`/api/pages/sizes`),
     ])
     return { product: productData, sizes: sizesData }
 }
@@ -55,7 +57,7 @@ async function getViewedProducts() {
     const filteredIds = viewedProductsIds.value.filter(id => id !== String(product.value?.data.id))
     if (!filteredIds.length)
         return
-    viewedProducts.value = await useFetcher<IProduct[]>(`/api/products/favorites?ids=${filteredIds}`)
+    viewedProducts.value = await client<IProduct[]>(`/api/products/favorites?ids=${filteredIds}`)
 }
 
 const colors = computed(() => product.value ? getUniqueColors(product.value.data.variants) : [])

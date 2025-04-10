@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { ICategory } from '@/types/api'
 
+const client = useSanctumClient()
+
 const containerRef = ref(null)
 
 useSwiper(containerRef, {
@@ -27,7 +29,7 @@ useSwiper(containerRef, {
 })
 
 async function fetcher() {
-    return await useFetcher<ICategory[]>(`/api/categories`)
+    return await client<ICategory[]>(`/api/categories`)
 }
 
 const {

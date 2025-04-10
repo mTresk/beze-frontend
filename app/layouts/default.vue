@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { IMenu, ISettings } from '@/types/api'
 
+const client = useSanctumClient()
+
 const { direction } = useScrollDirection()
 
 const { isSearchOpen } = useSearch()
@@ -28,8 +30,8 @@ useHead({
 
 async function fetcher() {
     const [menuData, settingsData] = await Promise.all([
-        useFetcher<IMenu>('/api/menu'),
-        useFetcher<ISettings>('/api/settings'),
+        client<IMenu>('/api/menu'),
+        client<ISettings>('/api/settings'),
     ])
     return { menu: menuData, settings: settingsData }
 }
