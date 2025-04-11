@@ -14,6 +14,7 @@ const colors = computed(() => getUniqueColors(props.product.variants))
 
 const containerRef = ref(null)
 const activeSlide = ref(0)
+const imagesLoaded = ref(false)
 
 const paginationItemWidth = computed(() => {
     return `${100 / (props.product.images?.length || 1)}%`
@@ -38,6 +39,13 @@ function handleWishlistClick() {
     )
 }
 
+function handleImageLoad(event: Event) {
+    if (event.target && event.target instanceof HTMLImageElement) {
+        event.target.classList.add('loaded')
+        imagesLoaded.value = true
+    }
+}
+
 useSwiper(containerRef, {
     speed: 300,
     slidesPerView: 1,
@@ -52,13 +60,20 @@ useSwiper(containerRef, {
 <template>
     <article class="product-card">
         <NuxtLink :to="`/catalog/${product.category.slug}/products/${product.slug}`" class="product-card__picture">
+            <div class="product-card__placeholder" :class="{ hidden: imagesLoaded }">
+                <UiIcon name="image" size="48" />
+            </div>
             <ClientOnly>
                 <swiper-container
                     ref="containerRef"
                     :init="false"
                     class="product-card__slider"
+                    :class="{ loaded: imagesLoaded }"
                 >
-                    <swiper-slide v-for="(image, index) in product.images" :key="index" class="product-card__slide">
+                    <swiper-slide
+                        v-for="(image, index) in product.images"
+                        :key="index" class="product-card__slide"
+                    >
                         <img
                             loading="lazy"
                             :src="image.normal"
@@ -66,6 +81,9 @@ useSwiper(containerRef, {
                             :alt="product.name"
                             width="420"
                             height="630"
+                            decoding="async"
+                            fetchpriority="high"
+                            @load="handleImageLoad"
                         >
                     </swiper-slide>
                 </swiper-container>
@@ -147,13 +165,39 @@ useSwiper(containerRef, {
 
     &__slider {
         height: 100%;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+
+        &.loaded {
+            opacity: 1;
+        }
     }
 
     &__picture {
         position: relative;
         display: block;
+        aspect-ratio: 420 / 630;
         overflow: hidden;
+        background-color: #f7f7f7;
         border-radius: rem(4);
+    }
+
+    &__placeholder {
+        position: absolute;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        color: #ccc;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+
+        &.hidden {
+            pointer-events: none;
+            opacity: 0;
+        }
     }
 
     &__slide {
@@ -162,7 +206,14 @@ useSwiper(containerRef, {
         aspect-ratio: 410 / 615;
 
         img {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+
             @include image;
+
+            &.loaded {
+                opacity: 1;
+            }
         }
     }
 

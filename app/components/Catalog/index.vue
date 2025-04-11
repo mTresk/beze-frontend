@@ -50,9 +50,24 @@ const query = useQuery({
     },
 })
 
+const cachedData = ref<IProduct[]>([])
+
 await query.suspense()
 
+if (query.data.value?.data) {
+    cachedData.value = query.data.value.data
+}
+
 meta.value = query.data.value?.meta
+
+watch(query.data, (newData) => {
+    if (newData?.data) {
+        cachedData.value = newData.data
+    }
+    if (newData?.meta) {
+        meta.value = newData.meta
+    }
+})
 
 async function handlePageClick(page: number) {
     if (page === meta.value?.current_page)
@@ -90,25 +105,31 @@ watch(
 )
 
 watch(selectedSort, async (newSort) => {
-    const query = { ...route.query }
+    const newQuery = { ...route.query }
 
     if (newSort === 'default') {
-        delete query.sort
+        delete newQuery.sort
     }
     else {
-        query.sort = newSort
+        newQuery.sort = newSort
     }
 
-    delete query.page
+    delete newQuery.page
 
-    await navigateTo({ query })
+    const queryParams = new URLSearchParams()
+    Object.entries(newQuery).forEach(([key, value]) => {
+        if (value !== null && value !== undefined) {
+            queryParams.append(key, String(value))
+        }
+    })
+
+    history.replaceState(
+        {},
+        '',
+        window.location.pathname + (queryParams.toString() ? `?${queryParams.toString()}` : ''),
+    )
+
     currentPage.value = 1
-})
-
-watch(query.data, (newData) => {
-    if (newData?.meta) {
-        meta.value = newData.meta
-    }
 })
 </script>
 
@@ -169,16 +190,16 @@ watch(query.data, (newData) => {
             </div>
             <div class="catalog__inner">
                 <div class="catalog__wrapper">
-                    <UiSpinner v-if="query.isLoading.value" />
-                    <div v-if="!query.isLoading.value" class="catalog__body">
+                    <UiSpinner v-if="query.isLoading.value && !cachedData.length" />
+                    <div v-if="cachedData.length" class="catalog__body" :class="{ 'catalog__body--loading': query.isFetching.value }">
                         <ProductItem
-                            v-for="product in query.data.value?.data"
+                            v-for="product in cachedData"
                             :key="product.id"
                             :product="product"
                         />
                     </div>
                     <LayoutPagination
-                        v-if="!query.isLoading.value && meta"
+                        v-if="meta"
                         :meta="meta"
                         :is-loading="query.isFetching.value"
                         @page-click="handlePageClick"
@@ -265,6 +286,11 @@ watch(query.data, (newData) => {
 
         @media (max-width: $tablet) {
             grid-template-columns: repeat(2, 1fr);
+        }
+
+        &--loading {
+            pointer-events: none;
+            opacity: 0.5;
         }
     }
 }
