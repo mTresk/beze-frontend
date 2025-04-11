@@ -57,7 +57,7 @@ async function getViewedProducts() {
     const filteredIds = viewedProductsIds.value.filter(id => id !== String(product.value?.data.id))
     if (!filteredIds.length)
         return
-    viewedProducts.value = await client<IProduct[]>(`/api/products/wishlist?ids=${filteredIds}`)
+    viewedProducts.value = await client<IProduct[]>(`/api/products/favorites?ids=${filteredIds}`)
 }
 
 const colors = computed(() => product.value ? getUniqueColors(product.value.data.variants) : [])
