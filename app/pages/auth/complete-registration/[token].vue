@@ -5,7 +5,7 @@ definePageMeta({
 
 const route = useRoute()
 
-const { resetPassword } = useAuth()
+const { completeRegistration } = useAuth()
 
 if (!route.query.email)
     navigateTo('/')
@@ -22,10 +22,10 @@ const {
     submit: submitForm,
     isLoading,
     validationErrors: errors,
-} = useSubmit<{ status: string }>(() => resetPassword({ token: token.value as string, ...form }), {
+} = useSubmit<{ status: string }>(() => completeRegistration({ token: token.value as string, ...form }), {
     onSuccess: result =>
         navigateTo({
-            path: '/auth/login',
+            path: '/personal',
             query: { reset: result?.status ?? '' },
         }),
 })
@@ -35,8 +35,8 @@ const {
     <div>
         <LayoutAuth>
             <template #header>
-                <LayoutBreadcrumb :items="[{ title: 'Новый пароль' }]" />
-                <UiPageTitle>Введите новый пароль</UiPageTitle>
+                <LayoutBreadcrumb :items="[{ title: 'Завершение регистрации' }]" />
+                <UiPageTitle>Введите пароль</UiPageTitle>
             </template>
             <template #body>
                 <VForm @submit.prevent="submitForm">
@@ -72,7 +72,7 @@ const {
             </template>
             <template #footer>
                 <UiButton wide :is-loading="isLoading" type="submit" @click="submitForm">
-                    Сбросить пароль
+                    Завершить регистрацию
                 </UiButton>
             </template>
         </LayoutAuth>

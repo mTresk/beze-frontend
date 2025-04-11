@@ -11,6 +11,7 @@ export default defineNuxtConfig({
         public: {
             backendUrl: process.env.NUXT_PUBLIC_BACKEND_URL,
             yandexMapsApiKey: process.env.VITE_YANDEX_MAPS_API_KEY,
+            dadataApiKey: process.env.VITE_DADATA_API_KEY,
         },
     },
     sanctum: {

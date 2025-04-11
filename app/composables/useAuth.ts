@@ -1,4 +1,4 @@
-import type { IRegisterCredentials, IResetPasswordCredentials } from '@/types/api'
+import type { ICompleteRegistrationCredentials, IRegisterCredentials, IResetPasswordCredentials } from '@/types/api'
 
 export function useAuth() {
     const client = useSanctumClient()
@@ -7,6 +7,12 @@ export function useAuth() {
     async function register(credentials: IRegisterCredentials) {
         await client('/register', { method: 'post', body: credentials })
         await refreshIdentity()
+    }
+
+    async function completeRegistration(credentials: ICompleteRegistrationCredentials) {
+        const response = await client<{ status: string }>('/complete-registration', { method: 'post', body: credentials })
+        await refreshIdentity()
+        return response
     }
 
     async function resendEmailVerification() {
@@ -34,5 +40,6 @@ export function useAuth() {
         forgotPassword,
         resetPassword,
         register,
+        completeRegistration,
     }
 }

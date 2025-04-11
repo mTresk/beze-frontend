@@ -10,6 +10,12 @@ watch(isLoading, (value) => {
         isInitialized.value = true
     }
 })
+
+onMounted(() => {
+    if (!isLoading.value) {
+        isInitialized.value = true
+    }
+})
 </script>
 
 <template>

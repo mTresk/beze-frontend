@@ -58,7 +58,7 @@ watch(() => quantity.value, handleUpdateCartValues)
                 </NuxtLink>
                 <div class="cart-item__block">
                     <div class="cart-item__sku">
-                        Артикул: {{ selectedVariant?.sku || props.cartItem.product.sku }}
+                        Артикул: {{ selectedVariant?.sku }}
                     </div>
                     <h3 class="cart-item__title">
                         {{ props.cartItem.product.name }}

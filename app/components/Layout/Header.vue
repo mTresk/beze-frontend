@@ -129,7 +129,7 @@ function toggleMenu() {
                     >
                         <UiIcon name="user" size="30" />
                         <Transition>
-                            <span v-if="user?.name">{{ user?.name.charAt(0) }}</span>
+                            <span v-if="user?.name">{{ user?.name.charAt(0).toUpperCase() }}</span>
                         </Transition>
                     </NuxtLink>
                 </div>

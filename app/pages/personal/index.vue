@@ -1,9 +1,20 @@
 <script setup lang="ts">
+import { PersonalInfo, PersonalOrders } from '#components'
+
 definePageMeta({
     middleware: ['verified'],
 })
 
 const { logout } = useSanctumAuth()
+
+type TabName = 'PersonalOrders' | 'PersonalInfo'
+
+const currentTab = ref<TabName>('PersonalOrders')
+
+const tabs = {
+    PersonalOrders,
+    PersonalInfo,
+} as const
 </script>
 
 <template>
@@ -18,6 +29,29 @@ const { logout } = useSanctumAuth()
                     <UiLink medium @click="logout">
                         Выйти
                     </UiLink>
+                </div>
+                <div class="personal__body">
+                    <div class="personal__navigation">
+                        <button
+                            class="personal__button"
+                            type="button"
+                            :class="[{ 'personal__button--active': currentTab === 'PersonalOrders' }]"
+                            @click="currentTab = 'PersonalOrders'"
+                        >
+                            История заказов
+                        </button>
+                        <button
+                            class="personal__button"
+                            type="button"
+                            :class="[{ 'personal__button--active': currentTab === 'PersonalInfo' }]"
+                            @click="currentTab = 'PersonalInfo'"
+                        >
+                            Личные данные
+                        </button>
+                    </div>
+                    <div class="personal__warapper">
+                        <component :is="tabs[currentTab]" />
+                    </div>
                 </div>
             </div>
         </section>
@@ -34,6 +68,45 @@ const { logout } = useSanctumAuth()
 
         @include adaptive-value('gap', 40, 20);
         @include adaptive-value('margin-bottom', 30, 20);
+    }
+
+    // .personal__body
+    &__body {
+        display: grid;
+
+        @include adaptive-value('gap', 30, 20);
+    }
+
+    // .personal__navigation
+    &__navigation {
+        display: flex;
+        gap: rem(20);
+        padding-bottom: rem(20);
+        border-bottom: 1px solid rgb(54 54 54 / 10%);
+    }
+
+    // .personal__button
+    &__button {
+        line-height: 120%;
+        white-space: nowrap;
+        border: 1px solid $extraColor;
+        border-radius: rem(4);
+        transition: all 0.3s ease-in-out;
+
+        @include adaptive-value('font-size', 16, 12);
+        @include adaptive-value('padding-block', 10, 6);
+        @include adaptive-value('padding-inline', 20, 10);
+
+        &:hover {
+            color: $whiteColor;
+            background-color: $extraColor;
+        }
+
+        &--active {
+            color: $whiteColor;
+            pointer-events: none;
+            background-color: $extraColor;
+        }
     }
 }
 </style>

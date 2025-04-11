@@ -7,6 +7,7 @@ const { register } = useAuth()
 
 const form = reactive({
     name: '',
+    surname: '',
     email: '',
     password: '',
     password_confirmation: '',
@@ -42,7 +43,7 @@ const {
                     <VFormBlock :error="errors.name">
                         <VFormField>
                             <VFormLabel for="name">
-                                Ваше имя (полностью) *
+                                Ваше имя*
                             </VFormLabel>
                             <VFormInput
                                 id="name"
@@ -50,6 +51,20 @@ const {
                                 :error="errors.name"
                                 type="text"
                                 placeholder="Введите имя"
+                            />
+                        </VFormField>
+                    </VFormBlock>
+                    <VFormBlock :error="errors.surname ">
+                        <VFormField>
+                            <VFormLabel for="surname">
+                                Ваша фамилия*
+                            </VFormLabel>
+                            <VFormInput
+                                id="surname"
+                                v-model="form.surname"
+                                :error="errors.surname"
+                                type="text"
+                                placeholder="Введите фамилию"
                             />
                         </VFormField>
                     </VFormBlock>

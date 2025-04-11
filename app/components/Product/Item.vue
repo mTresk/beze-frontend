@@ -8,17 +8,19 @@ const props = defineProps<{
 
 const { toggleWishlist, isInWishlist } = useWishlist()
 
-const wishlistStatus = isInWishlist(String(props.product.id))
-
 const colors = computed(() => getUniqueColors(props.product.variants))
-
-const containerRef = ref(null)
-const activeSlide = ref(0)
-const imagesLoaded = ref(false)
 
 const paginationItemWidth = computed(() => {
     return `${100 / (props.product.images?.length || 1)}%`
 })
+
+const wishlistStatus = isInWishlist(String(props.product.id))
+
+const containerRef = ref(null)
+
+const activeSlide = ref(0)
+
+const imagesLoaded = ref(false)
 
 function handleSlideChange(index: number) {
     if (!containerRef.value) {

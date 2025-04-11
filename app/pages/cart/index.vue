@@ -3,11 +3,15 @@ import type { IOrder } from '@/types/api'
 
 const { cartItems, cartTotal, isLoading, clearCartItems } = useCart()
 
+const { isAuthenticated, refreshIdentity } = useSanctumAuth()
+
 const client = useSanctumClient()
 
 const isInitialized = ref(false)
 
 const form = ref<IOrder>()
+
+const signedUrl = ref<string | null>(null)
 
 async function submitOrder() {
     const products = cartItems.value.map((item) => {
@@ -23,10 +27,24 @@ async function submitOrder() {
         communication: form.value?.communication?.name,
     }
 
-    await client('/api/order', {
+    const response = await client('/api/orders', {
         body: payload,
         method: 'post',
     })
+
+    if (response) {
+        signedUrl.value = response.signedUrl
+    }
+}
+
+function extractSignedUrlParams(url: string) {
+    const urlObj = new URL(url)
+    const orderId = urlObj.pathname.split('/').slice(-2)[0]
+    return {
+        id: orderId,
+        expires: urlObj.searchParams.get('expires'),
+        signature: urlObj.searchParams.get('signature'),
+    }
 }
 
 const {
@@ -39,14 +57,35 @@ const {
     },
     {
         onSuccess: () => {
+            if (isAuthenticated.value) {
+                refreshIdentity()
+                navigateTo('/personal')
+            }
+            else {
+                if (signedUrl.value) {
+                    const { id, expires, signature } = extractSignedUrlParams(signedUrl.value)
+                    navigateTo({
+                        path: `/order/${id}`,
+                        query: {
+                            expires,
+                            signature,
+                        },
+                    }, { replace: true })
+                }
+            }
             clearCartItems()
-            navigateTo('/order', { replace: true })
         },
     },
 )
 
 watch(isLoading, (value) => {
     if (!value) {
+        isInitialized.value = true
+    }
+})
+
+onMounted(() => {
+    if (!isLoading.value) {
         isInitialized.value = true
     }
 })

@@ -63,19 +63,22 @@ export interface ISize {
 }
 
 export interface IOrder {
+    id?: number
+    status?: string
+    total?: number
     products: {
         id: number
         quantity: number
     }[]
     name: string
+    surname: string
     email: string
     phone: string
-    address?: string
+    address: string
     communication?: {
         id: number
         name: string
     }
-
 }
 
 export interface ICertificateOrder {
@@ -224,9 +227,18 @@ export interface ISearchResult {
 
 export interface IUser {
     name: string
+    surname: string
     email?: string
     id?: number
     verified: boolean
+    isPartial: boolean
+    profile?: {
+        id: number
+        userId: number
+        phone: string
+        address: string
+        communication?: string
+    }
 }
 
 export interface ILoginCredentials {
@@ -239,6 +251,13 @@ export interface IRegisterCredentials {
     email: string
     password: string
     password_confirmation: string
+}
+
+export interface ICompleteRegistrationCredentials {
+    email: string
+    password: string
+    password_confirmation: string
+    token: string
 }
 
 export interface IResetPasswordCredentials {
@@ -302,4 +321,28 @@ export interface IWishlistItem {
 export interface IWishlistData {
     id: number
     items: IWishlistItem[]
+}
+
+export interface IOrderResponse {
+    id: number
+    status: {
+        value: string
+        label: string
+    }
+    total: number
+    createdAt: string
+    updatedAt: string
+    items: IOrderItem[]
+    user: IUser
+}
+
+export interface IOrderItem {
+    id: number
+    variantId: number
+    sku: string
+    price: string
+    color: IColor
+    size: ISize
+    quantity: number
+    product: Partial<IProduct>
 }

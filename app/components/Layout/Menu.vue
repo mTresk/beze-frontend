@@ -29,6 +29,15 @@ function handleLinkClick() {
     <div class="menu" :class="{ 'menu--blocked': isMenuBlocked }">
         <nav class="menu__body">
             <ul class="menu__list">
+                <li class="menu__item">
+                    <NuxtLink
+                        to="/catalog"
+                        class="menu__link"
+                        @click="handleLinkClick"
+                    >
+                        Каталог
+                    </NuxtLink>
+                </li>
                 <!-- Категории -->
                 <li
                     v-for="category in menu?.categories"

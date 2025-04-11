@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IOrder, ValidationErrors } from '@/types/api'
+import type { IOrder, IUser, ValidationErrors } from '@/types/api'
 
 defineProps<{
     errors: ValidationErrors
@@ -8,6 +8,8 @@ defineProps<{
 const emit = defineEmits<{
     (event: 'update:modelValue', value: typeof form | null): void
 }>()
+
+const user: Ref<IUser | null> = useSanctumUser()
 
 const options = [
     { id: 1, name: 'Телефон' },
@@ -18,11 +20,33 @@ const options = [
 
 const form = reactive<Partial<IOrder>>({
     name: '',
+    surname: '',
     email: '',
     phone: '',
     address: '',
     communication: undefined,
 })
+
+function populateFormWithUserData() {
+    if (!user.value)
+        return
+
+    form.name = user.value.name || ''
+    form.surname = user.value.surname || ''
+    if (user.value.email) {
+        form.email = user.value.email
+    }
+    if (user.value.profile) {
+        form.phone = user.value.profile.phone || ''
+        form.address = user.value.profile.address || ''
+    }
+
+    emit('update:modelValue', form)
+}
+
+watch(user, () => {
+    populateFormWithUserData()
+}, { immediate: true })
 
 watch(form, (newForm) => {
     emit('update:modelValue', newForm)
@@ -34,7 +58,7 @@ watch(form, (newForm) => {
         <VFormBlock :error="errors.name">
             <VFormField>
                 <VFormLabel for="name">
-                    Ваше имя (полностью) *
+                    Имя*
                 </VFormLabel>
                 <VFormInput
                     id="name"
@@ -45,10 +69,24 @@ watch(form, (newForm) => {
                 />
             </VFormField>
         </VFormBlock>
+        <VFormBlock :error="errors.surname">
+            <VFormField>
+                <VFormLabel for="surname">
+                    Фамилия*
+                </VFormLabel>
+                <VFormInput
+                    id="surname"
+                    v-model="form.surname"
+                    :error="errors.surname"
+                    type="text"
+                    placeholder="Введите фамилию"
+                />
+            </VFormField>
+        </VFormBlock>
         <VFormBlock :error="errors.email">
             <VFormField>
                 <VFormLabel for="email">
-                    Ваш email *
+                    Email*
                 </VFormLabel>
                 <VFormInput
                     id="email"
@@ -62,7 +100,7 @@ watch(form, (newForm) => {
         <VFormBlock :error="errors.phone">
             <VFormField>
                 <VFormLabel for="phone">
-                    Ваш телефон *
+                    Телефон *
                 </VFormLabel>
                 <VFormInput
                     id="phone"
@@ -77,14 +115,12 @@ watch(form, (newForm) => {
         <VFormBlock :error="errors.address">
             <VFormField>
                 <VFormLabel for="address">
-                    Адрес доставки
+                    Адрес доставки*
                 </VFormLabel>
-                <VFormInput
-                    id="address"
+                <VFormDaData
                     v-model="form.address"
-                    :error="errors.address"
-                    type="text"
-                    placeholder="Если необходимо"
+                    placeholder="Введите адрес"
+                    input-id="address"
                 />
             </VFormField>
         </VFormBlock>
