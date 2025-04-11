@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { IUser } from '@/types/api'
 
-const { favorites } = useFavorites()
+const { wishlistProductIds } = useWishlist()
 
 const { cartItems } = useCart()
 
@@ -9,7 +9,7 @@ const { isAuthenticated } = useSanctumAuth()
 
 const user = useSanctumUser<IUser>()
 
-const favoritesCount = computed(() => favorites.value?.length || 0)
+const wishlistCount = computed(() => wishlistProductIds.value?.length || 0)
 
 const cartCount = computed(() => cartItems.value?.length || 0)
 </script>
@@ -35,7 +35,7 @@ const cartCount = computed(() => cartItems.value?.length || 0)
                 >
                     <UiIcon name="favorite" size="24" />
                     <Transition>
-                        <span v-if="favoritesCount" class="navigation__link-count">{{ favoritesCount }}</span>
+                        <span v-if="wishlistCount" class="navigation__link-count">{{ wishlistCount }}</span>
                     </Transition>
                     <span>Вишлист</span>
                 </NuxtLink>

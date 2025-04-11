@@ -1,23 +1,15 @@
 <script setup lang="ts">
 import type { IProduct } from '@/types/api'
 
-const client = useSanctumClient()
+const { wishlistItems, isLoading } = useWishlist()
 
-const { favorites } = useFavorites()
+const isInitialized = ref(false)
 
-const products = ref<IProduct[]>()
-
-const isLoading = ref(false)
-
-async function fetchProducts() {
-    isLoading.value = true
-
-    products.value = await client<IProduct[]>(`/api/products/favorites?ids=${favorites.value}`)
-
-    isLoading.value = false
-}
-
-watch(() => favorites.value, () => fetchProducts())
+watch(isLoading, (value) => {
+    if (!value) {
+        isInitialized.value = true
+    }
+})
 </script>
 
 <template>
@@ -31,11 +23,15 @@ watch(() => favorites.value, () => fetchProducts())
                 />
                 <UiPageTitle>Вишлист</UiPageTitle>
                 <UiSpinner v-if="isLoading" />
-                <div class="favorites__wrapper">
-                    <div v-if="favorites.length" class="favorites__body">
-                        <ProductItem v-for="product in products" :key="product.id" :product="product" />
+                <div v-else class="favorites__wrapper">
+                    <div v-if="wishlistItems.length" class="favorites__body">
+                        <ProductItem
+                            v-for="item in wishlistItems"
+                            :key="item.id"
+                            :product="item.product as IProduct"
+                        />
                     </div>
-                    <LayoutEmpty v-else>
+                    <LayoutEmpty v-if="isInitialized && !wishlistItems.length">
                         <template #icon>
                             <UiIcon name="favorite" size="48" />
                         </template>

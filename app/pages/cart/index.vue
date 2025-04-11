@@ -5,6 +5,8 @@ const { cartItems, cartTotal, isLoading, clearCartItems } = useCart()
 
 const client = useSanctumClient()
 
+const isInitialized = ref(false)
+
 const form = ref<IOrder>()
 
 async function submitOrder() {
@@ -42,6 +44,12 @@ const {
         },
     },
 )
+
+watch(isLoading, (value) => {
+    if (!value) {
+        isInitialized.value = true
+    }
+})
 </script>
 
 <template>
@@ -114,7 +122,7 @@ const {
                         </div>
                     </div>
                 </div>
-                <LayoutEmpty v-else>
+                <LayoutEmpty v-if="isInitialized && !cartItems.length">
                     <template #icon>
                         <UiIcon name="cart" size="48" />
                     </template>

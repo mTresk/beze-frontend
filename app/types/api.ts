@@ -293,3 +293,13 @@ export interface ICartData {
     total: number
     items: ICartItem[]
 }
+
+export interface IWishlistItem {
+    id: number
+    product: IProduct
+}
+
+export interface IWishlistData {
+    id: number
+    items: IWishlistItem[]
+}

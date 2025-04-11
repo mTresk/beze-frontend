@@ -6,9 +6,9 @@ const props = defineProps<{
     product: IProduct
 }>()
 
-const { toggleFavorite, isFavorite } = useFavorites()
+const { toggleWishlist, isInWishlist } = useWishlist()
 
-const favoriteStatus = isFavorite(String(props.product.id))
+const wishlistStatus = isInWishlist(String(props.product.id))
 
 const colors = computed(() => getUniqueColors(props.product.variants))
 
@@ -20,18 +20,20 @@ const paginationItemWidth = computed(() => {
 })
 
 function handleSlideChange(index: number) {
-    if (!containerRef.value)
+    if (!containerRef.value) {
         return
+    }
 
     // @ts-expect-error - swiper методы доступны, но TS их не видит
     containerRef.value.swiper.slideTo(index)
 }
 
-function handleFavoriteClick() {
-    if (!props.product)
+function handleWishlistClick() {
+    if (!props.product) {
         return
+    }
 
-    toggleFavorite(
+    toggleWishlist(
         String(props.product.id),
     )
 }
@@ -88,9 +90,9 @@ useSwiper(containerRef, {
             <button
                 type="button"
                 class="product-card__action"
-                :class="{ 'product-card__action--selected': favoriteStatus }"
-                :aria-label="favoriteStatus ? 'Удалить из избранного' : 'Добавить в избранное'"
-                @click="handleFavoriteClick"
+                :class="{ 'product-card__action--selected': wishlistStatus }"
+                :aria-label="wishlistStatus ? 'Удалить из избранного' : 'Добавить в избранное'"
+                @click="handleWishlistClick"
             >
                 <UiIcon name="favorite" size="24" />
             </button>

@@ -4,7 +4,7 @@ import type Lenis from 'lenis'
 
 const route = useRoute()
 
-const { favorites } = useFavorites()
+const { wishlistProductIds } = useWishlist()
 
 const { cartItems } = useCart()
 
@@ -22,7 +22,7 @@ const settings = useState<ISettings>('settings')
 
 const isInnerPage = computed(() => route.path !== '/')
 
-const favoritesCount = computed(() => favorites.value?.length || 0)
+const wishlistCount = computed(() => wishlistProductIds.value?.length || 0)
 
 const cartCount = computed(() => cartItems.value?.length || 0)
 
@@ -99,7 +99,7 @@ function toggleMenu() {
                     >
                         <UiIcon name="favorite" size="30" />
                         <Transition>
-                            <span v-if="favoritesCount">{{ favoritesCount }}</span>
+                            <span v-if="wishlistCount">{{ wishlistCount }}</span>
                         </Transition>
                     </NuxtLink>
 

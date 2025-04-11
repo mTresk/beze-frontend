@@ -8,7 +8,7 @@ const route = useRoute()
 
 const { isProductInCart, toggleCartItem } = useCart()
 
-const { isFavorite, toggleFavorite } = useFavorites()
+const { isInWishlist, toggleWishlist } = useWishlist()
 
 const { addToViewed, viewedProductsIds } = useViewed()
 
@@ -57,7 +57,7 @@ async function getViewedProducts() {
     const filteredIds = viewedProductsIds.value.filter(id => id !== String(product.value?.data.id))
     if (!filteredIds.length)
         return
-    viewedProducts.value = await client<IProduct[]>(`/api/products/favorites?ids=${filteredIds}`)
+    viewedProducts.value = await client<IProduct[]>(`/api/products/wishlist?ids=${filteredIds}`)
 }
 
 const colors = computed(() => product.value ? getUniqueColors(product.value.data.variants) : [])
@@ -99,7 +99,7 @@ const cartStatus = computed(() => {
     return isProductInCart(variant.id).value
 })
 
-const favoriteStatus = isFavorite(String(product.value?.data.id))
+const wishlistStatus = isInWishlist(String(product.value?.data.id))
 
 const currentPrice = computed(() => {
     const variant = selectedVariant.value
@@ -142,11 +142,11 @@ function handleCartClick() {
     )
 }
 
-function handleFavoriteClick() {
+function handleWishlistClick() {
     if (!product.value)
         return
 
-    toggleFavorite(
+    toggleWishlist(
         String(product.value.data.id),
     )
 }
@@ -277,12 +277,12 @@ onMounted(() => {
                                 <UiIcon name="cart" size="16" />
                             </UiButton>
                             <UiButton
-                                :title="favoriteStatus ? 'Убрать из вишлиста' : 'В вишлист'"
-                                :active="favoriteStatus"
+                                :title="wishlistStatus ? 'Убрать из вишлиста' : 'В вишлист'"
+                                :active="wishlistStatus"
                                 wide
                                 square
                                 aria-label="В вишлист" class="product__action"
-                                @click="handleFavoriteClick"
+                                @click="handleWishlistClick"
                             >
                                 <UiIcon name="favorite" size="16" />
                             </UiButton>
