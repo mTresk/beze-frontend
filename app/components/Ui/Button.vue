@@ -83,6 +83,12 @@ defineProps<{
     &[wide] {
         width: 100%;
         padding: rem(16) rem(20);
+
+        &[active='true'] {
+            color: $whiteColor;
+            background-color: $extraColor;
+            border-color: $extraColor;
+        }
     }
 
     &[square] {

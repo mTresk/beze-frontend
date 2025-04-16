@@ -56,14 +56,14 @@ const cartStatus = computed(() => {
             <span>сумма:</span> {{ Number(item.price) * Number(item.quantity) }} ₽
         </div>
         <UiButton
-            :title="cartStatus ? 'Убрать из корзины' : 'В корзину'"
+            :title="cartStatus ? 'Убрать из корзины' : 'Заказать снова'"
             :active="cartStatus"
             wide
+            outline
             class="product__action"
             @click="toggleCartItem(item.variantId, 1, item.product.id!)"
         >
-            <span>{{ cartStatus ? 'Убрать из корзины' : 'В корзину' }}</span>
-            <UiIcon name="cart" size="16" />
+            <span>{{ cartStatus ? 'Убрать из корзины' : 'Заказать снова' }}</span>
         </UiButton>
     </div>
 </template>
