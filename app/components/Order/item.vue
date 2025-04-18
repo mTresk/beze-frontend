@@ -39,32 +39,34 @@ const cartStatus = computed(() => {
                 </h3>
             </div>
         </div>
-        <div v-if="item.color" class="order-item__color">
-            <span
-                :style="`background-color: ${item.color.code};`"
-                class="order-item__icon"
-            />
-            <span>{{ item.color.name }}</span>
+        <div class="order-item__wrapper">
+            <div v-if="item.color" class="order-item__color">
+                <span
+                    :style="`background-color: ${item.color.code};`"
+                    class="order-item__icon"
+                />
+                <span>{{ item.color.name }}</span>
+            </div>
+            <div v-if="item?.size" class="order-item__size">
+                <span>размер:</span> {{ item.size.name }}
+            </div>
+            <div v-if="item?.quantity" class="order-item__quantity">
+                <span>количество:</span> {{ item.quantity }}
+            </div>
+            <div v-if="item?.price" class="order-item__price">
+                <span>сумма:</span> {{ Number(item.price) * Number(item.quantity) }} ₽
+            </div>
+            <UiButton
+                :title="cartStatus ? 'Убрать из корзины' : 'Заказать снова'"
+                :active="cartStatus"
+                wide
+                outline
+                class="order-item__action"
+                @click="toggleCartItem(item.variantId, 1, item.product.id!)"
+            >
+                <span>{{ cartStatus ? 'Убрать из корзины' : 'Заказать снова' }}</span>
+            </UiButton>
         </div>
-        <div v-if="item?.size" class="order-item__size">
-            <span>размер:</span> {{ item.size.name }}
-        </div>
-        <div v-if="item?.quantity" class="order-item__quantity">
-            <span>количество:</span> {{ item.quantity }}
-        </div>
-        <div v-if="item?.price" class="order-item__price">
-            <span>сумма:</span> {{ Number(item.price) * Number(item.quantity) }} ₽
-        </div>
-        <UiButton
-            :title="cartStatus ? 'Убрать из корзины' : 'Заказать снова'"
-            :active="cartStatus"
-            wide
-            outline
-            class="product__action"
-            @click="toggleCartItem(item.variantId, 1, item.product.id!)"
-        >
-            <span>{{ cartStatus ? 'Убрать из корзины' : 'Заказать снова' }}</span>
-        </UiButton>
     </div>
 </template>
 
@@ -73,17 +75,35 @@ const cartStatus = computed(() => {
     display: grid;
     grid-template-columns:
         minmax(rem(200), rem(320)) minmax(auto, rem(100)) minmax(auto, rem(100)) minmax(auto, rem(100))
-        minmax(auto, rem(100)) minmax(rem(170), rem(180));
+        minmax(auto, rem(120)) minmax(rem(180), rem(180));
     align-items: center;
     justify-content: space-between;
     width: 100%;
 
     @include adaptive-value('gap', 20, 10, 0, 1920, 992);
 
+    @media (max-width: $tablet) {
+        grid-template-columns:
+            minmax(rem(200), rem(320)) minmax(auto, rem(100)) minmax(auto, rem(100)) minmax(auto, rem(100))
+            minmax(auto, rem(120));
+    }
+
+    @media (max-width: $mobile) {
+        grid-template-columns: auto auto;
+    }
+
     &__info {
         display: flex;
         gap: rem(16);
         align-items: flex-start;
+    }
+
+    &__wrapper {
+        display: contents;
+
+        @media (max-width: $mobile) {
+            display: grid;
+        }
     }
 
     &__image {
@@ -155,6 +175,12 @@ const cartStatus = computed(() => {
             font-size: rem(14);
             line-height: 140%;
             color: rgb(54 54 54 / 50%);
+        }
+    }
+
+    &__action {
+        @media (max-width: $tablet) {
+            display: none;
         }
     }
 }
