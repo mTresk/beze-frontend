@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { IColor, IInfoPageContent, IProduct, IProductVariant, IProductWithFeatured, ISize } from '@/types/api'
-import { getUniqueColors } from '@/helpers'
+import { getUniqueColors, sortSizes } from '@/helpers'
 
 const client = useSanctumClient()
 
@@ -77,7 +77,7 @@ const availableSizes = computed(() => {
         }
     })
 
-    return Array.from(uniqueSizes.values())
+    return sortSizes(Array.from(uniqueSizes.values()))
 })
 
 const selectedVariant = computed(() => {
@@ -425,9 +425,12 @@ onMounted(() => {
 
     // .product__content
     &__content {
-        position: sticky;
-        top: rem(100);
         flex: 0 1 rem(460);
+
+        @media (min-height: em(550)) {
+            position: sticky;
+            top: rem(100);
+        }
 
         @media (max-width: $mobile) {
             @include adaptive-value('padding-inline', 40, 20);

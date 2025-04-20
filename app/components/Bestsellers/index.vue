@@ -21,7 +21,7 @@ const {
     suspense,
     isLoading,
 } = useInfiniteQuery({
-    queryKey: ['bestsellers'],
+    queryKey: ['bestsellers', { page: 'infinite' }],
     queryFn: fetcher,
     getNextPageParam: (lastPage) => {
         return lastPage.cursor
