@@ -6,6 +6,8 @@ const client = useSanctumClient()
 
 const user: Ref<IUser | null> = useSanctumUser()
 
+const route = useRoute()
+
 const fetcher = async () => await client<IOrderResponse[]>(`/api/orders/${user.value?.id}`)
 
 const {
@@ -20,9 +22,11 @@ const {
 
 await suspense()
 
-onMounted(async () => {
-    await refetch()
-})
+watch(route, () => {
+    if (route.query.refetch === '1') {
+        refetch()
+    }
+}, { immediate: true })
 </script>
 
 <template>
@@ -49,6 +53,22 @@ onMounted(async () => {
                 />
             </div>
         </div>
+        <LayoutEmpty v-if="!orders?.length">
+            <template #icon>
+                <UiIcon name="user" size="48" />
+            </template>
+            <template #title>
+                У вас пока нет заказов
+            </template>
+            <template #text>
+                Закажите товары, чтобы просматривать их здесь
+            </template>
+            <template #button>
+                <UiButton outline href="/catalog">
+                    Перейти в каталог
+                </UiButton>
+            </template>
+        </LayoutEmpty>
     </div>
 </template>
 

@@ -59,7 +59,12 @@ const {
         onSuccess: () => {
             if (isAuthenticated.value) {
                 refreshIdentity()
-                navigateTo('/personal')
+                navigateTo({
+                    path: '/personal',
+                    query: {
+                        refetch: 1,
+                    },
+                })
             }
             else {
                 if (signedUrl.value) {
