@@ -68,7 +68,10 @@ const availableSizes = computed(() => {
 
     const sizesForColor = product.value.data.variants
         .filter((variant: IProductVariant) => variant.color.id === colorId.value)
-        .map((variant: IProductVariant) => variant.size)
+        .map((variant: IProductVariant) => ({
+            ...variant.size,
+            name: variant.size.name.toUpperCase(),
+        }))
 
     const uniqueSizes = new Map<number, ISize>()
     sizesForColor.forEach((size: ISize) => {
