@@ -65,7 +65,7 @@ function handlePageClick(page: number | string) {
         <UiButton
             v-if="meta.current_page > 1"
             square
-            lite
+            outline
             :disabled="isLoading"
             @click="handlePageClick(meta.current_page - 1)"
         >
@@ -87,7 +87,7 @@ function handlePageClick(page: number | string) {
         <UiButton
             v-if="meta.current_page < meta.last_page"
             square
-            lite
+            outline
             :disabled="isLoading"
             @click="handlePageClick(meta.current_page + 1)"
         >
