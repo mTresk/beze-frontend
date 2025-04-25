@@ -112,6 +112,9 @@ onMounted(() => {
                         <div class="cart__table">
                             <CartItem v-for="item in cartItems" :key="item.id" :cart-item="item" />
                         </div>
+                        <UiLink v-if="!isAuthenticated" class="cart__login" href="/auth/login">
+                            Войти в личный кабинет
+                        </UiLink>
                         <div class="cart__form">
                             <UiSpinner v-if="isFormSending" />
                             <CartForm v-model="form" grid :errors="errors" />
@@ -222,6 +225,11 @@ onMounted(() => {
         @include adaptive-value('padding-bottom', 40, 20);
         @include adaptive-value('margin-bottom', 40, 20);
         @include adaptive-value('gap', 40, 20);
+    }
+
+    // .cart__login
+    &__login {
+        margin-bottom: rem(20);
     }
 
     // .cart__form

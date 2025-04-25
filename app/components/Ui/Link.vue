@@ -23,6 +23,7 @@ defineProps<{
 
 <style lang="scss" scoped>
 .link {
+    display: block;
     line-height: 140%;
     white-space: nowrap;
     text-decoration: underline;
