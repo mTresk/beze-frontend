@@ -39,6 +39,15 @@ function populateFormWithUserData() {
     if (user.value.profile) {
         form.phone = user.value.profile.phone || ''
         form.address = user.value.profile.address || ''
+
+        if (user.value.profile.communication) {
+            const communicationOption = options.find(
+                option => option.name.toLowerCase() === user.value?.profile?.communication?.toLowerCase(),
+            )
+            if (communicationOption) {
+                form.communication = communicationOption
+            }
+        }
     }
 
     emit('update:modelValue', form)
