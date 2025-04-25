@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { IOrderResponse } from '@/types/api'
+import { formatDate } from '@/helpers'
 
 const route = useRoute()
 
@@ -75,21 +76,25 @@ onMounted(() => {
                         {{ error }}
                     </div>
 
-                    <div v-else-if="order" class="order__content">
-                        <div class="order__success">
-                            Ваш заказ #{{ order.id }} успешно оформлен
-                        </div>
-                        <div v-if="order" class="order__details">
-                            <div class="order__info">
-                                <div class="order__row">
-                                    <span class="order__label">Статус:</span>
-                                    <span class="order__value">{{ order.status.label }}</span>
-                                </div>
-                                <div class="order__row">
-                                    <span class="order__label">Сумма заказа:</span>
-                                    <span class="order__value">{{ order.total }} ₽</span>
-                                </div>
+                    <div v-if="order" class="personal-order">
+                        <div class="personal-order__info">
+                            <div class="personal-order__value">
+                                <span>Заказ:</span> № {{ order.id }} <span>от</span> {{ formatDate(order.createdAt) }}
                             </div>
+                            <div class="personal-order__value">
+                                <span>На сумму:</span> {{ order.total }} ₽
+                            </div>
+                            <div class="personal-order__value">
+                                <span>Статус:</span>
+                                {{ order.status.label }}
+                            </div>
+                        </div>
+                        <div class="personal-order__items">
+                            <OrderItem
+                                v-for="item in order.items"
+                                :key="item.id"
+                                :item="item"
+                            />
                         </div>
                     </div>
 

@@ -72,7 +72,7 @@ watch(route, () => {
     </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .personal-order {
     display: grid;
     border-bottom: 1px solid rgb(54 54 54 / 10%);
