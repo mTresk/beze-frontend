@@ -23,7 +23,10 @@ defineEmits<{
         :input-id="inputId"
         :token="useRuntimeConfig().public.dadataApiKey"
         @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
-        @select="$emit('selected', $event)"
+        @on-selected="(suggestion: DaDataSuggestionAnyType) => {
+            $emit('update:modelValue', suggestion.value)
+            $emit('selected', suggestion)
+        }"
     />
 </template>
 
