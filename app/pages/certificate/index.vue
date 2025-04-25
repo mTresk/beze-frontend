@@ -116,7 +116,7 @@ watch(
                         </div>
                         <div class="certificate__form">
                             <UiSpinner v-if="isFormSending" />
-                            <CartForm v-model="form" :errors="errors" />
+                            <CartForm v-model="form" grid :errors="errors" />
                         </div>
                     </div>
                     <div class="certificate__checkout">
@@ -203,7 +203,6 @@ watch(
     // .certificate__form
     &__form {
         position: relative;
-        max-width: rem(330);
     }
 
     // .certificate__checkout
