@@ -1,13 +1,11 @@
 <script setup lang="ts">
-interface Props {
+const props = defineProps<{
     meta: {
         current_page: number
         last_page: number
     }
     isLoading?: boolean
-}
-
-const props = defineProps<Props>()
+}>()
 
 const emit = defineEmits<{
     pageClick: [page: number]
@@ -62,37 +60,40 @@ function handlePageClick(page: number | string) {
 
 <template>
     <div v-if="meta && meta.last_page > 1" class="pagination">
-        <UiButton
+        <button
             v-if="meta.current_page > 1"
+            class="pagination__button"
             square
             outline
             :disabled="isLoading"
             @click="handlePageClick(meta.current_page - 1)"
         >
-            <UiIcon name="arrow-left" size="30" />
-        </UiButton>
-        <div class="pagination__pages">
-            <span
-                v-for="page in pages"
-                :key="page"
-                :class="{
-                    active: page === meta.current_page,
-                    dots: page === '...',
-                }"
-                @click="handlePageClick(page)"
-            >
-                {{ page }}
-            </span>
+            <UiIcon name="arrow-left" size="18" />
+        </button>
+
+        <div
+            v-for="page in pages"
+            :key="page"
+            class="pagination__item"
+            :class="{
+                active: page === meta.current_page,
+                dots: page === '...',
+            }"
+            @click="handlePageClick(page)"
+        >
+            {{ page }}
         </div>
-        <UiButton
+
+        <button
             v-if="meta.current_page < meta.last_page"
+            class="pagination__button"
             square
             outline
             :disabled="isLoading"
             @click="handlePageClick(meta.current_page + 1)"
         >
-            <UiIcon name="arrow-right" size="30" />
-        </UiButton>
+            <UiIcon name="arrow-right" size="18" />
+        </button>
     </div>
 </template>
 
@@ -103,37 +104,53 @@ function handlePageClick(page: number | string) {
     align-items: center;
     justify-content: center;
 
-    &__pages {
+    &__button {
         display: flex;
-        gap: rem(10);
         align-items: center;
+        justify-content: center;
+        width: rem(40);
+        height: rem(40);
+        font-size: rem(16);
+        line-height: 125%;
+        color: $extraColor;
+        cursor: pointer;
+        border: 1px solid $extraColor;
+        border-radius: rem(4);
+        transition: all 0.3s ease-in-out;
 
-        span {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: rem(40);
-            height: rem(40);
-            font-size: rem(16);
-            line-height: 125%;
-            cursor: pointer;
-            border-radius: rem(4);
-            transition: all 0.3s ease-in-out;
-
-            &:not(.dots):hover {
+        @media (any-hover: hover) {
+            &:hover {
                 color: $whiteColor;
                 background-color: $extraColor;
             }
+        }
+    }
 
-            &.active {
-                color: $whiteColor;
-                pointer-events: none;
-                background-color: $extraColor;
-            }
+    &__item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: rem(40);
+        height: rem(40);
+        font-size: rem(16);
+        line-height: 125%;
+        cursor: pointer;
+        border-radius: rem(4);
+        transition: all 0.3s ease-in-out;
 
-            &.dots {
-                cursor: default;
-            }
+        &:not(.dots):hover {
+            color: $whiteColor;
+            background-color: $extraColor;
+        }
+
+        &.active {
+            color: $whiteColor;
+            pointer-events: none;
+            background-color: $extraColor;
+        }
+
+        &.dots {
+            cursor: default;
         }
     }
 }

@@ -97,12 +97,12 @@ watch(
             <div class="certificate__container">
                 <LayoutBreadcrumb
                     :items="[
-                        { title: 'Корзина' },
+                        { title: 'Подарочный сертификат' },
                     ]"
                 />
                 <UiPageTitle>Купить подарочный сертификат</UiPageTitle>
                 <UiSpinner v-if="isLoading" />
-                <div v-if="certificates?.length" class="certificate__body">
+                <div v-if="certificates?.length" class="certificate__body" :class="{ 'certificate__body--disabled': isFormSending }">
                     <div class="certificate__wrapper">
                         <div class="certificate__item">
                             <VFormSelect
@@ -116,7 +116,7 @@ watch(
                         </div>
                         <div class="certificate__form">
                             <UiSpinner v-if="isFormSending" />
-                            <CartForm v-model="form" grid :errors="errors" />
+                            <CartForm v-model="form" :errors="errors" />
                         </div>
                     </div>
                     <div class="certificate__checkout">
@@ -179,9 +179,20 @@ watch(
     &__body {
         position: relative;
         display: flex;
-        gap: rem(60);
         align-items: flex-start;
         justify-content: space-between;
+
+        @include adaptive-value('gap', 60, 20);
+
+        @media (max-width: $tablet) {
+            display: grid;
+            justify-content: unset;
+        }
+
+        &--disabled {
+            pointer-events: none;
+            opacity: 0.5;
+        }
     }
 
     // .certificate__wrapper

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { IOrder, IUser, ValidationErrors } from '@/types/api'
+import type { IOrder, ISettings, IUser, ValidationErrors } from '@/types/api'
+import { CartDeliveryPickup, CartDeliveryRussia, CartDeliveryTyumen } from '#components'
 
 defineProps<{
     errors: ValidationErrors
@@ -11,12 +12,26 @@ const emit = defineEmits<{
 
 const user: Ref<IUser | null> = useSanctumUser()
 
+const settings = useState<ISettings>('settings')
+
 const options = [
     { id: 1, name: 'Телефон' },
     { id: 2, name: 'Email' },
     { id: 3, name: 'Telegram' },
     { id: 4, name: 'WhatsApp' },
 ]
+
+const deliveryTabs = [
+    { id: 'pickup', label: 'Самовывоз' },
+    { id: 'tyumen', label: 'Доставка по Тюмени' },
+    { id: 'russia', label: 'Доставка по России' },
+] as const
+
+type DeliveryTab = typeof deliveryTabs[number]['id']
+
+const currentDeliveryTab = ref<DeliveryTab>('pickup')
+
+const pickupAddress = settings.value.address
 
 const form = reactive<Partial<IOrder>>({
     name: '',
@@ -25,6 +40,15 @@ const form = reactive<Partial<IOrder>>({
     phone: '',
     address: '',
     communication: undefined,
+    deliveryType: deliveryTabs[0]?.id as IOrder['deliveryType'],
+})
+
+const deliveryComponent = computed(() => {
+    if (currentDeliveryTab.value === 'pickup')
+        return CartDeliveryPickup
+    if (currentDeliveryTab.value === 'tyumen')
+        return CartDeliveryTyumen
+    return CartDeliveryRussia
 })
 
 function populateFormWithUserData() {
@@ -64,88 +88,116 @@ watch(form, (newForm) => {
 
 <template>
     <VForm>
-        <VFormBlock :error="errors.name">
-            <VFormField>
-                <VFormLabel for="name">
-                    Имя*
-                </VFormLabel>
-                <VFormInput
-                    id="name"
-                    v-model="form.name"
-                    :error="errors.name"
-                    type="text"
-                    placeholder="Введите имя"
-                />
-            </VFormField>
-        </VFormBlock>
-        <VFormBlock :error="errors.surname">
-            <VFormField>
-                <VFormLabel for="surname">
-                    Фамилия*
-                </VFormLabel>
-                <VFormInput
-                    id="surname"
-                    v-model="form.surname"
-                    :error="errors.surname"
-                    type="text"
-                    placeholder="Введите фамилию"
-                />
-            </VFormField>
-        </VFormBlock>
-        <VFormBlock :error="errors.email">
-            <VFormField>
-                <VFormLabel for="email">
-                    Email*
-                </VFormLabel>
-                <VFormInput
-                    id="email"
-                    v-model="form.email"
-                    :error="errors.email"
-                    type="email"
-                    placeholder="Введите email"
-                />
-            </VFormField>
-        </VFormBlock>
-        <VFormBlock :error="errors.phone">
-            <VFormField>
-                <VFormLabel for="phone">
-                    Телефон *
-                </VFormLabel>
-                <VFormInput
-                    id="phone"
-                    v-model="form.phone"
-                    maska="+7 (###) ### ## ##"
-                    :error="errors.phone"
-                    type="tel"
-                    placeholder="Введите телефон"
-                />
-            </VFormField>
-        </VFormBlock>
-        <VFormBlock :error="errors.address">
-            <VFormField>
-                <VFormLabel for="address">
-                    Адрес доставки*
-                </VFormLabel>
-                <VFormDaData
-                    v-model="form.address"
-                    placeholder="Введите адрес"
-                    input-id="address"
-                />
-            </VFormField>
-        </VFormBlock>
-        <VFormBlock :error="errors.communication">
-            <VFormField>
-                <VFormLabel for="communication">
-                    Как с вами связаться?
-                </VFormLabel>
-                <VFormSelect
-                    id="communication"
-                    v-model="form.communication"
+        <VFormGroup>
+            <template #label>
+                Личные данные
+            </template>
+            <template #body>
+                <VFormBlock :error="errors.name">
+                    <VFormField>
+                        <VFormLabel for="name">
+                            Имя*
+                        </VFormLabel>
+                        <VFormInput
+                            id="name"
+                            v-model="form.name"
+                            :error="errors.name"
+                            type="text"
+                            placeholder="Введите имя"
+                        />
+                    </VFormField>
+                </VFormBlock>
+                <VFormBlock :error="errors.surname">
+                    <VFormField>
+                        <VFormLabel for="surname">
+                            Фамилия*
+                        </VFormLabel>
+                        <VFormInput
+                            id="surname"
+                            v-model="form.surname"
+                            :error="errors.surname"
+                            type="text"
+                            placeholder="Введите фамилию"
+                        />
+                    </VFormField>
+                </VFormBlock>
+                <VFormBlock :error="errors.email">
+                    <VFormField>
+                        <VFormLabel for="email">
+                            Email*
+                        </VFormLabel>
+                        <VFormInput
+                            id="email"
+                            v-model="form.email"
+                            :error="errors.email"
+                            type="email"
+                            placeholder="Введите email"
+                        />
+                    </VFormField>
+                </VFormBlock>
+                <VFormBlock :error="errors.phone">
+                    <VFormField>
+                        <VFormLabel for="phone">
+                            Телефон *
+                        </VFormLabel>
+                        <VFormInput
+                            id="phone"
+                            v-model="form.phone"
+                            maska="+7 (###) ### ## ##"
+                            :error="errors.phone"
+                            type="tel"
+                            placeholder="Введите телефон"
+                        />
+                    </VFormField>
+                </VFormBlock>
+                <VFormBlock :error="errors.communication">
+                    <VFormField>
+                        <VFormLabel for="communication">
+                            Как с вами связаться?
+                        </VFormLabel>
+                        <VFormSelect
+                            id="communication"
+                            v-model="form.communication"
+                            :error="errors.address"
+                            placeholder="Способ связи"
+                            :options="options"
+                        />
+                    </VFormField>
+                </VFormBlock>
+            </template>
+        </VFormGroup>
+        <VFormGroup block>
+            <template #label>
+                Доставка
+            </template>
+            <template #body>
+                <div class="tabs">
+                    <VFormOption
+                        v-for="tab in deliveryTabs"
+                        :key="tab.id"
+                        v-model="currentDeliveryTab"
+                        :value="tab.id"
+                        :label="tab.label"
+                        name="delivery"
+                        :class="[{ active: currentDeliveryTab === tab.id }]"
+                    />
+                </div>
+                <component
+                    :is="deliveryComponent"
+                    v-model:address="form.address"
+                    :pickup-address="pickupAddress"
                     :error="errors.address"
-                    placeholder="Способ связи"
-                    :options="options"
                 />
-            </VFormField>
-        </VFormBlock>
+            </template>
+        </VFormGroup>
     </VForm>
 </template>
+
+<style lang="scss" scoped>
+.tabs {
+    display: flex;
+    gap: rem(16);
+    align-items: center;
+    margin-bottom: rem(20);
+}
+</style>

@@ -79,6 +79,7 @@ export interface IOrder {
         id: number
         name: string
     }
+    deliveryType?: 'pickup' | 'tyumen' | 'russia'
 }
 
 export interface ICertificateOrder {

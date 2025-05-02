@@ -107,7 +107,7 @@ onMounted(() => {
                 />
                 <UiPageTitle>Корзина</UiPageTitle>
                 <UiSpinner v-if="isLoading" />
-                <div v-if="cartItems.length" class="cart__body" :class="{ 'cart__body--disabled': isLoading }">
+                <div v-if="cartItems.length" class="cart__body" :class="{ 'cart__body--disabled': isFormSending }">
                     <div class="cart__wrapper">
                         <div class="cart__table">
                             <CartItem v-for="item in cartItems" :key="item.id" :cart-item="item" />
@@ -117,7 +117,7 @@ onMounted(() => {
                         </UiLink>
                         <div class="cart__form">
                             <UiSpinner v-if="isFormSending" />
-                            <CartForm v-model="form" grid :errors="errors" />
+                            <CartForm v-model="form" :errors="errors" />
                         </div>
                     </div>
                     <div class="cart__checkout">
