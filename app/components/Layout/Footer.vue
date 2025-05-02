@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { IMenu, ISettings } from '@/types/api'
+import { formatPhone } from '@/helpers'
 
 const currentYear = new Date().getFullYear()
 
@@ -7,7 +8,7 @@ const menu = useState<IMenu>('menu')
 
 const settings = useState<ISettings>('settings')
 
-const formattedPhone = computed(() => settings?.value?.phone?.replace(/\s+/g, ''))
+const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
 </script>
 
 <template>

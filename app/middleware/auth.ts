@@ -1,5 +1,5 @@
 import type { RouteLocationAsPathGeneric } from 'vue-router'
-import { trimTrailingSlash } from '@/utils/formatters'
+import { trimTrailingSlash } from '@/helpers'
 
 export default defineNuxtRouteMiddleware((to) => {
     const options = useSanctumConfig()

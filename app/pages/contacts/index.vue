@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { IFeedback, ISettings } from '@/types/api'
-import { yandexMap } from '@/helpers'
+import { formatPhone, yandexMap } from '@/helpers'
 
 const client = useSanctumClient()
 
@@ -15,7 +15,7 @@ const mapRoot = ref<HTMLElement | null>(null)
 
 const settings = useState<ISettings>('settings')
 
-const formattedPhone = computed(() => settings.value.phone?.replace(/\s+/g, ''))
+const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
 
 function handleForm() {
     return client<IFeedback>('/api/feedback', {
@@ -176,9 +176,7 @@ onMounted(() => {
                                 {{ isFormSent ? 'Отправлено' : 'Отправить' }}
                             </UiButton>
                             <p class="contacts-form__policy">
-                                Нажимая на кнопку «Отправить», я принимаю условия <NuxtLink to="/info/offer">
-                                    публичной оферты
-                                </NuxtLink> и <NuxtLink to="/info/privacy">
+                                Нажимая на кнопку «Отправить», я принимаю условия <NuxtLink to="/info/privacy">
                                     политики конфиденциальности
                                 </NuxtLink>
                             </p>
