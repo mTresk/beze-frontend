@@ -124,7 +124,15 @@ watch(cartStatus, (newStatus) => {
 function setColor(color: IColor) {
     colorId.value = color.id
     colorName.value = color.name
-    size.value = undefined
+
+    nextTick(() => {
+        if (availableSizes.value.length > 0) {
+            size.value = availableSizes.value[0]
+        }
+        else {
+            size.value = undefined
+        }
+    })
 }
 
 function handleCartClick() {
@@ -173,6 +181,12 @@ onMounted(() => {
         if (firstColor) {
             colorId.value = firstColor.id
             colorName.value = firstColor.name
+
+            nextTick(() => {
+                if (availableSizes.value.length > 0) {
+                    size.value = availableSizes.value[0]
+                }
+            })
         }
     }
 
