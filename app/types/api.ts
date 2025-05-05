@@ -8,7 +8,6 @@ export interface IProduct {
     images: IImage[]
     chips: IChip[]
     variants: IProductVariant[]
-    category: ICategory
 }
 
 export interface IProductVariant {
@@ -18,7 +17,6 @@ export interface IProductVariant {
     color: IColor
     size: ISize
     image: IImage
-    category: ICategory
     product: {
         id: number
         name: string
@@ -288,11 +286,6 @@ export interface ICartItem {
             readonly original: string
             readonly thumb: string
         }[]
-        readonly category?: {
-            readonly id: number
-            readonly name: string
-            readonly slug: string
-        }
         readonly variants: readonly {
             readonly id: number
             readonly sku: string

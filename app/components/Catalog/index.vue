@@ -145,7 +145,7 @@ watch(selectedSort, async (newSort) => {
                             <NuxtLink
                                 v-for="category in categories"
                                 :key="category.id"
-                                :to="`/catalog/${category.slug}`"
+                                :to="`/catalog/category/${category.slug}`"
                                 class="catalog__category"
                             >
                                 {{ category.name }}
@@ -161,7 +161,7 @@ watch(selectedSort, async (newSort) => {
                             </NuxtLink>
                             <NuxtLink
                                 v-else
-                                :to="baseUrl || '/catalog'"
+                                :to="baseUrl || '/catalog/category'"
                                 class="catalog__category"
                             >
                                 {{ currentCategory.name }}

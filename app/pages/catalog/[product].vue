@@ -26,13 +26,11 @@ const size = ref()
 
 const selectError = ref(false)
 
-const productSlug = computed(() => route.params.id)
-
-const categorySlug = computed(() => route.params.category)
+const productSlug = computed(() => route.params.product)
 
 async function fetcher() {
     const [productData, sizesData] = await Promise.all([
-        client<IProductWithFeatured>(`/api/products/${categorySlug.value}/${productSlug.value}`),
+        client<IProductWithFeatured>(`/api/products/${productSlug.value}`),
         client<IInfoPageContent>(`/api/pages/sizes`),
     ])
     return { product: productData, sizes: sizesData }
@@ -43,7 +41,7 @@ const {
     suspense,
     isLoading,
 } = useQuery({
-    queryKey: ['product', categorySlug.value, productSlug.value],
+    queryKey: ['product', productSlug.value],
     queryFn: fetcher,
 })
 

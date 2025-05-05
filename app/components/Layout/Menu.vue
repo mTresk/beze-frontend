@@ -63,7 +63,7 @@ function handleLinkClick() {
                             class="menu__subitem"
                         >
                             <NuxtLink
-                                :to="`/catalog/${category.slug}/${subcategory.slug}`"
+                                :to="`/catalog/category/${category.slug}/${subcategory.slug}`"
                                 class="menu__sublink"
                                 @click="handleLinkClick"
                             >

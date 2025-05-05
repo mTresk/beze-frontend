@@ -20,7 +20,7 @@ const cartStatus = computed(() => {
     <div class="order-item">
         <div class="order-item__info">
             <NuxtLink
-                :to="`/catalog/${item.product.category?.slug}/products/${item.product.slug}`"
+                :to="`/catalog/${item.product.slug}`"
                 class="order-item__image"
             >
                 <img

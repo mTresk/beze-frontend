@@ -25,6 +25,6 @@ await getCategory()
             { title: category?.name || '' },
         ]"
         :current-category="category"
-        :base-url="`/catalog/${categorySlug}`"
+        :base-url="`/catalog/category/${categorySlug}`"
     />
 </template>

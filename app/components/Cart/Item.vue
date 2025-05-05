@@ -46,7 +46,7 @@ watch(() => quantity.value, handleUpdateCartValues)
         <div class="cart-item__section">
             <div class="cart-item__info">
                 <NuxtLink
-                    :to="`/catalog/${props.cartItem.product.category?.slug}/products/${props.cartItem.product.slug}`"
+                    :to="`/catalog/${props.cartItem.product.slug}`"
                     class="cart-item__image"
                 >
                     <img
