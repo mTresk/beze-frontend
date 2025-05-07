@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IColor, IInfoPageContent, IProduct, IProductVariant, IProductWithFeatured, ISize } from '@/types/api'
+import type { IColor, IInfoPageContent, IProduct, IProductVariant, IProductWithFeatured, ISize, ValidationErrors } from '@/types/api'
 import { getUniqueColors, sortSizes } from '@/helpers'
 
 const client = useSanctumClient()
@@ -15,6 +15,8 @@ const { addToViewed, viewedProductsIds } = useViewed()
 const viewedProducts = ref<IProduct[]>([])
 
 const isModalOpen = ref(false)
+
+const isCustomOrderModalOpen = ref(false)
 
 const containerRef = ref(null)
 
@@ -69,9 +71,11 @@ const availableSizes = computed(() => {
         .map((variant: IProductVariant) => ({
             ...variant.size,
             name: variant.size.name.toUpperCase(),
+            disabled: variant.stock === 0,
         }))
 
     const uniqueSizes = new Map<number, ISize>()
+
     sizesForColor.forEach((size: ISize) => {
         if (!uniqueSizes.has(size.id)) {
             uniqueSizes.set(size.id, size)
@@ -125,7 +129,8 @@ function setColor(color: IColor) {
 
     nextTick(() => {
         if (availableSizes.value.length > 0) {
-            size.value = availableSizes.value[0]
+            const availableSize = availableSizes.value.find(s => !s.disabled)
+            size.value = availableSize || availableSizes.value[0]
         }
         else {
             size.value = undefined
@@ -173,6 +178,40 @@ useSwiper(containerRef, {
     },
 })
 
+const form = reactive({
+    name: '',
+    phone: '',
+})
+
+const errors = ref<ValidationErrors>({})
+
+async function handleCustomOrder() {
+    return client('/api/orders/custom', {
+        method: 'post',
+        body: {
+            ...form,
+        },
+    })
+}
+
+const {
+    submit: handleSubmit,
+    isLoading: isFormSending,
+    validationErrors,
+} = useSubmit(
+    () => handleCustomOrder(),
+    {
+        onSuccess: () => {
+            useToastify('Запрос успешно отправлен', { type: 'success' })
+            isCustomOrderModalOpen.value = false
+        },
+    },
+)
+
+watch(validationErrors, (newErrors) => {
+    errors.value = newErrors
+})
+
 onMounted(() => {
     if (colors.value?.length) {
         const firstColor = colors.value[0]
@@ -182,7 +221,8 @@ onMounted(() => {
 
             nextTick(() => {
                 if (availableSizes.value.length > 0) {
-                    size.value = availableSizes.value[0]
+                    const availableSize = availableSizes.value.find(s => !s.disabled)
+                    size.value = availableSize || availableSizes.value[0]
                 }
             })
         }
@@ -282,6 +322,16 @@ onMounted(() => {
                         </div>
                         <div class="product__actions">
                             <UiButton
+                                v-if="selectedVariant && selectedVariant.stock === 0"
+                                title="Под заказ"
+                                wide
+                                class="product__action"
+                                @click="isCustomOrderModalOpen = true"
+                            >
+                                <span>Под заказ</span>
+                            </UiButton>
+                            <UiButton
+                                v-else
                                 :title="cartStatus ? 'Убрать из корзины' : 'В корзину'"
                                 :active="cartStatus"
                                 wide
@@ -322,6 +372,62 @@ onMounted(() => {
             <div class="content">
                 <h2>{{ sizes?.data.name }}</h2>
                 <div v-html="sizes?.data.content" />
+            </div>
+        </LayoutDialog>
+        <LayoutDialog v-model="isCustomOrderModalOpen">
+            <div class="modal-form">
+                <div class="modal-form__header">
+                    <h2 class="modal-form__title">
+                        Заполните форму
+                    </h2>
+                    <p class="modal-form__description">
+                        И мы свяжемся с вами в ближайшее время
+                    </p>
+                </div>
+
+                <div class="modal-form__body">
+                    <VForm>
+                        <VFormBlock :error="errors.name">
+                            <VFormField>
+                                <VFormLabel for="name">
+                                    Ваше имя*
+                                </VFormLabel>
+                                <VFormInput
+                                    id="name"
+                                    v-model="form.name"
+                                    :error="errors.name"
+                                    type="text"
+                                    placeholder="Введите имя"
+                                />
+                            </VFormField>
+                        </VFormBlock>
+                        <VFormBlock :error="errors.phone">
+                            <VFormField>
+                                <VFormLabel for="phone">
+                                    Телефон*
+                                </VFormLabel>
+                                <VFormInput
+                                    id="phone"
+                                    v-model="form.phone"
+                                    :error="errors.phone"
+                                    type="tel"
+                                    maska="+7 (###) ### ## ##"
+                                    placeholder="Введите телефон"
+                                />
+                            </VFormField>
+                        </VFormBlock>
+                    </VForm>
+                </div>
+                <div class="modal-form__footer">
+                    <UiButton wide :is-loading="isFormSending" @click="handleSubmit">
+                        Отправить
+                    </UiButton>
+                    <p class="modal-form__policy">
+                        Нажимая на кнопку «Отправить», я принимаю условия <NuxtLink to="/info/privacy">
+                            политики конфиденциальности
+                        </NuxtLink>
+                    </p>
+                </div>
             </div>
         </LayoutDialog>
     </div>
@@ -496,6 +602,17 @@ onMounted(() => {
 
         @include adaptive-value('padding-bottom', 35, 20);
         @include adaptive-value('margin-bottom', 35, 20);
+
+        &-info {
+            display: flex;
+            flex-direction: column;
+            gap: rem(5);
+        }
+
+        &-outofstock {
+            font-size: rem(14);
+            color: rgb(54 54 54 / 50%);
+        }
     }
 
     // .product__actions

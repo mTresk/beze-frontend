@@ -253,4 +253,54 @@ body {
         transform: scale(0.95);
     }
 }
+
+.modal-form {
+    display: grid;
+    gap: rem(30);
+
+    // .modal-form__header
+    &__header {
+        display: grid;
+        gap: rem(10);
+    }
+
+    // .modal-form__title
+    &__title {
+        line-height: 140%;
+
+        @include adaptive-value('font-size', 28, 20);
+    }
+
+    // .modal-form__description
+    &__description {
+        font-size: rem(16);
+        line-height: 140%;
+    }
+
+    // .modal-form__footer
+    &__footer {
+        display: grid;
+        gap: rem(10);
+    }
+
+    // .modal-form__policy
+    &__policy {
+        font-size: rem(14);
+        line-height: 140%;
+        text-align: center;
+
+        a {
+            text-decoration: underline;
+            text-decoration-thickness: 10%;
+            text-decoration-style: dotted;
+            transition: color 0.3s ease-in-out;
+
+            @media (any-hover: hover) {
+                &:hover {
+                    color: $accentColor;
+                }
+            }
+        }
+    }
+}
 </style>

@@ -59,6 +59,7 @@ export interface IChip {
 export interface ISize {
     id: number
     name: string
+    disabled?: boolean
 }
 
 export interface IOrder {

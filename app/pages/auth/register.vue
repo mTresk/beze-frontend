@@ -116,6 +116,11 @@ const {
                 <UiButton wide :is-loading="isLoading" type="submit" @click="submitForm">
                     Зарегистрироваться
                 </UiButton>
+                <p class="auth__policy">
+                    Нажимая на кнопку «Зарегистрироваться», я принимаю условия  <NuxtLink to="/info/privacy">
+                        политики конфиденциальности
+                    </NuxtLink>
+                </p>
                 <UiLink class="auth__link" href="/auth/login">
                     Уже есть аккаунт?
                 </UiLink>

@@ -48,7 +48,10 @@ function closeOptions() {
                     v-for="option in options"
                     :key="option.id"
                     class="select__option"
-                    :class="{ 'select__option--active': modelValue?.id === option.id }"
+                    :class="{
+                        'select__option--active': modelValue?.id === option.id,
+                        'select__option--disabled': option.disabled,
+                    }"
                     :value="option.value"
                     @click.stop="toggleOption(option)"
                 >
@@ -126,6 +129,10 @@ function closeOptions() {
         &--active {
             color: $whiteColor;
             background-color: $accentColor;
+        }
+
+        &--disabled {
+            opacity: 0.5;
         }
 
         @media (any-hover: hover) {
