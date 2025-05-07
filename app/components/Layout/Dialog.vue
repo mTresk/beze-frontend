@@ -261,14 +261,14 @@ body {
     // .modal-form__header
     &__header {
         display: grid;
-        gap: rem(10);
+        gap: rem(5);
     }
 
     // .modal-form__title
     &__title {
-        line-height: 140%;
+        line-height: 125%;
 
-        @include adaptive-value('font-size', 28, 20);
+        @include adaptive-value('font-size', 38, 28);
     }
 
     // .modal-form__description

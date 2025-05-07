@@ -70,7 +70,7 @@ const availableSizes = computed(() => {
         .filter((variant: IProductVariant) => variant.color.id === colorId.value)
         .map((variant: IProductVariant) => ({
             ...variant.size,
-            name: variant.size.name.toUpperCase(),
+            name: variant.size.name,
             disabled: variant.stock === 0,
         }))
 
@@ -387,10 +387,10 @@ onMounted(() => {
             <div class="modal-form">
                 <div class="modal-form__header">
                     <h2 class="modal-form__title">
-                        Заполните форму
+                        Напишите нам
                     </h2>
                     <p class="modal-form__description">
-                        И мы свяжемся с вами в ближайшее время
+                        и мы сошьем, что вам нужно в течении пяти дней
                     </p>
                 </div>
 
@@ -459,7 +459,7 @@ onMounted(() => {
                         Отправить
                     </UiButton>
                     <p class="modal-form__policy">
-                        Нажимая на кнопку «Отправить», я принимаю условия <NuxtLink to="/info/privacy">
+                        Нажимая на кнопку «Отправить», я принимаю условия <NuxtLink target="_blank" to="/info/privacy">
                             политики конфиденциальности
                         </NuxtLink>
                     </p>

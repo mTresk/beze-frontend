@@ -177,7 +177,7 @@ onMounted(() => {
                                 {{ isFormSent ? 'Отправлено' : 'Отправить' }}
                             </UiButton>
                             <p class="contacts-form__policy">
-                                Нажимая на кнопку «Отправить», я принимаю условия <NuxtLink to="/info/privacy">
+                                Нажимая на кнопку «Отправить», я принимаю условия <NuxtLink target="_blank" to="/info/privacy">
                                     политики конфиденциальности
                                 </NuxtLink>
                             </p>

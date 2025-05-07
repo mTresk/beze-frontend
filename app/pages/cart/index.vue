@@ -157,12 +157,12 @@ onMounted(() => {
                         </div>
                         <div class="cart__footer">
                             <UiButton :is-loading="isFormSending" class="cart__button" @click="handleSubmit">
-                                Сделать заказ
+                                Оформить заказ
                             </UiButton>
                             <p class="cart__policy">
-                                Нажимая на кнопку «сделать заказ», я принимаю условия <NuxtLink to="/info/offer">
+                                Нажимая на кнопку «Оформить заказ», я принимаю условия <NuxtLink target="_blank" to="/info/offer">
                                     публичной оферты
-                                </NuxtLink> и <NuxtLink to="/info/privacy">
+                                </NuxtLink> и <NuxtLink target="_blank" to="/info/privacy">
                                     политики конфиденциальности
                                 </NuxtLink>
                             </p>

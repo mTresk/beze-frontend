@@ -117,7 +117,7 @@ const {
                     Зарегистрироваться
                 </UiButton>
                 <p class="auth__policy">
-                    Нажимая на кнопку «Зарегистрироваться», я принимаю условия  <NuxtLink to="/info/privacy">
+                    Нажимая на кнопку «Зарегистрироваться», я принимаю условия  <NuxtLink target="_blank" to="/info/privacy">
                         политики конфиденциальности
                     </NuxtLink>
                 </p>
