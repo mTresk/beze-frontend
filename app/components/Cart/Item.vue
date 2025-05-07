@@ -79,7 +79,7 @@ watch(() => quantity.value, handleUpdateCartValues)
             </div>
         </div>
         <div class="cart-item__actions">
-            <VFormQuantity v-model="quantity" :min="1" :max="10" />
+            <VFormQuantity v-model="quantity" :min="1" :max="selectedVariant?.stock" />
             <div class="cart-item__wrapper">
                 <div class="cart-item__price">
                     {{ totalPrice }} ₽

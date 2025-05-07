@@ -14,6 +14,7 @@ export interface IProductVariant {
     id: number
     sku: string
     price: string
+    stock: number
     color: IColor
     size: ISize
     image: IImage
@@ -290,6 +291,7 @@ export interface ICartItem {
             readonly id: number
             readonly sku: string
             readonly price: string
+            readonly stock: number
             readonly color: { readonly id: number, readonly name: string, readonly code: string }
             readonly size: { readonly id: number, readonly name: string }
         }[]
