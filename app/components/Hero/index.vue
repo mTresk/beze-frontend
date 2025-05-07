@@ -38,7 +38,7 @@ useSwiper(containerRef, {
             <div class="hero__container">
                 <div class="hero__body">
                     <h1 class="hero__title">
-                        BEZE Studio – <br>ОДЕЖДА, СОЗДАЮЩАЯ ОСОБОЕ НАСТРОЕНИЕ
+                        <span>BEZE Studio</span> – <br>ОДЕЖДА, СОЗДАЮЩАЯ <span>ОСОБОЕ</span> НАСТРОЕНИЕ
                     </h1>
                     <UiButton href="/catalog" outline white>
                         В каталог
@@ -155,6 +155,10 @@ useSwiper(containerRef, {
         letter-spacing: 0.01em;
 
         @include adaptive-value('font-size', 50, 30);
+
+        span {
+            color: $extraColor;
+        }
     }
 }
 </style>
