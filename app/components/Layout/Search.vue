@@ -330,6 +330,7 @@ onUnmounted(() => {
     &__body {
         display: flex;
         align-items: flex-start;
+        justify-content: space-between;
 
         @include adaptive-value('gap', 50, 30);
 
@@ -398,7 +399,7 @@ onUnmounted(() => {
 
     // .search__form
     &__form {
-        flex: 0 1 rem(370);
+        flex: 0 0 rem(370);
 
         @media (max-width: $mobile) {
             flex: unset;
