@@ -3,7 +3,7 @@ export default defineNuxtConfig({
         compatibilityVersion: 4,
     },
     devtools: { enabled: false },
-    modules: ['nuxt-swiper', 'nuxt-toastify', 'nuxt-auth-sanctum'],
+    modules: ['nuxt-swiper', 'nuxt-toastify', 'nuxt-auth-sanctum', '@nuxt/image'],
     app: {
         pageTransition: { name: 'layout', mode: 'out-in' },
     },

@@ -17,13 +17,20 @@ useSwiper(containerRef, {
             ref="containerRef" class="hero__slider" :init="false"
         >
             <swiper-slide class="hero__slide">
-                <img src="/images/hero-1.webp" alt="" loading="lazy" srcset="/images/hero-1.webp 1x, /images/hero-1@2x.webp 2x">
+                <NuxtImg class="hero__image hero__image--pc" densities="x1 x2" width="3840" height="2160" src="/images/hero/1.webp" alt="" />
+                <NuxtImg class="hero__image hero__image--mobile" densities="x1 x2" width="1536" height="2304" src="/images/hero/1-mob.webp" alt="" />
             </swiper-slide>
             <swiper-slide class="hero__slide">
-                <img src="/images/hero-2.webp" alt="" loading="lazy" srcset="/images/hero-2.webp 1x, /images/hero-2@2x.webp 2x">
+                <NuxtImg class="hero__image hero__image--pc" densities="x1 x2" width="3840" height="2160" src="/images/hero/2.webp" alt="" />
+                <NuxtImg class="hero__image hero__image--mobile" densities="x1 x2" width="1536" height="2304" src="/images/hero/2-mob.webp" alt="" />
             </swiper-slide>
             <swiper-slide class="hero__slide">
-                <img src="/images/hero-3.webp" alt="" loading="lazy" srcset="/images/hero-3.webp 1x, /images/hero-3@2x.webp 2x">
+                <NuxtImg class="hero__image hero__image--pc" densities="x1 x2" width="3840" height="2160" src="/images/hero/3.webp" alt="" />
+                <NuxtImg class="hero__image hero__image--mobile" densities="x1 x2" width="1536" height="2304" src="/images/hero/3-mob.webp" alt="" />
+            </swiper-slide>
+            <swiper-slide class="hero__slide">
+                <NuxtImg class="hero__image hero__image--pc" densities="x1 x2" width="3840" height="2160" src="/images/hero/4.webp" alt="" />
+                <NuxtImg class="hero__image hero__image--mobile" densities="x1 x2" width="1536" height="2304" src="/images/hero/4-mob.webp" alt="" />
             </swiper-slide>
         </swiper-container>
 
@@ -70,14 +77,11 @@ useSwiper(containerRef, {
         display: block;
         height: 100%;
 
-        img {
-            @include image;
-        }
-
         &::before {
             position: absolute;
             inset: 0;
             z-index: 4;
+            pointer-events: none;
             content: '';
             background-color: rgb(0 0 0 / 30%);
         }
@@ -87,6 +91,7 @@ useSwiper(containerRef, {
             inset: 0;
             z-index: 5;
             height: rem(200);
+            pointer-events: none;
             content: '';
             background: linear-gradient(
                 0deg,
@@ -99,6 +104,28 @@ useSwiper(containerRef, {
                 rgb(28 27 26 / 30.6%) 72%,
                 rgb(28 27 26 / 60%)
             );
+        }
+    }
+
+    &__image {
+        @include image;
+
+        &--pc {
+            display: block;
+        }
+
+        &--mobile {
+            display: none;
+        }
+
+        @media (max-width: $mobile) {
+            &--pc {
+                display: none;
+            }
+
+            &--mobile {
+                display: block;
+            }
         }
     }
 

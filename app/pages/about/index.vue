@@ -19,19 +19,19 @@
                     </div>
                     <div class="about-page__images">
                         <div class="about-page__image">
-                            <img src="/images/about/hero/1.webp" srcset="/images/about/hero/1.webp 1x, /images/about/hero/1@2x.webp 2x" alt="" loading="lazy">
+                            <NuxtImg densities="x1 x2" width="560" height="560" src="/images/about/hero/1.webp" alt="" />
                         </div>
                         <div class="about-page__image">
-                            <img src="/images/about/hero/2.webp" srcset="/images/about/hero/2.webp 1x, /images/about/hero/2@2x.webp 2x" alt="" loading="lazy">
+                            <NuxtImg densities="x1 x2" width="560" height="560" src="/images/about/hero/2.webp" alt="" />
                         </div>
                         <div class="about-page__image">
-                            <img src="/images/about/hero/3.webp" srcset="/images/about/hero/3.webp 1x, /images/about/hero/3@2x.webp 2x" alt="" loading="lazy">
+                            <NuxtImg densities="x1 x2" width="560" height="560" src="/images/about/hero/3.webp" alt="" />
                         </div>
                         <div class="about-page__image">
-                            <img src="/images/about/hero/4.webp" srcset="/images/about/hero/4.webp 1x, /images/about/hero/4@2x.webp 2x" alt="" loading="lazy">
+                            <NuxtImg densities="x1 x2" width="560" height="560" src="/images/about/hero/4.webp" alt="" />
                         </div>
                         <div class="about-page__image">
-                            <img src="/images/about/hero/5.webp" srcset="/images/about/hero/5.webp 1x, /images/about/hero/5@2x.webp 2x" alt="" loading="lazy">
+                            <NuxtImg densities="x1 x2" width="560" height="560" src="/images/about/hero/5.webp" alt="" />
                         </div>
                     </div>
                 </div>

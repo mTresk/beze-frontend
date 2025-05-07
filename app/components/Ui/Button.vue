@@ -10,7 +10,7 @@ defineProps<{
         v-if="href"
         :to="href"
         class="button"
-        :disabled="isLoading"
+        :disabled="isLoading ? true : undefined"
     >
         <slot />
         <UiButtonSpinner v-if="isLoading" size="20" />
@@ -18,7 +18,7 @@ defineProps<{
     <button
         v-else
         class="button"
-        :disabled="isLoading"
+        :disabled="isLoading ? true : undefined"
     >
         <slot />
         <UiButtonSpinner v-if="isLoading" size="20" />
@@ -27,6 +27,7 @@ defineProps<{
 
 <style lang="scss">
 .button {
+    position: relative;
     display: flex;
     gap: rem(8);
     align-items: center;

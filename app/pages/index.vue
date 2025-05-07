@@ -6,6 +6,7 @@
         <Bestsellers />
         <Collections />
         <About />
+        <Gallery />
         <Reviews />
         <Customers />
         <Certificate />

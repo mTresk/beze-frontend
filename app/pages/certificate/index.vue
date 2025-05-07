@@ -313,7 +313,7 @@ watch(
 
     // .certificate__policy
     &__policy {
-        font-size: 14px;
+        font-size: rem(14);
         line-height: 140%;
 
         a {
