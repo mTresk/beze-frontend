@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IColor, IInfoPageContent, IProduct, IProductVariant, IProductWithFeatured, ISize, ValidationErrors } from '@/types/api'
+import type { IColor, IFeedback, IInfoPageContent, IProduct, IProductVariant, IProductWithFeatured, ISize, ValidationErrors } from '@/types/api'
 import { getUniqueColors, sortSizes } from '@/helpers'
 
 const client = useSanctumClient()
@@ -178,19 +178,19 @@ useSwiper(containerRef, {
     },
 })
 
-const form = reactive({
+const form = reactive<IFeedback>({
     name: '',
     phone: '',
+    email: '',
+    message: '',
 })
 
 const errors = ref<ValidationErrors>({})
 
-async function handleCustomOrder() {
-    return client('/api/orders/custom', {
+function handleForm() {
+    return client('/api/feedback', {
+        body: form,
         method: 'post',
-        body: {
-            ...form,
-        },
     })
 }
 
@@ -199,14 +199,23 @@ const {
     isLoading: isFormSending,
     validationErrors,
 } = useSubmit(
-    () => handleCustomOrder(),
+    () => handleForm(),
     {
-        onSuccess: () => {
-            useToastify('Запрос успешно отправлен', { type: 'success' })
+        onSuccess: (response) => {
+            useToastify(response, { type: 'success' })
+            clearForm()
             isCustomOrderModalOpen.value = false
         },
     },
 )
+
+function clearForm() {
+    form.name = ''
+    form.phone = ''
+    form.email = ''
+    form.message = ''
+    errors.value = {}
+}
 
 watch(validationErrors, (newErrors) => {
     errors.value = newErrors
@@ -413,6 +422,33 @@ onMounted(() => {
                                     type="tel"
                                     maska="+7 (###) ### ## ##"
                                     placeholder="Введите телефон"
+                                />
+                            </VFormField>
+                        </VFormBlock>
+                        <VFormBlock :error="errors.email">
+                            <VFormField>
+                                <VFormLabel for="email">
+                                    Ваш email
+                                </VFormLabel>
+                                <VFormInput
+                                    id="email"
+                                    v-model="form.email"
+                                    :error="errors.email"
+                                    type="email"
+                                    placeholder="Введите email"
+                                />
+                            </VFormField>
+                        </VFormBlock>
+                        <VFormBlock :error="errors.message">
+                            <VFormField>
+                                <VFormLabel for="message">
+                                    Сообщение
+                                </VFormLabel>
+                                <VFormTextarea
+                                    id="message"
+                                    v-model="form.message"
+                                    :error="errors.message"
+                                    placeholder="Напишите нам сообщение"
                                 />
                             </VFormField>
                         </VFormBlock>

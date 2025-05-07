@@ -18,7 +18,7 @@ const settings = useState<ISettings>('settings')
 const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
 
 function handleForm() {
-    return client<IFeedback>('/api/feedback', {
+    return client('/api/feedback', {
         body: form,
         method: 'post',
     })
@@ -34,7 +34,8 @@ const {
         return handleForm()
     },
     {
-        onSuccess: () => {
+        onSuccess: (response) => {
+            useToastify(response, { type: 'success' })
             clearForm()
         },
     },
