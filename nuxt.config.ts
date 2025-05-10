@@ -23,6 +23,11 @@ export default defineNuxtConfig({
     },
     nitro: {
         compressPublicAssets: true,
+        routeRules: {
+            '/api/cdek/**': {
+                proxy: { to: `${process.env.NUXT_PUBLIC_BACKEND_URL}/api/cdek/**` },
+            },
+        },
     },
     build: {
         transpile: ['gsap'],

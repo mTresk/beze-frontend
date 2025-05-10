@@ -33,14 +33,17 @@ const currentDeliveryTab = ref<DeliveryTab>('pickup')
 
 const pickupAddress = settings.value.address
 
+const deliveryCost = ref<number>(0)
+
 const form = reactive<Partial<IOrder>>({
     name: '',
     surname: '',
     email: '',
     phone: '',
-    address: '',
     communication: undefined,
     deliveryType: deliveryTabs[0]?.id as IOrder['deliveryType'],
+    deliveryAddress: '',
+    deliveryCost: deliveryCost.value,
 })
 
 const deliveryComponent = computed(() => {
@@ -62,7 +65,7 @@ function populateFormWithUserData() {
     }
     if (user.value.profile) {
         form.phone = user.value.profile.phone || ''
-        form.address = user.value.profile.address || ''
+        form.deliveryAddress = user.value.profile.address || ''
 
         if (user.value.profile.communication) {
             const communicationOption = options.find(
@@ -76,6 +79,20 @@ function populateFormWithUserData() {
 
     emit('update:modelValue', form)
 }
+
+function handleDeliveryCost(cost: number) {
+    deliveryCost.value = cost
+    form.deliveryCost = cost
+    emit('update:modelValue', form)
+}
+
+watch(currentDeliveryTab, (newTab) => {
+    form.deliveryType = newTab
+    deliveryCost.value = 0
+    form.deliveryCost = 0
+
+    emit('update:modelValue', form)
+}, { immediate: true })
 
 watch(user, () => {
     populateFormWithUserData()
@@ -184,9 +201,10 @@ watch(form, (newForm) => {
                 </div>
                 <component
                     :is="deliveryComponent"
-                    v-model:address="form.address"
+                    v-model:address="form.deliveryAddress"
                     :pickup-address="pickupAddress"
                     :error="errors.address"
+                    @delivery-cost="handleDeliveryCost"
                 />
             </template>
         </VFormGroup>
@@ -199,5 +217,9 @@ watch(form, (newForm) => {
     gap: rem(16);
     align-items: center;
     margin-bottom: rem(20);
+
+    @media (max-width: $mobile) {
+        display: grid;
+    }
 }
 </style>

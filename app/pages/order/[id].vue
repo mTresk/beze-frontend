@@ -85,6 +85,12 @@ onMounted(() => {
                                 <span>На сумму:</span> {{ order.total }} ₽
                             </div>
                             <div class="personal-order__value">
+                                <span>Доставка:</span> {{ order.deliveryType }}
+                            </div>
+                            <div class="personal-order__value">
+                                <span>Сумма доставки:</span> {{ order.deliveryCost }} ₽
+                            </div>
+                            <div class="personal-order__value">
                                 <span>Статус:</span>
                                 {{ order.status.label }}
                             </div>

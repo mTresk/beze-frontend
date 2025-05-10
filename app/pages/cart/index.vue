@@ -3,7 +3,7 @@ import type { IOrder } from '@/types/api'
 
 const { cartItems, cartTotal, isLoading, clearCartItems } = useCart()
 
-const { isAuthenticated, refreshIdentity } = useSanctumAuth()
+const { isAuthenticated } = useSanctumAuth()
 
 const client = useSanctumClient()
 
@@ -11,7 +11,25 @@ const isInitialized = ref(false)
 
 const form = ref<IOrder>()
 
-const signedUrl = ref<string | null>(null)
+const deliveryPrice = computed(() => {
+    if (!form.value || form.value.deliveryType === 'pickup') {
+        return 0
+    }
+
+    if (form.value.deliveryType === 'tyumen') {
+        return Number(cartTotal.value) >= 5000 ? 0 : 500
+    }
+
+    if (form.value.deliveryType === 'russia' && form.value.deliveryCost) {
+        return form.value.deliveryCost
+    }
+
+    return 0
+})
+
+const totalWithDelivery = computed(() => {
+    return Number(cartTotal.value) + Number(deliveryPrice.value)
+})
 
 async function submitOrder() {
     const products = cartItems.value.map((item) => {
@@ -33,17 +51,7 @@ async function submitOrder() {
     })
 
     if (response) {
-        signedUrl.value = response.signedUrl
-    }
-}
-
-function extractSignedUrlParams(url: string) {
-    const urlObj = new URL(url)
-    const orderId = urlObj.pathname.split('/').slice(-2)[0]
-    return {
-        id: orderId,
-        expires: urlObj.searchParams.get('expires'),
-        signature: urlObj.searchParams.get('signature'),
+        window.location.href = response
     }
 }
 
@@ -57,27 +65,6 @@ const {
     },
     {
         onSuccess: () => {
-            if (isAuthenticated.value) {
-                refreshIdentity()
-                navigateTo({
-                    path: '/personal',
-                    query: {
-                        refetch: 1,
-                    },
-                })
-            }
-            else {
-                if (signedUrl.value) {
-                    const { id, expires, signature } = extractSignedUrlParams(signedUrl.value)
-                    navigateTo({
-                        path: `/order/${id}`,
-                        query: {
-                            expires,
-                            signature,
-                        },
-                    }, { replace: true })
-                }
-            }
             clearCartItems()
         },
     },
@@ -135,15 +122,28 @@ onMounted(() => {
                         </div>
                         <div class="cart__caution">
                             <span>!</span>
-                            После оформления заказа менеджер свяжется с вами для уточнения деталей
+                            После оплаты заказа менеджер свяжется с вами для уточнения деталей
                         </div>
                         <div class="cart__total">
-                            <div class="cart__line">
+                            <div v-if="form?.deliveryType !== 'pickup'" class="cart__line">
                                 <div class="cart__key">
                                     Доставка
                                 </div>
                                 <div class="cart__value">
-                                    0 ₽
+                                    <template v-if="form?.deliveryType === 'russia' && !form?.deliveryCost">
+                                        Выберите пункт выдачи
+                                    </template>
+                                    <template v-else-if="deliveryPrice > 0">
+                                        {{ deliveryPrice }} ₽
+                                    </template>
+                                    <template v-else>
+                                        Бесплатно
+                                    </template>
+                                </div>
+                            </div>
+                            <div v-if="form?.deliveryType === 'tyumen' && deliveryPrice > 0" class="cart__line cart__line--note">
+                                <div class="cart__note">
+                                    Бесплатная доставка по Тюмени от 5000 ₽
                                 </div>
                             </div>
                             <div class="cart__line">
@@ -151,12 +151,17 @@ onMounted(() => {
                                     Итого
                                 </div>
                                 <div class="cart__value cart__value--lg">
-                                    {{ cartTotal }} ₽
+                                    {{ totalWithDelivery }} ₽
                                 </div>
                             </div>
                         </div>
                         <div class="cart__footer">
-                            <UiButton :is-loading="isFormSending" class="cart__button" @click="handleSubmit">
+                            <UiButton
+                                :is-loading="isFormSending"
+                                class="cart__button"
+                                :disabled="form?.deliveryType === 'russia' && !form?.deliveryCost"
+                                @click="handleSubmit"
+                            >
                                 Оформить заказ
                             </UiButton>
                             <p class="cart__policy">
@@ -305,6 +310,11 @@ onMounted(() => {
         gap: rem(20);
         align-items: center;
         justify-content: space-between;
+
+        // .cart__line--note
+        &--note {
+            justify-content: flex-end;
+        }
     }
 
     // .cart__key
@@ -325,6 +335,13 @@ onMounted(() => {
             font-size: 28px;
             font-weight: 500;
         }
+    }
+
+    // .cart__note
+    &__note {
+        font-size: 14px;
+        line-height: 130%;
+        color: $accentColor;
     }
 
     // .cart__footer

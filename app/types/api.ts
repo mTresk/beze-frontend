@@ -74,12 +74,13 @@ export interface IOrder {
     surname: string
     email: string
     phone: string
-    address: string
     communication?: {
         id: number
         name: string
     }
-    deliveryType?: 'pickup' | 'tyumen' | 'russia'
+    deliveryType: 'pickup' | 'tyumen' | 'russia'
+    deliveryAddress?: string
+    deliveryCost?: number
 }
 
 export interface ICertificateOrder {
@@ -331,6 +332,8 @@ export interface IOrderResponse {
     updatedAt: string
     items: IOrderItem[]
     user: IUser
+    deliveryCost?: number
+    deliveryType?: string
 }
 
 export interface IOrderItem {
@@ -342,4 +345,56 @@ export interface IOrderItem {
     size: ISize
     quantity: number
     product: Partial<IProduct>
+}
+
+export interface CDEKWidgetOptions {
+    root: string | HTMLElement
+    apiKey: string
+    servicePath: string
+    defaultLocation: string
+    popup: boolean
+    lang: string
+    from: string
+    currency?: string
+    goods?: Array<{ width: number, height: number, length: number, weight: number }>
+    tariffs?: { office: number[], door: number[] }
+    onChoose?: (type: string, tariff: CdekTariff, point: CdekPoint) => void
+    onReady?: () => void
+}
+
+export interface CdekTariff {
+    tariff_code: number
+    tariff_name: string
+    tariff_description: string
+    delivery_mode: number
+    delivery_sum: number
+    period_min: number
+    period_max: number
+    calendar_min: number
+    calendar_max: number
+    delivery_date_range: {
+        min: string
+        max: string
+    }
+}
+
+export interface CdekPoint {
+    city_code: number
+    city: string
+    type: string
+    postal_code: string
+    country_code: string
+    region: string
+    have_cashless: boolean
+    have_cash: boolean
+    allowed_cod: boolean
+    is_dressing_room: boolean
+    code: string
+    name: string
+    address: string
+    work_time: string
+    location: [number, number]
+    weight_min: number
+    weight_max: number
+    dimensions: null | any
 }
