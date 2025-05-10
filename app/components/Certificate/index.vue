@@ -54,7 +54,7 @@ onBeforeUnmount(() => {
                     </UiButton>
                 </div>
                 <div class="certificate__image">
-                    <img src="/images/cert.webp" alt="" loading="lazy">
+                    <NuxtImg densities="x1 x2" width="520" height="634" quality="100" src="/images/cert.webp" alt="" loading="lazy" />
                 </div>
             </div>
         </div>

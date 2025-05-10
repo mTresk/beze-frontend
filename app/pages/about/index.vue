@@ -19,19 +19,19 @@
                     </div>
                     <div class="about-page__images">
                         <div class="about-page__image">
-                            <NuxtImg densities="x1 x2" width="560" height="560" src="/images/about/hero/1.webp" alt="" />
+                            <NuxtImg densities="x1 x2" width="560" height="560" quality="100" src="/images/about/hero/1.webp" alt="" />
                         </div>
                         <div class="about-page__image">
-                            <NuxtImg densities="x1 x2" width="560" height="560" src="/images/about/hero/2.webp" alt="" />
+                            <NuxtImg densities="x1 x2" width="560" height="560" quality="100" src="/images/about/hero/2.webp" alt="" />
                         </div>
                         <div class="about-page__image">
-                            <NuxtImg densities="x1 x2" width="560" height="560" src="/images/about/hero/3.webp" alt="" />
+                            <NuxtImg densities="x1 x2" width="560" height="560" quality="100" src="/images/about/hero/3.webp" alt="" />
                         </div>
                         <div class="about-page__image">
-                            <NuxtImg densities="x1 x2" width="560" height="560" src="/images/about/hero/4.webp" alt="" />
+                            <NuxtImg densities="x1 x2" width="560" height="560" quality="100" src="/images/about/hero/4.webp" alt="" />
                         </div>
                         <div class="about-page__image">
-                            <NuxtImg densities="x1 x2" width="560" height="560" src="/images/about/hero/5.webp" alt="" />
+                            <NuxtImg densities="x1 x2" width="560" height="560" quality="100" src="/images/about/hero/5.webp" alt="" />
                         </div>
                     </div>
                 </div>

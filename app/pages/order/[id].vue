@@ -106,3 +106,38 @@ onMounted(() => {
         </section>
     </div>
 </template>
+
+<style lang="scss" scoped>
+.personal-order {
+    display: grid;
+    border-bottom: 1px solid rgb(54 54 54 / 10%);
+
+    @include adaptive-value('padding-bottom', 30, 20);
+    @include adaptive-value('margin-bottom', 30, 20);
+    @include adaptive-value('gap', 20, 10);
+
+    // .personal-order__info
+    &__info {
+        display: grid;
+        gap: rem(10);
+    }
+
+    // .personal-order__value
+    &__value {
+        font-size: rem(16);
+        font-weight: 500;
+        line-height: 120%;
+
+        span {
+            font-weight: 400;
+        }
+    }
+
+    // .personal-order__items
+    &__items {
+        display: grid;
+
+        @include adaptive-value('gap', 20, 10);
+    }
+}
+</style>

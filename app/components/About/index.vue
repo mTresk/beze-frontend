@@ -63,11 +63,11 @@ onBeforeUnmount(() => {
                         </ul>
                     </div>
                     <div class="about__small-image">
-                        <NuxtImg densities="x1 x2" width="400" height="400" src="/images/about/about-sm.webp" alt="" />
+                        <NuxtImg densities="x1 x2" width="400" height="400" quality="100" src="/images/about/about-sm.webp" alt="" />
                     </div>
                 </div>
                 <div class="about__image">
-                    <NuxtImg densities="x1 x2" width="520" height="634" src="/images/about/about.webp" alt="" />
+                    <NuxtImg densities="x1 x2" width="520" height="634" quality="100" src="/images/about/about.webp" alt="" />
                 </div>
             </div>
         </div>
