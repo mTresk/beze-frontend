@@ -16,10 +16,19 @@ onMounted(() => {
         isInitialized.value = true
     }
 })
+
+const seoTitle = 'Вишлист'
+const seoDescription = 'Здесь лежат желанные товары'
 </script>
 
 <template>
     <div>
+        <Head>
+            <Title>{{ seoTitle }}</Title>
+            <Meta name="description" :content="seoDescription" />
+            <Meta property="og:description" :content="seoDescription" />
+            <Meta name="twitter:description" :content="seoDescription" />
+        </Head>
         <section class="favorites spacer">
             <div class="favorites__container">
                 <LayoutBreadcrumb

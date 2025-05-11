@@ -15,10 +15,19 @@ const tabs = {
     PersonalOrders,
     PersonalInfo,
 } as const
+
+const seoTitle = 'Личный кабинет'
+const seoDescription = 'Личный кабинет интернет-магазина Beze Studio'
 </script>
 
 <template>
     <div>
+        <Head>
+            <Title>{{ seoTitle }}</Title>
+            <Meta name="description" :content="seoDescription" />
+            <Meta property="og:description" :content="seoDescription" />
+            <Meta name="twitter:description" :content="seoDescription" />
+        </Head>
         <section class="personal spacer">
             <div class="personal__container">
                 <LayoutBreadcrumb :items="[{ title: 'Личный кабинет' }]" />

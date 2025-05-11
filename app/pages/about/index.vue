@@ -1,5 +1,16 @@
+<script setup lang="ts">
+const seoTitle = 'О нас'
+const seoDescription = 'Одежда, создающая особенное настроение'
+</script>
+
 <template>
     <div>
+        <Head>
+            <Title>{{ seoTitle }}</Title>
+            <Meta name="description" :content="seoDescription" />
+            <Meta property="og:description" :content="seoDescription" />
+            <Meta name="twitter:description" :content="seoDescription" />
+        </Head>
         <section class="about-page spacer">
             <div class="about-page__container">
                 <LayoutBreadcrumb

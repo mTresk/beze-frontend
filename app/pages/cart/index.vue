@@ -81,10 +81,19 @@ onMounted(() => {
         isInitialized.value = true
     }
 })
+
+const seoTitle = 'Корзина'
+const seoDescription = 'Корзина интернет-магазина Beze Studio'
 </script>
 
 <template>
     <div>
+        <Head>
+            <Title>{{ seoTitle }}</Title>
+            <Meta name="description" :content="seoDescription" />
+            <Meta property="og:description" :content="seoDescription" />
+            <Meta name="twitter:description" :content="seoDescription" />
+        </Head>
         <section class="cart spacer">
             <div class="cart__container">
                 <LayoutBreadcrumb

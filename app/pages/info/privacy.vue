@@ -15,10 +15,19 @@ const {
 })
 
 await suspense()
+
+const seoTitle = 'Политика конфиденциальности'
+const seoDescription = 'Политика конфиденциальности интернет-магазина Beze Studio'
 </script>
 
 <template>
     <div>
+        <Head>
+            <Title>{{ seoTitle }}</Title>
+            <Meta name="description" :content="seoDescription" />
+            <Meta property="og:description" :content="seoDescription" />
+            <Meta name="twitter:description" :content="seoDescription" />
+        </Head>
         <UiSpinner v-if="isLoading" />
         <InfoPage
             v-else

@@ -8,6 +8,10 @@ export interface IProduct {
     images: IImage[]
     chips: IChip[]
     variants: IProductVariant[]
+    seo: {
+        title?: string
+        description?: string
+    }
 }
 
 export interface IProductVariant {
@@ -115,6 +119,10 @@ export interface ICategory {
         retina: string
     }
     products?: IProduct[]
+    seo: {
+        title?: string
+        description?: string
+    }
 }
 
 export interface ISubCategory {
@@ -123,6 +131,10 @@ export interface ISubCategory {
     slug: string
     label?: string
     description?: string
+    seo: {
+        title?: string
+        description?: string
+    }
 }
 
 export interface IInfoPage {

@@ -24,7 +24,7 @@ useHead({
         lang: 'ru',
     },
     titleTemplate: (titleChunk) => {
-        return titleChunk ? `${titleChunk} — BEZE Studio` : 'BEZE Studio'
+        return titleChunk ? `${titleChunk} — Beze Studio` : 'Beze Studio'
     },
 })
 
@@ -49,22 +49,24 @@ await suspense()
 useState('menu', () => data.value?.menu)
 
 useState('settings', () => data.value?.settings)
+
+const description = 'Одежда на утро невесты и для дома'
 </script>
 
 <template>
     <Head>
         <Meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=0" />
-        <Meta name="description" content="Одежда, создающая особое настроение" />
+        <Meta name="description" :content="description" />
         <!-- Favicon -->
         <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
         <link rel="icon" type="image/svg+xml" href="/favicon.svg">
         <link rel="shortcut icon" href="/favicon.ico">
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
         <!-- FB meta -->
-        <Meta property="og:description" content="Одежда, создающая особое настроение" />
+        <Meta property="og:description" :content="description" />
         <Meta property="og:image" content="/images/og.png" />
         <!-- Twitter meta -->
-        <Meta name="twitter:description" content="Одежда, создающая особое настроение" />
+        <Meta name="twitter:description" :content="description" />
         <Meta name="twitter:image" content="/images/og.png" />
     </Head>
     <NuxtLoadingIndicator color="#b79d83" />

@@ -242,13 +242,21 @@ onMounted(() => {
         getViewedProducts()
     }
 })
+
+const seoTitle = computed(() => product.value?.data.seo.title ?? product.value?.data.name ?? null)
+const seoDescription = computed(() => product.value?.data.seo.description ?? product.value?.data.description ?? null)
+const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
 </script>
 
 <template>
     <div>
         <Head>
-            <Title>{{ product?.data.name }}</Title>
-            <Meta name="description" :content="product?.data.description" />
+            <Title>{{ seoTitle }}</Title>
+            <Meta v-if="seoDescription" name="description" :content="seoDescription" />
+            <Meta v-if="seoDescription" property="og:description" :content="seoDescription" />
+            <Meta v-if="seoImage" property="og:image" :content="seoImage" />
+            <Meta v-if="seoDescription" name="twitter:description" :content="seoDescription" />
+            <Meta v-if="seoImage" name="twitter:image" :content="seoImage" />
         </Head>
         <section class="product spacer">
             <div class="product__container">
@@ -390,7 +398,7 @@ onMounted(() => {
                         Напишите нам
                     </h2>
                     <p class="modal-form__description">
-                        и мы сошьем, что вам нужно в течении пяти дней
+                        и мы сошьем то, что вам нужно в течении пяти дней
                     </p>
                 </div>
 

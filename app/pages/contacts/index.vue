@@ -54,10 +54,19 @@ onMounted(() => {
         yandexMap(mapRoot.value)
     }
 })
+
+const seoTitle = 'Контакты'
+const seoDescription = 'Как с нами связаться'
 </script>
 
 <template>
     <div>
+        <Head>
+            <Title>{{ seoTitle }}</Title>
+            <Meta name="description" :content="seoDescription" />
+            <Meta property="og:description" :content="seoDescription" />
+            <Meta name="twitter:description" :content="seoDescription" />
+        </Head>
         <section class="contacts spacer">
             <div class="contacts__container">
                 <LayoutBreadcrumb

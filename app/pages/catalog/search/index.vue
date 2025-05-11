@@ -22,10 +22,19 @@ const {
 })
 
 await suspense()
+
+const seoTitle = 'Поиск'
+const seoDescription = 'Найденные товары в интернет-магазине Beze Studio'
 </script>
 
 <template>
     <div>
+        <Head>
+            <Title>{{ seoTitle }}</Title>
+            <Meta name="description" :content="seoDescription" />
+            <Meta property="og:description" :content="seoDescription" />
+            <Meta name="twitter:description" :content="seoDescription" />
+        </Head>
         <section class="search-page spacer">
             <div class="search-page__container">
                 <LayoutBreadcrumb :items="[{ title: 'Поиск' }]" />

@@ -1,9 +1,18 @@
 <script setup lang="ts">
 const { isAuthenticated } = useSanctumAuth()
+
+const seoTitle = 'Успешный заказ'
+const seoDescription = 'Успешный заказ в интернет-магазине Beze Studio'
 </script>
 
 <template>
     <div>
+        <Head>
+            <Title>{{ seoTitle }}</Title>
+            <Meta name="description" :content="seoDescription" />
+            <Meta property="og:description" :content="seoDescription" />
+            <Meta name="twitter:description" :content="seoDescription" />
+        </Head>
         <div class="success-page">
             <div class="success-page__container">
                 <LayoutBreadcrumb :items="[{ title: 'Заказ успешно оформлен' }]" />

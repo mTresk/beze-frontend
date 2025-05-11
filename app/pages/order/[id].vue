@@ -56,10 +56,19 @@ async function fetchOrder() {
 onMounted(() => {
     fetchOrder()
 })
+
+const seoTitle = 'Заказ'
+const seoDescription = 'Детали заказа в интернет-магазине Beze Studio'
 </script>
 
 <template>
     <div>
+        <Head>
+            <Title>{{ seoTitle }}</Title>
+            <Meta name="description" :content="seoDescription" />
+            <Meta property="og:description" :content="seoDescription" />
+            <Meta name="twitter:description" :content="seoDescription" />
+        </Head>
         <section class="order spacer">
             <div class="order__container">
                 <LayoutBreadcrumb

@@ -14,17 +14,28 @@ async function getCategory() {
 }
 
 await getCategory()
+
+const seoTitle = computed(() => category.value?.seo?.title ?? category.value?.name ?? null)
+const seoDescription = computed(() => category.value?.seo?.description ?? category.value?.description ?? null)
 </script>
 
 <template>
-    <Catalog
-        :api-url="`api/products/categories/${categorySlug}`"
-        :query-key="[`categories-${categorySlug}`]"
-        :breadcrumbs="[
-            { title: 'Каталог', link: '/catalog' },
-            { title: category?.name || '' },
-        ]"
-        :current-category="category"
-        :base-url="`/catalog/category/${categorySlug}`"
-    />
+    <div>
+        <Head>
+            <Title>{{ seoTitle }}</Title>
+            <Meta v-if="seoDescription" name="description" :content="seoDescription" />
+            <Meta v-if="seoDescription" property="og:description" :content="seoDescription" />
+            <Meta v-if="seoDescription" name="twitter:description" :content="seoDescription" />
+        </Head>
+        <Catalog
+            :api-url="`api/products/categories/${categorySlug}`"
+            :query-key="[`categories-${categorySlug}`]"
+            :breadcrumbs="[
+                { title: 'Каталог', link: '/catalog' },
+                { title: category?.name || '' },
+            ]"
+            :current-category="category"
+            :base-url="`/catalog/category/${categorySlug}`"
+        />
+    </div>
 </template>

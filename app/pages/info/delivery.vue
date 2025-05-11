@@ -15,10 +15,19 @@ const {
 })
 
 await suspense()
+
+const seoTitle = 'Оплата и доставка'
+const seoDescription = 'Информация об оплате и доставке в интернет-магазине Beze Studio'
 </script>
 
 <template>
     <div>
+        <Head>
+            <Title>{{ seoTitle }}</Title>
+            <Meta name="description" :content="seoDescription" />
+            <Meta property="og:description" :content="seoDescription" />
+            <Meta name="twitter:description" :content="seoDescription" />
+        </Head>
         <UiSpinner v-if="isLoading" />
         <InfoPage
             v-else
