@@ -66,11 +66,10 @@ async function initWidget() {
             throw new Error('Widget initialization failed')
         }
 
-        const config = useRuntimeConfig()
         const servicePath = '/api/cdek'
 
         widget.value = new window.CDEKWidget({
-            apiKey: config.public.yandexMapsApiKey,
+            apiKey: useRuntimeConfig().public.yandexMapsApiKey,
             root: widgetContainer.value,
             servicePath,
             defaultLocation: 'Москва',
