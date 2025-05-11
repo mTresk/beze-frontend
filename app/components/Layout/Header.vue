@@ -72,7 +72,7 @@ function toggleMenu() {
         <div class="header__inner">
             <div class="header__body">
                 <NuxtLink to="/" class="header__logo">
-                    <img src="/images/logo.svg" alt="Beze Studio" loading="lazy">
+                    <img width="135" height="38" src="/images/logo.svg" alt="Beze Studio" loading="lazy">
                 </NuxtLink>
                 <LayoutMenu
                     :menu="menu"

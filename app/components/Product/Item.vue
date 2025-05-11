@@ -61,7 +61,7 @@ useSwiper(containerRef, {
 
 <template>
     <article class="product-card">
-        <NuxtLink :to="`/catalog/${product.slug}`" class="product-card__picture">
+        <NuxtLink title="Перейти на страницу товара" :to="`/catalog/${product.slug}`" class="product-card__picture">
             <div class="product-card__placeholder" :class="{ hidden: imagesLoaded }">
                 <UiIcon name="image" size="48" />
             </div>

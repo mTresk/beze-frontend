@@ -46,7 +46,7 @@ useSwiper(containerRef, {
                             <img
                                 class="collection-card__image"
                                 src="/images/collection/1.jpg"
-                                alt="Утро невесты"
+                                alt=""
                                 loading="lazy"
                             >
                             <h3 class="collection-card__title">Утро невесты</h3>
@@ -57,7 +57,7 @@ useSwiper(containerRef, {
                             <img
                                 class="collection-card__image"
                                 src="/images/collection/2.jpg"
-                                alt="Утро невесты"
+                                alt=""
                                 loading="lazy"
                             >
                             <h3 class="collection-card__title">Соблазн</h3>
@@ -68,7 +68,7 @@ useSwiper(containerRef, {
                             <img
                                 class="collection-card__image"
                                 src="/images/collection/3.jpg"
-                                alt="Утро невесты"
+                                alt=""
                                 loading="lazy"
                             >
                             <h3 class="collection-card__title">Для дома</h3>
@@ -79,7 +79,7 @@ useSwiper(containerRef, {
                             <img
                                 class="collection-card__image"
                                 src="/images/collection/4.jpg"
-                                alt="Утро невесты"
+                                alt=""
                                 loading="lazy"
                             >
                             <h3 class="collection-card__title">Отпуск</h3>
@@ -90,7 +90,7 @@ useSwiper(containerRef, {
                             <img
                                 class="collection-card__image"
                                 src="/images/collection/5.jpg"
-                                alt="Утро невесты"
+                                alt=""
                                 loading="lazy"
                             >
                             <h3 class="collection-card__title">Cotton</h3>
@@ -101,7 +101,7 @@ useSwiper(containerRef, {
                             <img
                                 class="collection-card__image"
                                 src="/images/collection/6.jpg"
-                                alt="Утро невесты"
+                                alt=""
                                 loading="lazy"
                             >
                             <h3 class="collection-card__title">Gold</h3>

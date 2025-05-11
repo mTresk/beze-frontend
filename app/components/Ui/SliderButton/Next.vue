@@ -1,6 +1,5 @@
 <template>
     <button
-        aria-label="Вперед"
         type="button"
         class="slider-button"
     >
