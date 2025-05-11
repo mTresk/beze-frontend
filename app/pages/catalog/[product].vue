@@ -32,7 +32,16 @@ const productSlug = computed(() => route.params.product)
 
 async function fetcher() {
     const [productData, sizesData] = await Promise.all([
-        client<IProductWithFeatured>(`/api/products/${productSlug.value}`),
+        client<IProductWithFeatured>(`/api/products/${productSlug.value}`, {
+            async onResponseError({ response }) {
+                if (response.status !== 422) {
+                    throw showError({
+                        statusCode: response.status,
+                        statusMessage: response.statusText,
+                    })
+                }
+            },
+        }),
         client<IInfoPageContent>(`/api/pages/sizes`),
     ])
     return { product: productData, sizes: sizesData }
