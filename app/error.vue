@@ -5,7 +5,7 @@ defineProps<{
     error: NuxtError
 }>()
 
-const handleError = () => clearError({ redirect: '/' })
+const handleError = () => clearError({ redirect: '/catalog' })
 </script>
 
 <template>
@@ -24,7 +24,7 @@ const handleError = () => clearError({ redirect: '/' })
                             {{ error.message }}
                         </template>
                         <template #button>
-                            <UiButton outline href="/catalog" @click="handleError">
+                            <UiButton outline @click="handleError">
                                 Перейти в каталог
                             </UiButton>
                         </template>

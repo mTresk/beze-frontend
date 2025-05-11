@@ -39,7 +39,9 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
-    ctx.value.revert()
+    if (ctx.value) {
+        ctx.value.revert()
+    }
 })
 </script>
 
