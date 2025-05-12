@@ -15,14 +15,14 @@ const seoDescription = 'Успешный заказ в интернет-мага
         </Head>
         <div class="success-page">
             <div class="success-page__container">
-                <LayoutBreadcrumb :items="[{ title: 'Заказ успешно оформлен' }]" />
+                <LayoutBreadcrumb :items="[{ title: 'Заказ успешно оплачен' }]" />
                 <div class="success-page__content">
                     <LayoutEmpty>
                         <template #icon>
                             <UiIcon name="success" size="48" />
                         </template>
                         <template #title>
-                            Заказ успешно оформлен
+                            Заказ успешно оплачен
                         </template>
                         <template #text>
                             Можете закрыть эту страницу

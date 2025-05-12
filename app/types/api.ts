@@ -410,3 +410,11 @@ export interface CdekPoint {
     weight_max: number
     dimensions: null | any
 }
+
+export enum EOrderStatus {
+    PENDING = 'pending',
+    PAID = 'paid',
+    SHIPPED = 'shipped',
+    DELIVERED = 'delivered',
+    CANCELLED = 'cancelled',
+}

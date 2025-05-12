@@ -1,19 +1,9 @@
 <script setup lang="ts">
 import type { IOrderItem } from '@/types/api'
 
-const props = defineProps<{
+defineProps<{
     item: IOrderItem
 }>()
-
-const { isProductInCart, toggleCartItem } = useCart()
-
-const cartStatus = computed(() => {
-    if (!props.item) {
-        return false
-    }
-
-    return isProductInCart(props.item.variantId).value
-})
 </script>
 
 <template>
@@ -56,16 +46,6 @@ const cartStatus = computed(() => {
             <div v-if="item?.price" class="order-item__price">
                 <span>сумма:</span> {{ Number(item.price) * Number(item.quantity) }} ₽
             </div>
-            <UiButton
-                :title="cartStatus ? 'Убрать из корзины' : 'Заказать снова'"
-                :active="cartStatus"
-                wide
-                outline
-                class="order-item__action"
-                @click="toggleCartItem(item.variantId, 1, item.product.id!)"
-            >
-                <span>{{ cartStatus ? 'Убрать из корзины' : 'Заказать снова' }}</span>
-            </UiButton>
         </div>
     </div>
 </template>
