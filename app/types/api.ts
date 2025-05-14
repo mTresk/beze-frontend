@@ -82,10 +82,12 @@ export interface IOrder {
         id: number
         name: string
     }
-    deliveryType: 'pickup' | 'tyumen' | 'russia'
-    deliveryAddress?: string
-    deliveryCost?: number
+    delivery_type: TDeliveryType
+    address?: string
+    delivery_cost?: number
 }
+
+export type TDeliveryType = 'pickup' | 'tyumen' | 'russia'
 
 export interface ICertificateOrder {
     certificate: ICertificate
@@ -251,6 +253,7 @@ export interface IUser {
         userId: number
         phone: string
         address: string
+        deliveryType: TDeliveryType
         communication?: string
     }
 }

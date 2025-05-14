@@ -16,6 +16,7 @@ const form = reactive({
     surname: '',
     address: '',
     phone: '',
+    delivery_type: user.value?.profile?.deliveryType,
     communication: undefined as typeof options[0] | undefined,
 })
 

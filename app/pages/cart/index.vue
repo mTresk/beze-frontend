@@ -12,16 +12,16 @@ const isInitialized = ref(false)
 const form = ref<IOrder>()
 
 const deliveryPrice = computed(() => {
-    if (!form.value || form.value.deliveryType === 'pickup') {
+    if (!form.value || form.value.delivery_type === 'pickup') {
         return 0
     }
 
-    if (form.value.deliveryType === 'tyumen') {
+    if (form.value.delivery_type === 'tyumen') {
         return Number(cartTotal.value) >= 5000 ? 0 : 500
     }
 
-    if (form.value.deliveryType === 'russia' && form.value.deliveryCost) {
-        return form.value.deliveryCost
+    if (form.value.delivery_type === 'russia' && form.value.delivery_cost) {
+        return form.value.delivery_cost
     }
 
     return 0
@@ -134,12 +134,12 @@ const seoDescription = 'Корзина интернет-магазина Beze St
                             После оплаты заказа менеджер свяжется с вами для уточнения деталей
                         </div>
                         <div class="cart__total">
-                            <div v-if="form?.deliveryType !== 'pickup'" class="cart__line">
+                            <div v-if="form?.delivery_type !== 'pickup'" class="cart__line">
                                 <div class="cart__key">
                                     Доставка
                                 </div>
                                 <div class="cart__value">
-                                    <template v-if="form?.deliveryType === 'russia' && !form?.deliveryCost">
+                                    <template v-if="form?.delivery_type === 'russia' && !form?.delivery_cost">
                                         Выберите пункт выдачи
                                     </template>
                                     <template v-else-if="deliveryPrice > 0">
@@ -150,7 +150,7 @@ const seoDescription = 'Корзина интернет-магазина Beze St
                                     </template>
                                 </div>
                             </div>
-                            <div v-if="form?.deliveryType === 'tyumen' && deliveryPrice > 0" class="cart__line cart__line--note">
+                            <div v-if="form?.delivery_type === 'tyumen' && deliveryPrice > 0" class="cart__line cart__line--note">
                                 <div class="cart__note">
                                     Бесплатная доставка по Тюмени от 5000 ₽
                                 </div>
@@ -168,7 +168,7 @@ const seoDescription = 'Корзина интернет-магазина Beze St
                             <UiButton
                                 :is-loading="isFormSending"
                                 class="cart__button"
-                                :disabled="form?.deliveryType === 'russia' && !form?.deliveryCost"
+                                :disabled="form?.delivery_type === 'russia' && !form?.delivery_cost"
                                 @click="handleSubmit"
                             >
                                 Оформить заказ

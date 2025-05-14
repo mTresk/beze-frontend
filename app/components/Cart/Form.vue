@@ -35,15 +35,17 @@ const pickupAddress = settings.value.address
 
 const deliveryCost = ref<number>(0)
 
+const tyumenAddress = ref('')
+
 const form = reactive<Partial<IOrder>>({
     name: '',
     surname: '',
     email: '',
     phone: '',
     communication: undefined,
-    deliveryType: deliveryTabs[0]?.id as IOrder['deliveryType'],
-    deliveryAddress: '',
-    deliveryCost: deliveryCost.value,
+    address: '',
+    delivery_cost: deliveryCost.value,
+    delivery_type: deliveryTabs[0]?.id as IOrder['delivery_type'],
 })
 
 const deliveryComponent = computed(() => {
@@ -65,7 +67,19 @@ function populateFormWithUserData() {
     }
     if (user.value.profile) {
         form.phone = user.value.profile.phone || ''
-        form.deliveryAddress = user.value.profile.address || ''
+        form.address = user.value.profile.address || ''
+
+        if (user.value.profile.deliveryType === 'tyumen' && user.value.profile.address) {
+            tyumenAddress.value = user.value.profile.address
+        }
+
+        if (user.value.profile.deliveryType) {
+            const validDeliveryType = deliveryTabs.some(tab => tab.id === user.value?.profile?.deliveryType)
+            if (validDeliveryType) {
+                currentDeliveryTab.value = user.value.profile.deliveryType as DeliveryTab
+                form.delivery_type = user.value.profile.deliveryType
+            }
+        }
 
         if (user.value.profile.communication) {
             const communicationOption = options.find(
@@ -82,14 +96,27 @@ function populateFormWithUserData() {
 
 function handleDeliveryCost(cost: number) {
     deliveryCost.value = cost
-    form.deliveryCost = cost
+    form.delivery_cost = cost
     emit('update:modelValue', form)
 }
 
+watch(() => form.address, (newAddress) => {
+    if (currentDeliveryTab.value === 'tyumen' && newAddress !== undefined) {
+        tyumenAddress.value = newAddress
+    }
+})
+
 watch(currentDeliveryTab, (newTab) => {
-    form.deliveryType = newTab
+    form.delivery_type = newTab
     deliveryCost.value = 0
-    form.deliveryCost = 0
+    form.delivery_cost = 0
+
+    if (newTab === 'russia') {
+        form.address = ''
+    }
+    else if (newTab === 'tyumen') {
+        form.address = tyumenAddress.value
+    }
 
     emit('update:modelValue', form)
 }, { immediate: true })
@@ -201,7 +228,7 @@ watch(form, (newForm) => {
                 </div>
                 <component
                     :is="deliveryComponent"
-                    v-model:address="form.deliveryAddress"
+                    v-model:address="form.address"
                     :pickup-address="pickupAddress"
                     :error="errors.address"
                     @delivery-cost="handleDeliveryCost"
