@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { DaDataSuggestionAnyType } from 'vue-dadata-3'
+import type { DaDataSuggestionAnyType, LocationOptions } from 'vue-dadata-3'
 import { DaDataNext } from 'vue-dadata-3'
 
 defineProps<{
@@ -8,6 +8,7 @@ defineProps<{
     inputId?: string
     error?: string[]
     maska?: string
+    locationOptions?: LocationOptions
 }>()
 
 defineEmits<{
@@ -21,6 +22,7 @@ defineEmits<{
         :model-value="modelValue"
         :placeholder="placeholder"
         :input-id="inputId"
+        :locations="locationOptions"
         :token="useRuntimeConfig().public.dadataApiKey"
         @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
         @on-selected="(suggestion: DaDataSuggestionAnyType) => {
