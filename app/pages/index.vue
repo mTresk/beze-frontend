@@ -2,14 +2,14 @@
     <div>
         <Hero />
         <Advantages />
-        <Directions />
-        <Bestsellers />
-        <Collections />
-        <About />
-        <Gallery />
-        <Reviews />
-        <Customers />
-        <Certificate />
+        <LazyDirections />
+        <LazyBestsellers />
+        <LazyCollections />
+        <LazyAbout />
+        <LazyGallery />
+        <LazyReviews />
+        <LazyCustomers />
+        <LazyCertificate />
         <UiCursor />
     </div>
 </template>

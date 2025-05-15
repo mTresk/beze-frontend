@@ -68,6 +68,7 @@ function getBadgeVariant(status: string) {
             <div class="personal-order__action">
                 <UiButton
                     v-if="order.status.value === EOrderStatus.PENDING"
+                    small
                     wide
                     class="order-item__action"
                     :is-loading="isLoading"

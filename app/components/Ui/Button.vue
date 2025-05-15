@@ -45,6 +45,12 @@ defineProps<{
     @include adaptive-value('font-size', 16, 14);
     @include adaptive-value('padding-inline', 80, 60);
 
+    &[small] {
+        @include adaptive-value('height', 45, 30);
+        @include adaptive-value('font-size', 14, 12);
+        @include adaptive-value('padding-inline', 60, 40);
+    }
+
     &[active='true'] {
         background-color: $extraColor;
     }
