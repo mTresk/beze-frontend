@@ -147,7 +147,7 @@ function handleLinkClick() {
         left: 0;
         width: 100%;
         max-width: rem(500);
-        height: 100%;
+        height: 100dvh;
         padding-inline: rem(20);
         padding-top: rem(80);
         padding-bottom: rem(30);
