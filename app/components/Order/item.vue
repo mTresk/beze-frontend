@@ -83,7 +83,7 @@ defineProps<{
     justify-content: space-between;
     width: 100%;
 
-    @include adaptive-value('gap', 20, 10, 0, 1920, 992);
+    @include adaptive-value('gap', 20, 15, 0, 1920, 992);
 
     @media (max-width: $tablet) {
         grid-template-columns:

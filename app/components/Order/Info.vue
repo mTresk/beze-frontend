@@ -105,8 +105,7 @@ function getBadgeVariant(status: string) {
         @include adaptive-value('gap', 30, 10);
 
         @media (max-width: $mobileSmall) {
-            display: grid;
-            justify-items: start;
+            align-items: flex-end;
         }
     }
 
