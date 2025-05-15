@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  bezestudio-nuxt:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    labels:
+      - 'traefik.http.routers.bezestudio-nuxt.rule=Host(`${NUXT_PUBLIC_BASE_URL}`)'
+      - traefik.docker.network=web
+      - traefik.http.routers.bezestudio-nuxt.entrypoints=websecure
+      - traefik.http.routers.bezestudio-nuxt.tls.certresolver=myresolver
+      - traefik.http.routers.bezestudio-nuxt.middlewares=web-compress
+      - traefik.http.middlewares.web-compress.compress=true
+    container_name: bezestudio-nuxt
+    restart: always
+    networks:
+      - web
+
+networks:
+  web:
+    external: true
