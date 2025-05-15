@@ -100,6 +100,8 @@ export interface ICertificateOrder {
         id: number
         name: string
     }
+    delivery_type?: TDeliveryType
+    delivery_cost?: number
 }
 
 export interface IFeedback {
@@ -360,6 +362,8 @@ export interface IOrderItem {
     size: ISize
     quantity: number
     product: Partial<IProduct>
+    isCertificate?: boolean
+    certificate?: ICertificate
 }
 
 export interface CDEKWidgetOptions {

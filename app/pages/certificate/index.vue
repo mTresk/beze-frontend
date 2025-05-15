@@ -3,6 +3,8 @@ import type { ICertificate, ICertificateOrder } from '@/types/api'
 
 const client = useSanctumClient()
 
+const { isAuthenticated } = useSanctumAuth()
+
 const certificates = ref<ICertificate[]>()
 
 const isLoading = ref(false)
@@ -17,12 +19,34 @@ const amount = ref<number>()
 
 const selectedOption = ref<any>(null)
 
+const isInitialized = ref(false)
+
 const certificateOptions = computed(() => {
     return certificates.value?.map(cert => ({
         id: cert.id,
         name: cert.name,
         value: cert.amount,
     })) || []
+})
+
+const deliveryPrice = computed(() => {
+    if (!form.value || form.value.delivery_type === 'pickup') {
+        return 0
+    }
+
+    if (form.value.delivery_type === 'tyumen') {
+        return Number(certificateTotal.value) >= 5000 ? 0 : 500
+    }
+
+    if (form.value.delivery_type === 'russia' && form.value.delivery_cost) {
+        return form.value.delivery_cost
+    }
+
+    return 0
+})
+
+const totalWithDelivery = computed(() => {
+    return Number(certificateTotal.value) + Number(deliveryPrice.value)
 })
 
 async function fetchCertificates() {
@@ -38,6 +62,7 @@ async function fetchCertificates() {
     }
     finally {
         isLoading.value = false
+        isInitialized.value = true
     }
 }
 
@@ -59,12 +84,17 @@ async function submitOrder() {
         certificate: certificate!,
         quantity: quantity.value,
         ...form.value,
+        communication: form.value?.communication?.name,
     }
 
-    await client('/api/order', {
+    const response = await client('/api/orders/certificate', {
         body: payload,
         method: 'post',
     })
+
+    if (response) {
+        window.location.href = response
+    }
 }
 
 const {
@@ -76,9 +106,7 @@ const {
         return submitOrder()
     },
     {
-        onSuccess: () => {
-            navigateTo('/order', { replace: true })
-        },
+        onSuccess: () => {},
     },
 )
 
@@ -89,6 +117,18 @@ watch(
     },
     { immediate: true },
 )
+
+watch(isLoading, (value) => {
+    if (!value) {
+        isInitialized.value = true
+    }
+})
+
+onMounted(() => {
+    if (!isLoading.value) {
+        isInitialized.value = true
+    }
+})
 
 const seoTitle = 'Подарочный сертификат'
 const seoDescription = 'Купить подарочный сертификат в интернет-магазине Beze Studio'
@@ -111,7 +151,7 @@ const seoDescription = 'Купить подарочный сертификат �
                 />
                 <UiPageTitle>Купить подарочный сертификат</UiPageTitle>
                 <UiSpinner v-if="isLoading" />
-                <div v-if="certificates?.length" class="certificate__body" :class="{ 'certificate__body--disabled': isFormSending }">
+                <div v-if="certificates?.length && isInitialized" class="certificate__body" :class="{ 'certificate__body--disabled': isFormSending }">
                     <div class="certificate__wrapper">
                         <div class="certificate__item">
                             <VFormSelect
@@ -119,10 +159,12 @@ const seoDescription = 'Купить подарочный сертификат �
                                 placeholder="Выберите номинал"
                                 :options="certificateOptions"
                                 @update:model-value="value => amount = value.value"
-                                @clear-error="clearError"
                             />
                             <VFormQuantity v-model="quantity" :min="1" :max="10" />
                         </div>
+                        <UiLink v-if="!isAuthenticated" class="certificate__login" href="/auth/login">
+                            Войти в личный кабинет
+                        </UiLink>
                         <div class="certificate__form">
                             <UiSpinner v-if="isFormSending" />
                             <CartForm v-model="form" :errors="errors" />
@@ -143,15 +185,28 @@ const seoDescription = 'Купить подарочный сертификат �
                         </div>
                         <div class="certificate__caution">
                             <span>!</span>
-                            После оплаты менеджер свяжется с вами для уточнения деталей заказа
+                            Мы отправим бумажный (не электронный) сертификат
                         </div>
                         <div class="certificate__total">
-                            <div class="certificate__line">
+                            <div v-if="form?.delivery_type !== 'pickup'" class="certificate__line">
                                 <div class="certificate__key">
                                     Доставка
                                 </div>
                                 <div class="certificate__value">
-                                    0 ₽
+                                    <template v-if="form?.delivery_type === 'russia' && !form?.delivery_cost">
+                                        Выберите пункт выдачи
+                                    </template>
+                                    <template v-else-if="deliveryPrice > 0">
+                                        {{ deliveryPrice }} ₽
+                                    </template>
+                                    <template v-else>
+                                        Бесплатно
+                                    </template>
+                                </div>
+                            </div>
+                            <div v-if="form?.delivery_type === 'tyumen' && deliveryPrice > 0" class="certificate__line certificate__line--note">
+                                <div class="certificate__note">
+                                    Бесплатная доставка по Тюмени от 5000 ₽
                                 </div>
                             </div>
                             <div class="certificate__line">
@@ -159,24 +214,45 @@ const seoDescription = 'Купить подарочный сертификат �
                                     Итого
                                 </div>
                                 <div class="certificate__value certificate__value--lg">
-                                    {{ certificateTotal }} ₽
+                                    {{ totalWithDelivery }} ₽
                                 </div>
                             </div>
                         </div>
                         <div class="certificate__footer">
-                            <UiButton :disabled="isFormSending" class="certificate__button" @click="handleSubmit">
-                                Сделать заказ
+                            <UiButton
+                                :is-loading="isFormSending"
+                                class="certificate__button"
+                                :disabled="form?.delivery_type === 'russia' && !form?.delivery_cost"
+                                @click="handleSubmit"
+                            >
+                                Оформить заказ
                             </UiButton>
                             <p class="certificate__policy">
-                                Нажимая на кнопку «сделать заказ», я принимаю условия <NuxtLink to="/info/offer">
+                                Нажимая на кнопку «Оформить заказ», я принимаю условия <NuxtLink target="_blank" to="/info/offer">
                                     публичной оферты
-                                </NuxtLink> и <NuxtLink to="/info/privacy">
+                                </NuxtLink> и <NuxtLink target="_blank" to="/info/privacy">
                                     политики конфиденциальности
                                 </NuxtLink>
                             </p>
                         </div>
                     </div>
                 </div>
+                <LayoutEmpty v-if="isInitialized && !certificates?.length">
+                    <template #icon>
+                        <UiIcon name="certificate" size="48" />
+                    </template>
+                    <template #title>
+                        Сертификаты временно недоступны
+                    </template>
+                    <template #text>
+                        Пожалуйста, попробуйте позже или свяжитесь с нами
+                    </template>
+                    <template #button>
+                        <UiButton outline href="/catalog">
+                            Перейти в каталог
+                        </UiButton>
+                    </template>
+                </LayoutEmpty>
             </div>
         </section>
     </div>
@@ -220,6 +296,11 @@ const seoDescription = 'Купить подарочный сертификат �
         border-bottom: 1px solid rgb(54 54 54 / 10%);
     }
 
+    // .certificate__login
+    &__login {
+        margin-bottom: rem(20);
+    }
+
     // .certificate__form
     &__form {
         position: relative;
@@ -232,6 +313,10 @@ const seoDescription = 'Купить подарочный сертификат �
         display: grid;
         flex: 0 1 rem(340);
         gap: rem(20);
+
+        @media (max-width: $tablet) {
+            position: static;
+        }
     }
 
     // .certificate__links
@@ -287,6 +372,11 @@ const seoDescription = 'Купить подарочный сертификат �
         gap: rem(20);
         align-items: center;
         justify-content: space-between;
+
+        // .certificate__line--note
+        &--note {
+            justify-content: flex-end;
+        }
     }
 
     // .certificate__key
@@ -307,6 +397,13 @@ const seoDescription = 'Купить подарочный сертификат �
             font-size: 28px;
             font-weight: 500;
         }
+    }
+
+    // .certificate__note
+    &__note {
+        font-size: 14px;
+        line-height: 130%;
+        color: $accentColor;
     }
 
     // .certificate__footer
@@ -336,6 +433,10 @@ const seoDescription = 'Купить подарочный сертификат �
                     color: $accentColor;
                 }
             }
+        }
+
+        @media (max-width: $tablet) {
+            text-align: center;
         }
     }
 }

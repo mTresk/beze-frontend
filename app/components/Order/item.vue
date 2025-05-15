@@ -8,45 +8,68 @@ defineProps<{
 
 <template>
     <div class="order-item">
-        <div class="order-item__info">
-            <NuxtLink
-                :to="`/catalog/${item.product.slug}`"
-                class="order-item__image"
-            >
-                <img
-                    v-if="item.product.images?.length"
-                    :src="item.product.images[0]?.thumb"
-                    :alt="item.product.name"
-                    loading="lazy"
-                >
-            </NuxtLink>
-            <div class="order-item__block">
-                <div class="order-item__sku">
-                    Артикул: {{ item.sku }}
+        <template v-if="item.isCertificate && item.certificate">
+            <div class="order-item__info order-item__info--certificate">
+                <div class="order-item__image order-item__image--certificate">
+                    <UiIcon name="gift" size="32" />
                 </div>
-                <h3 class="order-item__title">
-                    {{ item.product.name }}
-                </h3>
+                <div class="order-item__block">
+                    <h3 class="order-item__title">
+                        {{ item.certificate.name }}
+                    </h3>
+                </div>
             </div>
-        </div>
-        <div class="order-item__wrapper">
-            <div v-if="item.color" class="order-item__color">
-                <span
-                    :style="`background-color: ${item.color.code};`"
-                    class="order-item__icon"
-                />
-                <span>{{ item.color.name }}</span>
+            <div class="order-item__wrapper">
+                <div class="order-item__quantity">
+                    <span>количество:</span> {{ item.quantity }}
+                </div>
+                <div class="order-item__price">
+                    <span>сумма:</span> {{ Number(item.price) * Number(item.quantity) }} ₽
+                </div>
             </div>
-            <div v-if="item?.size" class="order-item__size">
-                <span>размер:</span> {{ item.size.name }}
+        </template>
+
+        <template v-else>
+            <div class="order-item__info">
+                <NuxtLink
+                    :to="`/catalog/${item.product.slug}`"
+                    class="order-item__image"
+                >
+                    <img
+                        v-if="item.product.images?.length"
+                        :src="item.product.images[0]?.thumb"
+                        :alt="item.product.name"
+                        loading="lazy"
+                    >
+                </NuxtLink>
+                <div class="order-item__block">
+                    <div class="order-item__sku">
+                        Артикул: {{ item.sku }}
+                    </div>
+                    <h3 class="order-item__title">
+                        {{ item.product.name }}
+                    </h3>
+                </div>
             </div>
-            <div v-if="item?.quantity" class="order-item__quantity">
-                <span>количество:</span> {{ item.quantity }}
+            <div class="order-item__wrapper">
+                <div v-if="item.color" class="order-item__color">
+                    <span
+                        :style="`background-color: ${item.color.code};`"
+                        class="order-item__icon"
+                    />
+                    <span>{{ item.color.name }}</span>
+                </div>
+                <div v-if="item?.size" class="order-item__size">
+                    <span>размер:</span> {{ item.size.name }}
+                </div>
+                <div v-if="item?.quantity" class="order-item__quantity">
+                    <span>количество:</span> {{ item.quantity }}
+                </div>
+                <div v-if="item?.price" class="order-item__price">
+                    <span>сумма:</span> {{ Number(item.price) * Number(item.quantity) }} ₽
+                </div>
             </div>
-            <div v-if="item?.price" class="order-item__price">
-                <span>сумма:</span> {{ Number(item.price) * Number(item.quantity) }} ₽
-            </div>
-        </div>
+        </template>
     </div>
 </template>
 
@@ -76,6 +99,10 @@ defineProps<{
         display: flex;
         gap: rem(16);
         align-items: flex-start;
+
+        &--certificate {
+            align-items: center;
+        }
     }
 
     &__wrapper {
@@ -96,6 +123,15 @@ defineProps<{
 
         img {
             @include image;
+        }
+
+        &--certificate {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 1 / 1;
+            background-color: rgb(54 54 54 / 5%);
+            border-radius: rem(8);
         }
     }
 
