@@ -1,3 +1,4 @@
+# eslint-disable yaml/indent
 name: Nuxt Deploy
 on:
   push:

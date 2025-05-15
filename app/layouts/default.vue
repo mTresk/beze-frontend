@@ -7,6 +7,8 @@ const { direction } = useScrollDirection()
 
 const { isSearchOpen } = useSearch()
 
+const isLoading = ref(true)
+
 const scrollClass = computed(() => {
     if (direction.value === 'down')
         return 'scroll-down'
@@ -26,6 +28,10 @@ useHead({
     titleTemplate: (titleChunk) => {
         return titleChunk ? `${titleChunk} — Beze Studio` : 'Beze Studio'
     },
+})
+
+useNuxtApp().hook('page:loading:end', () => {
+    isLoading.value = false
 })
 
 async function fetcher() {
@@ -75,13 +81,14 @@ const description = 'Одежда на утро невесты и для дом�
         <Transition name="search">
             <LayoutSearch v-if="isSearchOpen" />
         </Transition>
-        <main class="page">
+        <UiSpinner v-if="isLoading" />
+        <main v-show="!isLoading" class="page">
             <LayoutSmoothScroll>
                 <slot />
             </LayoutSmoothScroll>
         </main>
-        <LayoutFooter />
-        <LayoutNavigation />
+        <LayoutFooter v-show="!isLoading" />
+        <LayoutNavigation v-show="!isLoading" />
     </div>
 </template>
 

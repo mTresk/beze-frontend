@@ -13,26 +13,44 @@ useSwiper(containerRef, {
 
 <template>
     <section class="hero">
-        <swiper-container
-            ref="containerRef" class="hero__slider" :init="false"
-        >
-            <swiper-slide class="hero__slide">
-                <NuxtImg class="hero__image hero__image--pc" densities="x1 x2" width="1920" height="1080" quality="100" src="/images/hero/1.webp" alt="" />
-                <NuxtImg class="hero__image hero__image--mobile" densities="x1 x2" width="768" height="1152" quality="100" src="/images/hero/1-mob.webp" alt="" />
-            </swiper-slide>
-            <swiper-slide class="hero__slide">
-                <NuxtImg class="hero__image hero__image--pc" densities="x1 x2" width="1920" height="1080" quality="100" src="/images/hero/2.webp" alt="" />
-                <NuxtImg class="hero__image hero__image--mobile" densities="x1 x2" width="768" height="1152" quality="100" src="/images/hero/2-mob.webp" alt="" />
-            </swiper-slide>
-            <swiper-slide class="hero__slide">
-                <NuxtImg class="hero__image hero__image--pc" densities="x1 x2" width="1920" height="1080" quality="100" src="/images/hero/3.webp" alt="" />
-                <NuxtImg class="hero__image hero__image--mobile" densities="x1 x2" width="768" height="1152" quality="100" src="/images/hero/3-mob.webp" alt="" />
-            </swiper-slide>
-            <swiper-slide class="hero__slide">
-                <NuxtImg class="hero__image hero__image--pc" densities="x1 x2" width="1920" height="1080" quality="100" src="/images/hero/4.webp" alt="" />
-                <NuxtImg class="hero__image hero__image--mobile" densities="x1 x2" width="768" height="1152" quality="100" src="/images/hero/4-mob.webp" alt="" />
-            </swiper-slide>
-        </swiper-container>
+        <ClientOnly>
+            <swiper-container
+                ref="containerRef" class="hero__slider" :init="false"
+            >
+                <swiper-slide class="hero__slide">
+                    <NuxtImg class="hero__image hero__image--pc" width="1920" height="1080" src="/images/hero/1.webp" alt="" />
+                    <NuxtImg class="hero__image hero__image--mobile" width="768" height="1152" src="/images/hero/1-mob.webp" alt="" />
+                </swiper-slide>
+                <swiper-slide class="hero__slide">
+                    <NuxtImg class="hero__image hero__image--pc" width="1920" height="1080" src="/images/hero/2.webp" alt="" />
+                    <NuxtImg class="hero__image hero__image--mobile" width="768" height="1152" src="/images/hero/2-mob.webp" alt="" />
+                </swiper-slide>
+                <swiper-slide class="hero__slide">
+                    <NuxtImg class="hero__image hero__image--pc" width="1920" height="1080" src="/images/hero/3.webp" alt="" />
+                    <NuxtImg class="hero__image hero__image--mobile" width="768" height="1152" src="/images/hero/3-mob.webp" alt="" />
+                </swiper-slide>
+                <swiper-slide class="hero__slide">
+                    <NuxtImg class="hero__image hero__image--pc" width="1920" height="1080" src="/images/hero/4.webp" alt="" />
+                    <NuxtImg class="hero__image hero__image--mobile" width="768" height="1152" src="/images/hero/4-mob.webp" alt="" />
+                </swiper-slide>
+                <swiper-slide class="hero__slide">
+                    <NuxtImg class="hero__image hero__image--pc" width="1920" height="1080" src="/images/hero/1.webp" alt="" />
+                    <NuxtImg class="hero__image hero__image--mobile" width="768" height="1152" src="/images/hero/1-mob.webp" alt="" />
+                </swiper-slide>
+                <swiper-slide class="hero__slide">
+                    <NuxtImg class="hero__image hero__image--pc" width="1920" height="1080" src="/images/hero/2.webp" alt="" />
+                    <NuxtImg class="hero__image hero__image--mobile" width="768" height="1152" src="/images/hero/2-mob.webp" alt="" />
+                </swiper-slide>
+                <swiper-slide class="hero__slide">
+                    <NuxtImg class="hero__image hero__image--pc" width="1920" height="1080" src="/images/hero/3.webp" alt="" />
+                    <NuxtImg class="hero__image hero__image--mobile" width="768" height="1152" src="/images/hero/3-mob.webp" alt="" />
+                </swiper-slide>
+                <swiper-slide class="hero__slide">
+                    <NuxtImg class="hero__image hero__image--pc" width="1920" height="1080" src="/images/hero/4.webp" alt="" />
+                    <NuxtImg class="hero__image hero__image--mobile" width="768" height="1152" src="/images/hero/4-mob.webp" alt="" />
+                </swiper-slide>
+            </swiper-container>
+        </ClientOnly>
 
         <div class="hero__content">
             <div class="hero__container">
@@ -57,6 +75,7 @@ useSwiper(containerRef, {
     justify-content: center;
     min-height: 100vh;
     min-height: 100svh;
+    background-color: $extraColor;
 
     @media (max-width: $tablet) {
         min-height: calc(100vh - rem(65));
