@@ -12,20 +12,26 @@ const seoDescription = 'Одежда, создающая особенное на
             <Meta name="twitter:description" :content="seoDescription" />
         </Head>
         <section class="about-page spacer">
+            <div class="about-page__hero spacer">
+                <video class="about-page__video" src="/images/video.mp4" autoplay muted loop playsinline />
+                <img class="about-page__words" src="/images/words.svg" alt="" loading="lazy">
+            </div>
             <div class="about-page__container">
-                <LayoutBreadcrumb
-                    :items="[
-                        { title: 'О нас' },
-                    ]"
-                />
                 <div class="about-page__body">
                     <div class="about-page__content">
                         <h1 class="about-page__title">
                             О нас
                         </h1>
                         <div class="about-page__text">
-                            <p>В BEZE мы создаём атмосферу красоты, уюта и вдохновения — для самых нежных и важных моментов. Наши коллекции — это наряды на утро невесты, утончённая домашняя одежда и изящные аксессуары, созданные для женщин, которые ценят детали и умеют наслаждаться собой.</p>
-                            <p>Каждая вещь — как маленькое искусство. Лёгкие ткани, воздушные силуэты, деликатный блеск — всё, чтобы подчеркнуть женственность, свободу и внутреннее сияние. Это не просто одежда, это история о тебе — настоящей, чувственной, красивой.</p>
+                            <p>
+                                BEZE — атмосфера красоты, уюта и вдохновения для самых нежных и важных моментов.
+                                Мы создаём наряды на утро невесты, утончённую домашнюю одежду и изящные аксессуары — для женщин, которые ценят детали и умеют наслаждаться собой.
+                            </p>
+                            <p>
+                                Каждая вещь — как маленькое произведение искусства: лёгкие ткани, воздушные силуэты, деликатный блеск. Всё, чтобы подчеркнуть женственность, свободу и внутреннее сияние.
+                            </p>
+                            <p>Мы верим, что особенные вещи должны идеально подходить. Поэтому каждую модель можно заказать в индивидуальном исполнении — с учётом ваших пожеланий и параметров.</p>
+                            <p>Это больше, чем одежда. Это история о тебе — настоящей, чувственной, красивой.</p>
                         </div>
                     </div>
                     <div class="about-page__images">
@@ -55,6 +61,42 @@ const seoDescription = 'Одежда, создающая особенное на
 
 <style lang="scss" scoped>
 .about-page {
+    // .about-page__hero
+    &__hero {
+        position: relative;
+        min-height: 100dvh;
+
+        &::before {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            content: '';
+            background-color: rgb(0 0 0 / 40%);
+        }
+
+        @media (max-width: $tablet) {
+            min-height: calc(100dvh - rem(65));
+        }
+    }
+
+    // .about-page__video
+    &__video {
+        @include image;
+    }
+
+    // .about-page__words
+    &__words {
+        position: absolute;
+        bottom: rem(50);
+        left: 50%;
+        z-index: 2;
+        width: 95%;
+        opacity: 0.3;
+        transform: translateX(-50%);
+
+        @include adaptive-value('bottom', 50, 20);
+    }
+
     // .about-page__body
     &__body {
         display: flex;

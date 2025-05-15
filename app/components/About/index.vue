@@ -63,6 +63,9 @@ onBeforeUnmount(() => {
                                 Наша одежда для <strong>роскошных, элегантных и женственных</strong> особ. Поэтому для производства изделий мы выбрали самую нежную ткань — шёлк Армани.
                             </li>
                         </ul>
+                        <UiButton href="/about">
+                            Подробнее
+                        </UiButton>
                     </div>
                     <div class="about__small-image">
                         <NuxtImg densities="x1 x2" width="400" height="400" quality="100" src="/images/about/about-sm.webp" alt="" />
@@ -113,7 +116,7 @@ onBeforeUnmount(() => {
             width: rem(100000);
             height: 100%;
             content: '';
-            background-color: $extraColor;
+            background: linear-gradient(90deg, #decebe 0%, #b79d83 100%);
             transform: translateX(-50%);
         }
 

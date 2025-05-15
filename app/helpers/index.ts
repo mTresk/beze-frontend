@@ -58,7 +58,52 @@ export function yandexMap(mapRoot: HTMLElement) {
 
         // Создаем слой
         const layer = new YMapDefaultSchemeLayer({
-            customization: [],
+            customization: [
+                {
+                    tags: {
+                        any: ['road'],
+                    },
+                    elements: 'geometry',
+                    stylers: [
+                        {
+                            color: '#e8e8e8',
+                        },
+                    ],
+                },
+                {
+                    tags: {
+                        any: ['water'],
+                    },
+                    elements: 'geometry',
+                    stylers: [
+                        {
+                            color: '#e0e0e0',
+                        },
+                    ],
+                },
+                {
+                    tags: {
+                        any: ['landscape', 'admin', 'land', 'transit'],
+                    },
+                    elements: 'geometry',
+                    stylers: [
+                        {
+                            color: '#d0d0d0',
+                        },
+                    ],
+                },
+                {
+                    tags: {
+                        any: ['building'],
+                    },
+                    elements: 'geometry',
+                    stylers: [
+                        {
+                            color: '#e5e5e5',
+                        },
+                    ],
+                },
+            ],
         })
 
         // Создаем карту

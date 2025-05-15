@@ -20,7 +20,7 @@ const menu = useState<IMenu>('menu')
 
 const settings = useState<ISettings>('settings')
 
-const isInnerPage = computed(() => route.path !== '/')
+const isInnerPage = computed(() => route.path !== '/' && route.path !== '/about')
 
 const wishlistCount = computed(() => wishlistProductIds.value?.length || 0)
 

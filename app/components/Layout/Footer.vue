@@ -43,7 +43,7 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
                                         class="footer-menu__item"
                                     >
                                         <NuxtLink
-                                            :to="`/catalog/${category.slug}`"
+                                            :to="`/catalog/category/${category.slug}`"
                                             class="footer-menu__link"
                                         >
                                             {{ category.name }}
