@@ -13,11 +13,9 @@ defineProps<{
                 <div class="order-item__image order-item__image--certificate">
                     <UiIcon name="gift" size="32" />
                 </div>
-                <div class="order-item__block">
-                    <h3 class="order-item__title">
-                        {{ item.certificate.name }}
-                    </h3>
-                </div>
+                <h3 class="order-item__title">
+                    {{ item.certificate.name }}
+                </h3>
             </div>
             <div class="order-item__wrapper">
                 <div class="order-item__quantity">
@@ -46,9 +44,12 @@ defineProps<{
                     <div class="order-item__sku">
                         Артикул: {{ item.sku }}
                     </div>
-                    <h3 class="order-item__title">
+                    <NuxtLink
+                        :to="`/catalog/${item.product.slug}`"
+                        class="order-item__title"
+                    >
                         {{ item.product.name }}
-                    </h3>
+                    </NuxtLink>
                 </div>
             </div>
             <div class="order-item__wrapper">
@@ -130,7 +131,7 @@ defineProps<{
             align-items: center;
             justify-content: center;
             aspect-ratio: 1 / 1;
-            background-color: rgb(54 54 54 / 5%);
+            background-color: $extraColor;
             border-radius: rem(8);
         }
     }
@@ -154,6 +155,7 @@ defineProps<{
 
     &__title {
         line-height: 140%;
+        transition: color 0.3s ease-in-out;
 
         @include adaptive-value('font-size', 18, 16);
     }

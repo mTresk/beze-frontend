@@ -19,7 +19,7 @@ const seoDescription = 'Успешный заказ в интернет-мага
                 <div class="success-page__content">
                     <LayoutEmpty>
                         <template #icon>
-                            <UiIcon name="success" size="48" />
+                            <UiIcon name="smile" size="48" />
                         </template>
                         <template #title>
                             Заказ успешно оплачен
@@ -41,3 +41,12 @@ const seoDescription = 'Успешный заказ в интернет-мага
         </div>
     </div>
 </template>
+
+<style lang="scss" scoped>
+.success-page {
+    &__content {
+        padding-top: rem(100);
+        padding-bottom: rem(100);
+    }
+}
+</style>
