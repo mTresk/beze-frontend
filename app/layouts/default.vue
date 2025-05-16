@@ -81,14 +81,14 @@ const description = 'Одежда на утро невесты и для дом�
         <Transition name="search">
             <LayoutSearch v-if="isSearchOpen" />
         </Transition>
-        <UiSpinner v-if="isLoading" />
-        <main v-show="!isLoading" class="page">
+        <main class="page">
             <LayoutSmoothScroll>
                 <slot />
             </LayoutSmoothScroll>
         </main>
-        <LayoutFooter v-show="!isLoading" />
-        <LayoutNavigation v-show="!isLoading" />
+        <LayoutFooter />
+        <LayoutNavigation />
+        <UiPageLoader v-if="isLoading" />
     </div>
 </template>
 
