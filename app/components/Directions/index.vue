@@ -168,7 +168,7 @@ await suspense()
             rgb(28 27 26 / 60%)
         );
 
-        @include adaptive-value('height', 200, 100);
+        @include adaptive-value('height', 240, 150);
     }
 
     @media (any-hover: hover) {
@@ -238,7 +238,7 @@ await suspense()
         @include adaptive-value('font-size', 20, 14);
         @include adaptive-value('padding-block', 24, 16);
         @include adaptive-value('padding-inline', 40, 16);
-        @include adaptive-value('min-height', 132, 112);
+        @include adaptive-value('min-height', 132, 100);
     }
 }
 </style>

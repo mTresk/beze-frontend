@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { ApiPaginationMeta } from '@/types/api'
-import { Bootstrap5Pagination } from 'laravel-vue-pagination'
+import { Bootstrap5Pagination } from 'laravel-vue-pagination/dist/laravel-vue-pagination.es.js'
 
 const props = defineProps<{
     meta: ApiPaginationMeta
