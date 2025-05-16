@@ -36,6 +36,8 @@ function getBadgeVariant(status: string) {
             return 'success'
         case EOrderStatus.CANCELLED:
             return 'error'
+        case EOrderStatus.RETURNED:
+            return 'error'
         default:
             return 'info'
     }

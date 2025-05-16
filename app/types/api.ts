@@ -424,4 +424,5 @@ export enum EOrderStatus {
     SHIPPED = 'shipped',
     DELIVERED = 'delivered',
     CANCELLED = 'cancelled',
+    RETURNED = 'returned',
 }
