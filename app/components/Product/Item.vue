@@ -376,6 +376,7 @@ useSwiper(containerRef, {
 
     // .product-card__color
     &__color {
+        border: 1px solid $lightColor;
         border-radius: 50%;
 
         @include adaptive-value('width', 8, 6);
