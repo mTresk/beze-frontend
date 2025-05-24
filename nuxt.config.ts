@@ -73,6 +73,9 @@ export default defineNuxtConfig({
             '2xl': 1536,
         },
         densities: [1, 2],
+        ipx: {
+            maxAge: 60 * 60 * 24 * 365,
+        },
     },
     compatibilityDate: '2025-03-30',
 })
