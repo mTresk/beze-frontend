@@ -9,6 +9,7 @@ export default defineNuxtConfig({
         'nuxt-auth-sanctum',
         '@nuxt/image',
         '@nuxtjs/sitemap',
+        '@vite-pwa/nuxt',
     ],
     app: {
         pageTransition: { name: 'layout', mode: 'out-in' },
@@ -86,6 +87,51 @@ export default defineNuxtConfig({
     sitemap: {
         sources: ['/api/sitemap/urls'],
         exclude: ['/auth/**'],
+    },
+    pwa: {
+        registerType: 'autoUpdate',
+        workbox: { navigateFallback: null, globPatterns: ['**/*.{js,css,svg,ico}'] },
+        client: { installPrompt: true, periodicSyncForUpdates: 100000 },
+        manifest: {
+            name: 'Beze Studio',
+            short_name: 'Beze',
+            description: 'Одежда на утро невесты и для дома',
+            theme_color: '#ffffff',
+            lang: 'ru',
+            icons: [
+                {
+                    src: '/web-app-manifest-192x192.png',
+                    sizes: '192x192',
+                    type: 'image/png',
+                },
+                {
+                    src: '/web-app-manifest-512x512.png',
+                    sizes: '512x512',
+                    type: 'image/png',
+                },
+                {
+                    src: '/maskable-icon.png',
+                    sizes: '512x512',
+                    type: 'image/png',
+                    purpose: 'maskable',
+                },
+            ],
+            screenshots: [
+                {
+                    src: 'screenshot.png',
+                    sizes: '3840x2160',
+                    type: 'image/png',
+                    form_factor: 'wide',
+                    label: 'Beze Studio',
+                },
+                {
+                    src: 'screenshot-mobile.png',
+                    sizes: '1290x2796',
+                    type: 'image/png',
+                    label: 'Beze Studio Mobile',
+                },
+            ],
+        },
     },
     compatibilityDate: '2025-03-30',
 })

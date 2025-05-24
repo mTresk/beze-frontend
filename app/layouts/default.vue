@@ -60,6 +60,7 @@ const description = 'Одежда на утро невесты и для дом�
 </script>
 
 <template>
+    <NuxtPwaManifest />
     <Head>
         <Meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=0" />
         <Meta name="description" :content="description" />
