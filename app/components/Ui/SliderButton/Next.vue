@@ -13,7 +13,7 @@
     align-items: center;
     justify-content: center;
     color: $whiteColor;
-    background-color: $extraColor;
+    background-color: $accentColor;
     border-radius: rem(4);
     transition: all 0.3s ease-in-out;
 
@@ -27,6 +27,8 @@
     }
 
     @media (any-hover: hover) {
+        background-color: $extraColor;
+
         &:hover {
             background-color: $accentColor;
         }
