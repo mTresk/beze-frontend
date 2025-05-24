@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { IMenu, ISettings } from '@/types/api'
+import { NuxtImg } from '#components'
 import { formatPhone } from '@/helpers'
 
 const currentYear = new Date().getFullYear()
@@ -17,7 +18,7 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
             <div class="footer__body">
                 <div class="footer__info">
                     <NuxtLink to="/" class="footer__logo">
-                        <img src="/images/logo-footer.svg" alt="Beze Studio" loading="lazy">
+                        <NuxtImg width="320" height="90" src="/images/logo-footer.svg" alt="Beze Studio" loading="lazy" />
                     </NuxtLink>
                     <div class="footer__copyright">
                         © {{ currentYear }} Все права защищены
@@ -90,13 +91,13 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
                             <a :href="`tel:${formattedPhone}`" class="footer__phone">{{ settings.phone }}</a>
                             <div class="footer__socials">
                                 <a v-if="settings.vk" target="_blank" title="Vk" :href="settings.vk" class="footer__soicial">
-                                    <img src="/images/icons/vk.svg" alt="" loading="lazy">
+                                    <NuxtImg width="30" height="30" src="/images/icons/vk.svg" alt="" loading="lazy" />
                                 </a>
                                 <a v-if="settings.telegram" target="_blank" title="Telegram" :href="settings.telegram" class="footer__soicial">
-                                    <img src="/images/icons/tg.svg" alt="" loading="lazy">
+                                    <NuxtImg width="30" height="30" src="/images/icons/tg.svg" alt="" loading="lazy" />
                                 </a>
                                 <a v-if="settings.whatsapp" target="_blank" title="Whatsapp" :href="settings.whatsapp" class="footer__soicial">
-                                    <img src="/images/icons/wa.svg" alt="" loading="lazy">
+                                    <NuxtImg width="30" height="30" src="/images/icons/wa.svg" alt="" loading="lazy" />
                                 </a>
                             </div>
                         </div>
