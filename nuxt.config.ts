@@ -3,7 +3,13 @@ export default defineNuxtConfig({
         compatibilityVersion: 4,
     },
     devtools: { enabled: false },
-    modules: ['nuxt-swiper', 'nuxt-toastify', 'nuxt-auth-sanctum', '@nuxt/image'],
+    modules: [
+        'nuxt-swiper',
+        'nuxt-toastify',
+        'nuxt-auth-sanctum',
+        '@nuxt/image',
+        '@nuxtjs/sitemap',
+    ],
     app: {
         pageTransition: { name: 'layout', mode: 'out-in' },
     },
@@ -76,6 +82,10 @@ export default defineNuxtConfig({
         ipx: {
             maxAge: 60 * 60 * 24 * 365,
         },
+    },
+    sitemap: {
+        sources: ['/api/sitemap/urls'],
+        exclude: ['/auth/**'],
     },
     compatibilityDate: '2025-03-30',
 })
