@@ -25,11 +25,10 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
                     </div>
                 </div>
                 <div class="footer__blocks">
-                    <!-- Блок "Магазин" -->
                     <div class="footer__block">
-                        <h4 class="footer__label">
+                        <p class="footer__label">
                             Магазин
-                        </h4>
+                        </p>
                         <div class="footer__menu footer-menu">
                             <nav class="footer-menu__body">
                                 <ul class="footer-menu__list">
@@ -54,11 +53,10 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
                             </nav>
                         </div>
                     </div>
-                    <!-- Блок "Покупателям" -->
                     <div class="footer__block">
-                        <h4 class="footer__label">
+                        <p class="footer__label">
                             Покупателям
-                        </h4>
+                        </p>
                         <div class="footer__menu footer-menu">
                             <nav class="footer-menu__body">
                                 <ul class="footer-menu__list">
@@ -78,11 +76,10 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
                             </nav>
                         </div>
                     </div>
-                    <!-- Блок "Контакты" -->
                     <div class="footer__block">
-                        <h4 class="footer__label">
+                        <p class="footer__label">
                             Контакты
-                        </h4>
+                        </p>
                         <div class="footer__contacts">
                             <p class="footer__address">
                                 {{ settings.address }}
