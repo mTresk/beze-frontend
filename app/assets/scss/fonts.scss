@@ -3,8 +3,8 @@
     font-style: normal;
     font-weight: 400;
     src:
-        url('/fonts/QuincyCF-Regular.woff2') format('woff2'),
-        url('/fonts/QuincyCF-Regular.woff') format('woff');
+        url('@/assets/fonts/QuincyCF-Regular.woff2') format('woff2'),
+        url('@/assets/fonts/QuincyCF-Regular.woff') format('woff');
     font-display: swap;
 }
 
@@ -13,8 +13,8 @@
     font-style: normal;
     font-weight: 500;
     src:
-        url('/fonts/TildaSans-Medium.woff2') format('woff2'),
-        url('/fonts/TildaSans-Medium.woff') format('woff');
+        url('@/assets/fonts/TildaSans-Medium.woff2') format('woff2'),
+        url('@/assets/fonts/TildaSans-Medium.woff') format('woff');
     font-display: swap;
 }
 
@@ -23,7 +23,7 @@
     font-style: normal;
     font-weight: 400;
     src:
-        url('/fonts/TildaSans-Regular.woff2') format('woff2'),
-        url('/fonts/TildaSans-Regular.woff') format('woff');
+        url('@/assets/fonts/TildaSans-Regular.woff2') format('woff2'),
+        url('@/assets/fonts/TildaSans-Regular.woff') format('woff');
     font-display: swap;
 }

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { IMenu, ISettings } from '@/types/api'
+import { NuxtImg } from '#components'
 
 defineProps<{
     menu: IMenu
@@ -38,7 +39,6 @@ function handleLinkClick() {
                         Каталог
                     </NuxtLink>
                 </li>
-                <!-- Категории -->
                 <li
                     v-for="category in menu?.categories"
                     :key="category.slug"
@@ -72,7 +72,6 @@ function handleLinkClick() {
                         </li>
                     </ul>
                 </li>
-                <!-- Меню хедера -->
                 <li
                     v-for="item in menu?.header_menu"
                     :key="item.name"
@@ -125,13 +124,13 @@ function handleLinkClick() {
             <a :href="`tel:${formattedPhone}`" class="menu__phone">{{ settings.phone }}</a>
             <div class="menu__socials">
                 <a v-if="settings.vk" target="_blank" title="Vk" :href="settings.vk" class="menu__social">
-                    <img src="/images/icons/vk.svg" alt="" loading="lazy">
+                    <NuxtImg width="30" height="30" src="/images/icons/vk.svg" alt="" loading="lazy" />
                 </a>
                 <a v-if="settings.telegram" target="_blank" title="Telegram" :href="settings.telegram" class="menu__social">
-                    <img src="/images/icons/tg.svg" alt="" loading="lazy">
+                    <NuxtImg width="30" height="30" src="/images/icons/tg.svg" alt="" loading="lazy" />
                 </a>
                 <a v-if="settings.whatsapp" target="_blank" title="Whatsapp" :href="settings.whatsapp" class="menu__social">
-                    <img src="/images/icons/wa.svg" alt="" loading="lazy">
+                    <NuxtImg width="30" height="30" src="/images/icons/wa.svg" alt="" loading="lazy" />
                 </a>
             </div>
         </div>
