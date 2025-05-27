@@ -45,8 +45,7 @@ const query = useQuery({
 
         const queryString = params.toString()
         const url = `${props.apiUrl}${queryString ? `?${queryString}` : ''}`
-        const data = await client<ApiResponse<IProduct[]>>(url)
-        return data
+        return client<ApiResponse<IProduct[]>>(url)
     },
 })
 
@@ -80,6 +79,10 @@ async function handlePageClick(page: number) {
     }
     else {
         query.page = page.toString()
+    }
+
+    if (selectedSort.value !== 'default') {
+        query.sort = selectedSort.value
     }
 
     await navigateTo({ query })
