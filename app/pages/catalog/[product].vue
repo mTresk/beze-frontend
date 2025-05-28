@@ -30,37 +30,48 @@ const selectError = ref(false)
 
 const productSlug = computed(() => route.params.product)
 
-async function fetcher() {
-    const [productData, sizesData] = await Promise.all([
-        client<IProductWithFeatured>(`/api/products/${productSlug.value}`, {
-            async onResponseError({ response }) {
-                if (response.status !== 422) {
-                    throw showError({
-                        statusCode: response.status,
-                        statusMessage: response.statusText,
-                    })
-                }
-            },
-        }),
-        client<IInfoPageContent>(`/api/pages/sizes`),
-    ])
-    return { product: productData, sizes: sizesData }
+async function fetchProduct() {
+    return await client<IProductWithFeatured>(`/api/products/${productSlug.value}`, {
+        async onResponseError({ response }) {
+            if (response.status !== 422) {
+                throw showError({
+                    statusCode: response.status,
+                    statusMessage: response.statusText,
+                })
+            }
+        },
+    })
+}
+
+async function fetchSizesTable() {
+    return await client<IInfoPageContent>(`/api/pages/sizes`)
 }
 
 const {
-    data,
-    suspense,
-    isLoading,
+    data: productData,
+    suspense: productSuspense,
+    isLoading: isProductLoading,
 } = useQuery({
     queryKey: ['product', productSlug.value],
-    queryFn: fetcher,
+    queryFn: fetchProduct,
 })
 
-await suspense()
+const {
+    data: sizesTableData,
+    suspense: sizesTableSuspense,
+    isLoading: isSizesTableLoading,
+} = useQuery({
+    queryKey: ['sizes-table'],
+    queryFn: fetchSizesTable,
+})
 
-const product = computed(() => data.value?.product)
+await Promise.all([productSuspense(), sizesTableSuspense()])
 
-const sizes = computed(() => data.value?.sizes)
+const product = computed(() => productData.value)
+
+const sizesTable = computed(() => sizesTableData.value)
+
+const isLoading = computed(() => isProductLoading.value || isSizesTableLoading.value)
 
 async function getViewedProducts() {
     const filteredIds = viewedProductsIds.value.filter(id => id !== String(product.value?.data.id))
@@ -396,8 +407,8 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
         <UiCursor />
         <LayoutDialog v-model="isModalOpen">
             <div class="content">
-                <h2>{{ sizes?.data.name }}</h2>
-                <div v-html="sizes?.data.content" />
+                <h2>{{ sizesTable?.data.name }}</h2>
+                <div v-html="sizesTable?.data.content" />
             </div>
         </LayoutDialog>
         <LayoutDialog v-model="isCustomOrderModalOpen">

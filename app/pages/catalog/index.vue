@@ -3,13 +3,19 @@ import type { ICategory } from '@/types/api'
 
 const client = useSanctumClient()
 
-const categories = ref<ICategory[]>([])
-
-async function getCategories() {
-    return categories.value = await client<ICategory[]>('api/categories')
+async function fetchCategories() {
+    return await client<ICategory[]>('api/categories')
 }
 
-await getCategories()
+const {
+    data: categories,
+    suspense,
+} = useQuery({
+    queryKey: ['categories'],
+    queryFn: fetchCategories,
+})
+
+await suspense()
 
 const seoTitle = 'Каталог товаров'
 const seoDescription = 'Каталог одежды и аксессуаров на утро невесты и для дома'

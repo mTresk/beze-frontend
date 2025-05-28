@@ -6,10 +6,10 @@ const client = useSanctumClient()
 const fetcher = async () => await client<IInfoPageContent>(`/api/pages/sizes`)
 
 const {
-    data: sizes,
+    data: sizesTable,
     suspense,
 } = useQuery({
-    queryKey: ['sizes'],
+    queryKey: ['sizes-table'],
     queryFn: fetcher,
 })
 
@@ -149,8 +149,8 @@ onBeforeUnmount(() => {
         <!-- Модальное окно с размерами -->
         <LayoutDialog v-model="isSizesModalOpen">
             <div class="content">
-                <h2>{{ sizes?.data.name }}</h2>
-                <div v-html="sizes?.data.content" />
+                <h2>{{ sizesTable?.data.name }}</h2>
+                <div v-html="sizesTable?.data.content" />
             </div>
         </LayoutDialog>
     </section>
