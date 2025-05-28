@@ -45,6 +45,7 @@ const query = useQuery({
 
         const queryString = params.toString()
         const url = `${props.apiUrl}${queryString ? `?${queryString}` : ''}`
+
         return client<ApiResponse<IProduct[]>>(url)
     },
 })
@@ -59,14 +60,12 @@ if (query.data.value?.data) {
 
 meta.value = query.data.value?.meta
 
-watch(query.data, (newData) => {
-    if (newData?.data) {
-        cachedData.value = newData.data
-    }
-    if (newData?.meta) {
-        meta.value = newData.meta
-    }
-})
+if (meta.value && currentPage.value > meta.value.last_page && meta.value.last_page > 0) {
+    throw createError({
+        statusCode: 404,
+        statusMessage: 'Страница не найдена',
+    })
+}
 
 async function handlePageClick(page: number) {
     if (page === meta.value?.current_page)
@@ -87,6 +86,15 @@ async function handlePageClick(page: number) {
 
     await navigateTo({ query })
 }
+
+watch(query.data, (newData) => {
+    if (newData?.data) {
+        cachedData.value = newData.data
+    }
+    if (newData?.meta) {
+        meta.value = newData.meta
+    }
+})
 
 watch(
     () => route.query.page,
@@ -120,6 +128,7 @@ watch(selectedSort, async (newSort) => {
     delete newQuery.page
 
     const queryParams = new URLSearchParams()
+
     Object.entries(newQuery).forEach(([key, value]) => {
         if (value !== null && value !== undefined) {
             queryParams.append(key, String(value))

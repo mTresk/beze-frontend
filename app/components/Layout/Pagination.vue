@@ -12,8 +12,9 @@ const emit = defineEmits<{
 }>()
 
 function handlePageClick(page: number) {
-    if (page === props.meta?.current_page || props.isLoading)
+    if (page === props.meta?.current_page || props.isLoading) {
         return
+    }
 
     window.scrollTo({
         top: 0,
