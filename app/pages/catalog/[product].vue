@@ -203,6 +203,7 @@ const form = reactive<IFeedback>({
     phone: '',
     email: '',
     message: '',
+    product_variant: undefined,
 })
 
 const errors = ref<ValidationErrors>({})
@@ -239,6 +240,10 @@ function clearForm() {
 
 watch(validationErrors, (newErrors) => {
     errors.value = newErrors
+})
+
+watch(selectedVariant, (newVariant) => {
+    form.product_variant = newVariant?.id
 })
 
 onMounted(() => {

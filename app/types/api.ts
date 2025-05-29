@@ -109,6 +109,7 @@ export interface IFeedback {
     phone: string
     email?: string
     message?: string
+    product_variant?: number
 }
 
 export interface ICategory {
