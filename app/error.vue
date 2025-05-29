@@ -50,8 +50,7 @@ const handleError = () => clearError({ redirect: '/catalog' })
         justify-content: center;
         min-height: 100vh;
         min-height: 100dvh;
-        padding-top: rem(120);
-        padding-bottom: rem(120);
+        padding-block: rem(120);
     }
 
     // .error__title
