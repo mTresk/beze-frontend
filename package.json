@@ -36,6 +36,7 @@
         "eslint-plugin-format": "^1.0.1",
         "nuxt": "^3.17.4",
         "nuxt-auth-sanctum": "^0.6.7",
+        "nuxt-schema-org": "^5.0.5",
         "nuxt-swiper": "^2.0.1",
         "nuxt-toastify": "^1.0.0",
         "sass": "1.89.0",

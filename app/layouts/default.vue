@@ -62,17 +62,14 @@ const description = 'Одежда на утро невесты и для дом�
 <template>
     <NuxtPwaManifest />
     <Head>
-        <Meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=0" />
+        <Meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <Meta name="description" :content="description" />
-        <!-- Favicon -->
         <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
         <link rel="icon" type="image/svg+xml" href="/favicon.svg">
         <link rel="shortcut icon" href="/favicon.ico">
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-        <!-- FB meta -->
         <Meta property="og:description" :content="description" />
         <Meta property="og:image" content="/images/og.png" />
-        <!-- Twitter meta -->
         <Meta name="twitter:description" :content="description" />
         <Meta name="twitter:image" content="/images/og.png" />
     </Head>

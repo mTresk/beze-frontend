@@ -10,6 +10,7 @@ export default defineNuxtConfig({
         '@nuxt/image',
         '@nuxtjs/sitemap',
         '@vite-pwa/nuxt',
+        'nuxt-schema-org',
     ],
     app: {
         pageTransition: { name: 'layout', mode: 'out-in' },
@@ -132,6 +133,9 @@ export default defineNuxtConfig({
                 },
             ],
         },
+    },
+    schemaOrg: {
+        defaults: false,
     },
     compatibilityDate: '2025-03-30',
 })

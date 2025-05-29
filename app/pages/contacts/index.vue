@@ -57,6 +57,21 @@ onMounted(() => {
 
 const seoTitle = 'Контакты'
 const seoDescription = 'Как с нами связаться'
+
+useSchemaOrg([
+    defineOrganization({
+        name: 'Beze Studio',
+        url: 'https://bezestudio.ru',
+        logo: 'https://bezestudio.ru/images/og.png',
+        address: {
+            '@type': 'PostalAddress',
+            'addressLocality': 'Тюмень, Россия',
+            'postalCode': '625048',
+            'streetAddress': 'ул. Малыгина, 71',
+            'url': 'https://bezestudio.ru',
+        },
+    }),
+])
 </script>
 
 <template>

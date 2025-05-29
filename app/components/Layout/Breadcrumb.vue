@@ -19,21 +19,23 @@ const breadcrumbs = computed<IBreadcrumbItem[]>(() => [HOME_CRUMB, ...props.item
 </script>
 
 <template>
-    <ul class="breadcrumb">
-        <li v-for="(item, index) in breadcrumbs" :key="index" class="breadcrumb__item">
+    <ul class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+        <li v-for="(item, index) in breadcrumbs" :key="index" class="breadcrumb__item" itemprop="itemListElement" itemtype="https://schema.org/ListItem">
             <template v-if="item.link">
-                <NuxtLink :to="item.link" class="breadcrumb__link">
-                    {{ item.title }}
+                <NuxtLink :to="item.link" class="breadcrumb__link" itemprop="item">
+                    <span class="breadcrumb__text" itemprop="name">{{ item.title }}</span>
                 </NuxtLink>
+                <meta itemprop="position" :content="String(index + 1)">
             </template>
             <template v-else>
-                <span class="breadcrumb__text">{{ item.title }}</span>
+                <span class="breadcrumb__text" itemprop="name">{{ item.title }}</span>
+                <meta itemprop="position" :content="String(index + 1)">
             </template>
         </li>
     </ul>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .breadcrumb {
     display: flex;
     flex-wrap: wrap;
