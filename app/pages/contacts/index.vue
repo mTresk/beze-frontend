@@ -17,6 +17,8 @@ const settings = useState<ISettings>('settings')
 
 const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
 
+const isAgreementAccepted = ref(false)
+
 function handleForm() {
     return client('/api/feedback', {
         body: form,
@@ -197,14 +199,23 @@ useSchemaOrg([
                             </VForm>
                         </div>
                         <div class="contacts-form__footer">
-                            <UiButton :disabled="isFormSent" :is-loading="isLoading" class="contacts-form__button" @click="handleSubmit">
+                            <VFormCheckbox
+                                :checked="isAgreementAccepted"
+                                @update:checked="isAgreementAccepted = $event"
+                            >
+                                <template #text>
+                                    <p class="contacts-form__policy">
+                                        Подтвеждаю <NuxtLink target="_blank" to="/info/processing">
+                                            согласие с обработкой моих персональных данных
+                                        </NuxtLink> и <NuxtLink target="_blank" to="/info/privacy">
+                                            политикой конфиденциальности
+                                        </NuxtLink>
+                                    </p>
+                                </template>
+                            </VFormCheckbox>
+                            <UiButton :disabled="isFormSent || !isAgreementAccepted" :is-loading="isLoading" class="contacts-form__button" @click="handleSubmit">
                                 {{ isFormSent ? 'Отправлено' : 'Отправить' }}
                             </UiButton>
-                            <p class="contacts-form__policy">
-                                Нажимая на кнопку «Отправить», я принимаю условия <NuxtLink target="_blank" to="/info/privacy">
-                                    политики конфиденциальности
-                                </NuxtLink>
-                            </p>
                         </div>
                     </div>
                 </div>

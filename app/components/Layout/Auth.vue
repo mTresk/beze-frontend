@@ -75,7 +75,6 @@
     &__policy {
         font-size: rem(14);
         line-height: 140%;
-        text-align: center;
 
         a {
             text-decoration: underline;

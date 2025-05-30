@@ -86,6 +86,7 @@ const description = 'Одежда на утро невесты и для дом�
         </main>
         <LayoutFooter />
         <LayoutNavigation />
+        <LayoutCookie />
         <UiPageLoader v-if="isLoading" />
     </div>
 </template>

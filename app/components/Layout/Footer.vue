@@ -106,6 +106,9 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
                     <UiLink class="footer__link" href="/info/privacy">
                         Политика конфиденциальности
                     </UiLink>
+                    <UiLink class="footer__link" href="/info/processing">
+                        Согласие на обработку ПД
+                    </UiLink>
                     <UiLink class="footer__link" href="/info/offer">
                         Договор оферты
                     </UiLink>

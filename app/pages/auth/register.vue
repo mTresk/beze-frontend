@@ -13,6 +13,8 @@ const form = reactive({
     password_confirmation: '',
 })
 
+const isAgreementAccepted = ref(false)
+
 const {
     submit: submitForm,
     isLoading,
@@ -113,14 +115,23 @@ const {
                 </VForm>
             </template>
             <template #footer>
-                <UiButton wide :is-loading="isLoading" type="submit" @click="submitForm">
+                <VFormCheckbox
+                    :checked="isAgreementAccepted"
+                    @update:checked="isAgreementAccepted = $event"
+                >
+                    <template #text>
+                        <p class="auth__policy">
+                            Подтвеждаю <NuxtLink target="_blank" to="/info/processing">
+                                согласие с обработкой моих персональных данных
+                            </NuxtLink> и <NuxtLink target="_blank" to="/info/privacy">
+                                политикой конфиденциальности
+                            </NuxtLink>
+                        </p>
+                    </template>
+                </VFormCheckbox>
+                <UiButton wide :is-loading="isLoading" type="submit" :disabled="!isAgreementAccepted" @click="submitForm">
                     Зарегистрироваться
                 </UiButton>
-                <p class="auth__policy">
-                    Нажимая на кнопку «Зарегистрироваться», я принимаю условия  <NuxtLink target="_blank" to="/info/privacy">
-                        политики конфиденциальности
-                    </NuxtLink>
-                </p>
                 <UiLink class="auth__link" href="/auth/login">
                     Уже есть аккаунт?
                 </UiLink>

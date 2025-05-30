@@ -11,6 +11,8 @@ const isInitialized = ref(false)
 
 const form = ref<IOrder>()
 
+const isAgreementAccepted = ref(false)
+
 const deliveryPrice = computed(() => {
     if (!form.value || form.value.delivery_type === 'pickup') {
         return 0
@@ -165,21 +167,28 @@ const seoDescription = 'Корзина интернет-магазина Beze St
                             </div>
                         </div>
                         <div class="cart__footer">
+                            <VFormCheckbox
+                                :checked="isAgreementAccepted"
+                                @update:checked="isAgreementAccepted = $event"
+                            >
+                                <template #text>
+                                    <p class="cart__policy">
+                                        Подтвеждаю <NuxtLink target="_blank" to="/info/processing">
+                                            согласие с обработкой моих персональных данных
+                                        </NuxtLink> и <NuxtLink target="_blank" to="/info/privacy">
+                                            политикой конфиденциальности
+                                        </NuxtLink>
+                                    </p>
+                                </template>
+                            </VFormCheckbox>
                             <UiButton
+                                :disabled="form?.delivery_type === 'russia' && !form?.delivery_cost || !isAgreementAccepted"
                                 :is-loading="isFormSending"
                                 class="cart__button"
-                                :disabled="form?.delivery_type === 'russia' && !form?.delivery_cost"
                                 @click="handleSubmit"
                             >
                                 Оформить заказ
                             </UiButton>
-                            <p class="cart__policy">
-                                Нажимая на кнопку «Оформить заказ», я принимаю условия <NuxtLink target="_blank" to="/info/offer">
-                                    публичной оферты
-                                </NuxtLink> и <NuxtLink target="_blank" to="/info/privacy">
-                                    политики конфиденциальности
-                                </NuxtLink>
-                            </p>
                         </div>
                     </div>
                 </div>
