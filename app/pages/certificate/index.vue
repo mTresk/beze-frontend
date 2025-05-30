@@ -204,7 +204,7 @@ const seoDescription = 'Купить подарочный сертификат �
                                     </template>
                                 </div>
                             </div>
-                            <div v-if="form?.delivery_type === 'tyumen' && deliveryPrice > 0" class="certificate__line certificate__line--note">
+                            <div v-if="form?.delivery_type === 'tyumen' && deliveryPrice > 0" class="certificate__line">
                                 <div class="certificate__note">
                                     Бесплатная доставка по Тюмени от 5000 ₽
                                 </div>
@@ -372,36 +372,31 @@ const seoDescription = 'Купить подарочный сертификат �
         gap: rem(20);
         align-items: center;
         justify-content: space-between;
-
-        // .certificate__line--note
-        &--note {
-            justify-content: flex-end;
-        }
     }
 
     // .certificate__key
     &__key {
-        font-size: 16px;
+        font-size: rem(16);
         line-height: 140%;
         text-transform: uppercase;
     }
 
     // .certificate__value
     &__value {
-        font-size: 16px;
+        font-size: rem(16);
         line-height: 140%;
         text-align: right;
 
         // .certificate__value--lg
         &--lg {
-            font-size: 28px;
+            font-size: rem(28);
             font-weight: 500;
         }
     }
 
     // .certificate__note
     &__note {
-        font-size: 14px;
+        font-size: rem(14);
         line-height: 130%;
         color: $accentColor;
     }
