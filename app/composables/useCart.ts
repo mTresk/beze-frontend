@@ -70,7 +70,7 @@ export function useCart() {
 
             const productVariantId = variantId && variantId > 0 ? variantId : null
 
-            const response = await client<{ cart: ICartData }>('/api/cart/add', {
+            const response = await client<{ cart: ICartData, message: string }>('/api/cart', {
                 method: 'post',
                 body: {
                     product_variant_id: productVariantId,
@@ -85,7 +85,7 @@ export function useCart() {
                 cartId.value = response.cart.id || null
                 isCartInitialized = true
 
-                useToastify(`Товар добавлен в корзину`, { type: 'success' })
+                useToastify(response.message, { type: 'success' })
                 return response.cart
             }
             return null
@@ -103,7 +103,7 @@ export function useCart() {
     async function removeFromCart(cartItemId: number) {
         isLoading.value = true
         try {
-            const response = await client<{ cart: ICartData }>(`/api/cart/items/${cartItemId}`, {
+            const response = await client<{ cart: ICartData, message: string }>(`/api/cart/${cartItemId}`, {
                 method: 'delete',
             })
 
@@ -113,7 +113,8 @@ export function useCart() {
                 cartId.value = response.cart.id || null
                 isCartInitialized = true
 
-                useToastify(`Товар удален из корзины`, { type: 'success' })
+                useToastify(response.message, { type: 'success' })
+
                 return response.cart
             }
             return null
@@ -135,7 +136,7 @@ export function useCart() {
 
         isLoading.value = true
         try {
-            const response = await client<{ cart: ICartData }>(`/api/cart/items/${cartItemId}`, {
+            const response = await client<{ cart: ICartData, message: string }>(`/api/cart/${cartItemId}`, {
                 method: 'put',
                 body: { quantity },
             })
@@ -145,6 +146,9 @@ export function useCart() {
                 cartTotal.value = response.cart.total || 0
                 cartId.value = response.cart.id || null
                 isCartInitialized = true
+
+                useToastify(response.message, { type: 'success' })
+
                 return response.cart
             }
             return null

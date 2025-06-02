@@ -68,7 +68,7 @@ export function useWishlist() {
                 return null
             }
 
-            const response = await client<{ wishlist: IWishlistData }>('/api/wishlist/add', {
+            const response = await client<{ wishlist: IWishlistData, message: string }>('/api/wishlist', {
                 method: 'post',
                 body: {
                     product_id: productId,
@@ -80,7 +80,7 @@ export function useWishlist() {
                 wishlistId.value = response.wishlist.id || null
                 isWishlistInitialized = true
 
-                useToastify(`Товар добавлен в избранное`, { type: 'success' })
+                useToastify(response.message, { type: 'success' })
                 return response.wishlist
             }
             return null
@@ -104,7 +104,7 @@ export function useWishlist() {
                 return null
             }
 
-            const response = await client<{ wishlist: IWishlistData }>(`/api/wishlist/items/${wishlistItem.id}`, {
+            const response = await client<{ wishlist: IWishlistData, message: string }>(`/api/wishlist/${wishlistItem.id}`, {
                 method: 'delete',
             })
 
@@ -113,7 +113,7 @@ export function useWishlist() {
                 wishlistId.value = response.wishlist.id || null
                 isWishlistInitialized = true
 
-                useToastify(`Товар удален из избранного`, { type: 'success' })
+                useToastify(response.message, { type: 'success' })
                 return response.wishlist
             }
             return null
