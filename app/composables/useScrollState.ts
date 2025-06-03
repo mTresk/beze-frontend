@@ -1,5 +1,5 @@
-import type { LenisScrollData } from '@/types/lenis'
 import type Lenis from 'lenis'
+import type { LenisScrollData } from '@/types/lenis'
 
 export function useScrollState(initialState: false = false) {
     const scrollState = useState<LenisScrollData | false>('scrollState', () => initialState)

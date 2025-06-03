@@ -33,12 +33,12 @@ export function useWishlist() {
         isLoading.value = true
 
         try {
-            const response = await client<{ wishlist: IWishlistData }>('/api/wishlist')
-            if (response && response.wishlist) {
-                wishlistItems.value = response.wishlist.items || []
-                wishlistId.value = response.wishlist.id || null
+            const response = await client<IWishlistData>('/api/wishlist')
+            if (response) {
+                wishlistItems.value = response.items || []
+                wishlistId.value = response.id || null
                 isWishlistInitialized = true
-                return response.wishlist
+                return response
             }
             else {
                 wishlistItems.value = []
@@ -68,20 +68,20 @@ export function useWishlist() {
                 return null
             }
 
-            const response = await client<{ wishlist: IWishlistData, message: string }>('/api/wishlist', {
+            const response = await client<IWishlistData>('/api/wishlist', {
                 method: 'post',
                 body: {
                     product_id: productId,
                 },
             })
 
-            if (response && response.wishlist) {
-                wishlistItems.value = response.wishlist.items || []
-                wishlistId.value = response.wishlist.id || null
+            if (response) {
+                wishlistItems.value = response.items || []
+                wishlistId.value = response.id || null
                 isWishlistInitialized = true
 
-                useToastify(response.message, { type: 'success' })
-                return response.wishlist
+                useToastify('Товар добавлен в вишлист', { type: 'success' })
+                return response
             }
             return null
         }
@@ -104,17 +104,17 @@ export function useWishlist() {
                 return null
             }
 
-            const response = await client<{ wishlist: IWishlistData, message: string }>(`/api/wishlist/${wishlistItem.id}`, {
+            const response = await client<IWishlistData>(`/api/wishlist/${wishlistItem.id}`, {
                 method: 'delete',
             })
 
-            if (response && response.wishlist) {
-                wishlistItems.value = response.wishlist.items || []
-                wishlistId.value = response.wishlist.id || null
+            if (response) {
+                wishlistItems.value = response.items || []
+                wishlistId.value = response.id || null
                 isWishlistInitialized = true
 
-                useToastify(response.message, { type: 'success' })
-                return response.wishlist
+                useToastify('Товар удален из вишлиста', { type: 'success' })
+                return response
             }
             return null
         }
