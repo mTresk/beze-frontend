@@ -139,8 +139,10 @@ body {
         justify-content: center;
         width: 100%;
         height: 100%;
-        padding: rem(20);
+        padding-block: rem(20);
         overflow-y: auto;
+
+        @include adaptive-value('padding-inline', 20, 10);
     }
 
     // .modal__content
@@ -148,7 +150,6 @@ body {
         position: relative;
         width: 100%;
         max-width: rem(600);
-        padding: rem(60) rem(40);
         margin: auto;
         background-color: $whiteColor;
         border-radius: rem(8);
@@ -257,6 +258,8 @@ body {
 .modal-form {
     display: grid;
     gap: rem(30);
+
+    @include adaptive-value('gap', 30, 20);
 
     // .modal-form__header
     &__header {
