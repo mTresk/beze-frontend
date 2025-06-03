@@ -336,7 +336,7 @@ onUnmounted(() => {
         align-items: flex-start;
         justify-content: space-between;
 
-        @include adaptive-value('gap', 50, 30);
+        @include adaptive-value('gap', 50, 20);
 
         @media (max-width: $mobile) {
             flex-direction: column-reverse;
@@ -349,8 +349,6 @@ onUnmounted(() => {
         display: grid;
         flex: 1;
         gap: rem(20);
-        min-width: rem(360);
-        min-height: rem(390);
         margin-top: rem(-55);
 
         &--loading {
@@ -359,7 +357,7 @@ onUnmounted(() => {
         }
 
         @media (max-width: $mobile) {
-            min-height: auto;
+            width: 100%;
             margin: 0;
         }
     }
@@ -368,7 +366,8 @@ onUnmounted(() => {
     &__result {
         display: grid;
         grid-template-columns: repeat(6, 1fr);
-        gap: rem(20);
+
+        @include adaptive-value('gap', 20, 10);
 
         @media (max-width: em(1799)) {
             grid-template-columns: repeat(5, 1fr);
@@ -408,7 +407,7 @@ onUnmounted(() => {
         @include adaptive-value('flex-basis', 370, 300, 0, 1920, 767);
 
         @media (max-width: $mobile) {
-            flex: unset;
+            flex-basis: unset;
             width: 100%;
         }
     }
@@ -496,14 +495,15 @@ onUnmounted(() => {
         flex-wrap: wrap;
         gap: rem(10);
         align-items: center;
-        padding-bottom: rem(25);
         border-bottom: 1px solid $extraColor;
+
+        @include adaptive-value('padding-bottom', 25, 15);
     }
 
     // .search__tap
     &__tap {
         padding: rem(5) rem(10);
-        font-size: 14px;
+        font-size: rem(14);
         line-height: 120%;
         cursor: pointer;
         border: 1px solid $mainColor;
@@ -522,12 +522,13 @@ onUnmounted(() => {
     &__history {
         display: grid;
         gap: rem(15);
-        margin-top: rem(25);
+
+        @include adaptive-value('margin-top', 25, 15);
     }
 
     // .search__history-label
     &__history-label {
-        font-size: 12px;
+        font-size: rem(12);
         line-height: 120%;
         color: rgb(54 54 54 / 60%);
         text-transform: uppercase;
@@ -536,7 +537,8 @@ onUnmounted(() => {
     // .search__history-list
     &__history-list {
         display: grid;
-        gap: rem(20);
+
+        @include adaptive-value('gap', 20, 10);
     }
 
     // .search__history-item
@@ -545,10 +547,11 @@ onUnmounted(() => {
         gap: rem(20);
         align-items: center;
         justify-content: space-between;
-        font-size: 18px;
         line-height: 120%;
         cursor: pointer;
         transition: color 0.3s ease-in-out;
+
+        @include adaptive-value('font-size', 18, 16);
 
         @media (any-hover: hover) {
             &:hover {
@@ -561,8 +564,11 @@ onUnmounted(() => {
         }
 
         svg {
+            height: auto;
             color: $extraColor;
             transition: color 0.3s ease-in-out;
+
+            @include adaptive-value('max-width', 20, 16);
         }
     }
 }
