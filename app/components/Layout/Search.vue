@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { IProduct, ISearchResult } from '@/types/api'
 import type Lenis from 'lenis'
+import type { IProduct, ISearchResult } from '@/types/api'
 import { computed } from 'vue'
 
 const client = useSanctumClient()
@@ -288,8 +288,11 @@ onUnmounted(() => {
         overflow-y: auto;
         background-color: $whiteColor;
 
+        @include adaptive-value('min-height', 526, 447, 0, 1920, 767);
+
         @media (max-width: $mobile) {
             height: 100%;
+            min-height: auto;
             max-height: none;
         }
     }
@@ -399,7 +402,9 @@ onUnmounted(() => {
 
     // .search__form
     &__form {
-        flex: 0 0 rem(370);
+        flex-shrink: 0;
+
+        @include adaptive-value('flex-basis', 370, 300, 0, 1920, 767);
 
         @media (max-width: $mobile) {
             flex: unset;
