@@ -28,6 +28,8 @@ const size = ref()
 
 const selectError = ref(false)
 
+const isAgreementAccepted = ref(false)
+
 const productSlug = computed(() => route.params.product)
 
 async function fetchProduct() {
@@ -488,14 +490,23 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
                     </VForm>
                 </div>
                 <div class="modal-form__footer">
-                    <UiButton wide :is-loading="isFormSending" @click="handleSubmit">
+                    <VFormCheckbox
+                        :checked="isAgreementAccepted"
+                        @update:checked="isAgreementAccepted = $event"
+                    >
+                        <template #text>
+                            <p class="modal-form__policy">
+                                Подтвеждаю <NuxtLink target="_blank" to="/info/processing">
+                                    согласие с обработкой моих персональных данных
+                                </NuxtLink> и <NuxtLink target="_blank" to="/info/privacy">
+                                    политикой конфиденциальности
+                                </NuxtLink>
+                            </p>
+                        </template>
+                    </VFormCheckbox>
+                    <UiButton :disabled="!isAgreementAccepted" wide :is-loading="isFormSending" @click="handleSubmit">
                         Отправить
                     </UiButton>
-                    <p class="modal-form__policy">
-                        Нажимая на кнопку «Отправить», я принимаю условия <NuxtLink target="_blank" to="/info/privacy">
-                            политики конфиденциальности
-                        </NuxtLink>
-                    </p>
                 </div>
             </div>
         </LayoutDialog>
