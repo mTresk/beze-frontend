@@ -242,6 +242,7 @@ export interface ISearchResult {
         title: string
         relatedSearch: string
     }[]
+    validQuery?: string
 }
 
 export interface IUser {

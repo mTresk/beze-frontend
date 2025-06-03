@@ -1,15 +1,12 @@
 <script setup lang="ts">
-import type { ISearchResult } from '@/types/api'
-
-const client = useSanctumClient()
+const { smartSearch } = useSearch()
 
 const route = useRoute()
+
 const searchQuery = computed(() => route.query.search as string || '')
 
 async function fetcher() {
-    return await client<ISearchResult>(`/api/search`, {
-        params: { search: searchQuery.value },
-    })
+    return await smartSearch(searchQuery.value)
 }
 
 const {
@@ -22,6 +19,10 @@ const {
 })
 
 await suspense()
+
+const displayQuery = computed(() => {
+    return searchResult.value?.validQuery || searchQuery.value
+})
 
 const seoTitle = 'Поиск'
 const seoDescription = 'Найденные товары в интернет-магазине Beze Studio'
@@ -39,7 +40,7 @@ const seoDescription = 'Найденные товары в интернет-ма
             <div class="search-page__container">
                 <LayoutBreadcrumb :items="[{ title: 'Поиск' }]" />
                 <UiPageTitle>
-                    {{ searchQuery ? `Поиск по запросу: «${searchQuery}»` : '' }}
+                    {{ displayQuery ? `Поиск по запросу: «${displayQuery}»` : '' }}
                 </UiPageTitle>
             </div>
             <div class="search-page__inner">

@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import type Lenis from 'lenis'
 import type { IProduct, ISearchResult } from '@/types/api'
-import { computed } from 'vue'
 
 const client = useSanctumClient()
 
-const { closeSearch } = useSearch()
+const { closeSearch, smartSearch } = useSearch()
 
 const fetcher = async () => await client<IProduct[]>(`/api/products/featured`)
 
@@ -38,20 +37,19 @@ const displayedTitle = computed(() => {
 })
 
 function updateSearchHistory(query: string) {
-    if (!query)
+    if (!query) {
         return
+    }
 
     const currentHistory = [...searchHistory.value]
-
     const index = currentHistory.indexOf(query)
+
     if (index !== -1) {
         currentHistory.splice(index, 1)
     }
 
     currentHistory.unshift(query)
-
     searchHistory.value = currentHistory.slice(0, 5)
-
     localStorage.setItem('searchHistory', JSON.stringify(searchHistory.value))
 }
 
@@ -73,6 +71,7 @@ const displayedProducts = computed(() => {
     }
 
     const products = searchResult.value?.products || featured?.value
+
     return products?.slice(0, productsPerRow.value)
 })
 
@@ -80,9 +79,7 @@ await suspense()
 
 async function handleSearch() {
     isLoading.value = true
-    searchResult.value = await client<ISearchResult>('/api/search', {
-        params: { search: searchQuery.value },
-    })
+    searchResult.value = await smartSearch(searchQuery.value)
     isLoading.value = false
 }
 
@@ -97,9 +94,12 @@ function handleClose() {
 }
 
 function handleSubmit() {
-    if (searchQuery.value) {
-        updateSearchHistory(searchQuery.value)
+    const queryToSave = searchResult.value?.validQuery || searchQuery.value
+
+    if (queryToSave) {
+        updateSearchHistory(queryToSave)
     }
+
     navigateTo(`/catalog/search?search=${encodeURIComponent(searchQuery.value)}`)
     handleClose()
 }
@@ -111,6 +111,7 @@ function handleTapClick(tapTitle: string) {
 
 function updateProductsPerRow() {
     const width = window.innerWidth
+
     if (width < 1100) {
         productsPerRow.value = 2
     }
@@ -144,8 +145,8 @@ watch(
 
 onMounted(() => {
     currentProducts.value = featured?.value?.slice(0, productsPerRow.value) || []
-
     const savedHistory = localStorage.getItem('searchHistory')
+
     if (savedHistory) {
         searchHistory.value = JSON.parse(savedHistory)
     }
