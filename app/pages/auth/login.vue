@@ -59,7 +59,7 @@ const {
                             />
                         </VFormField>
                     </VFormBlock>
-                    <VFormBlock :error="errors.email">
+                    <VFormBlock :error="errors.password">
                         <VFormField>
                             <VFormLabel for="password">
                                 Пароль*
