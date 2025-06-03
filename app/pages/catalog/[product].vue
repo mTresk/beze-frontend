@@ -133,18 +133,6 @@ const currentPrice = computed(() => {
     return variant?.price || product.value?.data.price || ''
 })
 
-watch(cartStatus, (newStatus) => {
-    if (!newStatus) {
-        size.value = undefined
-    }
-    else {
-        const variant = selectedVariant.value
-        if (variant) {
-            size.value = variant.size
-        }
-    }
-})
-
 function setColor(color: IColor) {
     colorId.value = color.id
     colorName.value = color.name
@@ -428,7 +416,6 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
                         и мы сошьем то, что вам нужно в течении пяти дней
                     </p>
                 </div>
-
                 <div class="modal-form__body">
                     <VForm>
                         <VFormBlock :error="errors.name">
