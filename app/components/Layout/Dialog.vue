@@ -285,24 +285,5 @@ body {
         display: grid;
         gap: rem(10);
     }
-
-    // .modal-form__policy
-    &__policy {
-        font-size: rem(14);
-        line-height: 140%;
-
-        a {
-            text-decoration: underline;
-            text-decoration-thickness: 10%;
-            text-decoration-style: dotted;
-            transition: color 0.3s ease-in-out;
-
-            @media (any-hover: hover) {
-                &:hover {
-                    color: $accentColor;
-                }
-            }
-        }
-    }
 }
 </style>

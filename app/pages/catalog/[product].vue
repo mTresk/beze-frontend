@@ -482,13 +482,7 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
                         @update:checked="isAgreementAccepted = $event"
                     >
                         <template #text>
-                            <p class="modal-form__policy">
-                                Подтвеждаю <NuxtLink target="_blank" to="/info/processing">
-                                    согласие с обработкой моих персональных данных
-                                </NuxtLink> и <NuxtLink target="_blank" to="/info/privacy">
-                                    политикой конфиденциальности
-                                </NuxtLink>
-                            </p>
+                            <VFormPolicy />
                         </template>
                     </VFormCheckbox>
                     <UiButton :disabled="!isAgreementAccepted" wide :is-loading="isFormSending" @click="handleSubmit">

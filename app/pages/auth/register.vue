@@ -120,13 +120,7 @@ const {
                     @update:checked="isAgreementAccepted = $event"
                 >
                     <template #text>
-                        <p class="auth__policy">
-                            Подтвеждаю <NuxtLink target="_blank" to="/info/processing">
-                                согласие с обработкой моих персональных данных
-                            </NuxtLink> и <NuxtLink target="_blank" to="/info/privacy">
-                                политикой конфиденциальности
-                            </NuxtLink>
-                        </p>
+                        <VFormPolicy />
                     </template>
                 </VFormCheckbox>
                 <UiButton wide :is-loading="isLoading" type="submit" :disabled="!isAgreementAccepted" @click="submitForm">

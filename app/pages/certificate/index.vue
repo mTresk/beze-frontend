@@ -21,6 +21,8 @@ const selectedOption = ref<any>(null)
 
 const isInitialized = ref(false)
 
+const isAgreementAccepted = ref(false)
+
 const certificateOptions = computed(() => {
     return certificates.value?.map(cert => ({
         id: cert.id,
@@ -219,21 +221,22 @@ const seoDescription = 'Купить подарочный сертификат �
                             </div>
                         </div>
                         <div class="certificate__footer">
+                            <VFormCheckbox
+                                :checked="isAgreementAccepted"
+                                @update:checked="isAgreementAccepted = $event"
+                            >
+                                <template #text>
+                                    <VFormPolicy />
+                                </template>
+                            </VFormCheckbox>
                             <UiButton
+                                :disabled="form?.delivery_type === 'russia' && !form?.delivery_cost || !isAgreementAccepted"
                                 :is-loading="isFormSending"
                                 class="certificate__button"
-                                :disabled="form?.delivery_type === 'russia' && !form?.delivery_cost"
                                 @click="handleSubmit"
                             >
                                 Оформить заказ
                             </UiButton>
-                            <p class="certificate__policy">
-                                Нажимая на кнопку «Оформить заказ», я принимаю условия <NuxtLink target="_blank" to="/info/offer">
-                                    публичной оферты
-                                </NuxtLink> и <NuxtLink target="_blank" to="/info/privacy">
-                                    политики конфиденциальности
-                                </NuxtLink>
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -410,29 +413,6 @@ const seoDescription = 'Купить подарочный сертификат �
     // .certificate__button
     &__button {
         width: 100%;
-    }
-
-    // .certificate__policy
-    &__policy {
-        font-size: rem(14);
-        line-height: 140%;
-
-        a {
-            text-decoration: underline;
-            text-decoration-thickness: 10%;
-            text-decoration-style: dotted;
-            transition: color 0.3s ease-in-out;
-
-            @media (any-hover: hover) {
-                &:hover {
-                    color: $accentColor;
-                }
-            }
-        }
-
-        @media (max-width: $tablet) {
-            text-align: center;
-        }
     }
 }
 </style>

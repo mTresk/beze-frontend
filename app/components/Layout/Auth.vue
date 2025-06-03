@@ -11,13 +11,7 @@
                     <slot name="body" />
                 </div>
                 <div v-if="$slots.footer" class="auth__footer">
-                    <slot name="footer">
-                        <div class="auth__policy">
-                            Нажимая на кнопку, вы соглашаетесь с условиями по обработке персональных данных, согласно <NuxtLink to="/info/privacy">
-                                политики конфиденциальности
-                            </NuxtLink>
-                        </div>
-                    </slot>
+                    <slot name="footer" />
                 </div>
             </div>
         </section>
@@ -69,25 +63,6 @@
     // .auth__link
     &__link {
         text-align: center;
-    }
-
-    // .auth__policy
-    &__policy {
-        font-size: rem(14);
-        line-height: 140%;
-
-        a {
-            text-decoration: underline;
-            text-decoration-thickness: 10%;
-            text-decoration-style: dotted;
-            transition: color 0.3s ease-in-out;
-
-            @media (any-hover: hover) {
-                &:hover {
-                    color: $accentColor;
-                }
-            }
-        }
     }
 }
 </style>
