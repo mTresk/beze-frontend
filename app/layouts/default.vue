@@ -327,7 +327,7 @@ body {
 
 .search-enter-active,
 .search-leave-active {
-    transition: opacity 0.4s ease;
+    transition: all 0.5s ease;
 }
 
 .search-enter-from,
