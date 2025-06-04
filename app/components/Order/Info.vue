@@ -111,13 +111,11 @@ function getBadgeVariant(status: string) {
         }
     }
 
-    // .personal-order__info
     &__info {
         display: grid;
         gap: rem(10);
     }
 
-    // .personal-order__value
     &__value {
         display: flex;
         gap: rem(6);
@@ -131,7 +129,6 @@ function getBadgeVariant(status: string) {
         }
     }
 
-    // .personal-order__items
     &__items {
         display: grid;
 

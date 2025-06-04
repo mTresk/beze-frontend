@@ -263,7 +263,6 @@ const seoDescription = 'Купить подарочный сертификат �
 
 <style lang="scss" scoped>
 .certificate {
-    // .certificate__body
     &__body {
         position: relative;
         display: flex;
@@ -283,12 +282,10 @@ const seoDescription = 'Купить подарочный сертификат �
         }
     }
 
-    // .certificate__wrapper
     &__wrapper {
         flex: 0 1 rem(1000);
     }
 
-    // .certificate__item
     &__item {
         display: flex;
         gap: rem(20);
@@ -299,17 +296,14 @@ const seoDescription = 'Купить подарочный сертификат �
         border-bottom: 1px solid rgb(54 54 54 / 10%);
     }
 
-    // .certificate__login
     &__login {
         margin-bottom: rem(20);
     }
 
-    // .certificate__form
     &__form {
         position: relative;
     }
 
-    // .certificate__checkout
     &__checkout {
         position: sticky;
         top: rem(100);
@@ -322,13 +316,11 @@ const seoDescription = 'Купить подарочный сертификат �
         }
     }
 
-    // .certificate__links
     &__links {
         display: grid;
         gap: rem(16);
     }
 
-    // .certificate__link
     &__link {
         font-size: 16px;
         line-height: 130%;
@@ -337,7 +329,6 @@ const seoDescription = 'Купить подарочный сертификат �
         text-decoration-style: dotted;
     }
 
-    // .certificate__caution
     &__caution {
         display: flex;
         gap: rem(8);
@@ -363,13 +354,11 @@ const seoDescription = 'Купить подарочный сертификат �
         }
     }
 
-    // .certificate__total
     &__total {
         display: grid;
         gap: rem(10);
     }
 
-    // .certificate__line
     &__line {
         display: flex;
         gap: rem(20);
@@ -377,40 +366,34 @@ const seoDescription = 'Купить подарочный сертификат �
         justify-content: space-between;
     }
 
-    // .certificate__key
     &__key {
         font-size: rem(16);
         line-height: 140%;
         text-transform: uppercase;
     }
 
-    // .certificate__value
     &__value {
         font-size: rem(16);
         line-height: 140%;
         text-align: right;
 
-        // .certificate__value--lg
         &--lg {
             font-size: rem(28);
             font-weight: 500;
         }
     }
 
-    // .certificate__note
     &__note {
         font-size: rem(14);
         line-height: 130%;
         color: $accentColor;
     }
 
-    // .certificate__footer
     &__footer {
         display: grid;
         gap: rem(10);
     }
 
-    // .certificate__button
     &__button {
         width: 100%;
     }

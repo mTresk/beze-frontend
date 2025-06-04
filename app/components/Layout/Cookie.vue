@@ -55,7 +55,6 @@ onMounted(() => {
         max-width: none;
     }
 
-    // .cookie__content
     &__content {
         display: grid;
         gap: rem(10);
@@ -65,7 +64,6 @@ onMounted(() => {
         }
     }
 
-    // .cookie__text
     &__text {
         line-height: 140%;
 

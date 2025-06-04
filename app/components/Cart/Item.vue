@@ -149,14 +149,12 @@ watch(() => quantity.value, handleUpdateCartValues)
         }
     }
 
-    // .cart-item__info
     &__info {
         display: flex;
         gap: rem(16);
         align-items: flex-start;
     }
 
-    // .cart-item__image
     &__image {
         position: relative;
         display: block;
@@ -170,7 +168,6 @@ watch(() => quantity.value, handleUpdateCartValues)
         }
     }
 
-    // .cart-item__block
     &__block {
         display: grid;
         gap: rem(2);
@@ -181,7 +178,6 @@ watch(() => quantity.value, handleUpdateCartValues)
         }
     }
 
-    // .cart-item__sku
     &__sku {
         line-height: 140%;
         color: rgb(54 54 54 / 50%);
@@ -189,14 +185,12 @@ watch(() => quantity.value, handleUpdateCartValues)
         @include adaptive-value('font-size', 14, 12);
     }
 
-    // .cart-item__title
     &__title {
         line-height: 140%;
 
         @include adaptive-value('font-size', 18, 16);
     }
 
-    // .cart-item__color
     &__color {
         display: flex;
         gap: rem(8);
@@ -207,7 +201,6 @@ watch(() => quantity.value, handleUpdateCartValues)
         white-space: nowrap;
     }
 
-    // .cart-item__icon
     &__icon {
         flex-shrink: 0;
         border: 1px solid $lightColor;
@@ -217,7 +210,6 @@ watch(() => quantity.value, handleUpdateCartValues)
         @include adaptive-value('height', 20, 16);
     }
 
-    // .cart-item__size
     &__size {
         display: flex;
         gap: rem(5);
@@ -232,7 +224,6 @@ watch(() => quantity.value, handleUpdateCartValues)
         }
     }
 
-    // .cart-item__wrapper
     &__wrapper {
         display: flex;
         align-items: center;
@@ -241,7 +232,6 @@ watch(() => quantity.value, handleUpdateCartValues)
         @include adaptive-value('gap', 20, 10);
     }
 
-    // .cart-item__price
     &__price {
         line-height: 140%;
         white-space: nowrap;
@@ -249,7 +239,6 @@ watch(() => quantity.value, handleUpdateCartValues)
         @include adaptive-value('font-size', 18, 16);
     }
 
-    // .cart-item__remove
     &__remove {
         display: flex;
         align-items: center;

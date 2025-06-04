@@ -83,3 +83,52 @@ useSwiper(containerRef, {
         </div>
     </div>
 </template>
+
+<style lang="scss" scoped>
+.review {
+    position: relative;
+    height: auto;
+    opacity: 0.4;
+    transition: opacity 0.3s ease-in-out;
+
+    &::before {
+        position: absolute;
+        bottom: rem(-20);
+        left: 50%;
+        z-index: -1;
+        width: 80%;
+        height: 20%;
+        content: '';
+        background: rgb(46 46 46 / 10%);
+        border-radius: rem(10);
+        filter: blur(50px);
+        transform: translateX(-50%) translateZ(0);
+    }
+
+    &.swiper-slide-visible {
+        opacity: 1;
+    }
+
+    &__content {
+        position: relative;
+        height: 100%;
+        padding: rem(20);
+        background: rgb(46 46 46 / 16%);
+        background-color: $whiteColor;
+        border: 1px solid $lightColor;
+        border-radius: rem(4);
+    }
+
+    &__image {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        aspect-ratio: 370 / 500;
+
+        img {
+            max-height: 100%;
+        }
+    }
+}
+</style>

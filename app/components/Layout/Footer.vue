@@ -135,7 +135,6 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
         margin-bottom: rem(65);
     }
 
-    // .footer__body
     &__body {
         display: grid;
         grid-template-columns: auto auto;
@@ -152,27 +151,23 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
         }
     }
 
-    // .footer__info
     &__info {
         display: grid;
         gap: rem(20);
     }
 
-    // .footer__logo
     &__logo {
         img {
             @include adaptive-value('max-width', 320, 200);
         }
     }
 
-    // .footer__copyright
     &__copyright {
         font-size: rem(16);
         line-height: 140%;
         text-align: center;
     }
 
-    // .footer__blocks
     &__blocks {
         display: grid;
         grid-template-columns: repeat(3, minmax(auto, rem(220)));
@@ -185,7 +180,6 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
         }
     }
 
-    // .footer__block
     &__block {
         display: grid;
         gap: rem(10);
@@ -198,7 +192,6 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
         }
     }
 
-    // .footer__label
     &__label {
         font-size: rem(11);
         font-weight: 500;
@@ -207,19 +200,16 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
         text-transform: uppercase;
     }
 
-    // .footer__contacts
     &__contacts {
         display: grid;
         gap: rem(10);
     }
 
-    // .footer__address
     &__address {
         font-size: rem(16);
         line-height: 140%;
     }
 
-    // .footer__email
     &__email {
         font-size: rem(16);
         line-height: 140%;
@@ -232,7 +222,6 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
         }
     }
 
-    // .footer__phone
     &__phone {
         font-size: rem(18);
         font-weight: 500;
@@ -246,7 +235,6 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
         }
     }
 
-    // .footer__socials
     &__socials {
         display: flex;
         gap: rem(6);
@@ -257,7 +245,6 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
         }
     }
 
-    // .footer__soicial
     &__soicial {
         transition: transform 0.3s ease-in-out;
 
@@ -268,7 +255,6 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
         }
     }
 
-    // .footer__bottom
     &__bottom {
         display: flex;
         align-items: center;
@@ -284,7 +270,6 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
         }
     }
 
-    // .footer__links
     &__links {
         display: flex;
         align-items: center;
@@ -296,13 +281,11 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
         }
     }
 
-    // .footer__link
     &__link {
         font-size: rem(14);
         line-height: 140%;
     }
 
-    // .footer__developer
     &__developer {
         display: flex;
         gap: rem(4);
@@ -333,13 +316,11 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
 }
 
 .footer-menu {
-    // .footer-menu__list
     &__list {
         display: grid;
         gap: rem(10);
     }
 
-    // .footer-menu__link
     &__link {
         line-height: 140%;
         transition: color 0.3s ease-in-out;

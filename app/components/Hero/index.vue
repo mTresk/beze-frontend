@@ -66,7 +66,6 @@ useSwiper(containerRef, {
         min-height: calc(100svh - rem(65));
     }
 
-    // .hero__slider
     &__slider {
         position: absolute;
         inset: 0;
@@ -74,7 +73,6 @@ useSwiper(containerRef, {
         height: 100%;
     }
 
-    // .hero__slide
     &__slide {
         position: relative;
         display: block;
@@ -132,7 +130,6 @@ useSwiper(containerRef, {
         }
     }
 
-    // .hero__content
     &__content {
         position: relative;
         z-index: 10;
@@ -141,7 +138,6 @@ useSwiper(containerRef, {
         @include adaptive-value('padding-block', 300, 100);
     }
 
-    // .hero__body
     &__body {
         display: grid;
         justify-items: center;
@@ -149,7 +145,6 @@ useSwiper(containerRef, {
         @include adaptive-value('gap', 50, 26);
     }
 
-    // .hero__title
     &__title {
         font-family: 'Quincy CF', sans-serif;
         line-height: 150%;

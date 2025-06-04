@@ -61,7 +61,6 @@ const seoDescription = 'Одежда, создающая особенное на
 
 <style lang="scss" scoped>
 .about-page {
-    // .about-page__hero
     &__hero {
         position: relative;
         min-height: 100dvh;
@@ -80,12 +79,10 @@ const seoDescription = 'Одежда, создающая особенное на
         }
     }
 
-    // .about-page__video
     &__video {
         @include image;
     }
 
-    // .about-page__words
     &__words {
         position: absolute;
         bottom: rem(50);
@@ -98,7 +95,6 @@ const seoDescription = 'Одежда, создающая особенное на
         @include adaptive-value('bottom', 50, 20);
     }
 
-    // .about-page__body
     &__body {
         display: flex;
         align-items: center;
@@ -110,14 +106,12 @@ const seoDescription = 'Одежда, создающая особенное на
         }
     }
 
-    // .about-page__content
     &__content {
         display: grid;
         flex: 0 1 rem(500);
         gap: rem(15);
     }
 
-    // .about-page__title
     &__title {
         font-family: 'Quincy CF', sans-serif;
         line-height: 120%;
@@ -126,7 +120,6 @@ const seoDescription = 'Одежда, создающая особенное на
         @include adaptive-value('font-size', 100, 50);
     }
 
-    // .about-page__text
     &__text {
         display: grid;
 
@@ -139,7 +132,6 @@ const seoDescription = 'Одежда, создающая особенное на
         }
     }
 
-    // .about-page__images
     &__images {
         display: grid;
         flex: 0 1 rem(900);
@@ -148,7 +140,6 @@ const seoDescription = 'Одежда, создающая особенное на
         @include adaptive-value('gap', 20, 5);
     }
 
-    // .about-page__image
     &__image {
         position: relative;
         aspect-ratio: 285 / 285;

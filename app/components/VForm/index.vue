@@ -21,7 +21,6 @@
         }
     }
 
-    // .form__body
     &__body {
         display: grid;
 

@@ -115,7 +115,6 @@ const cartCount = computed(() => cartItems.value?.length || 0)
         display: flex;
     }
 
-    // .navigation__list
     &__list {
         display: flex;
         gap: rem(20);
@@ -124,7 +123,6 @@ const cartCount = computed(() => cartItems.value?.length || 0)
         width: 100%;
     }
 
-    // .navigation__link
     &__link {
         position: relative;
         display: grid;
@@ -132,7 +130,6 @@ const cartCount = computed(() => cartItems.value?.length || 0)
         font-size: rem(14);
         line-height: 140%;
 
-        // .navigation__link-count
         &-count {
             position: absolute;
             top: -4px;

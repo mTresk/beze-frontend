@@ -90,32 +90,27 @@ await suspense()
 <style lang="scss" scoped>
 // ========================================================================================================================================================
 .directions {
-    // .directions__body
     &__body {
         position: relative;
         overflow: visible;
     }
 
-    // .directions__navigation
     &__navigation {
         @media (max-width: $tablet) {
             display: none;
         }
     }
 
-    // .directions__button
     &__button {
         position: absolute;
         top: 50%;
         z-index: 10;
         transform: translateY(-50%);
 
-        // .directions__button--prev
         &--prev {
             left: -30px;
         }
 
-        // .directions__button--next
         &--next {
             right: -30px;
         }
@@ -179,21 +174,18 @@ await suspense()
         }
     }
 
-    // .direction-card__wrapper
     &__wrapper {
         position: relative;
         display: block;
         height: 100%;
     }
 
-    // .direction-card__image
     &__image {
         transition: transform 0.3s ease-in-out;
 
         @include image;
     }
 
-    // .direction-card__content
     &__content {
         position: relative;
         z-index: 5;
@@ -206,12 +198,10 @@ await suspense()
         @include adaptive-value('padding-inline', 32, 20);
     }
 
-    // .direction-card__header
     &__header {
         display: grid;
     }
 
-    // .direction-card__label
     &__label {
         line-height: 125%;
         color: rgb(255 255 255 / 80%);
@@ -220,12 +210,10 @@ await suspense()
         @include adaptive-value('font-size', 12, 10);
     }
 
-    // .direction-card__title
     &__title {
         color: $whiteColor;
     }
 
-    // .direction-card__description
     &__description {
         align-self: flex-end;
         max-width: rem(480);

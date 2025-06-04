@@ -66,7 +66,6 @@ useSwiper(containerRef, {
 .gallery {
     position: relative;
 
-    // .gallery__item
     &__item {
         width: rem(258);
         aspect-ratio: 1;
@@ -74,7 +73,6 @@ useSwiper(containerRef, {
         border-radius: rem(4);
     }
 
-    // .gallery__image
     &__image {
         @include image;
     }

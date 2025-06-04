@@ -20,17 +20,14 @@
 
     @include adaptive-value('gap', 25, 10);
 
-    // .page-empty__icon
     &__icon {
         color: $extraColor;
     }
 
-    // .page-empty__title
     &__title {
         text-align: center;
     }
 
-    // .page-empty__text
     &__text {
         max-width: rem(300);
         line-height: 140%;

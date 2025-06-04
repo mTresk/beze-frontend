@@ -63,7 +63,6 @@ onBeforeUnmount(() => {
 
 <style lang="scss" scoped>
 .certificate {
-    // .certificate__body
     &__body {
         position: relative;
         display: flex;
@@ -76,7 +75,6 @@ onBeforeUnmount(() => {
         }
     }
 
-    // .certificate__wrapper
     &__wrapper {
         position: relative;
         z-index: 5;
@@ -86,19 +84,16 @@ onBeforeUnmount(() => {
         @include adaptive-value('gap', 32, 20);
     }
 
-    // .certificate__content
     &__content {
         display: grid;
         gap: rem(20);
     }
 
-    // .certificate__list
     &__list {
         display: grid;
         gap: rem(20);
     }
 
-    // .certificate__item
     &__item {
         position: relative;
         padding-left: rem(18);
@@ -122,7 +117,6 @@ onBeforeUnmount(() => {
         }
     }
 
-    // .certificate__image
     &__image {
         position: relative;
         flex: 0 1 rem(520);

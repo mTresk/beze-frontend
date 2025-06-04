@@ -209,7 +209,6 @@ const seoDescription = 'Корзина интернет-магазина Beze St
 
 <style lang="scss">
 .cart {
-    // .cart__body
     &__body {
         position: relative;
         display: flex;
@@ -229,12 +228,10 @@ const seoDescription = 'Корзина интернет-магазина Beze St
         }
     }
 
-    // .cart__wrapper
     &__wrapper {
         flex: 0 1 rem(1000);
     }
 
-    // .cart__table
     &__table {
         display: grid;
         border-bottom: 1px solid rgb(54 54 54 / 10%);
@@ -244,17 +241,14 @@ const seoDescription = 'Корзина интернет-магазина Beze St
         @include adaptive-value('gap', 40, 20);
     }
 
-    // .cart__login
     &__login {
         margin-bottom: rem(20);
     }
 
-    // .cart__form
     &__form {
         position: relative;
     }
 
-    // .cart__checkout
     &__checkout {
         position: sticky;
         top: rem(100);
@@ -267,14 +261,12 @@ const seoDescription = 'Корзина интернет-магазина Beze St
         }
     }
 
-    // .cart__links
     &__links {
         display: grid;
 
         @include adaptive-value('gap', 16, 10);
     }
 
-    // .cart__link
     &__link {
         line-height: 130%;
         text-decoration: underline;
@@ -284,7 +276,6 @@ const seoDescription = 'Корзина интернет-магазина Beze St
         @include adaptive-value('font-size', 16, 14);
     }
 
-    // .cart__caution
     &__caution {
         display: flex;
         gap: rem(8);
@@ -310,59 +301,50 @@ const seoDescription = 'Корзина интернет-магазина Beze St
         }
     }
 
-    // .cart__total
     &__total {
         display: grid;
         gap: rem(10);
     }
 
-    // .cart__line
     &__line {
         display: flex;
         gap: rem(20);
         align-items: center;
         justify-content: space-between;
 
-        // .cart__line--note
         &--note {
             justify-content: flex-end;
         }
     }
 
-    // .cart__key
     &__key {
         font-size: 16px;
         line-height: 140%;
         text-transform: uppercase;
     }
 
-    // .cart__value
     &__value {
         font-size: 16px;
         line-height: 140%;
         text-align: right;
 
-        // .cart__value--lg
         &--lg {
             font-size: 28px;
             font-weight: 500;
         }
     }
 
-    // .cart__note
     &__note {
         font-size: 14px;
         line-height: 130%;
         color: $accentColor;
     }
 
-    // .cart__footer
     &__footer {
         display: grid;
         gap: rem(10);
     }
 
-    // .cart__button
     &__button {
         width: 100%;
     }

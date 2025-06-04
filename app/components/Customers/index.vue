@@ -171,7 +171,6 @@ onBeforeUnmount(() => {
         @include adaptive-value('padding-block', 100, 60);
     }
 
-    // .customers__background
     &__background {
         position: absolute;
         inset: 0;
@@ -186,14 +185,12 @@ onBeforeUnmount(() => {
         }
     }
 
-    // .customers__video
     &__video {
         filter: grayscale(1);
 
         @include image;
     }
 
-    // .customers__title
     &__title {
         position: relative;
         z-index: 5;
@@ -205,7 +202,6 @@ onBeforeUnmount(() => {
         }
     }
 
-    // .customers__body
     &__body {
         position: relative;
         z-index: 5;
@@ -247,13 +243,11 @@ onBeforeUnmount(() => {
         flex: 0 0 rem(300);
     }
 
-    // .customers-card__content
     &__content {
         display: grid;
         gap: rem(16);
     }
 
-    // .customers-card__title
     &__title {
         font-family: 'Quincy CF', sans-serif;
         line-height: 120%;
@@ -262,7 +256,6 @@ onBeforeUnmount(() => {
         @include adaptive-value('font-size', 24, 20);
     }
 
-    // .customers-card__text
     &__text {
         line-height: 140%;
 

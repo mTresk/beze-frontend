@@ -81,7 +81,6 @@ onBeforeUnmount(() => {
         transform: none;
     }
 
-    // .advantages__body
     &__body {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -94,7 +93,6 @@ onBeforeUnmount(() => {
         }
     }
 
-    // .advantages__item
     &__item {
         position: relative;
         display: flex;
@@ -126,7 +124,6 @@ onBeforeUnmount(() => {
         }
     }
 
-    // .advantages__icon
     &__icon {
         display: flex;
         flex-shrink: 0;
@@ -138,7 +135,6 @@ onBeforeUnmount(() => {
         @include adaptive-value('height', 80, 40);
     }
 
-    // .advantages__text
     &__text {
         line-height: 125%;
 

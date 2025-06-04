@@ -66,7 +66,6 @@ function closeOptions() {
 .select {
     position: relative;
 
-    // .select__selected
     &__selected {
         display: flex;
         gap: rem(30);
@@ -103,7 +102,6 @@ function closeOptions() {
         }
     }
 
-    // .select__options
     &__options {
         position: absolute;
         top: calc(100% + 4px);
@@ -118,7 +116,6 @@ function closeOptions() {
         @include adaptive-value('font-size', 16, 14);
     }
 
-    // .select__option
     &__option {
         padding: rem(5) rem(16);
         font-size: rem(16);
@@ -143,7 +140,6 @@ function closeOptions() {
         }
     }
 
-    // .select__icon
     &__icon {
         flex-shrink: 0;
     }

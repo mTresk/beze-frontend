@@ -62,12 +62,10 @@ await suspense()
 
 <style lang="scss" scoped>
 .bestsellers {
-    // .bestsellers__inner
     &__inner {
         position: relative;
     }
 
-    // .bestsellers__title
     &__title {
         @include adaptive-value('margin-bottom', 40, 18);
     }
@@ -78,7 +76,6 @@ await suspense()
         @include adaptive-value('gap', 45, 30);
     }
 
-    // .bestsellers__body
     &__body {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -91,7 +88,6 @@ await suspense()
         }
     }
 
-    // .bestsellers__footer
     &__footer {
         display: flex;
         align-items: center;

@@ -224,7 +224,6 @@ watch(selectedSort, async (newSort) => {
 
 <style lang="scss" scoped>
 .catalog {
-    // .catalog__filters
     &__filters {
         position: relative;
         z-index: 20;
@@ -243,7 +242,6 @@ watch(selectedSort, async (newSort) => {
         }
     }
 
-    // .catalog__categories
     &__categories {
         display: flex;
         flex-wrap: wrap;
@@ -251,7 +249,6 @@ watch(selectedSort, async (newSort) => {
         @include adaptive-value('gap', 20, 10);
     }
 
-    // .catalog__category
     &__category {
         line-height: 120%;
         white-space: nowrap;
@@ -275,20 +272,17 @@ watch(selectedSort, async (newSort) => {
         }
     }
 
-    // .catalog__sort
     &__sort {
         align-self: flex-start;
         min-width: rem(200);
     }
 
-    // .catalog__wrapper
     &__wrapper {
         position: relative;
         display: grid;
         gap: rem(40);
     }
 
-    // .catalog__body
     &__body {
         display: grid;
         grid-template-columns: repeat(4, 1fr);

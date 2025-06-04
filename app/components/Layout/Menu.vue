@@ -160,7 +160,6 @@ function handleLinkClick() {
         }
     }
 
-    // .menu__list
     &__list {
         display: flex;
         gap: rem(40);
@@ -174,7 +173,6 @@ function handleLinkClick() {
         }
     }
 
-    // .menu__item
     &__item {
         position: relative;
 
@@ -202,7 +200,6 @@ function handleLinkClick() {
         }
     }
 
-    // .menu__link
     &__link {
         display: flex;
         gap: rem(8);
@@ -236,7 +233,6 @@ function handleLinkClick() {
         }
     }
 
-    // .menu__sublist
     &__sublist {
         position: absolute;
         top: calc(100% + rem(10));
@@ -286,7 +282,6 @@ function handleLinkClick() {
         }
     }
 
-    // .menu__sublink
     &__sublink {
         font-size: rem(18);
         line-height: 125%;
@@ -304,7 +299,6 @@ function handleLinkClick() {
         }
     }
 
-    // .menu__contacts
     &__contacts {
         display: none;
 
@@ -317,13 +311,11 @@ function handleLinkClick() {
         }
     }
 
-    // .menu__address
     &__address {
         font-size: rem(18);
         line-height: 140%;
     }
 
-    // .menu__email
     &__email {
         font-size: rem(18);
         line-height: 140%;
@@ -334,7 +326,6 @@ function handleLinkClick() {
         text-decoration-skip-ink: none;
     }
 
-    // .menu__phone
     &__phone {
         font-size: rem(18);
         line-height: 140%;
@@ -345,14 +336,12 @@ function handleLinkClick() {
         text-decoration-skip-ink: none;
     }
 
-    // .menu__socials
     &__socials {
         display: flex;
         gap: rem(8);
         align-items: center;
     }
 
-    // .menu__social
     &__social {
         width: rem(40);
         height: rem(40);

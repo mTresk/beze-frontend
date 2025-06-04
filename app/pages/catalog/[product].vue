@@ -508,7 +508,6 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
         }
     }
 
-    // .product__body
     &__body {
         display: flex;
         align-items: flex-start;
@@ -521,7 +520,6 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
         }
     }
 
-    // .product__images
     &__images {
         display: grid;
         flex: 0 1 rem(920);
@@ -534,7 +532,6 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
         }
     }
 
-    // .product__mobile
     &__mobile {
         position: relative;
         display: none;
@@ -553,7 +550,6 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
         }
     }
 
-    // .product__navigation
     &__navigation {
         position: absolute;
         top: 50%;
@@ -565,7 +561,6 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
         transform: translateY(-50%);
     }
 
-    // .product__button
     &__button {
         position: relative;
         display: flex;
@@ -581,7 +576,6 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
         }
     }
 
-    // .product__image
     &__image,
     .vh--outer,
     &__slide {
@@ -605,7 +599,6 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
         @include image;
     }
 
-    // .product__content
     &__content {
         flex: 0 1 rem(460);
 
@@ -619,14 +612,12 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
         }
     }
 
-    // .product__info
     &__info {
         display: grid;
         gap: rem(7);
         margin-bottom: rem(20);
     }
 
-    // .product__sku
     &__sku {
         line-height: 140%;
         color: rgb(54 54 54 / 50%);
@@ -634,14 +625,12 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
         @include adaptive-value('font-size', 16, 14);
     }
 
-    // .product__title
     &__title {
         line-height: 140%;
 
         @include adaptive-value('font-size', 28, 20);
     }
 
-    // .product__price
     &__price {
         font-weight: 500;
         line-height: 125%;
@@ -649,12 +638,10 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
         @include adaptive-value('font-size', 28, 20);
     }
 
-    // .product__colors
     &__colors {
         margin-bottom: rem(20);
     }
 
-    // .product__size
     &__size {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -676,14 +663,12 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
         }
     }
 
-    // .product__actions
     &__actions {
         display: flex;
 
         @include adaptive-value('gap', 20, 10);
     }
 
-    // .product__description
     &__description {
         line-height: 140%;
 
@@ -696,14 +681,12 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
     display: grid;
     gap: rem(7);
 
-    // .product-colors__options
     &__options {
         display: flex;
         gap: rem(8);
         align-items: center;
     }
 
-    // .product-colors__item
     &__item {
         position: relative;
         cursor: pointer;
@@ -730,12 +713,10 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
         }
     }
 
-    // .product-colors__input
     &__input {
         appearance: none;
     }
 
-    // .product-colors__label
     &__label {
         line-height: 140%;
         color: rgb(54 54 54 / 50%);

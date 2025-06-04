@@ -69,7 +69,6 @@ const seoDescription = 'Личный кабинет интернет-магаз�
 
 <style lang="scss" scoped>
 .personal {
-    // .personal__header
     &__header {
         display: flex;
         align-items: center;
@@ -79,14 +78,12 @@ const seoDescription = 'Личный кабинет интернет-магаз�
         @include adaptive-value('margin-bottom', 30, 20);
     }
 
-    // .personal__body
     &__body {
         display: grid;
 
         @include adaptive-value('gap', 30, 20);
     }
 
-    // .personal__navigation
     &__navigation {
         display: flex;
         gap: rem(20);
@@ -94,7 +91,6 @@ const seoDescription = 'Личный кабинет интернет-магаз�
         border-bottom: 1px solid rgb(54 54 54 / 10%);
     }
 
-    // .personal__button
     &__button {
         line-height: 120%;
         white-space: nowrap;

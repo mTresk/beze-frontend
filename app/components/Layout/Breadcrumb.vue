@@ -45,7 +45,6 @@ const breadcrumbs = computed<IBreadcrumbItem[]>(() => [HOME_CRUMB, ...props.item
     @include adaptive-value('margin-bottom', 30, 16);
     @include adaptive-value('margin-top', 130, 80);
 
-    // .breadcrumb__item
     &__item {
         position: relative;
         line-height: 140%;
@@ -70,7 +69,6 @@ const breadcrumbs = computed<IBreadcrumbItem[]>(() => [HOME_CRUMB, ...props.item
         }
     }
 
-    // .breadcrumb__link
     &__link {
         transition: color 0.3s ease;
 

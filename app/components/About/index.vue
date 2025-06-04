@@ -85,7 +85,6 @@ onBeforeUnmount(() => {
 
     @include adaptive-value('padding-bottom', 80, 0);
 
-    // .about__body
     &__body {
         display: flex;
         align-items: flex-end;
@@ -101,7 +100,6 @@ onBeforeUnmount(() => {
         }
     }
 
-    // .about__wrapper
     &__wrapper {
         position: relative;
         flex: 0 1 rem(520);
@@ -125,25 +123,21 @@ onBeforeUnmount(() => {
         }
     }
 
-    // .about__content
     &__content {
         display: grid;
 
         @include adaptive-value('gap', 20, 10);
     }
 
-    // .about__title
     &__title {
         position: relative;
     }
 
-    // .about__list
     &__list {
         display: grid;
         gap: rem(20);
     }
 
-    // .about__item
     &__item {
         position: relative;
         padding-left: rem(18);
@@ -167,7 +161,6 @@ onBeforeUnmount(() => {
         }
     }
 
-    // .about__small-image
     &__small-image {
         position: absolute;
         left: 0;
@@ -201,7 +194,6 @@ onBeforeUnmount(() => {
         }
     }
 
-    // .about__image
     &__image {
         position: relative;
         z-index: 10;

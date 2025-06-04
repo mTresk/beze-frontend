@@ -220,7 +220,6 @@ useSchemaOrg([
 
 <style lang="scss" scoped>
 .contacts {
-    // .contacts__body
     &__body {
         display: flex;
         justify-content: space-between;
@@ -233,7 +232,6 @@ useSchemaOrg([
         }
     }
 
-    // .contacts__wrapper
     &__wrapper {
         display: grid;
         flex: 0 1 rem(1000);
@@ -241,7 +239,6 @@ useSchemaOrg([
         @include adaptive-value('gap', 40, 30);
     }
 
-    // .contacts__blocks
     &__blocks {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -250,13 +247,11 @@ useSchemaOrg([
         @include adaptive-value('gap', 20, 16);
     }
 
-    // .contacts__block
     &__block {
         display: grid;
         gap: rem(2);
     }
 
-    // .contacts__label
     &__label {
         line-height: 140%;
         color: rgb(54 54 54 / 50%);
@@ -264,7 +259,6 @@ useSchemaOrg([
         @include adaptive-value('font-size', 14, 12);
     }
 
-    // .contacts__value
     &__value {
         line-height: 140%;
         transition: color 0.3s ease-in-out;
@@ -280,14 +274,12 @@ useSchemaOrg([
         }
     }
 
-    // .contacts__socials
     &__socials {
         display: flex;
         gap: rem(6);
         align-items: center;
     }
 
-    // .contacts__social
     &__social {
         transition: transform 0.3s ease-in-out;
 
@@ -298,7 +290,6 @@ useSchemaOrg([
         }
     }
 
-    // .contacts__map
     &__map {
         width: 100%;
         height: auto;
@@ -310,7 +301,6 @@ useSchemaOrg([
         }
     }
 
-    // .contacts__form
     &__form {
         flex: 0 1 rem(340);
         min-width: rem(280);
@@ -318,7 +308,6 @@ useSchemaOrg([
 }
 
 .contacts-form {
-    // .contacts-form__label
     &__label {
         margin-bottom: rem(10);
         line-height: 140%;
@@ -328,14 +317,12 @@ useSchemaOrg([
         @include adaptive-value('font-size', 14, 12);
     }
 
-    // .contacts-form__footer
     &__footer {
         display: grid;
         gap: rem(10);
         margin-top: rem(20);
     }
 
-    // .contacts-form__button
     &__button {
         width: 100%;
     }

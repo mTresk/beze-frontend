@@ -39,7 +39,6 @@ const proxyChecked = computed({
         }
     }
 
-    // .checkbox__input
     &__input {
         position: relative;
         display: flex;

@@ -119,43 +119,36 @@ useSwiper(containerRef, {
 
 <style lang="scss" scoped>
 .collections {
-    // .collections__title
     &__title {
         @include adaptive-value('margin-bottom', 40, 18);
     }
 
-    // .collections__body
     &__body {
         position: relative;
         overflow: visible;
     }
 
-    // .collections__slider
     &__slider {
         position: relative;
         overflow: visible;
     }
 
-    // .collections__navigation
     &__navigation {
         @media (max-width: em(1199)) {
             display: none;
         }
     }
 
-    // .collections__button
     &__button {
         position: absolute;
         top: 50%;
         z-index: 10;
         transform: translateY(-50%);
 
-        // .collections__button--prev
         &--prev {
             left: -30px;
         }
 
-        // .collections__button--next
         &--next {
             right: -30px;
         }
@@ -201,14 +194,12 @@ useSwiper(containerRef, {
         }
     }
 
-    // .collection-card__image
     &__image {
         transition: transform 0.3s ease-in-out;
 
         @include image;
     }
 
-    // .collection-card__title
     &__title {
         position: relative;
         z-index: 5;

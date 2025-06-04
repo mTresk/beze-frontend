@@ -58,7 +58,6 @@ defineProps<Props>()
 
 <style lang="scss" scoped>
 .info {
-    // .info__body
     &__body {
         display: flex;
         align-items: flex-start;
@@ -71,12 +70,10 @@ defineProps<Props>()
         }
     }
 
-    // .info__content
     &__content {
         flex: 0 1 rem(880);
     }
 
-    // .info__sidebar
     &__sidebar {
         position: sticky;
         top: rem(100);
@@ -92,7 +89,6 @@ defineProps<Props>()
         display: none;
     }
 
-    // .sidebar__label
     &__label {
         line-height: 140%;
         color: rgb(54 54 54 / 60%);
@@ -101,13 +97,11 @@ defineProps<Props>()
         @include adaptive-value('font-size', 14, 12);
     }
 
-    // .sidebar__list
     &__list {
         display: grid;
         gap: rem(10);
     }
 
-    // .sidebar__link
     &__link {
         display: flex;
         align-items: center;

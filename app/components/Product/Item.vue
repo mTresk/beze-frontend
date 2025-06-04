@@ -219,7 +219,6 @@ useSwiper(containerRef, {
         }
     }
 
-    // .product-card__pagination
     &__pagination {
         position: absolute;
         inset: 0;
@@ -269,7 +268,6 @@ useSwiper(containerRef, {
         }
     }
 
-    // .product-card__header
     &__header {
         position: absolute;
         left: 0;
@@ -289,7 +287,6 @@ useSwiper(containerRef, {
         }
     }
 
-    // .product-card__chips
     &__chips {
         display: flex;
         flex-wrap: wrap;
@@ -297,7 +294,6 @@ useSwiper(containerRef, {
         align-items: center;
     }
 
-    // .product-card__action
     &__action {
         color: $whiteColor;
         transition: color 0.3s ease-in-out;
@@ -314,7 +310,6 @@ useSwiper(containerRef, {
             }
         }
 
-        // .product-card__action--selected
         &--selected {
             color: $redColor;
         }
@@ -326,13 +321,11 @@ useSwiper(containerRef, {
         }
     }
 
-    // .product-card__info
     &__info {
         display: grid;
         gap: rem(6);
     }
 
-    // .product-card__title
     &__title {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -346,7 +339,6 @@ useSwiper(containerRef, {
         }
     }
 
-    // .product-card__line
     &__line {
         display: flex;
         align-items: center;
@@ -354,7 +346,6 @@ useSwiper(containerRef, {
         @include adaptive-value('gap', 16, 10);
     }
 
-    // .product-card__price
     &__price {
         font-weight: 500;
         line-height: 125%;
@@ -366,7 +357,6 @@ useSwiper(containerRef, {
         }
     }
 
-    // .product-card__colors
     &__colors {
         display: flex;
         align-items: center;
@@ -374,7 +364,6 @@ useSwiper(containerRef, {
         @include adaptive-value('gap', 6, 4);
     }
 
-    // .product-card__color
     &__color {
         border: 1px solid $lightColor;
         border-radius: 50%;

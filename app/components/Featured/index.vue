@@ -76,14 +76,12 @@ useSwiper(containerRef, {
         @include adaptive-value('margin-bottom', 40, 20);
     }
 
-    // .featured__title
     &__title {
         line-height: 140%;
 
         @include adaptive-value('font-size', 40, 24);
     }
 
-    // .featured__navigation
     &__navigation {
         display: flex;
         align-items: center;
@@ -91,7 +89,6 @@ useSwiper(containerRef, {
         @include adaptive-value('gap', 10, 8);
     }
 
-    // .featured__body
     &__body {
         position: relative;
     }

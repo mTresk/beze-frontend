@@ -54,7 +54,6 @@ function handleTabClick(tabName: TabType) {
 
 <style lang="scss">
 .reviews {
-    // .reviews__header
     &__header {
         display: grid;
         gap: rem(20);
@@ -62,95 +61,40 @@ function handleTabClick(tabName: TabType) {
         @include adaptive-value('margin-bottom', 40, 20);
     }
 
-    // .reviews__tabs
     &__tabs {
         display: flex;
         gap: rem(10);
         align-items: center;
     }
 
-    // .reviews__tab
     &__tab {
         &--active {
             pointer-events: none;
         }
     }
 
-    // .reviews__body
     &__body {
         position: relative;
     }
 
-    // .reviews__navigation
     &__navigation {
         @media (max-width: $tablet) {
             display: none;
         }
     }
 
-    // .reviews__button
     &__button {
         position: absolute;
         top: 50%;
         z-index: 10;
         transform: translateY(-50%);
 
-        // .reviews__button--prev
         &--prev {
             left: rem(-30);
         }
 
-        // .reviews__button--next
         &--next {
             right: rem(-30);
-        }
-    }
-}
-
-.review {
-    position: relative;
-    height: auto;
-    opacity: 0.4;
-    transition: opacity 0.3s ease-in-out;
-
-    &::before {
-        position: absolute;
-        bottom: rem(-20);
-        left: 50%;
-        z-index: -1;
-        width: 80%;
-        height: 20%;
-        content: '';
-        background: rgb(46 46 46 / 10%);
-        border-radius: rem(10);
-        filter: blur(50px);
-        transform: translateX(-50%) translateZ(0);
-    }
-
-    &.swiper-slide-visible {
-        opacity: 1;
-    }
-
-    &__content {
-        position: relative;
-        height: 100%;
-        padding: rem(20);
-        background: rgb(46 46 46 / 16%);
-        background-color: $whiteColor;
-        border: 1px solid $lightColor;
-        border-radius: rem(4);
-    }
-
-    // .review__image
-    &__image {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        aspect-ratio: 370 / 500;
-
-        img {
-            max-height: 100%;
         }
     }
 }

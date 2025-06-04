@@ -20,7 +20,6 @@
 
 <style lang="scss">
 .auth {
-    // .auth__body
     &__body {
         display: flex;
         flex-direction: column;
@@ -42,7 +41,6 @@
         width: 100%;
     }
 
-    // .auth__footer
     &__footer {
         display: grid;
         gap: rem(10);
@@ -52,7 +50,6 @@
         @include adaptive-value('margin-top', 20, 16);
     }
 
-    // .auth__links
     &__links {
         display: flex;
         gap: rem(20);
@@ -60,7 +57,6 @@
         justify-content: space-between;
     }
 
-    // .auth__link
     &__link {
         text-align: center;
     }

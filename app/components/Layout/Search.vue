@@ -321,7 +321,6 @@ onUnmounted(() => {
         }
     }
 
-    // .search__header
     &__header {
         display: flex;
         align-items: center;
@@ -347,7 +346,6 @@ onUnmounted(() => {
         }
     }
 
-    // .search__close
     &__close {
         display: flex;
         align-items: center;
@@ -360,7 +358,6 @@ onUnmounted(() => {
         }
     }
 
-    // .search__body
     &__body {
         display: flex;
         flex: 1;
@@ -374,7 +371,6 @@ onUnmounted(() => {
         }
     }
 
-    // .search__results
     &__results {
         position: relative;
         display: grid;
@@ -391,7 +387,6 @@ onUnmounted(() => {
         }
     }
 
-    // .search__result
     &__result {
         display: grid;
         grid-template-columns: repeat(6, 1fr);
@@ -415,7 +410,6 @@ onUnmounted(() => {
         }
     }
 
-    // .search__empty
     &__empty {
         display: flex;
         align-items: center;
@@ -424,12 +418,10 @@ onUnmounted(() => {
         width: 100%;
     }
 
-    // .search__button
     &__button {
         height: rem(45);
     }
 
-    // .search__form
     &__form {
         flex-shrink: 0;
 
@@ -448,7 +440,6 @@ onUnmounted(() => {
         margin-bottom: rem(25);
     }
 
-    // .search__field
     &__field {
         display: flex;
         flex: 1;
@@ -489,7 +480,6 @@ onUnmounted(() => {
         }
     }
 
-    // .search__input
     &__input {
         width: 100%;
         font-size: 14px;
@@ -506,7 +496,6 @@ onUnmounted(() => {
         }
     }
 
-    // .search__reset
     &__reset {
         display: flex;
         align-items: center;
@@ -518,7 +507,6 @@ onUnmounted(() => {
         }
     }
 
-    // .search__taps
     &__taps {
         display: flex;
         flex-wrap: wrap;
@@ -529,7 +517,6 @@ onUnmounted(() => {
         @include adaptive-value('padding-bottom', 25, 15);
     }
 
-    // .search__tap
     &__tap {
         padding: rem(5) rem(10);
         font-size: rem(14);
@@ -547,7 +534,6 @@ onUnmounted(() => {
         }
     }
 
-    // .search__history
     &__history {
         display: grid;
         gap: rem(15);
@@ -555,7 +541,6 @@ onUnmounted(() => {
         @include adaptive-value('margin-top', 25, 15);
     }
 
-    // .search__history-label
     &__history-label {
         font-size: rem(12);
         line-height: 120%;
@@ -563,14 +548,12 @@ onUnmounted(() => {
         text-transform: uppercase;
     }
 
-    // .search__history-list
     &__history-list {
         display: grid;
 
         @include adaptive-value('gap', 20, 10);
     }
 
-    // .search__history-item
     &__history-item {
         display: flex;
         gap: rem(20);

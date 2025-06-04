@@ -45,8 +45,7 @@ const seoDescription = 'Успешный заказ в интернет-мага
 <style lang="scss" scoped>
 .success-page {
     &__content {
-        padding-top: rem(100);
-        padding-bottom: rem(100);
+        padding-block: rem(100);
     }
 }
 </style>

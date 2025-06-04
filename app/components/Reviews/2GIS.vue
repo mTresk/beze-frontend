@@ -145,7 +145,6 @@ useSwiper(containerRef, {
         opacity: 1;
     }
 
-    // .testimonial__header
     &__header {
         display: flex;
         align-items: center;
@@ -159,13 +158,11 @@ useSwiper(containerRef, {
         }
     }
 
-    // .testimonial__info
     &__info {
         display: grid;
         gap: rem(2);
     }
 
-    // .testimonial__name
     &__name {
         font-weight: 500;
         line-height: 140%;
@@ -173,7 +170,6 @@ useSwiper(containerRef, {
         @include adaptive-value('font-size', 18, 16);
     }
 
-    // .testimonial__date
     &__date {
         line-height: 140%;
         color: rgb(54 54 54 / 50%);
@@ -181,13 +177,11 @@ useSwiper(containerRef, {
         @include adaptive-value('font-size', 14, 12);
     }
 
-    // .testimonial__rating
     &__rating {
         display: flex;
         align-items: center;
     }
 
-    // .testimonial__star
     &__star {
         height: auto;
         color: #ffb81c;
@@ -199,7 +193,6 @@ useSwiper(containerRef, {
         }
     }
 
-    // .testimonial__text
     &__text {
         position: relative;
         line-height: 140%;

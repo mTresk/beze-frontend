@@ -131,7 +131,6 @@ body {
         animation: backdrop-hide 0.3s ease forwards;
     }
 
-    // .modal__wrapper
     &__wrapper {
         box-sizing: border-box;
         display: flex;
@@ -145,7 +144,6 @@ body {
         @include adaptive-value('padding-inline', 20, 10);
     }
 
-    // .modal__content
     &__content {
         position: relative;
         width: 100%;
@@ -261,26 +259,22 @@ body {
 
     @include adaptive-value('gap', 30, 20);
 
-    // .modal-form__header
     &__header {
         display: grid;
         gap: rem(5);
     }
 
-    // .modal-form__title
     &__title {
         line-height: 125%;
 
         @include adaptive-value('font-size', 38, 28);
     }
 
-    // .modal-form__description
     &__description {
         font-size: rem(16);
         line-height: 140%;
     }
 
-    // .modal-form__footer
     &__footer {
         display: grid;
         gap: rem(10);

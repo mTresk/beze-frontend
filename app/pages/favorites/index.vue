@@ -70,7 +70,6 @@ const seoDescription = 'Здесь лежат желанные товары'
 
 <style lang="scss">
 .favorites {
-    // .favorites__body
     &__body {
         display: grid;
         grid-template-columns: repeat(4, 1fr);

@@ -195,7 +195,6 @@ function toggleMenu() {
         background-color: $extraColor;
     }
 
-    // .header__body
     &__body {
         display: grid;
         grid-template-columns: repeat(3, auto);
@@ -210,7 +209,6 @@ function toggleMenu() {
         }
     }
 
-    // .header__logo
     &__logo {
         position: relative;
         z-index: 10;
@@ -222,7 +220,6 @@ function toggleMenu() {
         }
     }
 
-    // .header__actions
     &__actions {
         display: flex;
         align-items: center;
@@ -234,7 +231,6 @@ function toggleMenu() {
         }
     }
 
-    // .header__search
     &__search {
         display: none;
 
@@ -243,7 +239,6 @@ function toggleMenu() {
         }
     }
 
-    // .header__action
     &__action {
         position: relative;
         display: flex;
@@ -274,7 +269,6 @@ function toggleMenu() {
         }
     }
 
-    // .header__mobile-actions
     &__mobile-actions {
         display: none;
 
@@ -285,7 +279,6 @@ function toggleMenu() {
         }
     }
 
-    // .header__button
     &__button {
         display: none;
 
