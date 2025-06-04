@@ -144,7 +144,7 @@ onBeforeUnmount(() => {
             background: rgb(0 0 0 / 40%);
             border-radius: rem(10);
             filter: blur(50px);
-            transform: translateX(-50%);
+            transform: translateX(-50%) translateZ(0);
         }
 
         @media (max-width: $mobile) {

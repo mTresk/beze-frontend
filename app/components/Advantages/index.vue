@@ -118,7 +118,7 @@ onBeforeUnmount(() => {
             background: rgb(46 46 46 / 16%);
             border-radius: rem(10);
             filter: blur(50px);
-            transform: translateX(-50%);
+            transform: translateX(-50%) translateZ(0);
         }
 
         @media (max-width: $tablet) {

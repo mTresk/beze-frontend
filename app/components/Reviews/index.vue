@@ -124,7 +124,7 @@ function handleTabClick(tabName: TabType) {
         background: rgb(46 46 46 / 10%);
         border-radius: rem(10);
         filter: blur(50px);
-        transform: translateX(-50%);
+        transform: translateX(-50%) translateZ(0);
     }
 
     &.swiper-slide-visible {
@@ -153,5 +153,15 @@ function handleTabClick(tabName: TabType) {
             max-height: 100%;
         }
     }
+}
+
+.ps__rail-y {
+    width: 4px !important;
+    background-color: transparent !important;
+}
+
+.ps__thumb-y {
+    width: 4px !important;
+    background-color: $accentColor !important;
 }
 </style>

@@ -11,6 +11,7 @@ export default defineNuxtConfig({
         '@nuxtjs/sitemap',
         '@vite-pwa/nuxt',
         'nuxt-schema-org',
+        'vue3-perfect-scrollbar/nuxt',
     ],
     app: {
         pageTransition: { name: 'layout', mode: 'out-in' },

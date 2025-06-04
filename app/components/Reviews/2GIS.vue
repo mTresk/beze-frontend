@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ITestimonial } from '@/types/api'
+import 'vue3-perfect-scrollbar/style.css'
 
 const client = useSanctumClient()
 
@@ -87,7 +88,9 @@ useSwiper(containerRef, {
                                     />
                                 </div>
                             </div>
-                            <div class="testimonial__text" v-html="testimonial.text" />
+                            <PerfectScrollbar :options="{ suppressScrollX: true, wheelPropagation: true, wheelSpeed: 0.2 }">
+                                <div class="testimonial__text" v-html="testimonial.text" />
+                            </PerfectScrollbar>
                         </div>
                     </swiper-slide>
                 </swiper-container>
@@ -118,7 +121,7 @@ useSwiper(containerRef, {
         background: rgb(46 46 46 / 10%);
         border-radius: rem(10);
         filter: blur(50px);
-        transform: translateX(-50%);
+        transform: translateX(-50%) translateZ(0);
     }
 
     &__content {
@@ -198,9 +201,11 @@ useSwiper(containerRef, {
 
     // .testimonial__text
     &__text {
+        position: relative;
         line-height: 140%;
 
         @include adaptive-value('font-size', 16, 14);
+        @include adaptive-value('max-height', 180, 140);
     }
 }
 </style>

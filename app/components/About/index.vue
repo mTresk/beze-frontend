@@ -171,6 +171,7 @@ onBeforeUnmount(() => {
     &__small-image {
         position: absolute;
         left: 0;
+        z-index: 10;
 
         @include adaptive-value('width', 200, 120);
         @include adaptive-value('height', 200, 120);
@@ -191,7 +192,7 @@ onBeforeUnmount(() => {
             background: rgb(46 46 46 / 16%);
             border-radius: rem(10);
             filter: blur(50px);
-            transform: translateX(-50%);
+            transform: translateX(-50%) translateZ(0);
         }
 
         @media (max-width: $mobile) {
@@ -203,6 +204,7 @@ onBeforeUnmount(() => {
     // .about__image
     &__image {
         position: relative;
+        z-index: 10;
         flex: 0 1 rem(520);
         aspect-ratio: 527 / 642;
 
@@ -223,7 +225,7 @@ onBeforeUnmount(() => {
             background: rgb(46 46 46 / 16%);
             border-radius: rem(10);
             filter: blur(50px);
-            transform: translateX(-50%);
+            transform: translateX(-50%) translateZ(0);
         }
 
         @media (max-width: $mobile) {
