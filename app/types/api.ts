@@ -228,6 +228,14 @@ export interface IReview {
     images: Partial<IImage>[]
 }
 
+export interface ITestimonial {
+    id: number
+    name: string
+    date: string
+    rating: number
+    text: string
+}
+
 export interface ICertificate {
     id: number
     name: string

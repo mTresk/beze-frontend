@@ -1,101 +1,79 @@
 <script setup lang="ts">
-import type { IReview } from '@/types/api'
+import { Reviews2GIS, ReviewsSocials } from '#components'
 
-const client = useSanctumClient()
+type TabType = 'socials' | '2gis'
 
-const containerRef = ref(null)
+const activeTab = ref<TabType>('2gis')
 
-const fetcher = async () => await client<IReview>(`/api/reviews`)
+const components = {
+    'socials': ReviewsSocials,
+    '2gis': Reviews2GIS,
+} as const
 
-const {
-    data: reviews,
-    suspense,
-    isLoading,
-} = useQuery({
-    queryKey: ['reviews'],
-    queryFn: fetcher,
-})
+const currentComponent = computed(() => components[activeTab.value])
 
-await suspense()
-
-useSwiper(containerRef, {
-    speed: 1200,
-    slidesPerView: 4,
-    spaceBetween: 30,
-    injectStyles: [
-        `.swiper {overflow: visible;}`,
-    ],
-    watchSlidesProgress: true,
-    navigation: {
-        prevEl: '.reviews__button--prev',
-        nextEl: '.reviews__button--next',
-    },
-    breakpoints: {
-        320: {
-            slidesPerView: 1.2,
-            spaceBetween: 10,
-        },
-        480: {
-            slidesPerView: 2.4,
-            spaceBetween: 10,
-        },
-        768: {
-            slidesPerView: 2.4,
-            spaceBetween: 20,
-        },
-        992: {
-            slidesPerView: 3,
-            spaceBetween: 20,
-        },
-        1200: {
-            slidesPerView: 4,
-            spaceBetween: 30,
-        },
-    },
-})
+function handleTabClick(tabName: TabType) {
+    activeTab.value = tabName
+}
 </script>
 
 <template>
     <section class="reviews spacer">
         <div class="reviews__container">
-            <UiTitle class="reviews__title">
-                Отзывы клиентов
-            </UiTitle>
-        </div>
-        <div class="reviews__inner">
-            <div class="reviews__body">
-                <UiSpinner v-if="isLoading" />
-                <ClientOnly v-else>
-                    <swiper-container ref="containerRef" :init="false" class="reviews__slider">
-                        <swiper-slide v-for="(review, index) in reviews?.images" :key="index" class="review">
-                            <div class="review__content">
-                                <div class="review__image">
-                                    <img
-                                        class="gallery__image"
-                                        :src="review.normal"
-                                        :srcset="`${review.normal} 1x, ${review.retina} 2x`"
-                                        alt=""
-                                        loading="lazy"
-                                    >
-                                </div>
-                            </div>
-                        </swiper-slide>
-                    </swiper-container>
-                </ClientOnly>
-                <nav class="reviews__navigation slider-navigation">
-                    <UiSliderButtonPrev class="reviews__button reviews__button--prev" />
-                    <UiSliderButtonNext class="reviews__button reviews__button--next" />
-                </nav>
+            <div class="reviews__header">
+                <UiTitle class="reviews__title">
+                    Отзывы клиентов
+                </UiTitle>
+                <div class="reviews__tabs">
+                    <UiButton
+                        class="reviews__tab"
+                        :class="{ 'reviews__tab--active': activeTab === '2gis' }"
+                        small
+                        :outline="activeTab !== '2gis' ? true : undefined"
+                        tabindex="0"
+                        @click="handleTabClick('2gis')"
+                    >
+                        2ГИС
+                    </UiButton>
+                    <UiButton
+                        class="reviews__tab"
+                        :class="{ 'reviews__tab--active': activeTab === 'socials' }"
+                        small
+                        :outline="activeTab !== 'socials' ? true : undefined"
+                        tabindex="0"
+                        @click="handleTabClick('socials')"
+                    >
+                        Соцсети
+                    </UiButton>
+                </div>
             </div>
         </div>
+        <component :is="currentComponent" />
     </section>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .reviews {
-    // .reviews__title
-    &__title {
-        @include adaptive-value('margin-bottom', 40, 18);
+    // .reviews__header
+    &__header {
+        display: grid;
+        gap: rem(20);
+
+        @include adaptive-value('margin-bottom', 40, 20);
+    }
+
+    // .reviews__tabs
+    &__tabs {
+        display: flex;
+        gap: rem(10);
+        align-items: center;
+    }
+
+    // .reviews__tab
+    &__tab {
+        &--active {
+            pointer-events: none;
+        }
     }
 
     // .reviews__body

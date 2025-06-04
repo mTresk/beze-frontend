@@ -223,4 +223,11 @@
                 stroke-linejoin="round" />
         </svg>
     </symbol>
+    <symbol id="star">
+        <svg viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M15.4075 18.375L13.9762 12.225L18.75 8.0875L12.4575 7.55L10 1.75L7.5425 7.54875L1.25 8.0875L6.02375 12.225L4.5925 18.375L10 15.1125L15.4075 18.375Z"
+                fill="currentColor" />
+        </svg>
+    </symbol>
 </svg>
