@@ -324,4 +324,15 @@ body {
     opacity: 0;
     filter: grayscale(1) blur(5px);
 }
+
+.search-enter-active,
+.search-leave-active {
+    transition: opacity 0.4s ease;
+}
+
+.search-enter-from,
+.search-leave-to {
+    opacity: 0;
+    filter: grayscale(1) blur(5px);
+}
 </style>

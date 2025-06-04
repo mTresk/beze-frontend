@@ -24,12 +24,14 @@ const currentProducts = ref<IProduct[]>([])
 
 const currentTitle = ref('Вам может понравиться')
 
+let debounceTimer: NodeJS.Timeout | null = null
+
 const displayedTitle = computed(() => {
     if (isLoading.value) {
         return currentTitle.value
     }
 
-    if (searchQuery.value && !searchResult.value?.products?.length) {
+    if (searchQuery.value && searchResult.value && !searchResult.value?.products?.length) {
         return ''
     }
 
@@ -66,7 +68,7 @@ const displayedProducts = computed(() => {
         return currentProducts.value
     }
 
-    if ((searchQuery.value && !searchResult.value?.products?.length)) {
+    if (searchQuery.value && searchResult.value && !searchResult.value?.products?.length) {
         return []
     }
 
@@ -131,15 +133,21 @@ function updateProductsPerRow() {
 
 watch(
     () => searchQuery.value,
-    (value) => {
-        if (value?.length) {
-            currentProducts.value = displayedProducts.value || featured?.value?.slice(0, productsPerRow.value) || []
-            currentTitle.value = displayedTitle.value
-            handleSearch()
+    (value: string) => {
+        if (debounceTimer) {
+            clearTimeout(debounceTimer)
         }
-        else {
-            searchResult.value = undefined
-        }
+
+        debounceTimer = setTimeout(() => {
+            if (value?.length) {
+                currentProducts.value = displayedProducts.value || featured?.value?.slice(0, productsPerRow.value) || []
+                currentTitle.value = displayedTitle.value
+                handleSearch()
+            }
+            else {
+                searchResult.value = undefined
+            }
+        }, 300)
     },
 )
 
@@ -165,6 +173,9 @@ onUnmounted(() => {
         <div class="search__content">
             <div class="search__inner">
                 <div class="search__header">
+                    <h2 class="search__title">
+                        {{ displayedTitle }}
+                    </h2>
                     <button
                         type="button"
                         class="search__close"
@@ -189,10 +200,10 @@ onUnmounted(() => {
                         </LayoutEmpty>
                     </div>
                     <div v-else class="search__results" :class="{ 'search__results--loading': isLoading }">
-                        <h2 class="search__title">
+                        <UiSpinner v-if="isLoading" />
+                        <h2 class="search__title search__title--mobile">
                             {{ displayedTitle }}
                         </h2>
-                        <UiSpinner v-if="isLoading" />
                         <div class="search__result">
                             <ProductItem
                                 v-for="product in displayedProducts"
@@ -203,7 +214,7 @@ onUnmounted(() => {
                             />
                         </div>
                         <UiButton
-                            v-if="searchResult?.products?.length"
+                            v-if="searchResult?.products?.length && searchResult.products.length > productsPerRow"
                             class="search__button"
                             :href="`/catalog/search?search=${encodeURIComponent(searchQuery)}`"
                             @click="handleClose"
@@ -283,18 +294,30 @@ onUnmounted(() => {
     &__content {
         position: relative;
         z-index: 10;
+        display: grid;
         max-height: 100vh;
         padding-top: rem(30);
         padding-bottom: rem(30);
         overflow-y: auto;
         background-color: $whiteColor;
 
-        @include adaptive-value('min-height', 526, 447, 0, 1920, 767);
+        @include adaptive-value('min-height', 544, 502, 0, 1920, 767);
 
         @media (max-width: $mobile) {
             height: 100%;
             min-height: auto;
             max-height: none;
+        }
+    }
+
+    &__inner {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+
+        @media (max-width: $mobile) {
+            display: block;
         }
     }
 
@@ -310,11 +333,18 @@ onUnmounted(() => {
         }
     }
 
-    // .search__title
     &__title {
         line-height: 140%;
 
         @include adaptive-value('font-size', 24, 20);
+
+        &--mobile {
+            display: none;
+
+            @media (max-width: $mobile) {
+                display: block;
+            }
+        }
     }
 
     // .search__close
@@ -333,6 +363,7 @@ onUnmounted(() => {
     // .search__body
     &__body {
         display: flex;
+        flex: 1;
         align-items: flex-start;
         justify-content: space-between;
 
@@ -349,7 +380,6 @@ onUnmounted(() => {
         display: grid;
         flex: 1;
         gap: rem(20);
-        margin-top: rem(-55);
 
         &--loading {
             pointer-events: none;
@@ -358,7 +388,6 @@ onUnmounted(() => {
 
         @media (max-width: $mobile) {
             width: 100%;
-            margin: 0;
         }
     }
 

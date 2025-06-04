@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { IMenu, ISettings, IUser } from '@/types/api'
 import type Lenis from 'lenis'
+import type { IMenu, ISettings, IUser } from '@/types/api'
 
 const route = useRoute()
 
@@ -375,15 +375,5 @@ function toggleMenu() {
     60% {
         transform: scale(1);
     }
-}
-
-.search-enter-active,
-.search-leave-active {
-    transition: opacity 0.3s ease;
-}
-
-.search-enter-from,
-.search-leave-to {
-    opacity: 0;
 }
 </style>
