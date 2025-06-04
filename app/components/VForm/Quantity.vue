@@ -42,7 +42,6 @@ const quantity = computed({
     @include adaptive-value('height', 45, 40);
     @include adaptive-value('width', 100, 80);
 
-    // .quantity__button
     &__button {
         position: relative;
         display: flex;
@@ -72,7 +71,6 @@ const quantity = computed({
             }
         }
 
-        // .quantity__button_plus
         &_plus {
             &::before {
                 transform: rotate(-90deg);
@@ -85,7 +83,6 @@ const quantity = computed({
         }
     }
 
-    // .quantity__input
     &__input {
         flex: 1 1 auto;
 

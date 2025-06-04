@@ -40,7 +40,6 @@ const handleError = () => clearError({ redirect: '/catalog' })
     min-height: 100vh;
     min-height: 100dvh;
 
-    // .error__body
     &__body {
         position: relative;
         z-index: 10;
@@ -53,7 +52,6 @@ const handleError = () => clearError({ redirect: '/catalog' })
         padding-block: rem(120);
     }
 
-    // .error__title
     &__title {
         position: relative;
         font-family: Montserrat, sans-serif;

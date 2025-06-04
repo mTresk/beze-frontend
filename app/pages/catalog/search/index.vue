@@ -77,7 +77,6 @@ const seoDescription = 'Найденные товары в интернет-ма
 
 <style lang="scss" scoped>
 .search-page {
-    // .search-page__filters
     &__filters {
         position: relative;
         z-index: 20;
@@ -90,13 +89,11 @@ const seoDescription = 'Найденные товары в интернет-ма
         border-bottom: 1px solid rgb(54 54 54 / 10%);
     }
 
-    // .search-page__categories
     &__categories {
         display: flex;
         gap: rem(20);
     }
 
-    // .search-page__category
     &__category {
         padding: rem(10) rem(20);
         border: 1px solid $extraColor;
@@ -115,19 +112,16 @@ const seoDescription = 'Найденные товары в интернет-ма
         }
     }
 
-    // .search-page__sort
     &__sort {
         min-width: rem(200);
     }
 
-    // .search-page__wrapper
     &__wrapper {
         position: relative;
         display: grid;
         gap: rem(40);
     }
 
-    // .search-page__body
     &__body {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
