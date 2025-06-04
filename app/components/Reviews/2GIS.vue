@@ -32,22 +32,26 @@ useSwiper(containerRef, {
     },
     breakpoints: {
         320: {
-            slidesPerView: 1.2,
+            slidesPerView: 1.1,
             spaceBetween: 10,
         },
         480: {
-            slidesPerView: 2.4,
+            slidesPerView: 1.4,
             spaceBetween: 10,
         },
         768: {
-            slidesPerView: 2.4,
-            spaceBetween: 20,
+            slidesPerView: 1.8,
+            spaceBetween: 10,
         },
         992: {
-            slidesPerView: 3,
+            slidesPerView: 2.2,
             spaceBetween: 20,
         },
-        1200: {
+        1300: {
+            slidesPerView: 3.4,
+            spaceBetween: 20,
+        },
+        1550: {
             slidesPerView: 4,
             spaceBetween: 30,
         },
