@@ -11,15 +11,13 @@ const fetcher = async () => await client<IOrderResponse[]>(`/api/orders/users/${
 
 const {
     data: orders,
-    suspense,
     isLoading,
     refetch,
 } = useQuery({
     queryKey: ['orders'],
     queryFn: fetcher,
+    enabled: computed(() => !!user.value?.id),
 })
-
-await suspense()
 
 watch(route, () => {
     if (route.query.refetch === '1') {

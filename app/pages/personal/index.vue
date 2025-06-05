@@ -59,7 +59,12 @@ const seoDescription = 'Личный кабинет интернет-магаз�
                         </button>
                     </div>
                     <div class="personal__warapper">
-                        <component :is="tabs[currentTab]" />
+                        <ClientOnly>
+                            <component :is="tabs[currentTab]" />
+                            <template #fallback>
+                                <UiSpinner />
+                            </template>
+                        </ClientOnly>
                     </div>
                 </div>
             </div>

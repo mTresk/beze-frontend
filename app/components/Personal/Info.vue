@@ -16,7 +16,7 @@ const form = reactive({
     surname: '',
     address: '',
     phone: '',
-    delivery_type: user.value?.profile?.deliveryType,
+    delivery_type: '',
     communication: undefined as typeof options[0] | undefined,
 })
 
@@ -31,6 +31,7 @@ function populateFormWithUserData() {
     if (user.value.profile) {
         form.address = user.value.profile.address || ''
         form.phone = user.value.profile.phone || ''
+        form.delivery_type = user.value.profile.deliveryType || ''
 
         if (user.value.profile.communication) {
             const communicationOption = options.find(
