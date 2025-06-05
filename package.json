@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "build": "nuxt build",
-        "dev": "nuxt dev --open",
+        "dev": "concurrently \"npx @agentdeskai/browser-tools-server@1.2.0\" \"nuxt dev --open\"",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
         "postinstall": "nuxt prepare",
@@ -33,6 +33,7 @@
         "@types/node": "^22.15.21",
         "@vite-pwa/nuxt": "^1.0.1",
         "autoprefixer": "^10.4.21",
+        "concurrently": "^9.1.2",
         "eslint": "^9.27.0",
         "eslint-plugin-format": "^1.0.1",
         "nuxt": "^3.17.4",
