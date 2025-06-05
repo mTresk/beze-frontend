@@ -142,6 +142,13 @@ export interface ISubCategory {
     }
 }
 
+export interface ICollection {
+    id: number
+    name: string
+    slug: string
+    image: IImage
+}
+
 export interface IInfoPage {
     id: number
     name: string

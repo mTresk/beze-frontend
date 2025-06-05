@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import type { ICollection } from '@/types/api'
+
+const client = useSanctumClient()
+
 const containerRef = ref(null)
 
 useSwiper(containerRef, {
@@ -29,6 +33,21 @@ useSwiper(containerRef, {
         },
     },
 })
+
+async function fetcher() {
+    return await client<ICollection[]>(`/api/products/collections`)
+}
+
+const {
+    data: collections,
+    suspense,
+    isLoading,
+} = useQuery({
+    queryKey: ['collections'],
+    queryFn: fetcher,
+})
+
+await suspense()
 </script>
 
 <template>
@@ -40,72 +59,21 @@ useSwiper(containerRef, {
         </div>
         <div class="collections__inner">
             <div class="collections__body">
-                <swiper-container ref="containerRef" :init="false" class="collections__slider">
-                    <swiper-slide class="collection-card">
-                        <a data-js-cursor href="#" class="collection-card__content">
+                <UiSpinner v-if="isLoading" />
+                <swiper-container v-else ref="containerRef" :init="false" class="collections__slider">
+                    <swiper-slide v-for="collection in collections" :key="collection.id" class="collection-card">
+                        <NuxtLink :to="`catalog/category/collections/${collection.slug}`" data-js-cursor class="collection-card__content">
                             <img
                                 class="collection-card__image"
-                                src="/images/collection/1.jpg"
-                                alt=""
+                                :src="collection.image.normal"
+                                :srcset="`${collection.image.normal} 1x, ${collection.image.retina} 2x`"
+                                :alt="collection.name"
                                 loading="lazy"
                             >
-                            <h3 class="collection-card__title">Утро невесты</h3>
-                        </a>
-                    </swiper-slide>
-                    <swiper-slide class="collection-card">
-                        <a data-js-cursor href="#" class="collection-card__content">
-                            <img
-                                class="collection-card__image"
-                                src="/images/collection/2.jpg"
-                                alt=""
-                                loading="lazy"
-                            >
-                            <h3 class="collection-card__title">Соблазн</h3>
-                        </a>
-                    </swiper-slide>
-                    <swiper-slide class="collection-card">
-                        <a data-js-cursor href="#" class="collection-card__content">
-                            <img
-                                class="collection-card__image"
-                                src="/images/collection/3.jpg"
-                                alt=""
-                                loading="lazy"
-                            >
-                            <h3 class="collection-card__title">Для дома</h3>
-                        </a>
-                    </swiper-slide>
-                    <swiper-slide class="collection-card">
-                        <a data-js-cursor href="#" class="collection-card__content">
-                            <img
-                                class="collection-card__image"
-                                src="/images/collection/4.jpg"
-                                alt=""
-                                loading="lazy"
-                            >
-                            <h3 class="collection-card__title">Отпуск</h3>
-                        </a>
-                    </swiper-slide>
-                    <swiper-slide class="collection-card">
-                        <a data-js-cursor href="#" class="collection-card__content">
-                            <img
-                                class="collection-card__image"
-                                src="/images/collection/5.jpg"
-                                alt=""
-                                loading="lazy"
-                            >
-                            <h3 class="collection-card__title">Cotton</h3>
-                        </a>
-                    </swiper-slide>
-                    <swiper-slide class="collection-card">
-                        <a data-js-cursor href="#" class="collection-card__content">
-                            <img
-                                class="collection-card__image"
-                                src="/images/collection/6.jpg"
-                                alt=""
-                                loading="lazy"
-                            >
-                            <h3 class="collection-card__title">Gold</h3>
-                        </a>
+                            <h3 class="collection-card__title">
+                                {{ collection.name }}
+                            </h3>
+                        </NuxtLink>
                     </swiper-slide>
                 </swiper-container>
                 <nav class="collections__navigation slider-navigation">
