@@ -64,6 +64,8 @@ await suspense()
                     <swiper-slide v-for="collection in collections" :key="collection.id" class="collection-card">
                         <NuxtLink :to="`catalog/category/collections/${collection.slug}`" data-js-cursor class="collection-card__content">
                             <img
+                                width="440"
+                                height="440"
                                 class="collection-card__image"
                                 :src="collection.image.normal"
                                 :srcset="`${collection.image.normal} 1x, ${collection.image.retina} 2x`"
