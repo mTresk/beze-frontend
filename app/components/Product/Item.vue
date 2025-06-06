@@ -6,6 +6,10 @@ const props = defineProps<{
     product: IProduct
 }>()
 
+defineEmits<{
+    (e: 'linkClick'): void
+}>()
+
 const { toggleWishlist, isInWishlist } = useWishlist()
 
 const colors = computed(() => getUniqueColors(props.product.variants))
@@ -61,7 +65,7 @@ useSwiper(containerRef, {
 
 <template>
     <article class="product-card">
-        <NuxtLink title="Перейти на страницу товара" :to="`/catalog/${product.slug}`" class="product-card__picture">
+        <NuxtLink title="Перейти на страницу товара" :to="`/catalog/${product.slug}`" class="product-card__picture" @click="$emit('linkClick')">
             <div class="product-card__placeholder" :class="{ hidden: imagesLoaded }">
                 <UiIcon name="image" size="48" />
             </div>

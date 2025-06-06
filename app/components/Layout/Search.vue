@@ -210,7 +210,7 @@ onUnmounted(() => {
                                 :key="product.id"
                                 small
                                 :product="product"
-                                @click="handleClose"
+                                @link-click="handleClose"
                             />
                         </div>
                         <UiButton
