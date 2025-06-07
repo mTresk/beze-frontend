@@ -148,27 +148,6 @@ useSwiper(containerRef, {
     display: grid;
     gap: rem(10);
 
-    &::after {
-        position: absolute;
-        inset: 0;
-        z-index: 5;
-        height: rem(100);
-        pointer-events: none;
-        content: '';
-        background: linear-gradient(
-            0deg,
-            rgb(28 27 26 / 0%),
-            rgb(28 27 26 / 0%) 4%,
-            rgb(28 27 26 / 1.2%) 12%,
-            rgb(28 27 26 / 3.6%) 24%,
-            rgb(28 27 26 / 9%) 40%,
-            rgb(28 27 26 / 18%) 56%,
-            rgb(28 27 26 / 30.6%) 72%,
-            rgb(28 27 26 / 60%)
-        );
-        border-radius: rem(4);
-    }
-
     &__slider {
         height: 100%;
         opacity: 0;
@@ -186,6 +165,56 @@ useSwiper(containerRef, {
         overflow: hidden;
         background-color: #f7f7f7;
         border-radius: rem(4);
+
+        &::after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 5;
+            width: 100%;
+            height: rem(100);
+            pointer-events: none;
+            content: '';
+            background: linear-gradient(
+                0deg,
+                rgb(28 27 26 / 0%),
+                rgb(28 27 26 / 0%) 4%,
+                rgb(28 27 26 / 1.2%) 12%,
+                rgb(28 27 26 / 3.6%) 24%,
+                rgb(28 27 26 / 9%) 40%,
+                rgb(28 27 26 / 18%) 56%,
+                rgb(28 27 26 / 30.6%) 72%,
+                rgb(28 27 26 / 60%)
+            );
+            border-radius: rem(4);
+
+            @include adaptive-value('height', 100, 50);
+        }
+
+        &::before {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: 5;
+            width: 100%;
+            pointer-events: none;
+            content: '';
+            background: linear-gradient(
+                0deg,
+                rgb(28 27 26 / 0%),
+                rgb(28 27 26 / 0%) 4%,
+                rgb(28 27 26 / 1.2%) 12%,
+                rgb(28 27 26 / 3.6%) 24%,
+                rgb(28 27 26 / 9%) 40%,
+                rgb(28 27 26 / 18%) 56%,
+                rgb(28 27 26 / 30.6%) 72%,
+                rgb(28 27 26 / 60%)
+            );
+            border-radius: rem(4);
+            transform: rotate(180deg);
+
+            @include adaptive-value('height', 80, 40);
+        }
     }
 
     &__placeholder {
