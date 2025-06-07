@@ -569,6 +569,7 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
         width: rem(40);
         height: rem(40);
         color: $whiteColor;
+        filter: drop-shadow(0 6px 8px rgb(0 0 0 / 50%));
 
         &.swiper-button-disabled {
             pointer-events: none;
