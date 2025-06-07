@@ -4,6 +4,7 @@ const props = defineProps<{
     options: any
     placeholder: string
     isError?: boolean
+    id?: string
 }>()
 
 const emit = defineEmits<{
@@ -14,6 +15,8 @@ const emit = defineEmits<{
 defineExpose({ openOptions })
 
 const isOptionsOpen = ref(false)
+
+const highlightedIndex = ref(-1)
 
 const selectedOption = computed(() => {
     if (!props.modelValue)
@@ -28,30 +31,102 @@ function toggleOption(option: any) {
 
 function openOptions() {
     isOptionsOpen.value = true
+
+    if (props.modelValue) {
+        const selectedIndex = props.options?.findIndex((option: any) => option.id === props.modelValue.id) ?? 0
+        highlightedIndex.value = selectedIndex >= 0 ? selectedIndex : 0
+    }
+    else {
+        highlightedIndex.value = 0
+    }
+
     emit('clearError')
 }
 
 function closeOptions() {
     isOptionsOpen.value = false
+    highlightedIndex.value = -1
+}
+
+function handleKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault()
+        if (isOptionsOpen.value && highlightedIndex.value >= 0) {
+            const selectedOption = props.options[highlightedIndex.value]
+            if (selectedOption) {
+                toggleOption(selectedOption)
+            }
+        }
+        else {
+            openOptions()
+        }
+    }
+    else if (event.key === 'Escape') {
+        closeOptions()
+    }
+    else if (event.key === 'ArrowDown') {
+        event.preventDefault()
+        if (!isOptionsOpen.value) {
+            openOptions()
+        }
+        else {
+            highlightedIndex.value = Math.min(
+                highlightedIndex.value + 1,
+                props.options.length - 1,
+            )
+        }
+    }
+    else if (event.key === 'ArrowUp') {
+        event.preventDefault()
+        if (isOptionsOpen.value) {
+            highlightedIndex.value = Math.max(highlightedIndex.value - 1, 0)
+        }
+    }
 }
 </script>
 
 <template>
     <div v-click-outside="closeOptions" class="product__select select" :class="{ 'select--opened': isOptionsOpen, 'select--error': isError }">
-        <div class="select__selected" @click="openOptions">
+        <input
+            :id="id"
+            type="text"
+            :value="modelValue?.name || ''"
+            :name="id"
+            class="select__hidden-input"
+            readonly
+            tabindex="-1"
+            @focus="openOptions"
+        >
+        <div
+            class="select__selected"
+            role="combobox"
+            :aria-expanded="isOptionsOpen"
+            :aria-haspopup="true"
+            aria-label="Выберите опцию"
+            tabindex="0"
+            @click="openOptions"
+            @keydown="handleKeyDown"
+        >
             <span>{{ selectedOption }}</span>
             <UiIcon class="select__icon" name="arrow-down" size="10" />
         </div>
         <Transition name="slide">
-            <ul v-if="isOptionsOpen" class="select__options">
+            <ul
+                v-if="isOptionsOpen"
+                class="select__options"
+                role="listbox"
+            >
                 <li
-                    v-for="option in options"
+                    v-for="(option, index) in options"
                     :key="option.id"
                     class="select__option"
+                    role="option"
                     :class="{
                         'select__option--active': modelValue?.id === option.id,
+                        'select__option--highlighted': highlightedIndex === index,
                         'select__option--disabled': option.disabled,
                     }"
+                    :aria-selected="modelValue?.id === option.id"
                     :value="option.value"
                     @click.stop="toggleOption(option)"
                 >
@@ -65,6 +140,15 @@ function closeOptions() {
 <style lang="scss">
 .select {
     position: relative;
+
+    &__hidden-input {
+        position: absolute;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        pointer-events: none;
+        opacity: 0;
+    }
 
     &__selected {
         display: flex;
@@ -80,6 +164,10 @@ function closeOptions() {
         transition: all 0.3s ease-in-out;
 
         @include adaptive-value('height', 45, 40);
+
+        &:focus {
+            border-color: $accentColor;
+        }
 
         @media (any-hover: hover) {
             &:hover {
@@ -123,7 +211,8 @@ function closeOptions() {
         cursor: pointer;
         transition: all 0.3s ease-in-out;
 
-        &--active {
+        &--active,
+        &--highlighted {
             color: $whiteColor;
             background-color: $accentColor;
         }

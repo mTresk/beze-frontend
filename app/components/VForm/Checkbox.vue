@@ -65,6 +65,10 @@ const proxyChecked = computed({
                 background-size: cover;
             }
         }
+
+        &:focus-visible {
+            outline: 2px solid $extraColor;
+        }
     }
 }
 </style>

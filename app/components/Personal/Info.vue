@@ -76,9 +76,6 @@ const {
 
             useToastify('Данные успешно обновлены', { type: 'success' })
         },
-        onError: () => {
-            useToastify('Ошибка при обновлении данных', { type: 'error' })
-        },
     },
 )
 

@@ -53,6 +53,10 @@ defineProps<{
 
     &[active='true'] {
         background-color: $extraColor;
+
+        &:focus-visible {
+            outline: 2px solid $accentColor;
+        }
     }
 
     @media (any-hover: hover) {
@@ -95,6 +99,10 @@ defineProps<{
             color: $whiteColor;
             background-color: $extraColor;
             border-color: $extraColor;
+
+            &:focus-visible {
+                outline: 2px solid $accentColor;
+            }
         }
     }
 
@@ -115,6 +123,10 @@ defineProps<{
 
         &[active='true'] {
             background-color: $accentColor;
+
+            &:focus-visible {
+                outline: 2px solid $extraColor;
+            }
         }
     }
 
@@ -122,6 +134,10 @@ defineProps<{
     &[disabled] {
         pointer-events: none;
         opacity: 0.4;
+    }
+
+    &:focus-visible {
+        outline: 2px solid $extraColor;
     }
 }
 </style>

@@ -5,7 +5,7 @@ import { DaDataNext } from 'vue-dadata-3'
 defineProps<{
     modelValue?: string | number
     placeholder?: string
-    inputId?: string
+    id?: string
     error?: string[]
     maska?: string
     locationOptions?: LocationOptions
@@ -21,7 +21,7 @@ defineEmits<{
     <DaDataNext
         :model-value="modelValue"
         :placeholder="placeholder"
-        :input-id="inputId"
+        :input-id="id"
         :locations="locationOptions"
         :token="useRuntimeConfig().public.dadataApiKey"
         @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
