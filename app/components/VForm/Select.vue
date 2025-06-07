@@ -19,8 +19,10 @@ const isOptionsOpen = ref(false)
 const highlightedIndex = ref(-1)
 
 const selectedOption = computed(() => {
-    if (!props.modelValue)
+    if (!props.modelValue) {
         return props.placeholder
+    }
+
     return props.modelValue.name
 })
 
@@ -86,16 +88,16 @@ function handleKeyDown(event: KeyboardEvent) {
 </script>
 
 <template>
-    <div v-click-outside="closeOptions" class="product__select select" :class="{ 'select--opened': isOptionsOpen, 'select--error': isError }">
+    <div
+        v-click-outside="closeOptions"
+        class="product__select select"
+        :class="{ 'select--opened': isOptionsOpen, 'select--error': isError }"
+    >
         <input
             :id="id"
-            type="text"
-            :value="modelValue?.name || ''"
-            :name="id"
             class="select__hidden-input"
             readonly
             tabindex="-1"
-            @focus="openOptions"
         >
         <div
             class="select__selected"
@@ -142,12 +144,7 @@ function handleKeyDown(event: KeyboardEvent) {
     position: relative;
 
     &__hidden-input {
-        position: absolute;
-        left: -9999px;
-        width: 1px;
-        height: 1px;
-        pointer-events: none;
-        opacity: 0;
+        display: none;
     }
 
     &__selected {
