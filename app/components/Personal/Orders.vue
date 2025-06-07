@@ -3,6 +3,8 @@ import type { IOrderResponse, IUser } from '@/types/api'
 
 const client = useSanctumClient()
 
+const { $echo } = useNuxtApp()
+
 const user: Ref<IUser | null> = useSanctumUser()
 
 const route = useRoute()
@@ -24,6 +26,22 @@ watch(route, () => {
         refetch()
     }
 }, { immediate: true })
+
+onMounted(() => {
+    if (user.value) {
+        $echo.private(`orders.${user.value.id}`)
+            .listen('NewOrderStatusEvent', (orderData: Partial<IOrderResponse>) => {
+                if (orderData?.id && orders.value) {
+                    const orderIndex = orders.value.findIndex(order => order.id === orderData.id)
+
+                    if (orderIndex !== -1) {
+                        refetch()
+                        useToastify(`Новый статус заказа №${orderData.id} - «${orderData.status?.label}»`, { type: 'success' })
+                    }
+                }
+            })
+    }
+})
 </script>
 
 <template>

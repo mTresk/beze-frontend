@@ -21,6 +21,12 @@ export default defineNuxtConfig({
             backendUrl: process.env.NUXT_PUBLIC_BACKEND_URL,
             yandexMapsApiKey: process.env.NUXT_PUBLIC_YANDEX_MAPS_API_KEY,
             dadataApiKey: process.env.NUXT_PUBLIC_DADATA_API_KEY,
+            REVERB_APP_ID: process.env.NUXT_PUBLIC_REVERB_APP_ID,
+            REVERB_APP_KEY: process.env.NUXT_PUBLIC_REVERB_APP_KEY,
+            REVERB_APP_SECRET: process.env.NUXT_PUBLIC_REVERB_APP_SECRET,
+            REVERB_HOST: process.env.NUXT_PUBLIC_REVERB_HOST,
+            REVERB_PORT: process.env.NUXT_PUBLIC_REVERB_PORT,
+            REVERB_SCHEME: process.env.NUXT_PUBLIC_REVERB_SCHEME,
         },
     },
     sanctum: {
