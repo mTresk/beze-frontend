@@ -30,7 +30,7 @@ watch(route, () => {
 onMounted(() => {
     if (user.value) {
         $echo.private(`orders.${user.value.id}`)
-            .listen('NewOrderStatusEvent', (orderData: Partial<IOrderResponse>) => {
+            .listen('NewOrderStatus', (orderData: Partial<IOrderResponse>) => {
                 if (orderData?.id && orders.value) {
                     const orderIndex = orders.value.findIndex(order => order.id === orderData.id)
 
