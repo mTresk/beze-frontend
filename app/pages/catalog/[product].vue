@@ -77,16 +77,20 @@ const isLoading = computed(() => isProductLoading.value || isSizesTableLoading.v
 
 async function getViewedProducts() {
     const filteredIds = viewedProductsIds.value.filter(id => id !== String(product.value?.data.id))
-    if (!filteredIds.length)
+
+    if (!filteredIds.length) {
         return
-    viewedProducts.value = await client<IProduct[]>(`/api/products/favorites?ids=${filteredIds}`)
+    }
+
+    viewedProducts.value = await client<IProduct[]>(`/api/products/viewed?ids=${filteredIds}`)
 }
 
 const colors = computed(() => product.value ? getUniqueColors(product.value.data.variants) : [])
 
 const availableSizes = computed(() => {
-    if (!product.value?.data.variants || !colorId.value)
+    if (!product.value?.data.variants || !colorId.value) {
         return []
+    }
 
     const sizesForColor = product.value.data.variants
         .filter((variant: IProductVariant) => variant.color.id === colorId.value)
