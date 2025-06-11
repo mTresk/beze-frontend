@@ -94,7 +94,7 @@ export default defineNuxtConfig({
     },
     sitemap: {
         sources: ['/api/sitemap/urls'],
-        exclude: ['/auth/**'],
+        exclude: ['/auth/**', '/personal', '/cart', '/favorites', '/success'],
     },
     pwa: {
         registerType: 'autoUpdate',
