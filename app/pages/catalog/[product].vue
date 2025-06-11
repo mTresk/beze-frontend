@@ -123,6 +123,7 @@ const selectedVariant = computed(() => {
 
 const cartStatus = computed(() => {
     const variant = selectedVariant.value
+
     if (!variant) {
         return false
     }
@@ -134,6 +135,7 @@ const wishlistStatus = isInWishlist(String(product.value?.data.id))
 
 const currentPrice = computed(() => {
     const variant = selectedVariant.value
+
     return variant?.price || product.value?.data.price || ''
 })
 
@@ -153,11 +155,13 @@ function setColor(color: IColor) {
 }
 
 function handleCartClick() {
-    if (!product.value?.data.id)
+    if (!product.value?.data.id) {
         return
+    }
 
     if (availableSizes.value.length > 0 && !size.value) {
         selectError.value = true
+
         return
     }
 
@@ -171,8 +175,9 @@ function handleCartClick() {
 }
 
 function handleWishlistClick() {
-    if (!product.value)
+    if (!product.value) {
         return
+    }
 
     toggleWishlist(
         String(product.value.data.id),
@@ -243,6 +248,7 @@ watch(selectedVariant, (newVariant) => {
 onMounted(() => {
     if (colors.value?.length) {
         const firstColor = colors.value[0]
+
         if (firstColor) {
             colorId.value = firstColor.id
             colorName.value = firstColor.name
