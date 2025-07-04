@@ -127,19 +127,7 @@ watch(selectedSort, async (newSort) => {
 
     delete newQuery.page
 
-    const queryParams = new URLSearchParams()
-
-    Object.entries(newQuery).forEach(([key, value]) => {
-        if (value !== null && value !== undefined) {
-            queryParams.append(key, String(value))
-        }
-    })
-
-    history.replaceState(
-        {},
-        '',
-        window.location.pathname + (queryParams.toString() ? `?${queryParams.toString()}` : ''),
-    )
+    await navigateTo({ query: newQuery })
 
     currentPage.value = 1
 })
