@@ -14,8 +14,12 @@ const { toggleWishlist, isInWishlist } = useWishlist()
 
 const colors = computed(() => getUniqueColors(props.product.variants))
 
+const limitedImages = computed(() => {
+    return props.product.images?.slice(0, 6) || []
+})
+
 const paginationItemWidth = computed(() => {
-    return `${100 / (props.product.images?.length || 1)}%`
+    return `${100 / (limitedImages.value.length || 1)}%`
 })
 
 const wishlistStatus = isInWishlist(String(props.product.id))
@@ -77,7 +81,7 @@ useSwiper(containerRef, {
                     :class="{ loaded: imagesLoaded }"
                 >
                     <swiper-slide
-                        v-for="(image, index) in product.images"
+                        v-for="(image, index) in limitedImages"
                         :key="index" class="product-card__slide"
                     >
                         <img
@@ -95,7 +99,7 @@ useSwiper(containerRef, {
                 </swiper-container>
                 <div class="product-card__pagination">
                     <div
-                        v-for="(image, index) in product.images"
+                        v-for="(image, index) in limitedImages"
                         :key="index"
                         class="product-card__pagination-item"
                         :class="{ 'product-card__pagination-item--active': index === activeSlide }"
