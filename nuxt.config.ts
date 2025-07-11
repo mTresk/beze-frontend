@@ -12,6 +12,7 @@ export default defineNuxtConfig({
         '@vite-pwa/nuxt',
         'nuxt-schema-org',
         'vue3-perfect-scrollbar/nuxt',
+        '@nuxtjs/robots',
     ],
     app: {
         pageTransition: { name: 'layout', mode: 'out-in' },
@@ -94,7 +95,10 @@ export default defineNuxtConfig({
     },
     sitemap: {
         sources: ['/api/sitemap/urls'],
-        exclude: ['/auth/**', '/personal', '/cart', '/favorites', '/success'],
+        exclude: ['/auth/**', '/personal', '/cart', '/favorites', '/success', '/catalog/search'],
+    },
+    robots: {
+        disallow: ['/auth/**', '/personal', '/cart', '/favorites', '/success', '/catalog/search'],
     },
     pwa: {
         registerType: 'autoUpdate',
