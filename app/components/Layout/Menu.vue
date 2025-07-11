@@ -209,7 +209,7 @@ function handleLinkClick() {
         cursor: pointer;
         transition: color 0.3s ease-in-out;
 
-        @include adaptive-value('font-size', 18, 16);
+        @include adaptive-value('font-size', 18, 14);
 
         svg {
             transition: transform 0.3s ease-in-out;
