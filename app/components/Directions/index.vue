@@ -70,9 +70,7 @@ await suspense()
                                         {{ category.name }}
                                     </UiTitle>
                                 </div>
-                                <p class="direction-card__description">
-                                    {{ category.description }}
-                                </p>
+                                <div class="direction-card__description" v-html="category.description" />
                             </div>
                         </NuxtLink>
                     </swiper-slide>
