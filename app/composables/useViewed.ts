@@ -10,10 +10,10 @@ export function useViewed() {
 
     function addToViewed(productId: string) {
         viewedProducts.value = viewedProducts.value.filter(id => id !== productId)
-        viewedProducts.value = [...viewedProducts.value, productId]
+        viewedProducts.value = [productId, ...viewedProducts.value]
 
         if (viewedProducts.value.length > 15) {
-            viewedProducts.value = viewedProducts.value.slice(1)
+            viewedProducts.value = viewedProducts.value.slice(0, 15)
         }
 
         if (import.meta.client) {
