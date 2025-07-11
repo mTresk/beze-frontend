@@ -234,7 +234,7 @@ watch(selectedSort, async (newSort) => {
         display: flex;
         flex-wrap: wrap;
 
-        @include adaptive-value('gap', 20, 10);
+        @include adaptive-value('gap', 10, 6);
     }
 
     &__category {

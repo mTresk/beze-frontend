@@ -307,15 +307,31 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
                     <ClientOnly>
                         <div class="product__mobile">
                             <swiper-container ref="containerRef" :init="false" class="product__slider">
-                                <swiper-slide v-for="(image, index) in product?.data.images" :key="index" class="product__slide">
-                                    <img :src="image.retina" :alt="product?.data.name || ''" :srcset="`${image.normal} 1x, ${image.retina} 2x`">
+                                <swiper-slide
+                                    v-for="(image, index) in product?.data.images"
+                                    :key="index"
+                                    class="product__slide"
+                                >
+                                    <img
+                                        :src="image.retina"
+                                        :alt="product?.data.name || ''"
+                                        :srcset="`${image.normal} 1x, ${image.retina} 2x`"
+                                    >
                                 </swiper-slide>
                             </swiper-container>
                             <nav class="product__navigation">
-                                <button aria-label="Назад" type="button" class="product__button product__button--prev">
+                                <button
+                                    aria-label="Назад"
+                                    type="button"
+                                    class="product__button product__button--prev"
+                                >
                                     <UiIcon name="arrow-left" size="45" />
                                 </button>
-                                <button aria-label="Вперед" type="button" class="product__button product__button--next">
+                                <button
+                                    aria-label="Вперед"
+                                    type="button"
+                                    class="product__button product__button--next"
+                                >
                                     <UiIcon name="arrow-right" size="45" />
                                 </button>
                             </nav>
@@ -342,7 +358,13 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
                                     class="product-colors__item"
                                     @click="setColor(color)"
                                 >
-                                    <input :checked="index === 0 ? true : false" class="product-colors__input" type="radio" :value="color.id" name="color">
+                                    <input
+                                        :checked="index === 0 ? true : false"
+                                        class="product-colors__input"
+                                        type="radio"
+                                        :value="color.id"
+                                        name="color"
+                                    >
                                 </label>
                             </div>
                             <p class="product-colors__label">
@@ -404,7 +426,11 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
                 Возможно, вам понравится
             </template>
         </Featured>
-        <Featured v-if="viewedProducts.length" name="viewed" :products="viewedProducts">
+        <Featured
+            v-if="viewedProducts.length"
+            name="viewed"
+            :products="viewedProducts"
+        >
             <template #title>
                 Вы недавно смотрели
             </template>
@@ -495,7 +521,12 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
                             <VFormPolicy />
                         </template>
                     </VFormCheckbox>
-                    <UiButton :disabled="!isAgreementAccepted" wide :is-loading="isFormSending" @click="handleSubmit">
+                    <UiButton
+                        :disabled="!isAgreementAccepted"
+                        wide
+                        :is-loading="isFormSending"
+                        @click="handleSubmit"
+                    >
                         Отправить
                     </UiButton>
                 </div>
