@@ -116,11 +116,11 @@ await suspense()
         transform: translateY(-50%);
 
         &--prev {
-            left: -30px;
+            left: rem(-30);
         }
 
         &--next {
-            right: -30px;
+            right: rem(-30);
         }
     }
 }

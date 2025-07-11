@@ -372,7 +372,7 @@ useSwiper(containerRef, {
         @include adaptive-value('font-size', 18, 14);
 
         [small] & {
-            font-size: 16px;
+            font-size: rem(16);
         }
     }
 
@@ -402,7 +402,7 @@ useSwiper(containerRef, {
     }
 
     &__color {
-        border: 1px solid $lightColor;
+        border: rem(1) solid $lightColor;
         border-radius: 50%;
 
         @include adaptive-value('width', 8, 6);

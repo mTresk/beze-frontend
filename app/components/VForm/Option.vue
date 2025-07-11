@@ -40,7 +40,7 @@ const handleChange = (e: Event) => emit('update:modelValue', (e.target as HTMLIn
         appearance: none;
         cursor: pointer;
         content: '';
-        border: 1px solid rgb(34 36 51 / 18%);
+        border: rem(1) solid rgb(34 36 51 / 18%);
         border-radius: 50%;
 
         &:checked {

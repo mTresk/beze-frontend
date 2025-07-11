@@ -255,8 +255,8 @@ function toggleMenu() {
 
         span {
             position: absolute;
-            top: -5px;
-            right: -5px;
+            top: rem(-5);
+            right: rem(-5);
             display: flex;
             align-items: center;
             justify-content: center;

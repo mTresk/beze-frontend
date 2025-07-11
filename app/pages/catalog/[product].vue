@@ -609,12 +609,12 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
         justify-content: center;
         width: rem(40);
         height: rem(40);
-        color: $whiteColor;
-        filter: drop-shadow(0 6px 8px rgb(0 0 0 / 50%));
+        color: $accentColor;
+        filter: drop-shadow(0 rem(6) rem(20) rgb(239 236 236 / 50%));
 
         &.swiper-button-disabled {
             pointer-events: none;
-            opacity: 0.4;
+            opacity: 0.2;
         }
     }
 
@@ -688,7 +688,7 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: rem(20);
-        border-bottom: 1px solid $extraColor;
+        border-bottom: rem(1) solid $extraColor;
 
         @include adaptive-value('padding-bottom', 35, 20);
         @include adaptive-value('margin-bottom', 35, 20);

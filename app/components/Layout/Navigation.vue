@@ -109,7 +109,7 @@ const cartCount = computed(() => cartItems.value?.length || 0)
     height: rem(65);
     padding-inline: rem(20);
     background-color: $whiteColor;
-    box-shadow: 0 1px 12px 0 rgb(38 27 15 / 15%);
+    box-shadow: 0 rem(1) rem(12) 0 rgb(38 27 15 / 15%);
 
     @media (max-width: $tablet) {
         display: flex;
@@ -132,8 +132,8 @@ const cartCount = computed(() => cartItems.value?.length || 0)
 
         &-count {
             position: absolute;
-            top: -4px;
-            right: 6px;
+            top: rem(-4);
+            right: rem(6);
             display: flex;
             align-items: center;
             justify-content: center;

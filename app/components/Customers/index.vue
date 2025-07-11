@@ -231,8 +231,8 @@ onBeforeUnmount(() => {
     aspect-ratio: 100 / 100;
     padding: rem(50) rem(30) rem(40);
     background: rgb(255 255 255 / 35%);
-    border: 1px solid rgb(255 255 255 / 50%);
-    backdrop-filter: blur(9px);
+    border: rem(1) solid rgb(255 255 255 / 50%);
+    backdrop-filter: blur(rem(9));
 
     @include adaptive-value('max-width', 400, 300);
     @include adaptive-value('padding-top', 50, 30);

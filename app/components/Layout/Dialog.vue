@@ -152,8 +152,8 @@ body {
         background-color: $whiteColor;
         border-radius: rem(8);
         box-shadow:
-            0 rem(4) rem(6) -1px rgb(0 0 0 / 10%),
-            0 rem(2) rem(4) -1px rgb(0 0 0 / 6%);
+            0 rem(4) rem(6) rem(-1) rgb(0 0 0 / 10%),
+            0 rem(2) rem(4) rem(-1) rgb(0 0 0 / 6%);
         transform: scale(0.5);
         animation: content-show 0.3s ease forwards;
 

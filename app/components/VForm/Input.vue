@@ -30,7 +30,7 @@ defineEmits<{
     padding: rem(5) rem(16);
     font-size: rem(14);
     line-height: 130%;
-    border: 1px solid $extraColor;
+    border: rem(1) solid $extraColor;
     border-radius: rem(4);
     transition: all 0.3s ease-in-out;
 

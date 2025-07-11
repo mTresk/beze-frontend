@@ -103,7 +103,7 @@ onBeforeUnmount(() => {
 
         &::before {
             position: absolute;
-            top: 8px;
+            top: rem(8);
             left: 0;
             width: rem(8);
             height: rem(8);
@@ -129,15 +129,15 @@ onBeforeUnmount(() => {
 
         &::before {
             position: absolute;
-            bottom: -20px;
+            bottom: rem(-20);
             left: 50%;
             z-index: -1;
             width: 80%;
-            height: 200px;
+            height: rem(200);
             content: '';
             background: rgb(0 0 0 / 40%);
             border-radius: rem(10);
-            filter: blur(50px);
+            filter: blur(rem(50));
             transform: translateX(-50%) translateZ(0);
         }
 

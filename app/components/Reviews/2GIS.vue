@@ -120,7 +120,7 @@ useSwiper(containerRef, {
         content: '';
         background: rgb(46 46 46 / 10%);
         border-radius: rem(10);
-        filter: blur(50px);
+        filter: blur(rem(50));
         transform: translateX(-50%) translateZ(0);
     }
 
@@ -132,7 +132,7 @@ useSwiper(containerRef, {
         padding: rem(40) rem(30) rem(50);
         background: rgb(46 46 46 / 16%);
         background-color: $whiteColor;
-        border: 1px solid $lightColor;
+        border: rem(1) solid $lightColor;
         border-radius: rem(4);
 
         @include adaptive-value('gap', 25, 15);

@@ -245,7 +245,7 @@ function handleLinkClick() {
         pointer-events: none;
         background-color: $extraColor;
         border-radius: rem(4);
-        box-shadow: 0 0 14px 0 rgb(0 0 0 / 10%);
+        box-shadow: 0 0 rem(14) 0 rgb(0 0 0 / 10%);
         opacity: 0;
         transform: translateY(rem(10));
         transition: all 0.3s ease-in-out;
@@ -307,7 +307,7 @@ function handleLinkClick() {
             gap: rem(16);
             padding-top: rem(30);
             margin-top: rem(30);
-            border-top: 1px solid rgb(54 54 54 / 10%);
+            border-top: rem(1) solid rgb(54 54 54 / 10%);
         }
     }
 

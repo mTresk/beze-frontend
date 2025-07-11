@@ -72,7 +72,7 @@ onBeforeUnmount(() => {
 .advantages {
     position: relative;
     z-index: 10;
-    transform: translateY(-70px);
+    transform: translateY(rem(-70));
 
     @include adaptive-value('margin-bottom', 120, 80);
 
@@ -98,8 +98,8 @@ onBeforeUnmount(() => {
         display: flex;
         align-items: center;
         background: rgb(255 255 255 / 40%);
-        border: 1px solid rgb(222 206 190 / 25%);
-        backdrop-filter: blur(6px);
+        border: rem(1) solid rgb(222 206 190 / 25%);
+        backdrop-filter: blur(rem(6));
 
         @include adaptive-value('padding-block', 28, 18);
         @include adaptive-value('padding-inline', 16, 10);
@@ -107,7 +107,7 @@ onBeforeUnmount(() => {
 
         &::before {
             position: absolute;
-            bottom: -30px;
+            bottom: rem(-30);
             left: 50%;
             z-index: -1;
             width: 80%;
@@ -115,7 +115,7 @@ onBeforeUnmount(() => {
             content: '';
             background: rgb(46 46 46 / 16%);
             border-radius: rem(10);
-            filter: blur(50px);
+            filter: blur(rem(50));
             transform: translateX(-50%) translateZ(0);
         }
 

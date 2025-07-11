@@ -50,7 +50,7 @@ const proxyChecked = computed({
         appearance: none;
         cursor: pointer;
         content: '';
-        border: 1px solid $accentColor;
+        border: rem(1) solid $accentColor;
         border-radius: rem(4);
 
         &:checked {
@@ -67,7 +67,7 @@ const proxyChecked = computed({
         }
 
         &:focus-visible {
-            outline: 2px solid $extraColor;
+            outline: rem(2) solid $extraColor;
         }
     }
 }

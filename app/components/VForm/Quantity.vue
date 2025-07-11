@@ -36,7 +36,7 @@ const quantity = computed({
 .quantity {
     display: flex;
     align-items: center;
-    border: 1px solid $extraColor;
+    border: rem(1) solid $extraColor;
     border-radius: rem(4);
 
     @include adaptive-value('height', 45, 40);

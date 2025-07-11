@@ -219,7 +219,7 @@ watch(selectedSort, async (newSort) => {
         gap: rem(20);
         align-items: center;
         justify-content: space-between;
-        border-bottom: 1px solid rgb(54 54 54 / 10%);
+        border-bottom: rem(1) solid rgb(54 54 54 / 10%);
 
         @include adaptive-value('padding-bottom', 40, 20);
         @include adaptive-value('margin-bottom', 40, 20);
@@ -240,7 +240,7 @@ watch(selectedSort, async (newSort) => {
     &__category {
         line-height: 120%;
         white-space: nowrap;
-        border: 1px solid $extraColor;
+        border: rem(1) solid $extraColor;
         border-radius: rem(4);
         transition: all 0.3s ease-in-out;
 

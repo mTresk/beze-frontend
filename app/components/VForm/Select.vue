@@ -156,7 +156,7 @@ function handleKeyDown(event: KeyboardEvent) {
         font-size: rem(14);
         white-space: nowrap;
         cursor: pointer;
-        border: 1px solid $extraColor;
+        border: rem(1) solid $extraColor;
         border-radius: rem(4);
         transition: all 0.3s ease-in-out;
 
@@ -189,14 +189,14 @@ function handleKeyDown(event: KeyboardEvent) {
 
     &__options {
         position: absolute;
-        top: calc(100% + 4px);
+        top: calc(100% + rem(4));
         z-index: 10;
         display: grid;
         width: 100%;
         overflow: hidden;
         background-color: $whiteColor;
         border-radius: 0 0 rem(4) rem(4);
-        box-shadow: 0 0 14px 0 rgb(0 0 0 / 10%);
+        box-shadow: 0 0 rem(14) 0 rgb(0 0 0 / 10%);
 
         @include adaptive-value('font-size', 16, 14);
     }
@@ -242,6 +242,6 @@ function handleKeyDown(event: KeyboardEvent) {
 .slide-enter-from,
 .slide-leave-to {
     opacity: 0;
-    transform: translateY(-5px) scale(0.9);
+    transform: translateY(rem(-5)) scale(0.9);
 }
 </style>

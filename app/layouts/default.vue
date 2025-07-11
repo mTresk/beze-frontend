@@ -172,7 +172,7 @@ body {
     font-size: rem(14);
     color: $mainColor;
     background-color: $lightColor;
-    box-shadow: 0 0 14px 0 rgb(0 0 0 / 10%);
+    box-shadow: 0 0 rem(14) 0 rgb(0 0 0 / 10%);
 
     svg {
         fill: $extraColor;
@@ -180,7 +180,7 @@ body {
 }
 
 .icon-marker {
-    transform: translate(-18px, -18px);
+    transform: translate(rem(-18), rem(-18));
 }
 
 .content {
@@ -324,7 +324,7 @@ body {
 .layout-enter-from,
 .layout-leave-to {
     opacity: 0;
-    filter: grayscale(1) blur(5px);
+    filter: grayscale(1) blur(rem(5));
 }
 
 .search-enter-active,
@@ -335,6 +335,6 @@ body {
 .search-enter-from,
 .search-leave-to {
     opacity: 0;
-    filter: grayscale(1) blur(5px);
+    filter: grayscale(1) blur(rem(5));
 }
 </style>

@@ -146,7 +146,7 @@ onBeforeUnmount(() => {
 
         &::before {
             position: absolute;
-            top: 8px;
+            top: rem(8);
             left: 0;
             width: rem(8);
             height: rem(8);
@@ -175,7 +175,7 @@ onBeforeUnmount(() => {
 
         &::before {
             position: absolute;
-            bottom: -30px;
+            bottom: rem(-30);
             left: 50%;
             z-index: -1;
             width: 80%;
@@ -183,7 +183,7 @@ onBeforeUnmount(() => {
             content: '';
             background: rgb(46 46 46 / 16%);
             border-radius: rem(10);
-            filter: blur(50px);
+            filter: blur(rem(50));
             transform: translateX(-50%) translateZ(0);
         }
 
@@ -207,7 +207,7 @@ onBeforeUnmount(() => {
 
         &::before {
             position: absolute;
-            bottom: -50px;
+            bottom: rem(-50);
             left: 50%;
             z-index: -1;
             width: 80%;
@@ -215,7 +215,7 @@ onBeforeUnmount(() => {
             content: '';
             background: rgb(46 46 46 / 16%);
             border-radius: rem(10);
-            filter: blur(50px);
+            filter: blur(rem(50));
             transform: translateX(-50%) translateZ(0);
         }
 

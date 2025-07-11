@@ -482,7 +482,7 @@ onUnmounted(() => {
 
     &__input {
         width: 100%;
-        font-size: 14px;
+        font-size: rem(14);
         line-height: 130%;
 
         &::placeholder {
@@ -512,7 +512,7 @@ onUnmounted(() => {
         flex-wrap: wrap;
         gap: rem(10);
         align-items: center;
-        border-bottom: 1px solid $extraColor;
+        border-bottom: rem(1) solid $extraColor;
 
         @include adaptive-value('padding-bottom', 25, 15);
     }
@@ -522,7 +522,7 @@ onUnmounted(() => {
         font-size: rem(14);
         line-height: 120%;
         cursor: pointer;
-        border: 1px solid $mainColor;
+        border: rem(1) solid $mainColor;
         border-radius: rem(4);
         transition: all 0.3s ease-in-out;
 

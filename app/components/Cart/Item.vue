@@ -203,7 +203,7 @@ watch(() => quantity.value, handleUpdateCartValues)
 
     &__icon {
         flex-shrink: 0;
-        border: 1px solid $lightColor;
+        border: rem(1) solid $lightColor;
         border-radius: 50%;
 
         @include adaptive-value('width', 20, 16);

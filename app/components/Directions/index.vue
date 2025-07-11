@@ -106,11 +106,11 @@ await suspense()
         transform: translateY(-50%);
 
         &--prev {
-            left: -30px;
+            left: rem(-30);
         }
 
         &--next {
-            right: -30px;
+            right: rem(-30);
         }
     }
 }
@@ -218,8 +218,8 @@ await suspense()
         line-height: 140%;
         color: $whiteColor;
         background: rgb(255 255 255 / 14%);
-        border: 1px solid rgb(255 255 255 / 34%);
-        backdrop-filter: blur(6px);
+        border: rem(1) solid rgb(255 255 255 / 34%);
+        backdrop-filter: blur(rem(6));
 
         @include adaptive-value('font-size', 20, 14);
         @include adaptive-value('padding-block', 24, 16);

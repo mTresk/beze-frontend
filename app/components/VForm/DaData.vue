@@ -45,7 +45,7 @@ defineEmits<{
         padding: rem(5) rem(16);
         font-size: rem(14);
         line-height: 130%;
-        border: 1px solid $extraColor;
+        border: rem(1) solid $extraColor;
         border-radius: rem(4);
         transition: all 0.3s ease-in-out;
 
@@ -66,14 +66,14 @@ defineEmits<{
 
     &__list {
         position: absolute;
-        top: calc(100% + 4px);
+        top: calc(100% + rem(4));
         z-index: 10;
         display: grid;
         width: 100%;
         overflow: hidden;
         background-color: $whiteColor;
         border-radius: 0 0 rem(4) rem(4);
-        box-shadow: 0 0 14px 0 rgb(0 0 0 / 10%);
+        box-shadow: 0 0 rem(14) 0 rgb(0 0 0 / 10%);
 
         @include adaptive-value('font-size', 16, 14);
 

@@ -55,7 +55,7 @@ defineProps<{
         background-color: $extraColor;
 
         &:focus-visible {
-            outline: 2px solid $accentColor;
+            outline: rem(2) solid $accentColor;
         }
     }
 
@@ -68,7 +68,7 @@ defineProps<{
     &[outline] {
         color: $accentColor;
         background-color: transparent;
-        border: 2px solid $accentColor;
+        border: rem(2) solid $accentColor;
 
         @media (any-hover: hover) {
             &:hover {
@@ -101,7 +101,7 @@ defineProps<{
             border-color: $extraColor;
 
             &:focus-visible {
-                outline: 2px solid $accentColor;
+                outline: rem(2) solid $accentColor;
             }
         }
     }
@@ -125,7 +125,7 @@ defineProps<{
             background-color: $accentColor;
 
             &:focus-visible {
-                outline: 2px solid $extraColor;
+                outline: rem(2) solid $extraColor;
             }
         }
     }
@@ -137,7 +137,7 @@ defineProps<{
     }
 
     &:focus-visible {
-        outline: 2px solid $extraColor;
+        outline: rem(2) solid $extraColor;
     }
 }
 </style>

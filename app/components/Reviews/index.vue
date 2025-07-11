@@ -100,12 +100,12 @@ function handleTabClick(tabName: TabType) {
 }
 
 .ps__rail-y {
-    width: 4px !important;
+    width: rem(4) !important;
     background-color: transparent !important;
 }
 
 .ps__thumb-y {
-    width: 4px !important;
+    width: rem(4) !important;
     background-color: $accentColor !important;
 }
 </style>

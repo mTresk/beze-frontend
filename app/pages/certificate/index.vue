@@ -293,7 +293,7 @@ const seoDescription = 'Купить подарочный сертификат �
         justify-content: space-between;
         padding-bottom: rem(40);
         margin-bottom: rem(40);
-        border-bottom: 1px solid rgb(54 54 54 / 10%);
+        border-bottom: rem(1) solid rgb(54 54 54 / 10%);
     }
 
     &__login {
@@ -322,7 +322,7 @@ const seoDescription = 'Купить подарочный сертификат �
     }
 
     &__link {
-        font-size: 16px;
+        font-size: rem(16);
         line-height: 130%;
         text-decoration: underline;
         text-decoration-thickness: 10%;
@@ -334,7 +334,7 @@ const seoDescription = 'Купить подарочный сертификат �
         gap: rem(8);
         align-items: flex-start;
         padding: rem(14) rem(16);
-        font-size: 13px;
+        font-size: rem(13);
         line-height: 130%;
         background-color: $lightColor;
         border-radius: rem(4);

@@ -55,8 +55,8 @@ const breadcrumbs = computed<IBreadcrumbItem[]>(() => [HOME_CRUMB, ...props.item
         &:not(:last-child) {
             &::before {
                 position: absolute;
-                right: -10px;
-                font-size: 14px;
+                right: rem(-10);
+                font-size: rem(14);
                 line-height: 140%;
                 color: rgb(54 54 54 / 50%);
                 content: '/';
