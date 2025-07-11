@@ -82,7 +82,11 @@ async function getViewedProducts() {
         return
     }
 
-    viewedProducts.value = await client<IProduct[]>(`/api/products/viewed?ids=${filteredIds}`)
+    const fetchedProducts = await client<IProduct[]>(`/api/products/viewed?ids=${filteredIds}`)
+
+    viewedProducts.value = filteredIds.map(id =>
+        fetchedProducts.find(product => String(product.id) === id),
+    ).filter((product): product is IProduct => Boolean(product))
 }
 
 const colors = computed(() => product.value ? getUniqueColors(product.value.data.variants) : [])
