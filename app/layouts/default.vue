@@ -72,6 +72,8 @@ const description = 'Одежда на утро невесты и для дом�
         <Meta property="og:image" content="/images/og.png" />
         <Meta name="twitter:description" :content="description" />
         <Meta name="twitter:image" content="/images/og.png" />
+        <Meta name="yandex-verification" content="a3a666efa8aa2203" />
+        <Meta name="google-site-verification" content="5uwasYAmi91aCWBYkuQhhcwMe5b_43-_iiHEqNAzRLg" />
     </Head>
     <NuxtLoadingIndicator color="#b79d83" />
     <div class="wrapper" :class="scrollClass">
