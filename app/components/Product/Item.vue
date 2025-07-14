@@ -59,6 +59,7 @@ function handleImageLoad(event: Event) {
 useSwiper(containerRef, {
     speed: 300,
     slidesPerView: 1,
+    spaceBetween: 1,
     on: {
         slideChange: (swiper: any) => {
             activeSlide.value = swiper.activeIndex
@@ -242,7 +243,7 @@ useSwiper(containerRef, {
     &__slide {
         position: relative;
         display: block;
-        aspect-ratio: 410 / 615;
+        aspect-ratio: 420 / 630;
 
         img {
             opacity: 0;
