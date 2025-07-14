@@ -132,7 +132,7 @@ useSchemaOrg([
                                 </div>
                             </div>
                         </div>
-                        <div ref="mapRoot" data-map data-coordinates="57.13980556751723,65.55675849999999" class="contacts__map" />
+                        <div ref="mapRoot" data-map data-coordinates="57.13956626772193,65.55710434322022" class="contacts__map" />
                     </div>
                     <div class="contacts__form contacts-form">
                         <h3 class="contacts-form__label">
