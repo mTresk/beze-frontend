@@ -324,7 +324,7 @@ body {
 .layout-enter-from,
 .layout-leave-to {
     opacity: 0;
-    filter: grayscale(1) blur(rem(20));
+    filter: grayscale(1) blur(rem(5));
 }
 
 .search-enter-active,
@@ -335,6 +335,6 @@ body {
 .search-enter-from,
 .search-leave-to {
     opacity: 0;
-    filter: grayscale(1) blur(rem(20));
+    filter: grayscale(1) blur(rem(5));
 }
 </style>
