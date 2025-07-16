@@ -56,7 +56,7 @@ useState('menu', () => data.value?.menu)
 
 useState('settings', () => data.value?.settings)
 
-const description = 'Одежда на утро невесты и для дома'
+const description = 'Элегантная одежда на утро невесты, для дома и на каждый день'
 </script>
 
 <template>
