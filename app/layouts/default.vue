@@ -318,23 +318,23 @@ body {
 
 .layout-enter-active,
 .layout-leave-active {
-    transition: all 0.4s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+    transition: all 0.3s cubic-bezier(0.25, 0.45, 0.45, 0.95);
 }
 
 .layout-enter-from,
 .layout-leave-to {
     opacity: 0;
-    filter: grayscale(1) blur(rem(5));
+    filter: grayscale(1) blur(rem(20));
 }
 
 .search-enter-active,
 .search-leave-active {
-    transition: all 0.5s ease;
+    transition: all 0.3s cubic-bezier(0.25, 0.45, 0.45, 0.95);
 }
 
 .search-enter-from,
 .search-leave-to {
     opacity: 0;
-    filter: grayscale(1) blur(rem(5));
+    filter: grayscale(1) blur(rem(20));
 }
 </style>
