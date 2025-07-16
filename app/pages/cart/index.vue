@@ -47,7 +47,7 @@ async function submitOrder() {
         communication: form.value?.communication?.name,
     }
 
-    const response = await client('/api/orders', {
+    const response = await client<string>('/api/orders', {
         body: payload,
         method: 'post',
     })
