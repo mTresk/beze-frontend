@@ -54,7 +54,6 @@ await suspense()
                         <NuxtLink :to="`/catalog/category/${category.slug}`" data-js-cursor class="direction-card__wrapper">
                             <img
                                 class="direction-card__image"
-                                loading="lazy"
                                 :src="category.image.normal"
                                 :srcset="`${category.image.normal} 1x, ${category.image.retina} 2x`"
                                 :alt="category.name"
