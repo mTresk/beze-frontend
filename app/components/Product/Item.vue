@@ -354,7 +354,7 @@ onUnmounted(() => {
         justify-content: space-between;
         width: 100%;
 
-        @include adaptive-value('top', 20, 10);
+        @include adaptive-value('top', 10, 5);
         @include adaptive-value('padding-inline', 20, 10);
 
         [small] & {
@@ -371,6 +371,11 @@ onUnmounted(() => {
     }
 
     &__action {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: rem(40);
+        height: rem(40);
         color: $whiteColor;
         transition: color 0.3s ease-in-out;
 
@@ -451,13 +456,13 @@ onUnmounted(() => {
 
 .chip {
     padding: rem(4) rem(8);
-    line-height: 136%;
+    line-height: 120%;
     color: $whiteColor;
     text-transform: lowercase;
     white-space: nowrap;
     background-color: $redColor;
     border-radius: rem(20);
 
-    @include adaptive-value('font-size', 12, 10);
+    @include adaptive-value('font-size', 12, 8);
 }
 </style>

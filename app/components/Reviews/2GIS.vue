@@ -78,9 +78,9 @@ useSwiper(containerRef, {
                         <div class="testimonial__content">
                             <div class="testimonial__header">
                                 <div class="testimonial__info">
-                                    <h4 class="testimonial__name">
+                                    <div class="testimonial__name">
                                         {{ testimonial.name }}
-                                    </h4>
+                                    </div>
                                     <div class="testimonial__date">
                                         {{ testimonial.date }}
                                     </div>
