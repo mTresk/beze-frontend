@@ -5,7 +5,7 @@ const route = useRoute()
 
 const client = useSanctumClient()
 
-const order = ref<IOrderResponse | null>(null)
+const order = ref()
 
 const isLoading = ref(false)
 
@@ -30,16 +30,14 @@ async function fetchOrder() {
             signature,
         })
 
-        const url = `/api/orders/${orderId}?${params}`
-
-        const response = await client(url)
+        const response = await client<IOrderResponse>(`api/orders/${orderId}?${params}`)
 
         if (response) {
             order.value = response
         }
     }
-    catch (e) {
-        console.error('Ошибка при загрузке заказа:', e)
+    catch (error) {
+        console.error('Ошибка при загрузке заказа:', error)
     }
     finally {
         isLoading.value = false
