@@ -66,20 +66,30 @@ watch(() => quantity.value, handleUpdateCartValues)
                 </div>
             </div>
             <div class="cart-item__options">
-                <div v-if="selectedVariant?.color" class="cart-item__color">
+                <div
+                    v-if="selectedVariant?.color"
+                    class="cart-item__color"
+                >
                     <span
                         :style="`background-color: ${selectedVariant.color.code};`"
                         class="cart-item__icon"
                     />
                     <span>{{ selectedVariant.color.name }}</span>
                 </div>
-                <div v-if="selectedVariant?.size" class="cart-item__size">
+                <div
+                    v-if="selectedVariant?.size"
+                    class="cart-item__size"
+                >
                     <span>размер:</span> {{ selectedVariant.size.name }}
                 </div>
             </div>
         </div>
         <div class="cart-item__actions">
-            <VFormQuantity v-model="quantity" :min="1" :max="selectedVariant?.stock" />
+            <VFormQuantity
+                v-model="quantity"
+                :min="1"
+                :max="selectedVariant?.stock"
+            />
             <div class="cart-item__wrapper">
                 <div class="cart-item__price">
                     {{ totalPrice }} ₽
@@ -90,7 +100,10 @@ watch(() => quantity.value, handleUpdateCartValues)
                     class="cart-item__remove"
                     @click="handleCartRemove"
                 >
-                    <UiIcon name="can" size="20" />
+                    <UiIcon
+                        name="can"
+                        size="20"
+                    />
                 </button>
             </div>
         </div>

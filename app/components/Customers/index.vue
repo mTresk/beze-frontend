@@ -61,7 +61,14 @@ onBeforeUnmount(() => {
         </div>
         <div class="customers__wrapper">
             <div class="customers__background">
-                <video class="customers__video" autoplay muted loop playsinline src="/images/textile.mp4" />
+                <video
+                    class="customers__video"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    src="/images/textile.mp4"
+                />
             </div>
             <div class="customers__container">
                 <div class="customers__body">
@@ -74,7 +81,10 @@ onBeforeUnmount(() => {
                                 Для производства изделий мы используем шёлк Армани – он состоит из 97% полиэстера и 3% эластана, но это не мешает ткани быть легкой, нежной и приятной на ощупь.
                             </p>
                         </div>
-                        <UiLink medium @click="isCompositionModalOpen = true">
+                        <UiLink
+                            medium
+                            @click="isCompositionModalOpen = true"
+                        >
                             Подробнее о составе
                         </UiLink>
                     </article>
@@ -87,7 +97,10 @@ onBeforeUnmount(() => {
                                 Наши изделия требуют не слишком сложного, но тем не менее бережного ухода.
                             </p>
                         </div>
-                        <UiLink medium @click="isCareModalOpen = true">
+                        <UiLink
+                            medium
+                            @click="isCareModalOpen = true"
+                        >
                             Рекомендации по уходу
                         </UiLink>
                     </article>
@@ -100,7 +113,10 @@ onBeforeUnmount(() => {
                                 Мы отшиваем изделия от 40 до 60 размера. Вы можете ознакомиться с размерной сеткой ниже.
                             </p>
                         </div>
-                        <UiLink medium @click="isSizesModalOpen = true">
+                        <UiLink
+                            medium
+                            @click="isSizesModalOpen = true"
+                        >
                             Размерная сетка
                         </UiLink>
                     </article>

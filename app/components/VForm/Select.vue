@@ -110,7 +110,11 @@ function handleKeyDown(event: KeyboardEvent) {
             @keydown="handleKeyDown"
         >
             <span>{{ selectedOption }}</span>
-            <UiIcon class="select__icon" name="arrow-down" size="10" />
+            <UiIcon
+                class="select__icon"
+                name="arrow-down"
+                size="10"
+            />
         </div>
         <Transition name="slide">
             <ul

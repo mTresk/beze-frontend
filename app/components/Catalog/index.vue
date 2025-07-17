@@ -191,7 +191,11 @@ watch(selectedSort, async (newSort) => {
             <div class="catalog__inner">
                 <div class="catalog__wrapper">
                     <UiSpinner v-if="query.isLoading.value && !cachedData.length" />
-                    <div v-if="cachedData.length" class="catalog__body" :class="{ 'catalog__body--loading': query.isFetching.value }">
+                    <div
+                        v-if="cachedData.length"
+                        class="catalog__body"
+                        :class="{ 'catalog__body--loading': query.isFetching.value }"
+                    >
                         <ProductItem
                             v-for="product in cachedData"
                             :key="product.id"

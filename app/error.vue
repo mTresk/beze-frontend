@@ -15,7 +15,10 @@ const handleError = () => clearError({ redirect: '/catalog' })
                 <div class="error__body">
                     <LayoutEmpty>
                         <template #icon>
-                            <UiIcon name="sad" size="48" />
+                            <UiIcon
+                                name="sad"
+                                size="48"
+                            />
                         </template>
                         <template #title>
                             {{ error.statusCode }}
@@ -24,7 +27,10 @@ const handleError = () => clearError({ redirect: '/catalog' })
                             {{ error.message }}
                         </template>
                         <template #button>
-                            <UiButton outline @click="handleError">
+                            <UiButton
+                                outline
+                                @click="handleError"
+                            >
                                 Перейти в каталог
                             </UiButton>
                         </template>

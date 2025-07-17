@@ -49,8 +49,16 @@ const {
                     Ссылка для подтверждения электронной почты отправлена.
                 </UiStatus>
             </template>
-            <template v-if="!verificationIsSent" #footer>
-                <UiButton wide :disabled="isLoading" type="submit" @click="handleResendVerification">
+            <template
+                v-if="!verificationIsSent"
+                #footer
+            >
+                <UiButton
+                    wide
+                    :disabled="isLoading"
+                    type="submit"
+                    @click="handleResendVerification"
+                >
                     Отправить повторно
                 </UiButton>
             </template>

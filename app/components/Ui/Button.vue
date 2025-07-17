@@ -13,7 +13,10 @@ defineProps<{
         :disabled="isLoading ? true : undefined"
     >
         <slot />
-        <UiButtonSpinner v-if="isLoading" size="20" />
+        <UiButtonSpinner
+            v-if="isLoading"
+            size="20"
+        />
     </NuxtLink>
     <button
         v-else
@@ -21,7 +24,10 @@ defineProps<{
         :disabled="isLoading ? true : undefined"
     >
         <slot />
-        <UiButtonSpinner v-if="isLoading" size="20" />
+        <UiButtonSpinner
+            v-if="isLoading"
+            size="20"
+        />
     </button>
 </template>
 

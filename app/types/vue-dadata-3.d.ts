@@ -19,11 +19,11 @@ declare module 'vue-dadata-3' {
     export type DaDataParty = any
     export type DaDataFio = any
 
-    export type DaDataSuggestionAnyType =
-        DaDataResult<DaDataAddress> |
-        DaDataResult<DaDataBank> |
-        DaDataResult<DaDataParty> |
-        DaDataResult<DaDataFio>
+    export type DaDataSuggestionAnyType
+        = DaDataResult<DaDataAddress>
+            | DaDataResult<DaDataBank>
+            | DaDataResult<DaDataParty>
+            | DaDataResult<DaDataFio>
 
     export interface DaDataSuggestions {
         suggestions: DaDataSuggestionAnyType[]

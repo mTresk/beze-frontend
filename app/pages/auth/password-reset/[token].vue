@@ -71,7 +71,12 @@ const {
                 </VForm>
             </template>
             <template #footer>
-                <UiButton wide :is-loading="isLoading" type="submit" @click="submitForm">
+                <UiButton
+                    wide
+                    :is-loading="isLoading"
+                    type="submit"
+                    @click="submitForm"
+                >
                     Сбросить пароль
                 </UiButton>
             </template>

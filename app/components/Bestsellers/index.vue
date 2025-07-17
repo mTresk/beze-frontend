@@ -35,19 +35,35 @@ await suspense()
 <template>
     <section class="bestsellers spacer">
         <div class="bestsellers__container">
-            <UiTitle tag="h2" class="bestsellers__title">
+            <UiTitle
+                tag="h2"
+                class="bestsellers__title"
+            >
                 Рекомендуем
             </UiTitle>
         </div>
         <div class="bestsellers__inner">
             <UiSpinner v-if="isLoading" />
-            <div v-if="!isLoading" class="bestsellers__wrapper">
+            <div
+                v-if="!isLoading"
+                class="bestsellers__wrapper"
+            >
                 <div class="bestsellers__body">
-                    <template v-for="(page, index) in products?.pages" :key="index">
-                        <ProductItem v-for="product in page.pageData" :key="product.id" :product="product" />
+                    <template
+                        v-for="(page, index) in products?.pages"
+                        :key="index"
+                    >
+                        <ProductItem
+                            v-for="product in page.pageData"
+                            :key="product.id"
+                            :product="product"
+                        />
                     </template>
                 </div>
-                <div v-if="hasNextPage" class="bestsellers__footer">
+                <div
+                    v-if="hasNextPage"
+                    class="bestsellers__footer"
+                >
                     <UiButton
                         :disabled="isFetchingNextPage"
                         @click="fetchNextPage"

@@ -7,14 +7,35 @@ const seoDescription = 'Одежда, создающая особенное на
     <div>
         <Head>
             <Title>{{ seoTitle }}</Title>
-            <Meta name="description" :content="seoDescription" />
-            <Meta property="og:description" :content="seoDescription" />
-            <Meta name="twitter:description" :content="seoDescription" />
+            <Meta
+                name="description"
+                :content="seoDescription"
+            />
+            <Meta
+                property="og:description"
+                :content="seoDescription"
+            />
+            <Meta
+                name="twitter:description"
+                :content="seoDescription"
+            />
         </Head>
         <section class="about-page spacer">
             <div class="about-page__hero spacer">
-                <video class="about-page__video" src="/images/video.mp4" autoplay muted loop playsinline />
-                <img class="about-page__words" src="/images/words.svg" alt="" loading="lazy">
+                <video
+                    class="about-page__video"
+                    src="/images/video.mp4"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                />
+                <img
+                    class="about-page__words"
+                    src="/images/words.svg"
+                    alt=""
+                    loading="lazy"
+                >
             </div>
             <div class="about-page__container">
                 <div class="about-page__body">
@@ -36,19 +57,44 @@ const seoDescription = 'Одежда, создающая особенное на
                     </div>
                     <div class="about-page__images">
                         <div class="about-page__image">
-                            <NuxtImg width="560" height="560" src="/images/about/hero/1.webp" alt="" />
+                            <NuxtImg
+                                width="560"
+                                height="560"
+                                src="/images/about/hero/1.webp"
+                                alt=""
+                            />
                         </div>
                         <div class="about-page__image">
-                            <NuxtImg width="560" height="560" src="/images/about/hero/2.webp" alt="" />
+                            <NuxtImg
+                                width="560"
+                                height="560"
+                                src="/images/about/hero/2.webp"
+                                alt=""
+                            />
                         </div>
                         <div class="about-page__image">
-                            <NuxtImg width="560" height="560" src="/images/about/hero/3.webp" alt="" />
+                            <NuxtImg
+                                width="560"
+                                height="560"
+                                src="/images/about/hero/3.webp"
+                                alt=""
+                            />
                         </div>
                         <div class="about-page__image">
-                            <NuxtImg width="560" height="560" src="/images/about/hero/4.webp" alt="" />
+                            <NuxtImg
+                                width="560"
+                                height="560"
+                                src="/images/about/hero/4.webp"
+                                alt=""
+                            />
                         </div>
                         <div class="about-page__image">
-                            <NuxtImg width="560" height="560" src="/images/about/hero/5.webp" alt="" />
+                            <NuxtImg
+                                width="560"
+                                height="560"
+                                src="/images/about/hero/5.webp"
+                                alt=""
+                            />
                         </div>
                     </div>
                 </div>

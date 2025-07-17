@@ -24,18 +24,33 @@ const seoDescription = 'Личный кабинет интернет-магаз�
     <div>
         <Head>
             <Title>{{ seoTitle }}</Title>
-            <Meta name="description" :content="seoDescription" />
-            <Meta property="og:description" :content="seoDescription" />
-            <Meta name="twitter:description" :content="seoDescription" />
+            <Meta
+                name="description"
+                :content="seoDescription"
+            />
+            <Meta
+                property="og:description"
+                :content="seoDescription"
+            />
+            <Meta
+                name="twitter:description"
+                :content="seoDescription"
+            />
         </Head>
         <section class="personal spacer">
             <div class="personal__container">
                 <LayoutBreadcrumb :items="[{ title: 'Личный кабинет' }]" />
                 <div class="personal__header">
-                    <UiPageTitle flat class="personal__title">
+                    <UiPageTitle
+                        flat
+                        class="personal__title"
+                    >
                         Личный кабинет
                     </UiPageTitle>
-                    <UiLink medium @click="logout">
+                    <UiLink
+                        medium
+                        @click="logout"
+                    >
                         Выйти
                     </UiLink>
                 </div>

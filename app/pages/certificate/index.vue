@@ -140,9 +140,18 @@ const seoDescription = 'Купить подарочный сертификат �
     <div>
         <Head>
             <Title>{{ seoTitle }}</Title>
-            <Meta name="description" :content="seoDescription" />
-            <Meta property="og:description" :content="seoDescription" />
-            <Meta name="twitter:description" :content="seoDescription" />
+            <Meta
+                name="description"
+                :content="seoDescription"
+            />
+            <Meta
+                property="og:description"
+                :content="seoDescription"
+            />
+            <Meta
+                name="twitter:description"
+                :content="seoDescription"
+            />
         </Head>
         <section class="certificate spacer">
             <div class="certificate__container">
@@ -153,7 +162,11 @@ const seoDescription = 'Купить подарочный сертификат �
                 />
                 <UiPageTitle>Купить подарочный сертификат</UiPageTitle>
                 <UiSpinner v-if="isLoading" />
-                <div v-if="certificates?.length && isInitialized" class="certificate__body" :class="{ 'certificate__body--disabled': isFormSending }">
+                <div
+                    v-if="certificates?.length && isInitialized"
+                    class="certificate__body"
+                    :class="{ 'certificate__body--disabled': isFormSending }"
+                >
                     <div class="certificate__wrapper">
                         <div class="certificate__item">
                             <VFormSelect
@@ -162,14 +175,25 @@ const seoDescription = 'Купить подарочный сертификат �
                                 :options="certificateOptions"
                                 @update:model-value="value => amount = value.value"
                             />
-                            <VFormQuantity v-model="quantity" :min="1" :max="10" />
+                            <VFormQuantity
+                                v-model="quantity"
+                                :min="1"
+                                :max="10"
+                            />
                         </div>
-                        <UiLink v-if="!isAuthenticated" class="certificate__login" href="/auth/login">
+                        <UiLink
+                            v-if="!isAuthenticated"
+                            class="certificate__login"
+                            href="/auth/login"
+                        >
                             Войти в личный кабинет
                         </UiLink>
                         <div class="certificate__form">
                             <UiSpinner v-if="isFormSending" />
-                            <CartForm v-model="form" :errors="errors" />
+                            <CartForm
+                                v-model="form"
+                                :errors="errors"
+                            />
                         </div>
                     </div>
                     <div class="certificate__checkout">
@@ -190,7 +214,10 @@ const seoDescription = 'Купить подарочный сертификат �
                             Мы отправим бумажный (не электронный) сертификат
                         </div>
                         <div class="certificate__total">
-                            <div v-if="form?.delivery_type !== 'pickup'" class="certificate__line">
+                            <div
+                                v-if="form?.delivery_type !== 'pickup'"
+                                class="certificate__line"
+                            >
                                 <div class="certificate__key">
                                     Доставка
                                 </div>
@@ -206,7 +233,10 @@ const seoDescription = 'Купить подарочный сертификат �
                                     </template>
                                 </div>
                             </div>
-                            <div v-if="form?.delivery_type === 'tyumen' && deliveryPrice > 0" class="certificate__line">
+                            <div
+                                v-if="form?.delivery_type === 'tyumen' && deliveryPrice > 0"
+                                class="certificate__line"
+                            >
                                 <div class="certificate__note">
                                     Бесплатная доставка по Тюмени от 5000 ₽
                                 </div>
@@ -242,7 +272,10 @@ const seoDescription = 'Купить подарочный сертификат �
                 </div>
                 <LayoutEmpty v-if="isInitialized && !certificates?.length">
                     <template #icon>
-                        <UiIcon name="certificate" size="48" />
+                        <UiIcon
+                            name="certificate"
+                            size="48"
+                        />
                     </template>
                     <template #title>
                         Сертификаты временно недоступны
@@ -251,7 +284,10 @@ const seoDescription = 'Купить подарочный сертификат �
                         Пожалуйста, попробуйте позже или свяжитесь с нами
                     </template>
                     <template #button>
-                        <UiButton outline href="/catalog">
+                        <UiButton
+                            outline
+                            href="/catalog"
+                        >
                             Перейти в каталог
                         </UiButton>
                     </template>

@@ -281,11 +281,31 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
     <div>
         <Head>
             <Title>{{ seoTitle }}</Title>
-            <Meta v-if="seoDescription" name="description" :content="seoDescription" />
-            <Meta v-if="seoDescription" property="og:description" :content="seoDescription" />
-            <Meta v-if="seoImage" property="og:image" :content="seoImage" />
-            <Meta v-if="seoDescription" name="twitter:description" :content="seoDescription" />
-            <Meta v-if="seoImage" name="twitter:image" :content="seoImage" />
+            <Meta
+                v-if="seoDescription"
+                name="description"
+                :content="seoDescription"
+            />
+            <Meta
+                v-if="seoDescription"
+                property="og:description"
+                :content="seoDescription"
+            />
+            <Meta
+                v-if="seoImage"
+                property="og:image"
+                :content="seoImage"
+            />
+            <Meta
+                v-if="seoDescription"
+                name="twitter:description"
+                :content="seoDescription"
+            />
+            <Meta
+                v-if="seoImage"
+                name="twitter:image"
+                :content="seoImage"
+            />
         </Head>
         <section class="product spacer">
             <div class="product__container">
@@ -296,10 +316,16 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
                     ]"
                 />
                 <UiSpinner v-if="isLoading" />
-                <div v-if="!isLoading" class="product__body">
+                <div
+                    v-if="!isLoading"
+                    class="product__body"
+                >
                     <div class="product__images">
                         <ClientOnly>
-                            <template v-for="(image, index) in product?.data.images" :key="index">
+                            <template
+                                v-for="(image, index) in product?.data.images"
+                                :key="index"
+                            >
                                 <ProductImage
                                     :alt="product?.data.name || ''"
                                     :regular="image.retina"
@@ -310,7 +336,11 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
                     </div>
                     <ClientOnly>
                         <div class="product__mobile">
-                            <swiper-container ref="containerRef" :init="false" class="product__slider">
+                            <swiper-container
+                                ref="containerRef"
+                                :init="false"
+                                class="product__slider"
+                            >
                                 <swiper-slide
                                     v-for="(image, index) in product?.data.images"
                                     :key="index"
@@ -329,14 +359,20 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
                                     type="button"
                                     class="product__button product__button--prev"
                                 >
-                                    <UiIcon name="arrow-left" size="45" />
+                                    <UiIcon
+                                        name="arrow-left"
+                                        size="45"
+                                    />
                                 </button>
                                 <button
                                     aria-label="Вперед"
                                     type="button"
                                     class="product__button product__button--next"
                                 >
-                                    <UiIcon name="arrow-right" size="45" />
+                                    <UiIcon
+                                        name="arrow-right"
+                                        size="45"
+                                    />
                                 </button>
                             </nav>
                         </div>
@@ -407,25 +443,38 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
                                 @click="handleCartClick"
                             >
                                 <span>{{ cartStatus ? 'Убрать из корзины' : 'В корзину' }}</span>
-                                <UiIcon name="cart" size="16" />
+                                <UiIcon
+                                    name="cart"
+                                    size="16"
+                                />
                             </UiButton>
                             <UiButton
                                 :title="wishlistStatus ? 'Убрать из вишлиста' : 'В вишлист'"
                                 :active="wishlistStatus"
                                 wide
                                 square
-                                aria-label="В вишлист" class="product__action"
+                                aria-label="В вишлист"
+                                class="product__action"
                                 @click="handleWishlistClick"
                             >
-                                <UiIcon name="favorite" size="16" />
+                                <UiIcon
+                                    name="favorite"
+                                    size="16"
+                                />
                             </UiButton>
                         </div>
-                        <div class="product__description" v-html="product?.data.description" />
+                        <div
+                            class="product__description"
+                            v-html="product?.data.description"
+                        />
                     </div>
                 </div>
             </div>
         </section>
-        <Featured name="featured" :products="product?.featured || []">
+        <Featured
+            name="featured"
+            :products="product?.featured || []"
+        >
             <template #title>
                 Возможно, вам понравится
             </template>

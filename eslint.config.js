@@ -11,5 +11,6 @@ export default antfu({
     },
     rules: {
         'node/prefer-global/process': 0,
+        'vue/max-attributes-per-line': 1,
     },
 })

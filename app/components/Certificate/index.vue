@@ -49,12 +49,21 @@ onBeforeUnmount(() => {
                             </li>
                         </ul>
                     </div>
-                    <UiButton href="/certificate" outline>
+                    <UiButton
+                        href="/certificate"
+                        outline
+                    >
                         Заказать
                     </UiButton>
                 </div>
                 <div class="certificate__image">
-                    <NuxtImg width="520" height="634" src="/images/cert.webp" alt="Сертификат Beze Studio" loading="lazy" />
+                    <NuxtImg
+                        width="520"
+                        height="634"
+                        src="/images/cert.webp"
+                        alt="Сертификат Beze Studio"
+                        loading="lazy"
+                    />
                 </div>
             </div>
         </div>

@@ -48,15 +48,29 @@ useSwiper(containerRef, {
                     <slot name="title" />
                 </h2>
                 <nav class="featured__navigation slider-navigation">
-                    <UiSliderButtonPrev class="featured__button featured__button--prev" :class="`${props.name}--prev`" />
-                    <UiSliderButtonNext class="featured__button featured__button--next" :class="`${props.name}--next`" />
+                    <UiSliderButtonPrev
+                        class="featured__button featured__button--prev"
+                        :class="`${props.name}--prev`"
+                    />
+                    <UiSliderButtonNext
+                        class="featured__button featured__button--next"
+                        :class="`${props.name}--next`"
+                    />
                 </nav>
             </div>
         </div>
         <div class="featured__inner">
             <div class="featured__body">
-                <swiper-container ref="containerRef" :init="false" class="featured__slider">
-                    <swiper-slide v-for="product in products" :key="product.id" class="featured__slide">
+                <swiper-container
+                    ref="containerRef"
+                    :init="false"
+                    class="featured__slider"
+                >
+                    <swiper-slide
+                        v-for="product in products"
+                        :key="product.id"
+                        class="featured__slide"
+                    >
                         <ProductItem :product="product" />
                     </swiper-slide>
                 </swiper-container>

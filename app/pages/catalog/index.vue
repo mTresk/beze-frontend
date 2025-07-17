@@ -25,9 +25,18 @@ const seoDescription = 'Каталог одежды и аксессуаров н
     <div>
         <Head>
             <Title>{{ seoTitle }}</Title>
-            <Meta name="description" :content="seoDescription" />
-            <Meta property="og:description" :content="seoDescription" />
-            <Meta name="twitter:description" :content="seoDescription" />
+            <Meta
+                name="description"
+                :content="seoDescription"
+            />
+            <Meta
+                property="og:description"
+                :content="seoDescription"
+            />
+            <Meta
+                name="twitter:description"
+                :content="seoDescription"
+            />
         </Head>
         <Catalog
             api-url="api/products"

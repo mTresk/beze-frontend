@@ -38,13 +38,19 @@ const {
                 />
                 <UiPageTitle>Вход в личный кабинет</UiPageTitle>
             </template>
-            <template v-if="status" #status>
+            <template
+                v-if="status"
+                #status
+            >
                 <UiStatus>
                     {{ status }}
                 </UiStatus>
             </template>
             <template #body>
-                <VForm id="login-form" @submit.prevent="submitForm">
+                <VForm
+                    id="login-form"
+                    @submit.prevent="submitForm"
+                >
                     <VFormBlock :error="errors.email">
                         <VFormField>
                             <VFormLabel for="email">
@@ -76,14 +82,25 @@ const {
                 </VForm>
             </template>
             <template #footer>
-                <UiButton wide form="login-form" :is-loading="isLoading" type="submit">
+                <UiButton
+                    wide
+                    form="login-form"
+                    :is-loading="isLoading"
+                    type="submit"
+                >
                     Войти
                 </UiButton>
                 <div class="auth__links">
-                    <UiLink class="auth__link" href="/auth/forgot-password">
+                    <UiLink
+                        class="auth__link"
+                        href="/auth/forgot-password"
+                    >
                         Восстановить пароль
                     </UiLink>
-                    <UiLink class="auth__link" href="/auth/register">
+                    <UiLink
+                        class="auth__link"
+                        href="/auth/register"
+                    >
                         Регистрация
                     </UiLink>
                 </div>

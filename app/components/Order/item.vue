@@ -11,7 +11,10 @@ defineProps<{
         <template v-if="item.isCertificate && item.certificate">
             <div class="order-item__info order-item__info--certificate">
                 <div class="order-item__image order-item__image--certificate">
-                    <UiIcon name="gift" size="32" />
+                    <UiIcon
+                        name="gift"
+                        size="32"
+                    />
                 </div>
                 <h3 class="order-item__title">
                     {{ item.certificate.name }}
@@ -53,20 +56,32 @@ defineProps<{
                 </div>
             </div>
             <div class="order-item__wrapper">
-                <div v-if="item.color" class="order-item__color">
+                <div
+                    v-if="item.color"
+                    class="order-item__color"
+                >
                     <span
                         :style="`background-color: ${item.color.code};`"
                         class="order-item__icon"
                     />
                     <span>{{ item.color.name }}</span>
                 </div>
-                <div v-if="item?.size" class="order-item__size">
+                <div
+                    v-if="item?.size"
+                    class="order-item__size"
+                >
                     <span>размер:</span> {{ item.size.name }}
                 </div>
-                <div v-if="item?.quantity" class="order-item__quantity">
+                <div
+                    v-if="item?.quantity"
+                    class="order-item__quantity"
+                >
                     <span>количество:</span> {{ item.quantity }}
                 </div>
-                <div v-if="item?.price" class="order-item__price">
+                <div
+                    v-if="item?.price"
+                    class="order-item__price"
+                >
                     <span>сумма:</span> {{ Number(item.price) * Number(item.quantity) }} ₽
                 </div>
             </div>

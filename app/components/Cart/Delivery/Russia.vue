@@ -117,8 +117,17 @@ onUnmounted(() => widget.value?.destroy())
             <VFormLabel for="address">
                 Выберите пункт выдачи или адрес*
             </VFormLabel>
-            <VFormInput id="address" v-model="addressProxy" readonly placeholder="Выберите адрес" @click="widget?.open()" />
-            <div id="cdek-widget-container" ref="widgetContainer" />
+            <VFormInput
+                id="address"
+                v-model="addressProxy"
+                readonly
+                placeholder="Выберите адрес"
+                @click="widget?.open()"
+            />
+            <div
+                id="cdek-widget-container"
+                ref="widgetContainer"
+            />
         </VFormField>
     </VFormBlock>
 </template>

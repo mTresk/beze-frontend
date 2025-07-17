@@ -70,9 +70,20 @@ useSwiper(containerRef, {
 
 <template>
     <article class="product-card">
-        <NuxtLink title="Перейти на страницу товара" :to="`/catalog/${product.slug}`" class="product-card__picture" @click="$emit('linkClick')">
-            <div class="product-card__placeholder" :class="{ hidden: imagesLoaded }">
-                <UiIcon name="image" size="48" />
+        <NuxtLink
+            title="Перейти на страницу товара"
+            :to="`/catalog/${product.slug}`"
+            class="product-card__picture"
+            @click="$emit('linkClick')"
+        >
+            <div
+                class="product-card__placeholder"
+                :class="{ hidden: imagesLoaded }"
+            >
+                <UiIcon
+                    name="image"
+                    size="48"
+                />
             </div>
             <ClientOnly>
                 <swiper-container
@@ -83,7 +94,8 @@ useSwiper(containerRef, {
                 >
                     <swiper-slide
                         v-for="(image, index) in limitedImages"
-                        :key="index" class="product-card__slide"
+                        :key="index"
+                        class="product-card__slide"
                     >
                         <img
                             :src="image.normal"
@@ -111,7 +123,11 @@ useSwiper(containerRef, {
         </NuxtLink>
         <div class="product-card__header">
             <div class="product-card__chips">
-                <div v-for="chip in product.chips" :key="chip.slug" class="chip">
+                <div
+                    v-for="chip in product.chips"
+                    :key="chip.slug"
+                    class="chip"
+                >
                     {{ chip.name }}
                 </div>
             </div>
@@ -122,7 +138,10 @@ useSwiper(containerRef, {
                 :aria-label="wishlistStatus ? 'Удалить из избранного' : 'Добавить в избранное'"
                 @click="handleWishlistClick"
             >
-                <UiIcon name="favorite" size="24" />
+                <UiIcon
+                    name="favorite"
+                    size="24"
+                />
             </button>
         </div>
         <div class="product-card__info">

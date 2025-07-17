@@ -32,9 +32,18 @@ const seoDescription = 'Найденные товары в интернет-ма
     <div>
         <Head>
             <Title>{{ seoTitle }}</Title>
-            <Meta name="description" :content="seoDescription" />
-            <Meta property="og:description" :content="seoDescription" />
-            <Meta name="twitter:description" :content="seoDescription" />
+            <Meta
+                name="description"
+                :content="seoDescription"
+            />
+            <Meta
+                property="og:description"
+                :content="seoDescription"
+            />
+            <Meta
+                name="twitter:description"
+                :content="seoDescription"
+            />
         </Head>
         <section class="search-page spacer">
             <div class="search-page__container">
@@ -46,7 +55,10 @@ const seoDescription = 'Найденные товары в интернет-ма
             <div class="search-page__inner">
                 <div class="search-page__wrapper">
                     <UiSpinner v-if="isLoading" />
-                    <div v-else-if="searchResult?.products?.length" class="search-page__body">
+                    <div
+                        v-else-if="searchResult?.products?.length"
+                        class="search-page__body"
+                    >
                         <ProductItem
                             v-for="product in searchResult.products"
                             :key="product.id"
@@ -55,7 +67,10 @@ const seoDescription = 'Найденные товары в интернет-ма
                     </div>
                     <LayoutEmpty v-else>
                         <template #icon>
-                            <UiIcon name="sad" size="48" />
+                            <UiIcon
+                                name="sad"
+                                size="48"
+                            />
                         </template>
                         <template #title>
                             Ничего не нашлось
@@ -64,7 +79,10 @@ const seoDescription = 'Найденные товары в интернет-ма
                             Проверьте, правильно ли введен запрос
                         </template>
                         <template #button>
-                            <UiButton outline href="/catalog">
+                            <UiButton
+                                outline
+                                href="/catalog"
+                            >
                                 Перейти в каталог
                             </UiButton>
                         </template>

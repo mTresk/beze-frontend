@@ -25,7 +25,10 @@ const classList = computed(() => {
 </script>
 
 <template>
-    <div class="badge" :class="classList">
+    <div
+        class="badge"
+        :class="classList"
+    >
         <slot />
     </div>
 </template>

@@ -62,21 +62,64 @@ const description = 'Элегантная одежда на утро невес�
 <template>
     <NuxtPwaManifest />
     <Head>
-        <Meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=0" />
-        <Meta name="description" :content="description" />
-        <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-        <link rel="shortcut icon" href="/favicon.ico">
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-        <Meta property="og:description" :content="description" />
-        <Meta property="og:image" content="/images/og.png" />
-        <Meta name="twitter:description" :content="description" />
-        <Meta name="twitter:image" content="/images/og.png" />
-        <Meta name="yandex-verification" content="cff0e882e2cb3cc3" />
-        <Meta name="google-site-verification" content="5uwasYAmi91aCWBYkuQhhcwMe5b_43-_iiHEqNAzRLg" />
+        <Meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0 user-scalable=0"
+        />
+        <Meta
+            name="description"
+            :content="description"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            href="/favicon-96x96.png"
+            sizes="96x96"
+        >
+        <link
+            rel="icon"
+            type="image/svg+xml"
+            href="/favicon.svg"
+        >
+        <link
+            rel="shortcut icon"
+            href="/favicon.ico"
+        >
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
+        >
+        <Meta
+            property="og:description"
+            :content="description"
+        />
+        <Meta
+            property="og:image"
+            content="/images/og.png"
+        />
+        <Meta
+            name="twitter:description"
+            :content="description"
+        />
+        <Meta
+            name="twitter:image"
+            content="/images/og.png"
+        />
+        <Meta
+            name="yandex-verification"
+            content="cff0e882e2cb3cc3"
+        />
+        <Meta
+            name="google-site-verification"
+            content="5uwasYAmi91aCWBYkuQhhcwMe5b_43-_iiHEqNAzRLg"
+        />
     </Head>
     <NuxtLoadingIndicator color="#b79d83" />
-    <div class="wrapper" :class="scrollClass">
+    <div
+        class="wrapper"
+        :class="scrollClass"
+    >
         <LayoutHeader />
         <Transition name="search">
             <LayoutSearch v-if="isSearchOpen" />

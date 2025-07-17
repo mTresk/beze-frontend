@@ -3,7 +3,10 @@
         type="button"
         class="slider-button"
     >
-        <UiIcon name="arrow-right" size="40" />
+        <UiIcon
+            name="arrow-right"
+            size="40"
+        />
     </button>
 </template>
 

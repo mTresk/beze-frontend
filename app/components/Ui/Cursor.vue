@@ -26,9 +26,15 @@ onMounted(() => {
 </script>
 
 <template>
-    <div ref="cursor" class="cursor">
+    <div
+        ref="cursor"
+        class="cursor"
+    >
         <span>Смотреть</span>
-        <svg width="10" height="10">
+        <svg
+            width="10"
+            height="10"
+        >
             <use href="/images/icons.svg#arrow-down" />
         </svg>
     </div>

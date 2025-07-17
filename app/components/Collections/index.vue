@@ -60,9 +60,22 @@ await suspense()
         <div class="collections__inner">
             <div class="collections__body">
                 <UiSpinner v-if="isLoading" />
-                <swiper-container v-else ref="containerRef" :init="false" class="collections__slider">
-                    <swiper-slide v-for="collection in collections" :key="collection.id" class="collection-card">
-                        <NuxtLink :to="`catalog/category/collections/${collection.slug}`" data-js-cursor class="collection-card__content">
+                <swiper-container
+                    v-else
+                    ref="containerRef"
+                    :init="false"
+                    class="collections__slider"
+                >
+                    <swiper-slide
+                        v-for="collection in collections"
+                        :key="collection.id"
+                        class="collection-card"
+                    >
+                        <NuxtLink
+                            :to="`catalog/category/collections/${collection.slug}`"
+                            data-js-cursor
+                            class="collection-card__content"
+                        >
                             <img
                                 width="440"
                                 height="440"

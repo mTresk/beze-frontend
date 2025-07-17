@@ -23,9 +23,21 @@ const seoDescription = computed(() => category.value?.seo?.description ?? catego
     <div>
         <Head>
             <Title>{{ seoTitle }}</Title>
-            <Meta v-if="seoDescription" name="description" :content="seoDescription" />
-            <Meta v-if="seoDescription" property="og:description" :content="seoDescription" />
-            <Meta v-if="seoDescription" name="twitter:description" :content="seoDescription" />
+            <Meta
+                v-if="seoDescription"
+                name="description"
+                :content="seoDescription"
+            />
+            <Meta
+                v-if="seoDescription"
+                property="og:description"
+                :content="seoDescription"
+            />
+            <Meta
+                v-if="seoDescription"
+                name="twitter:description"
+                :content="seoDescription"
+            />
         </Head>
         <Catalog
             :api-url="`api/products/categories/${categorySlug}`"

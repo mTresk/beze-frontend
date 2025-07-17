@@ -46,7 +46,10 @@ function getBadgeVariant(status: string) {
 
 <template>
     <div class="personal-order">
-        <div v-if="order" class="personal-order__header">
+        <div
+            v-if="order"
+            class="personal-order__header"
+        >
             <div class="personal-order__info">
                 <div class="personal-order__value">
                     <span>Заказ:</span> № {{ order?.id }} <span>от</span> {{ formatDate(order?.createdAt) }}

@@ -24,11 +24,27 @@ const quantity = computed({
 
 <template>
     <div class="quantity">
-        <button :disabled="quantity <= (min ?? 1)" type="button" class="quantity__button quantity__button_minus" @click="quantity--" />
+        <button
+            :disabled="quantity <= (min ?? 1)"
+            type="button"
+            class="quantity__button quantity__button_minus"
+            @click="quantity--"
+        />
         <div class="quantity__input">
-            <input readonly :value="quantity" autocomplete="off" type="text" name="form[]">
+            <input
+                readonly
+                :value="quantity"
+                autocomplete="off"
+                type="text"
+                name="form[]"
+            >
         </div>
-        <button :disabled="max !== undefined && quantity >= max" type="button" class="quantity__button quantity__button_plus" @click="quantity++" />
+        <button
+            :disabled="max !== undefined && quantity >= max"
+            type="button"
+            class="quantity__button quantity__button_plus"
+            @click="quantity++"
+        />
     </div>
 </template>
 

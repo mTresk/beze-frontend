@@ -80,9 +80,18 @@ useSchemaOrg([
     <div>
         <Head>
             <Title>{{ seoTitle }}</Title>
-            <Meta name="description" :content="seoDescription" />
-            <Meta property="og:description" :content="seoDescription" />
-            <Meta name="twitter:description" :content="seoDescription" />
+            <Meta
+                name="description"
+                :content="seoDescription"
+            />
+            <Meta
+                property="og:description"
+                :content="seoDescription"
+            />
+            <Meta
+                name="twitter:description"
+                :content="seoDescription"
+            />
         </Head>
         <section class="contacts spacer">
             <div class="contacts__container">
@@ -99,13 +108,19 @@ useSchemaOrg([
                                 <p class="contacts__label">
                                     Телефон
                                 </p>
-                                <a class="contacts__value" :href="`tel:${formattedPhone}`">{{ settings.phone }}</a>
+                                <a
+                                    class="contacts__value"
+                                    :href="`tel:${formattedPhone}`"
+                                >{{ settings.phone }}</a>
                             </div>
                             <div class="contacts__block">
                                 <p class="contacts__label">
                                     Email
                                 </p>
-                                <a class="contacts__value" :href="`mailto:${settings.email}`">{{ settings.email }}</a>
+                                <a
+                                    class="contacts__value"
+                                    :href="`mailto:${settings.email}`"
+                                >{{ settings.email }}</a>
                             </div>
                             <div class="contacts__block">
                                 <p class="contacts__label">
@@ -120,19 +135,54 @@ useSchemaOrg([
                                     Мессенджеры
                                 </p>
                                 <div class="contacts__socials">
-                                    <NuxtLink v-if="settings.vk" target="_blank" title="VK" :href="settings.vk" class="contacts__social">
-                                        <img src="/images/icons/vk.svg" alt="VK" loading="lazy">
+                                    <NuxtLink
+                                        v-if="settings.vk"
+                                        target="_blank"
+                                        title="VK"
+                                        :href="settings.vk"
+                                        class="contacts__social"
+                                    >
+                                        <img
+                                            src="/images/icons/vk.svg"
+                                            alt="VK"
+                                            loading="lazy"
+                                        >
                                     </NuxtLink>
-                                    <NuxtLink v-if="settings.telegram" target="_blank" title="Telegram" :href="settings.telegram" class="contacts__social">
-                                        <img src="/images/icons/tg.svg" alt="Telegram" loading="lazy">
+                                    <NuxtLink
+                                        v-if="settings.telegram"
+                                        target="_blank"
+                                        title="Telegram"
+                                        :href="settings.telegram"
+                                        class="contacts__social"
+                                    >
+                                        <img
+                                            src="/images/icons/tg.svg"
+                                            alt="Telegram"
+                                            loading="lazy"
+                                        >
                                     </NuxtLink>
-                                    <NuxtLink v-if="settings.whatsapp" target="_blank" title="WhatsApp" :href="settings.whatsapp" class="contacts__social">
-                                        <img src="/images/icons/wa.svg" alt="WhatsApp" loading="lazy">
+                                    <NuxtLink
+                                        v-if="settings.whatsapp"
+                                        target="_blank"
+                                        title="WhatsApp"
+                                        :href="settings.whatsapp"
+                                        class="contacts__social"
+                                    >
+                                        <img
+                                            src="/images/icons/wa.svg"
+                                            alt="WhatsApp"
+                                            loading="lazy"
+                                        >
                                     </NuxtLink>
                                 </div>
                             </div>
                         </div>
-                        <div ref="mapRoot" data-map data-coordinates="57.13956626772193,65.55710434322022" class="contacts__map" />
+                        <div
+                            ref="mapRoot"
+                            data-map
+                            data-coordinates="57.13956626772193,65.55710434322022"
+                            class="contacts__map"
+                        />
                     </div>
                     <div class="contacts__form contacts-form">
                         <h3 class="contacts-form__label">
@@ -207,7 +257,12 @@ useSchemaOrg([
                                     <VFormPolicy />
                                 </template>
                             </VFormCheckbox>
-                            <UiButton :disabled="isFormSent || !isAgreementAccepted" :is-loading="isLoading" class="contacts-form__button" @click="handleSubmit">
+                            <UiButton
+                                :disabled="isFormSent || !isAgreementAccepted"
+                                :is-loading="isLoading"
+                                class="contacts-form__button"
+                                @click="handleSubmit"
+                            >
                                 {{ isFormSent ? 'Отправлено' : 'Отправить' }}
                             </UiButton>
                         </div>

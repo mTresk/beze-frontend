@@ -92,9 +92,18 @@ const seoDescription = 'Корзина интернет-магазина Beze St
     <div>
         <Head>
             <Title>{{ seoTitle }}</Title>
-            <Meta name="description" :content="seoDescription" />
-            <Meta property="og:description" :content="seoDescription" />
-            <Meta name="twitter:description" :content="seoDescription" />
+            <Meta
+                name="description"
+                :content="seoDescription"
+            />
+            <Meta
+                property="og:description"
+                :content="seoDescription"
+            />
+            <Meta
+                name="twitter:description"
+                :content="seoDescription"
+            />
         </Head>
         <section class="cart spacer">
             <div class="cart__container">
@@ -105,17 +114,32 @@ const seoDescription = 'Корзина интернет-магазина Beze St
                 />
                 <UiPageTitle>Корзина</UiPageTitle>
                 <UiSpinner v-if="isLoading" />
-                <div v-if="cartItems.length" class="cart__body" :class="{ 'cart__body--disabled': isFormSending }">
+                <div
+                    v-if="cartItems.length"
+                    class="cart__body"
+                    :class="{ 'cart__body--disabled': isFormSending }"
+                >
                     <div class="cart__wrapper">
                         <div class="cart__table">
-                            <CartItem v-for="item in cartItems" :key="item.id" :cart-item="item" />
+                            <CartItem
+                                v-for="item in cartItems"
+                                :key="item.id"
+                                :cart-item="item"
+                            />
                         </div>
-                        <UiLink v-if="!isAuthenticated" class="cart__login" href="/auth/login">
+                        <UiLink
+                            v-if="!isAuthenticated"
+                            class="cart__login"
+                            href="/auth/login"
+                        >
                             Войти в личный кабинет
                         </UiLink>
                         <div class="cart__form">
                             <UiSpinner v-if="isFormSending" />
-                            <CartForm v-model="form" :errors="errors" />
+                            <CartForm
+                                v-model="form"
+                                :errors="errors"
+                            />
                         </div>
                     </div>
                     <div class="cart__checkout">
@@ -136,7 +160,10 @@ const seoDescription = 'Корзина интернет-магазина Beze St
                             После оплаты заказа менеджер свяжется с вами для уточнения деталей
                         </div>
                         <div class="cart__total">
-                            <div v-if="form?.delivery_type !== 'pickup'" class="cart__line">
+                            <div
+                                v-if="form?.delivery_type !== 'pickup'"
+                                class="cart__line"
+                            >
                                 <div class="cart__key">
                                     Доставка
                                 </div>
@@ -152,7 +179,10 @@ const seoDescription = 'Корзина интернет-магазина Beze St
                                     </template>
                                 </div>
                             </div>
-                            <div v-if="form?.delivery_type === 'tyumen' && deliveryPrice > 0" class="cart__line cart__line--note">
+                            <div
+                                v-if="form?.delivery_type === 'tyumen' && deliveryPrice > 0"
+                                class="cart__line cart__line--note"
+                            >
                                 <div class="cart__note">
                                     Бесплатная доставка по Тюмени от 5000 ₽
                                 </div>
@@ -188,7 +218,10 @@ const seoDescription = 'Корзина интернет-магазина Beze St
                 </div>
                 <LayoutEmpty v-if="isInitialized && !cartItems.length">
                     <template #icon>
-                        <UiIcon name="cart" size="48" />
+                        <UiIcon
+                            name="cart"
+                            size="48"
+                        />
                     </template>
                     <template #title>
                         Ваша корзина пока пуста
@@ -197,7 +230,10 @@ const seoDescription = 'Корзина интернет-магазина Beze St
                         Добавьте товары в корзину, чтобы просматривать их здесь
                     </template>
                     <template #button>
-                        <UiButton outline href="/catalog">
+                        <UiButton
+                            outline
+                            href="/catalog"
+                        >
                             Перейти в каталог
                         </UiButton>
                     </template>

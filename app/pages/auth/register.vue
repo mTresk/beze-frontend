@@ -123,10 +123,19 @@ const {
                         <VFormPolicy />
                     </template>
                 </VFormCheckbox>
-                <UiButton wide :is-loading="isLoading" type="submit" :disabled="!isAgreementAccepted" @click="submitForm">
+                <UiButton
+                    wide
+                    :is-loading="isLoading"
+                    type="submit"
+                    :disabled="!isAgreementAccepted"
+                    @click="submitForm"
+                >
                     Зарегистрироваться
                 </UiButton>
-                <UiLink class="auth__link" href="/auth/login">
+                <UiLink
+                    class="auth__link"
+                    href="/auth/login"
+                >
                     Уже есть аккаунт?
                 </UiLink>
             </template>

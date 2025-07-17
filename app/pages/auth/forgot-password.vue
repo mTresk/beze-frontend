@@ -40,12 +40,18 @@ const {
                 />
                 <UiPageTitle>Восстановление пароля</UiPageTitle>
             </template>
-            <template v-if="status" #status>
+            <template
+                v-if="status"
+                #status
+            >
                 <UiStatus>
                     {{ status }}
                 </UiStatus>
             </template>
-            <template v-if="!resetEmailSent" #body>
+            <template
+                v-if="!resetEmailSent"
+                #body
+            >
                 <VForm @submit.prevent="submitForm">
                     <VFormBlock :error="errors.email">
                         <VFormField>
@@ -63,8 +69,16 @@ const {
                     </VFormBlock>
                 </VForm>
             </template>
-            <template v-if="!resetEmailSent" #footer>
-                <UiButton wide :is-loading="isLoading" type="submit" @click="submitForm">
+            <template
+                v-if="!resetEmailSent"
+                #footer
+            >
+                <UiButton
+                    wide
+                    :is-loading="isLoading"
+                    type="submit"
+                    @click="submitForm"
+                >
                     Восстановить пароль
                 </UiButton>
             </template>

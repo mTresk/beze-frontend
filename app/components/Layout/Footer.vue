@@ -17,8 +17,16 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
         <div class="footer__container">
             <div class="footer__body">
                 <div class="footer__info">
-                    <NuxtLink to="/" class="footer__logo">
-                        <NuxtImg width="320" height="90" src="/images/logo-footer.svg" alt="Beze Studio" />
+                    <NuxtLink
+                        to="/"
+                        class="footer__logo"
+                    >
+                        <NuxtImg
+                            width="320"
+                            height="90"
+                            src="/images/logo-footer.svg"
+                            alt="Beze Studio"
+                        />
                     </NuxtLink>
                     <div class="footer__copyright">
                         © {{ currentYear }} Все права защищены
@@ -33,7 +41,10 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
                             <nav class="footer-menu__body">
                                 <ul class="footer-menu__list">
                                     <li class="footer-menu__item">
-                                        <NuxtLink to="/catalog" class="footer-menu__link">
+                                        <NuxtLink
+                                            to="/catalog"
+                                            class="footer-menu__link"
+                                        >
                                             Каталог
                                         </NuxtLink>
                                     </li>
@@ -84,17 +95,56 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
                             <p class="footer__address">
                                 {{ settings.address }}
                             </p>
-                            <a :href="`mailto:${settings.email}`" class="footer__email">{{ settings.email }}</a>
-                            <a :href="`tel:${formattedPhone}`" class="footer__phone">{{ settings.phone }}</a>
+                            <a
+                                :href="`mailto:${settings.email}`"
+                                class="footer__email"
+                            >{{ settings.email }}</a>
+                            <a
+                                :href="`tel:${formattedPhone}`"
+                                class="footer__phone"
+                            >{{ settings.phone }}</a>
                             <div class="footer__socials">
-                                <a v-if="settings.vk" target="_blank" title="Vk" :href="settings.vk" class="footer__soicial">
-                                    <NuxtImg width="30" height="30" src="/images/icons/vk.svg" alt="" />
+                                <a
+                                    v-if="settings.vk"
+                                    target="_blank"
+                                    title="Vk"
+                                    :href="settings.vk"
+                                    class="footer__soicial"
+                                >
+                                    <NuxtImg
+                                        width="30"
+                                        height="30"
+                                        src="/images/icons/vk.svg"
+                                        alt=""
+                                    />
                                 </a>
-                                <a v-if="settings.telegram" target="_blank" title="Telegram" :href="settings.telegram" class="footer__soicial">
-                                    <NuxtImg width="30" height="30" src="/images/icons/tg.svg" alt="" />
+                                <a
+                                    v-if="settings.telegram"
+                                    target="_blank"
+                                    title="Telegram"
+                                    :href="settings.telegram"
+                                    class="footer__soicial"
+                                >
+                                    <NuxtImg
+                                        width="30"
+                                        height="30"
+                                        src="/images/icons/tg.svg"
+                                        alt=""
+                                    />
                                 </a>
-                                <a v-if="settings.whatsapp" target="_blank" title="Whatsapp" :href="settings.whatsapp" class="footer__soicial">
-                                    <NuxtImg width="30" height="30" src="/images/icons/wa.svg" alt="" />
+                                <a
+                                    v-if="settings.whatsapp"
+                                    target="_blank"
+                                    title="Whatsapp"
+                                    :href="settings.whatsapp"
+                                    class="footer__soicial"
+                                >
+                                    <NuxtImg
+                                        width="30"
+                                        height="30"
+                                        src="/images/icons/wa.svg"
+                                        alt=""
+                                    />
                                 </a>
                             </div>
                         </div>
@@ -103,19 +153,31 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
             </div>
             <div class="footer__bottom">
                 <div class="footer__links">
-                    <UiLink class="footer__link" href="/info/privacy">
+                    <UiLink
+                        class="footer__link"
+                        href="/info/privacy"
+                    >
                         Политика конфиденциальности
                     </UiLink>
-                    <UiLink class="footer__link" href="/info/processing">
+                    <UiLink
+                        class="footer__link"
+                        href="/info/processing"
+                    >
                         Согласие на обработку ПД
                     </UiLink>
-                    <UiLink class="footer__link" href="/info/offer">
+                    <UiLink
+                        class="footer__link"
+                        href="/info/offer"
+                    >
                         Договор оферты
                     </UiLink>
                 </div>
                 <div class="footer__developer">
                     <span>Разработка:</span>
-                    <UiLink target="_blank" href="https://tresksites.ru">
+                    <UiLink
+                        target="_blank"
+                        href="https://tresksites.ru"
+                    >
                         Tresk
                     </UiLink>
                 </div>

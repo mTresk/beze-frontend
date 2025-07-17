@@ -6,7 +6,10 @@ defineProps<{
 </script>
 
 <template>
-    <svg :width="size" :height="size">
+    <svg
+        :width="size"
+        :height="size"
+    >
         <use :href="`/images/icons.svg#${name}`" />
     </svg>
 </template>

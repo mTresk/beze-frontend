@@ -68,11 +68,22 @@ function toggleMenu() {
 </script>
 
 <template>
-    <header class="header" :class="{ 'header--inner': isInnerPage }">
+    <header
+        class="header"
+        :class="{ 'header--inner': isInnerPage }"
+    >
         <div class="header__inner">
             <div class="header__body">
-                <NuxtLink to="/" class="header__logo">
-                    <NuxtImg width="135" height="38" src="/images/logo.svg" alt="Beze Studio" />
+                <NuxtLink
+                    to="/"
+                    class="header__logo"
+                >
+                    <NuxtImg
+                        width="135"
+                        height="38"
+                        src="/images/logo.svg"
+                        alt="Beze Studio"
+                    />
                 </NuxtLink>
                 <LayoutMenu
                     :menu="menu"
@@ -90,14 +101,20 @@ function toggleMenu() {
                         class="header__action"
                         @click="handleSearchClick"
                     >
-                        <UiIcon name="search" size="30" />
+                        <UiIcon
+                            name="search"
+                            size="30"
+                        />
                     </button>
                     <NuxtLink
                         to="/favorites"
                         class="header__action"
                         title="Вишлист"
                     >
-                        <UiIcon name="favorite" size="30" />
+                        <UiIcon
+                            name="favorite"
+                            size="30"
+                        />
                         <Transition>
                             <span v-if="wishlistCount">{{ wishlistCount }}</span>
                         </Transition>
@@ -108,7 +125,10 @@ function toggleMenu() {
                         class="header__action"
                         title="Корзина"
                     >
-                        <UiIcon name="cart" size="30" />
+                        <UiIcon
+                            name="cart"
+                            size="30"
+                        />
                         <Transition>
                             <span v-if="cartCount">{{ cartCount }}</span>
                         </Transition>
@@ -119,7 +139,10 @@ function toggleMenu() {
                         class="header__action"
                         title="Войти"
                     >
-                        <UiIcon name="user" size="30" />
+                        <UiIcon
+                            name="user"
+                            size="30"
+                        />
                     </NuxtLink>
                     <NuxtLink
                         v-else
@@ -127,7 +150,10 @@ function toggleMenu() {
                         class="header__action"
                         title="Личный кабинет"
                     >
-                        <UiIcon name="user" size="30" />
+                        <UiIcon
+                            name="user"
+                            size="30"
+                        />
                         <Transition>
                             <span v-if="user?.name">{{ user?.name.charAt(0).toUpperCase() }}</span>
                         </Transition>
@@ -142,7 +168,10 @@ function toggleMenu() {
                             class="header__action"
                             @click="handleSearchClick"
                         >
-                            <UiIcon name="search" size="30" />
+                            <UiIcon
+                                name="search"
+                                size="30"
+                            />
                         </button>
                     </div>
                     <button

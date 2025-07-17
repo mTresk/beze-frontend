@@ -60,8 +60,16 @@ useSwiper(containerRef, {
         <div class="reviews__body">
             <UiSpinner v-if="isLoading" />
             <ClientOnly v-else>
-                <swiper-container ref="containerRef" :init="false" class="reviews__slider">
-                    <swiper-slide v-for="(review, index) in reviews?.images" :key="index" class="review">
+                <swiper-container
+                    ref="containerRef"
+                    :init="false"
+                    class="reviews__slider"
+                >
+                    <swiper-slide
+                        v-for="(review, index) in reviews?.images"
+                        :key="index"
+                        class="review"
+                    >
                         <div class="review__content">
                             <div class="review__image">
                                 <img

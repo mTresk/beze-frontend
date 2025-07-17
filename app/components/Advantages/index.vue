@@ -34,7 +34,10 @@ onBeforeUnmount(() => {
             <div class="advantages__body">
                 <div class="advantages__item">
                     <div class="advantages__icon">
-                        <svg width="80" height="80">
+                        <svg
+                            width="80"
+                            height="80"
+                        >
                             <use href="/images/icons.svg#advantage-1" />
                         </svg>
                     </div>
@@ -44,7 +47,10 @@ onBeforeUnmount(() => {
                 </div>
                 <div class="advantages__item">
                     <div class="advantages__icon">
-                        <svg width="80" height="80">
+                        <svg
+                            width="80"
+                            height="80"
+                        >
                             <use href="/images/icons.svg#advantage-2" />
                         </svg>
                     </div>
@@ -54,7 +60,10 @@ onBeforeUnmount(() => {
                 </div>
                 <div class="advantages__item">
                     <div class="advantages__icon">
-                        <svg width="80" height="80">
+                        <svg
+                            width="80"
+                            height="80"
+                        >
                             <use href="/images/icons.svg#advantage-3" />
                         </svg>
                     </div>

@@ -182,14 +182,23 @@ onUnmounted(() => {
                         title="Закрыть"
                         @click="handleClose"
                     >
-                        <UiIcon name="close" size="32" />
+                        <UiIcon
+                            name="close"
+                            size="32"
+                        />
                     </button>
                 </div>
                 <div class="search__body">
-                    <div v-if="searchQuery && !isLoading && searchResult && !searchResult.products?.length" class="search__empty">
+                    <div
+                        v-if="searchQuery && !isLoading && searchResult && !searchResult.products?.length"
+                        class="search__empty"
+                    >
                         <LayoutEmpty>
                             <template #icon>
-                                <UiIcon name="sad" size="48" />
+                                <UiIcon
+                                    name="sad"
+                                    size="48"
+                                />
                             </template>
                             <template #title>
                                 Ничего не нашлось
@@ -199,7 +208,11 @@ onUnmounted(() => {
                             </template>
                         </LayoutEmpty>
                     </div>
-                    <div v-else class="search__results" :class="{ 'search__results--loading': isLoading }">
+                    <div
+                        v-else
+                        class="search__results"
+                        :class="{ 'search__results--loading': isLoading }"
+                    >
                         <UiSpinner v-if="isLoading" />
                         <h2 class="search__title search__title--mobile">
                             {{ displayedTitle }}
@@ -223,16 +236,41 @@ onUnmounted(() => {
                         </UiButton>
                     </div>
 
-                    <form class="search__form" @submit.prevent="handleSubmit">
+                    <form
+                        class="search__form"
+                        @submit.prevent="handleSubmit"
+                    >
                         <div class="search__wrapper">
-                            <button type="button" class="search__back" @click="handleClose">
-                                <UiIcon name="arrow-left" size="20" />
+                            <button
+                                type="button"
+                                class="search__back"
+                                @click="handleClose"
+                            >
+                                <UiIcon
+                                    name="arrow-left"
+                                    size="20"
+                                />
                             </button>
                             <label class="search__field">
-                                <UiIcon name="search" size="20" />
-                                <input v-model="searchQuery" type="text" autocomplete="off" class="search__input" placeholder="Поиск">
-                                <UiButtonSpinner v-if="isLoading" size="20" />
-                                <button v-else-if="searchQuery" class="search__reset">
+                                <UiIcon
+                                    name="search"
+                                    size="20"
+                                />
+                                <input
+                                    v-model="searchQuery"
+                                    type="text"
+                                    autocomplete="off"
+                                    class="search__input"
+                                    placeholder="Поиск"
+                                >
+                                <UiButtonSpinner
+                                    v-if="isLoading"
+                                    size="20"
+                                />
+                                <button
+                                    v-else-if="searchQuery"
+                                    class="search__reset"
+                                >
                                     <UiIcon
                                         name="close"
                                         size="20"
@@ -241,7 +279,10 @@ onUnmounted(() => {
                                 </button>
                             </label>
                         </div>
-                        <div v-if="searchResult?.taps?.length" class="search__taps">
+                        <div
+                            v-if="searchResult?.taps?.length"
+                            class="search__taps"
+                        >
                             <div
                                 v-for="tap in searchResult.taps.slice(0, 8)"
                                 :key="tap.title"
@@ -251,7 +292,10 @@ onUnmounted(() => {
                                 {{ tap.title }}
                             </div>
                         </div>
-                        <div v-if="searchHistory.length" class="search__history">
+                        <div
+                            v-if="searchHistory.length"
+                            class="search__history"
+                        >
                             <p class="search__history-label">
                                 Недавно искали
                             </p>
@@ -263,7 +307,10 @@ onUnmounted(() => {
                                     @click="searchQuery = query"
                                 >
                                     <span>{{ query }}</span>
-                                    <UiIcon name="time" size="20" />
+                                    <UiIcon
+                                        name="time"
+                                        size="20"
+                                    />
                                 </li>
                             </ul>
                         </div>

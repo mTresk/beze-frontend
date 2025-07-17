@@ -25,9 +25,18 @@ const seoDescription = 'Здесь лежат желанные товары'
     <div>
         <Head>
             <Title>{{ seoTitle }}</Title>
-            <Meta name="description" :content="seoDescription" />
-            <Meta property="og:description" :content="seoDescription" />
-            <Meta name="twitter:description" :content="seoDescription" />
+            <Meta
+                name="description"
+                :content="seoDescription"
+            />
+            <Meta
+                property="og:description"
+                :content="seoDescription"
+            />
+            <Meta
+                name="twitter:description"
+                :content="seoDescription"
+            />
         </Head>
         <section class="favorites spacer">
             <div class="favorites__container">
@@ -38,8 +47,14 @@ const seoDescription = 'Здесь лежат желанные товары'
                 />
                 <UiPageTitle>Вишлист</UiPageTitle>
                 <UiSpinner v-if="isLoading" />
-                <div v-else class="favorites__wrapper">
-                    <div v-if="wishlistItems.length" class="favorites__body">
+                <div
+                    v-else
+                    class="favorites__wrapper"
+                >
+                    <div
+                        v-if="wishlistItems.length"
+                        class="favorites__body"
+                    >
                         <ProductItem
                             v-for="item in wishlistItems"
                             :key="item.id"
@@ -48,7 +63,10 @@ const seoDescription = 'Здесь лежат желанные товары'
                     </div>
                     <LayoutEmpty v-if="isInitialized && !wishlistItems.length">
                         <template #icon>
-                            <UiIcon name="favorite" size="48" />
+                            <UiIcon
+                                name="favorite"
+                                size="48"
+                            />
                         </template>
                         <template #title>
                             Ваш вишлист пока пуст
@@ -57,7 +75,10 @@ const seoDescription = 'Здесь лежат желанные товары'
                             Добавьте товары в вишлист, чтобы просматривать их здесь
                         </template>
                         <template #button>
-                            <UiButton outline href="/catalog">
+                            <UiButton
+                                outline
+                                href="/catalog"
+                            >
                                 Перейти в каталог
                             </UiButton>
                         </template>

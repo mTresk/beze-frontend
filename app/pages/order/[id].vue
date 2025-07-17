@@ -59,9 +59,18 @@ const title = computed(() => order.value ? 'Ваш заказ' : 'Заказ н�
     <div>
         <Head>
             <Title>{{ seoTitle }}</Title>
-            <Meta name="description" :content="seoDescription" />
-            <Meta property="og:description" :content="seoDescription" />
-            <Meta name="twitter:description" :content="seoDescription" />
+            <Meta
+                name="description"
+                :content="seoDescription"
+            />
+            <Meta
+                property="og:description"
+                :content="seoDescription"
+            />
+            <Meta
+                name="twitter:description"
+                :content="seoDescription"
+            />
         </Head>
         <section class="order spacer">
             <div class="order__container">
@@ -73,11 +82,17 @@ const title = computed(() => order.value ? 'Ваш заказ' : 'Заказ н�
                 <UiPageTitle>{{ title }}</UiPageTitle>
                 <UiSpinner v-if="isLoading" />
                 <template v-else>
-                    <OrderInfo v-if="order" :order="order" />
+                    <OrderInfo
+                        v-if="order"
+                        :order="order"
+                    />
 
                     <LayoutEmpty v-if="!order">
                         <template #icon>
-                            <UiIcon name="sad" size="48" />
+                            <UiIcon
+                                name="sad"
+                                size="48"
+                            />
                         </template>
                         <template #title>
                             Заказ не найден
@@ -86,7 +101,10 @@ const title = computed(() => order.value ? 'Ваш заказ' : 'Заказ н�
                             Возможно, он был удален или не существует
                         </template>
                         <template #button>
-                            <UiButton outline href="/personal">
+                            <UiButton
+                                outline
+                                href="/personal"
+                            >
                                 Перейти в личный кабинет
                             </UiButton>
                         </template>

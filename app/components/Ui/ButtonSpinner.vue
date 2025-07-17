@@ -5,7 +5,11 @@ defineProps<{
 </script>
 
 <template>
-    <UiIcon class="spinner" name="spinner" :size="size" />
+    <UiIcon
+        class="spinner"
+        name="spinner"
+        :size="size"
+    />
 </template>
 
 <style lang="scss" scoped>

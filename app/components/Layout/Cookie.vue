@@ -19,14 +19,23 @@ onMounted(() => {
 </script>
 
 <template>
-    <div v-if="isVisible" class="cookie">
+    <div
+        v-if="isVisible"
+        class="cookie"
+    >
         <div class="cookie__content">
             <div class="cookie__text">
-                Пользуясь сайтом, вы соглашаетесь с использованием cookies и <UiLink medium href="/info/privacy">
+                Пользуясь сайтом, вы соглашаетесь с использованием cookies и <UiLink
+                    medium
+                    href="/info/privacy"
+                >
                     политикой конфиденциальности
                 </UiLink>.
             </div>
-            <UiButton small @click="handleAccept">
+            <UiButton
+                small
+                @click="handleAccept"
+            >
                 Хорошо
             </UiButton>
         </div>

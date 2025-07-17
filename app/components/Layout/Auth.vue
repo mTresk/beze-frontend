@@ -2,15 +2,27 @@
     <div>
         <section class="auth spacer">
             <div class="auth__container">
-                <slot v-if="$slots.header" name="header" />
-                <div v-if="$slots.status" class="auth__status">
+                <slot
+                    v-if="$slots.header"
+                    name="header"
+                />
+                <div
+                    v-if="$slots.status"
+                    class="auth__status"
+                >
                     <slot name="status" />
                 </div>
 
-                <div v-if="$slots.body" class="auth__body">
+                <div
+                    v-if="$slots.body"
+                    class="auth__body"
+                >
                     <slot name="body" />
                 </div>
-                <div v-if="$slots.footer" class="auth__footer">
+                <div
+                    v-if="$slots.footer"
+                    class="auth__footer"
+                >
                     <slot name="footer" />
                 </div>
             </div>

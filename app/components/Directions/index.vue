@@ -49,9 +49,22 @@ await suspense()
         <div class="directions__inner">
             <div class="directions__body">
                 <UiSpinner v-if="isLoading" />
-                <swiper-container v-else ref="containerRef" :init="false" class="directions__slider">
-                    <swiper-slide v-for="category in categories" :key="category.id" class="direction-card">
-                        <NuxtLink :to="`/catalog/category/${category.slug}`" data-js-cursor class="direction-card__wrapper">
+                <swiper-container
+                    v-else
+                    ref="containerRef"
+                    :init="false"
+                    class="directions__slider"
+                >
+                    <swiper-slide
+                        v-for="category in categories"
+                        :key="category.id"
+                        class="direction-card"
+                    >
+                        <NuxtLink
+                            :to="`/catalog/category/${category.slug}`"
+                            data-js-cursor
+                            class="direction-card__wrapper"
+                        >
                             <img
                                 class="direction-card__image"
                                 :src="category.image.normal"
@@ -69,7 +82,10 @@ await suspense()
                                         {{ category.name }}
                                     </UiTitle>
                                 </div>
-                                <div class="direction-card__description" v-html="category.description" />
+                                <div
+                                    class="direction-card__description"
+                                    v-html="category.description"
+                                />
                             </div>
                         </NuxtLink>
                     </swiper-slide>

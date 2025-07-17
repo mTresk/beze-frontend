@@ -23,7 +23,10 @@ const cartCount = computed(() => cartItems.value?.length || 0)
                     to="/catalog"
                     title="Каталог"
                 >
-                    <UiIcon name="catalog" size="24" />
+                    <UiIcon
+                        name="catalog"
+                        size="24"
+                    />
                     <span>Каталог</span>
                 </NuxtLink>
             </li>
@@ -33,9 +36,15 @@ const cartCount = computed(() => cartItems.value?.length || 0)
                     to="/favorites"
                     title="Вишлист"
                 >
-                    <UiIcon name="favorite" size="24" />
+                    <UiIcon
+                        name="favorite"
+                        size="24"
+                    />
                     <Transition>
-                        <span v-if="wishlistCount" class="navigation__link-count">{{ wishlistCount }}</span>
+                        <span
+                            v-if="wishlistCount"
+                            class="navigation__link-count"
+                        >{{ wishlistCount }}</span>
                     </Transition>
                     <span>Вишлист</span>
                 </NuxtLink>
@@ -46,7 +55,10 @@ const cartCount = computed(() => cartItems.value?.length || 0)
                     to="/"
                     title="Главная"
                 >
-                    <UiIcon name="home" size="24" />
+                    <UiIcon
+                        name="home"
+                        size="24"
+                    />
                     <span>Главная</span>
                 </NuxtLink>
             </li>
@@ -56,9 +68,15 @@ const cartCount = computed(() => cartItems.value?.length || 0)
                     to="/cart"
                     title="Корзина"
                 >
-                    <UiIcon name="cart" size="24" />
+                    <UiIcon
+                        name="cart"
+                        size="24"
+                    />
                     <Transition>
-                        <span v-if="cartCount" class="navigation__link-count">{{ cartCount }}</span>
+                        <span
+                            v-if="cartCount"
+                            class="navigation__link-count"
+                        >{{ cartCount }}</span>
                     </Transition>
                     <span>Корзина</span>
                 </NuxtLink>
@@ -72,9 +90,15 @@ const cartCount = computed(() => cartItems.value?.length || 0)
                     to="/personal"
                     title="Личный кабинет"
                 >
-                    <UiIcon name="user" size="24" />
+                    <UiIcon
+                        name="user"
+                        size="24"
+                    />
                     <Transition>
-                        <span v-if="user?.name" class="navigation__link-count">{{ user?.name.charAt(0) }}</span>
+                        <span
+                            v-if="user?.name"
+                            class="navigation__link-count"
+                        >{{ user?.name.charAt(0) }}</span>
                     </Transition>
                     <span>Кабинет</span>
                 </NuxtLink>
@@ -88,7 +112,10 @@ const cartCount = computed(() => cartItems.value?.length || 0)
                     to="/auth/login"
                     title="Войти"
                 >
-                    <UiIcon name="user" size="24" />
+                    <UiIcon
+                        name="user"
+                        size="24"
+                    />
                     <span>Кабинет</span>
                 </NuxtLink>
             </li>

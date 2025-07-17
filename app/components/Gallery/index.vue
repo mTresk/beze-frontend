@@ -47,8 +47,16 @@ useSwiper(containerRef, {
     <section class="gallery spacer">
         <UiSpinner v-if="isLoading" />
         <ClientOnly v-else>
-            <swiper-container ref="containerRef" :init="false" class="gallery__slider">
-                <swiper-slide v-for="(image, index) in gallery?.images" :key="index" class="gallery__item">
+            <swiper-container
+                ref="containerRef"
+                :init="false"
+                class="gallery__slider"
+            >
+                <swiper-slide
+                    v-for="(image, index) in gallery?.images"
+                    :key="index"
+                    class="gallery__item"
+                >
                     <img
                         class="gallery__image"
                         :src="image.normal"

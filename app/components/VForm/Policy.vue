@@ -1,8 +1,14 @@
 <template>
     <div class="policy">
-        Подтвеждаю <NuxtLink target="_blank" to="/info/processing">
+        Подтвеждаю <NuxtLink
+            target="_blank"
+            to="/info/processing"
+        >
             согласие с обработкой моих персональных данных
-        </NuxtLink> и <NuxtLink target="_blank" to="/info/privacy">
+        </NuxtLink> и <NuxtLink
+            target="_blank"
+            to="/info/privacy"
+        >
             политикой конфиденциальности
         </NuxtLink>
     </div>

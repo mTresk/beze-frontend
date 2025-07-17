@@ -65,8 +65,16 @@ useSwiper(containerRef, {
         <div class="reviews__body">
             <UiSpinner v-if="isLoading" />
             <ClientOnly v-else>
-                <swiper-container ref="containerRef" :init="false" class="reviews__slider">
-                    <swiper-slide v-for="testimonial in testimonials" :key="testimonial.id" class="testimonial">
+                <swiper-container
+                    ref="containerRef"
+                    :init="false"
+                    class="reviews__slider"
+                >
+                    <swiper-slide
+                        v-for="testimonial in testimonials"
+                        :key="testimonial.id"
+                        class="testimonial"
+                    >
                         <div class="testimonial__content">
                             <div class="testimonial__header">
                                 <div class="testimonial__info">
@@ -89,7 +97,10 @@ useSwiper(containerRef, {
                                 </div>
                             </div>
                             <PerfectScrollbar :options="{ suppressScrollX: true, wheelPropagation: true, wheelSpeed: 0.2 }">
-                                <div class="testimonial__text" v-html="testimonial.text" />
+                                <div
+                                    class="testimonial__text"
+                                    v-html="testimonial.text"
+                                />
                             </PerfectScrollbar>
                         </div>
                     </swiper-slide>

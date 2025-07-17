@@ -7,7 +7,10 @@ defineProps<{
 <template>
     <div class="form-block">
         <slot />
-        <small v-if="error" class="form-error">{{ error[0] }}</small>
+        <small
+            v-if="error"
+            class="form-error"
+        >{{ error[0] }}</small>
     </div>
 </template>
 

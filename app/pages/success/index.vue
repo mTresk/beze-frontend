@@ -9,9 +9,18 @@ const seoDescription = 'Успешный заказ в интернет-мага
     <div>
         <Head>
             <Title>{{ seoTitle }}</Title>
-            <Meta name="description" :content="seoDescription" />
-            <Meta property="og:description" :content="seoDescription" />
-            <Meta name="twitter:description" :content="seoDescription" />
+            <Meta
+                name="description"
+                :content="seoDescription"
+            />
+            <Meta
+                property="og:description"
+                :content="seoDescription"
+            />
+            <Meta
+                name="twitter:description"
+                :content="seoDescription"
+            />
         </Head>
         <div class="success-page">
             <div class="success-page__container">
@@ -19,7 +28,10 @@ const seoDescription = 'Успешный заказ в интернет-мага
                 <div class="success-page__content">
                     <LayoutEmpty>
                         <template #icon>
-                            <UiIcon name="smile" size="48" />
+                            <UiIcon
+                                name="smile"
+                                size="48"
+                            />
                         </template>
                         <template #title>
                             Заказ успешно оплачен
@@ -28,10 +40,18 @@ const seoDescription = 'Успешный заказ в интернет-мага
                             Можете закрыть эту страницу
                         </template>
                         <template #button>
-                            <UiButton v-if="isAuthenticated" outline href="/personal">
+                            <UiButton
+                                v-if="isAuthenticated"
+                                outline
+                                href="/personal"
+                            >
                                 Закрыть
                             </UiButton>
-                            <UiButton v-else outline href="/">
+                            <UiButton
+                                v-else
+                                outline
+                                href="/"
+                            >
                                 Закрыть
                             </UiButton>
                         </template>

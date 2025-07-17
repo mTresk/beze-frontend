@@ -47,10 +47,17 @@ onMounted(() => {
 <template>
     <UiSpinner v-if="isLoading" />
     <div v-else>
-        <OrderInfo v-for="order in orders" :key="order.id" :order="order" />
+        <OrderInfo
+            v-for="order in orders"
+            :key="order.id"
+            :order="order"
+        />
         <LayoutEmpty v-if="!orders?.length">
             <template #icon>
-                <UiIcon name="user" size="48" />
+                <UiIcon
+                    name="user"
+                    size="48"
+                />
             </template>
             <template #title>
                 У вас пока нет заказов
@@ -59,7 +66,10 @@ onMounted(() => {
                 Закажите товары, чтобы просматривать их здесь
             </template>
             <template #button>
-                <UiButton outline href="/catalog">
+                <UiButton
+                    outline
+                    href="/catalog"
+                >
                     Перейти в каталог
                 </UiButton>
             </template>

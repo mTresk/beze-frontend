@@ -27,7 +27,10 @@ function handleLinkClick() {
 </script>
 
 <template>
-    <div class="menu" :class="{ 'menu--blocked': isMenuBlocked }">
+    <div
+        class="menu"
+        :class="{ 'menu--blocked': isMenuBlocked }"
+    >
         <nav class="menu__body">
             <ul class="menu__list">
                 <li class="menu__item">
@@ -50,7 +53,11 @@ function handleLinkClick() {
                         @click="() => toggleSpoiler(category.slug)"
                     >
                         <span>{{ category.name }}</span>
-                        <UiIcon v-if="category.subcategories?.length" name="arrow-down" size="10" />
+                        <UiIcon
+                            v-if="category.subcategories?.length"
+                            name="arrow-down"
+                            size="10"
+                        />
                     </div>
                     <ul
                         v-if="category.subcategories?.length"
@@ -84,7 +91,10 @@ function handleLinkClick() {
                             @click="() => toggleSpoiler(item.name)"
                         >
                             <span>{{ item.name }}</span>
-                            <UiIcon name="arrow-down" size="10" />
+                            <UiIcon
+                                name="arrow-down"
+                                size="10"
+                            />
                         </div>
                         <ul
                             class="menu__sublist"
@@ -120,17 +130,59 @@ function handleLinkClick() {
             <p class="menu__address">
                 {{ settings.address }}
             </p>
-            <a :href="`mailto:${settings.email}`" class="menu__email">{{ settings.email }}</a>
-            <a :href="`tel:${formattedPhone}`" class="menu__phone">{{ settings.phone }}</a>
+            <a
+                :href="`mailto:${settings.email}`"
+                class="menu__email"
+            >{{ settings.email }}</a>
+            <a
+                :href="`tel:${formattedPhone}`"
+                class="menu__phone"
+            >{{ settings.phone }}</a>
             <div class="menu__socials">
-                <a v-if="settings.vk" target="_blank" title="Vk" :href="settings.vk" class="menu__social">
-                    <NuxtImg width="30" height="30" src="/images/icons/vk.svg" alt="" loading="lazy" />
+                <a
+                    v-if="settings.vk"
+                    target="_blank"
+                    title="Vk"
+                    :href="settings.vk"
+                    class="menu__social"
+                >
+                    <NuxtImg
+                        width="30"
+                        height="30"
+                        src="/images/icons/vk.svg"
+                        alt=""
+                        loading="lazy"
+                    />
                 </a>
-                <a v-if="settings.telegram" target="_blank" title="Telegram" :href="settings.telegram" class="menu__social">
-                    <NuxtImg width="30" height="30" src="/images/icons/tg.svg" alt="" loading="lazy" />
+                <a
+                    v-if="settings.telegram"
+                    target="_blank"
+                    title="Telegram"
+                    :href="settings.telegram"
+                    class="menu__social"
+                >
+                    <NuxtImg
+                        width="30"
+                        height="30"
+                        src="/images/icons/tg.svg"
+                        alt=""
+                        loading="lazy"
+                    />
                 </a>
-                <a v-if="settings.whatsapp" target="_blank" title="Whatsapp" :href="settings.whatsapp" class="menu__social">
-                    <NuxtImg width="30" height="30" src="/images/icons/wa.svg" alt="" loading="lazy" />
+                <a
+                    v-if="settings.whatsapp"
+                    target="_blank"
+                    title="Whatsapp"
+                    :href="settings.whatsapp"
+                    class="menu__social"
+                >
+                    <NuxtImg
+                        width="30"
+                        height="30"
+                        src="/images/icons/wa.svg"
+                        alt=""
+                        loading="lazy"
+                    />
                 </a>
             </div>
         </div>
