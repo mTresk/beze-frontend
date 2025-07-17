@@ -364,7 +364,7 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
                                     class="product__button product__button--prev"
                                 >
                                     <UiIcon
-                                        name="arrow-left"
+                                        name="arrow-slider-left"
                                         size="45"
                                     />
                                 </button>
@@ -374,7 +374,7 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
                                     class="product__button product__button--next"
                                 >
                                     <UiIcon
-                                        name="arrow-right"
+                                        name="arrow-slider-right"
                                         size="45"
                                     />
                                 </button>
@@ -656,6 +656,7 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
         align-items: center;
         justify-content: space-between;
         width: 100%;
+        padding-inline: rem(10);
         transform: translateY(-50%);
     }
 
