@@ -43,6 +43,7 @@ useSwiper(containerRef, {
                         height="1080"
                         src="/images/hero/1.webp"
                         alt="Beze Studio"
+                        fetchpriority="high"
                     />
                     <NuxtImg
                         v-else
@@ -52,6 +53,7 @@ useSwiper(containerRef, {
                         height="1152"
                         src="/images/hero/1-mob.webp"
                         alt="Beze Studio"
+                        fetchpriority="high"
                     />
                 </swiper-slide>
                 <swiper-slide class="hero__slide">
@@ -63,6 +65,7 @@ useSwiper(containerRef, {
                         height="1080"
                         src="/images/hero/2.webp"
                         alt="Beze Studio"
+                        fetchpriority="high"
                     />
                     <NuxtImg
                         v-else
@@ -72,6 +75,7 @@ useSwiper(containerRef, {
                         height="1152"
                         src="/images/hero/2-mob.webp"
                         alt="Beze Studio"
+                        fetchpriority="high"
                     />
                 </swiper-slide>
                 <swiper-slide class="hero__slide">
@@ -83,6 +87,7 @@ useSwiper(containerRef, {
                         height="1080"
                         src="/images/hero/3.webp"
                         alt="Beze Studio"
+                        fetchpriority="high"
                     />
                     <NuxtImg
                         v-else
@@ -92,6 +97,7 @@ useSwiper(containerRef, {
                         height="1152"
                         src="/images/hero/3-mob.webp"
                         alt="Beze Studio"
+                        fetchpriority="high"
                     />
                 </swiper-slide>
                 <swiper-slide class="hero__slide">
@@ -103,6 +109,7 @@ useSwiper(containerRef, {
                         height="1080"
                         src="/images/hero/4.webp"
                         alt="Beze Studio"
+                        fetchpriority="high"
                     />
                     <NuxtImg
                         v-else
@@ -112,6 +119,7 @@ useSwiper(containerRef, {
                         height="1152"
                         src="/images/hero/4-mob.webp"
                         alt="Beze Studio"
+                        fetchpriority="high"
                     />
                 </swiper-slide>
             </swiper-container>
