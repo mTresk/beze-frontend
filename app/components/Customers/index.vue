@@ -67,7 +67,7 @@ onBeforeUnmount(() => {
                     muted
                     loop
                     playsinline
-                    src="/images/textile.mp4"
+                    src="~/assets/video/textile.mp4"
                 />
             </div>
             <div class="customers__container">

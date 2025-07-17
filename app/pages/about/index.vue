@@ -24,7 +24,7 @@ const seoDescription = 'Одежда, создающая особенное на
             <div class="about-page__hero spacer">
                 <video
                     class="about-page__video"
-                    src="/images/video.mp4"
+                    src="~/assets/video/video.mp4"
                     autoplay
                     muted
                     loop
