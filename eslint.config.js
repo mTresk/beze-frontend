@@ -6,7 +6,6 @@ export default antfu({
         quotes: 'single',
     },
     formatters: {
-
         css: true,
     },
     rules: {
