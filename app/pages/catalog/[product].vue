@@ -400,6 +400,7 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
                                     :key="color.id"
                                     :style="`background-color: ${color.code};`"
                                     class="product-colors__item"
+                                    :title="color.name"
                                     @click="setColor(color)"
                                 >
                                     <input
