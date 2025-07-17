@@ -50,6 +50,15 @@ function closeOptions() {
     highlightedIndex.value = -1
 }
 
+function toggleOptions() {
+    if (isOptionsOpen.value) {
+        closeOptions()
+    }
+    else {
+        openOptions()
+    }
+}
+
 function handleKeyDown(event: KeyboardEvent) {
     if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault()
@@ -106,7 +115,7 @@ function handleKeyDown(event: KeyboardEvent) {
             :aria-haspopup="true"
             aria-label="Выберите опцию"
             tabindex="0"
-            @click="openOptions"
+            @click="toggleOptions"
             @keydown="handleKeyDown"
         >
             <span>{{ selectedOption }}</span>
