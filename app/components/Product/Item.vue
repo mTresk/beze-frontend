@@ -30,13 +30,28 @@ const activeSlide = ref(0)
 
 const imagesLoaded = ref(false)
 
+let slideChangeTimer: NodeJS.Timeout | null = null
+
 function handleSlideChange(index: number) {
-    if (!containerRef.value) {
-        return
+    if (slideChangeTimer) {
+        clearTimeout(slideChangeTimer)
     }
 
-    // @ts-expect-error - swiper методы доступны, но TS их не видит
-    containerRef.value.swiper.slideTo(index)
+    slideChangeTimer = setTimeout(() => {
+        if (!containerRef.value) {
+            return
+        }
+
+        // @ts-expect-error - swiper методы доступны, но TS их не видит
+        containerRef.value.swiper.slideTo(index)
+    }, 200)
+}
+
+function handleSlideLeave() {
+    if (slideChangeTimer) {
+        clearTimeout(slideChangeTimer)
+        slideChangeTimer = null
+    }
 }
 
 function handleWishlistClick() {
@@ -65,6 +80,12 @@ useSwiper(containerRef, {
             activeSlide.value = swiper.activeIndex
         },
     },
+})
+
+onUnmounted(() => {
+    if (slideChangeTimer) {
+        clearTimeout(slideChangeTimer)
+    }
 })
 </script>
 
@@ -117,6 +138,7 @@ useSwiper(containerRef, {
                         :class="{ 'product-card__pagination-item--active': index === activeSlide }"
                         :style="{ width: paginationItemWidth }"
                         @mouseenter="handleSlideChange(index)"
+                        @mouseleave="handleSlideLeave"
                     />
                 </div>
             </ClientOnly>
