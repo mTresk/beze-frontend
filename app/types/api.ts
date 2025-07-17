@@ -122,6 +122,12 @@ export interface ICategory {
     image: {
         normal: string
         retina: string
+        normal_xs: string
+        retina_xs: string
+        normal_sm: string
+        retina_sm: string
+        normal_md: string
+        retina_md: string
     }
     products?: IProduct[]
     seo: {

@@ -65,15 +65,32 @@ await suspense()
                             data-js-cursor
                             class="direction-card__wrapper"
                         >
-                            <img
-                                class="direction-card__image"
-                                loading="lazy"
-                                :src="category.image.normal"
-                                :srcset="`${category.image.normal} 1x, ${category.image.retina} 2x`"
-                                :alt="category.name"
-                                width="880"
-                                height="880"
-                            >
+                            <picture class="direction-card__image">
+                                <source
+                                    media="(max-width: 480px)"
+                                    :srcset="`${category.image.normal_xs} 1x, ${category.image.retina_xs} 2x`"
+                                    type="image/webp"
+                                >
+                                <source
+                                    media="(max-width: 640px)"
+                                    :srcset="`${category.image.normal_sm} 1x, ${category.image.retina_sm} 2x`"
+                                    type="image/webp"
+                                >
+                                <source
+                                    media="(max-width: 768px)"
+                                    :srcset="`${category.image.normal_md} 1x, ${category.image.retina_md} 2x`"
+                                    type="image/webp"
+                                >
+                                <img
+                                    class="direction-card__image"
+                                    loading="lazy"
+                                    :src="category.image.normal"
+                                    :srcset="`${category.image.normal} 1x, ${category.image.retina} 2x`"
+                                    :alt="category.name"
+                                    width="880"
+                                    height="880"
+                                >
+                            </picture>
                             <div class="direction-card__content">
                                 <div class="direction-card__header">
                                     <p class="direction-card__label">
