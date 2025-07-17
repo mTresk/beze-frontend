@@ -330,6 +330,8 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
                                     :alt="product?.data.name || ''"
                                     :regular="image.retina"
                                     :zoom="image.original"
+                                    :width="444"
+                                    :height="664"
                                 />
                             </template>
                         </ClientOnly>
@@ -350,6 +352,8 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
                                         :src="image.retina"
                                         :alt="product?.data.name || ''"
                                         :srcset="`${image.normal} 1x, ${image.retina} 2x`"
+                                        width="750"
+                                        height="1125"
                                     >
                                 </swiper-slide>
                             </swiper-container>
@@ -818,10 +822,5 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
 
         @include adaptive-value('font-size', 14, 12);
     }
-}
-
-.vh--holder {
-    width: 100%;
-    height: 100%;
 }
 </style>
