@@ -118,13 +118,14 @@ onUnmounted(() => {
                         :key="index"
                         class="product-card__slide"
                     >
-                        <NuxtImg
-                            :src="image.retina"
+                        <img
+                            :src="image.normal"
+                            :srcset="`${image.normal} 1x, ${image.retina} 2x`"
                             :alt="product.name"
                             width="420"
                             height="630"
                             @load="handleImageLoad"
-                        />
+                        >
                     </swiper-slide>
                 </swiper-container>
                 <div class="product-card__pagination">

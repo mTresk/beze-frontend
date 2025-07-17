@@ -37,7 +37,7 @@ useSwiper(containerRef, {
                 <swiper-slide class="hero__slide">
                     <NuxtImg
                         v-if="isDesktop"
-                        sizes="100vw xs:100vw sm:100vw md:100vw lg:100vw xl:100vw 2xl:100vw"
+                        sizes="md:100vw lg:100vw xl:100vw 2xl:100vw"
                         class="hero__image"
                         width="1920"
                         height="1080"
@@ -46,7 +46,7 @@ useSwiper(containerRef, {
                     />
                     <NuxtImg
                         v-else
-                        sizes="100vw sm:100vw md:100vw"
+                        sizes="100vw xs:100vw sm:100vw md:100vw"
                         class="hero__image"
                         width="768"
                         height="1152"
@@ -57,7 +57,7 @@ useSwiper(containerRef, {
                 <swiper-slide class="hero__slide">
                     <NuxtImg
                         v-if="isDesktop"
-                        sizes="100vw sm:100vw md:100vw lg:100vw xl:100vw 2xl:100vw"
+                        sizes="md:100vw lg:100vw xl:100vw 2xl:100vw"
                         class="hero__image"
                         width="1920"
                         height="1080"
@@ -66,7 +66,7 @@ useSwiper(containerRef, {
                     />
                     <NuxtImg
                         v-else
-                        sizes="100vw sm:100vw md:100vw"
+                        sizes="100vw xs:100vw sm:100vw md:100vw"
                         class="hero__image"
                         width="768"
                         height="1152"
@@ -77,7 +77,7 @@ useSwiper(containerRef, {
                 <swiper-slide class="hero__slide">
                     <NuxtImg
                         v-if="isDesktop"
-                        sizes="100vw sm:100vw md:100vw lg:100vw xl:100vw 2xl:100vw"
+                        sizes="md:100vw lg:100vw xl:100vw 2xl:100vw"
                         class="hero__image"
                         width="1920"
                         height="1080"
@@ -86,7 +86,7 @@ useSwiper(containerRef, {
                     />
                     <NuxtImg
                         v-else
-                        sizes="100vw sm:100vw md:100vw"
+                        sizes="100vw xs:100vw sm:100vw md:100vw"
                         class="hero__image"
                         width="768"
                         height="1152"
@@ -97,7 +97,7 @@ useSwiper(containerRef, {
                 <swiper-slide class="hero__slide">
                     <NuxtImg
                         v-if="isDesktop"
-                        sizes="100vw sm:100vw md:100vw lg:100vw xl:100vw 2xl:100vw"
+                        sizes="md:100vw lg:100vw xl:100vw 2xl:100vw"
                         class="hero__image"
                         width="1920"
                         height="1080"
@@ -106,7 +106,7 @@ useSwiper(containerRef, {
                     />
                     <NuxtImg
                         v-else
-                        sizes="100vw sm:100vw md:100vw"
+                        sizes="100vw xs:100vw sm:100vw md:100vw"
                         class="hero__image"
                         width="768"
                         height="1152"
