@@ -374,8 +374,8 @@ function handleLinkClick() {
         text-decoration: underline;
         text-decoration-thickness: 10%;
         text-decoration-style: dotted;
-        text-underline-offset: rem(3);
         text-decoration-skip-ink: none;
+        text-underline-offset: rem(3);
     }
 
     &__phone {
@@ -384,8 +384,8 @@ function handleLinkClick() {
         text-decoration: underline;
         text-decoration-thickness: 10%;
         text-decoration-style: dotted;
-        text-underline-offset: rem(3);
         text-decoration-skip-ink: none;
+        text-underline-offset: rem(3);
     }
 
     &__socials {

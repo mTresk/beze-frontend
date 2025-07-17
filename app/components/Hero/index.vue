@@ -1,6 +1,21 @@
 <script setup lang="ts">
 const containerRef = ref(null)
 
+const isDesktop = ref(false)
+
+function checkScreenSize() {
+    isDesktop.value = window.innerWidth >= 768
+}
+
+onMounted(() => {
+    checkScreenSize()
+    window.addEventListener('resize', checkScreenSize)
+})
+
+onUnmounted(() => {
+    window.removeEventListener('resize', checkScreenSize)
+})
+
 useSwiper(containerRef, {
     loop: true,
     speed: 1500,
@@ -21,14 +36,18 @@ useSwiper(containerRef, {
             >
                 <swiper-slide class="hero__slide">
                     <NuxtImg
-                        class="hero__image hero__image--pc"
+                        v-if="isDesktop"
+                        sizes="100vw xs:100vw sm:100vw md:100vw lg:100vw xl:100vw 2xl:100vw"
+                        class="hero__image"
                         width="1920"
                         height="1080"
                         src="/images/hero/1.webp"
                         alt="Beze Studio"
                     />
                     <NuxtImg
-                        class="hero__image hero__image--mobile"
+                        v-else
+                        sizes="100vw sm:100vw md:100vw"
+                        class="hero__image"
                         width="768"
                         height="1152"
                         src="/images/hero/1-mob.webp"
@@ -37,14 +56,18 @@ useSwiper(containerRef, {
                 </swiper-slide>
                 <swiper-slide class="hero__slide">
                     <NuxtImg
-                        class="hero__image hero__image--pc"
+                        v-if="isDesktop"
+                        sizes="100vw sm:100vw md:100vw lg:100vw xl:100vw 2xl:100vw"
+                        class="hero__image"
                         width="1920"
                         height="1080"
                         src="/images/hero/2.webp"
                         alt="Beze Studio"
                     />
                     <NuxtImg
-                        class="hero__image hero__image--mobile"
+                        v-else
+                        sizes="100vw sm:100vw md:100vw"
+                        class="hero__image"
                         width="768"
                         height="1152"
                         src="/images/hero/2-mob.webp"
@@ -53,14 +76,18 @@ useSwiper(containerRef, {
                 </swiper-slide>
                 <swiper-slide class="hero__slide">
                     <NuxtImg
-                        class="hero__image hero__image--pc"
+                        v-if="isDesktop"
+                        sizes="100vw sm:100vw md:100vw lg:100vw xl:100vw 2xl:100vw"
+                        class="hero__image"
                         width="1920"
                         height="1080"
                         src="/images/hero/3.webp"
                         alt="Beze Studio"
                     />
                     <NuxtImg
-                        class="hero__image hero__image--mobile"
+                        v-else
+                        sizes="100vw sm:100vw md:100vw"
+                        class="hero__image"
                         width="768"
                         height="1152"
                         src="/images/hero/3-mob.webp"
@@ -69,14 +96,18 @@ useSwiper(containerRef, {
                 </swiper-slide>
                 <swiper-slide class="hero__slide">
                     <NuxtImg
-                        class="hero__image hero__image--pc"
+                        v-if="isDesktop"
+                        sizes="100vw sm:100vw md:100vw lg:100vw xl:100vw 2xl:100vw"
+                        class="hero__image"
                         width="1920"
                         height="1080"
                         src="/images/hero/4.webp"
                         alt="Beze Studio"
                     />
                     <NuxtImg
-                        class="hero__image hero__image--mobile"
+                        v-else
+                        sizes="100vw sm:100vw md:100vw"
+                        class="hero__image"
                         width="768"
                         height="1152"
                         src="/images/hero/4-mob.webp"
@@ -164,24 +195,6 @@ useSwiper(containerRef, {
 
     &__image {
         @include image;
-
-        &--pc {
-            display: block;
-        }
-
-        &--mobile {
-            display: none;
-        }
-
-        @media (max-width: $mobile) {
-            &--pc {
-                display: none;
-            }
-
-            &--mobile {
-                display: block;
-            }
-        }
     }
 
     &__content {

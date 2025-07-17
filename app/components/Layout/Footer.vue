@@ -22,6 +22,7 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
                         class="footer__logo"
                     >
                         <NuxtImg
+                            loading="lazy"
                             width="320"
                             height="90"
                             src="/images/logo-footer.svg"

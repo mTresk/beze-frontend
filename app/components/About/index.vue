@@ -68,6 +68,7 @@ onBeforeUnmount(() => {
                     </div>
                     <div class="about__small-image">
                         <NuxtImg
+                            loading="lazy"
                             width="400"
                             height="400"
                             src="/images/about/about-sm.webp"
@@ -77,6 +78,7 @@ onBeforeUnmount(() => {
                 </div>
                 <div class="about__image">
                     <NuxtImg
+                        loading="lazy"
                         width="520"
                         height="634"
                         src="/images/about/about.webp"
