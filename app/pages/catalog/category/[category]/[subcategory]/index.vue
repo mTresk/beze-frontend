@@ -5,25 +5,31 @@ const client = useSanctumClient()
 
 const route = useRoute()
 
-const category = ref<ICategory>()
-
-const subcategory = ref<ISubCategory>()
-
 const categorySlug = computed(() => route.params.category)
 
 const subcategorySlug = computed(() => route.params.subcategory)
 
-async function getCategoryData() {
-    const [categoryData, subcategoryData] = await Promise.all([
-        client<ICategory>(`api/categories/${categorySlug.value}`),
-        client<ISubCategory>(`api/categories/${categorySlug.value}/${subcategorySlug.value}`),
-    ])
+const fetchCategory = () => client<ICategory>(`api/categories/${categorySlug.value}`)
 
-    category.value = categoryData
-    subcategory.value = subcategoryData
-}
+const fetchSubcategory = () => client<ISubCategory>(`api/categories/${categorySlug.value}/${subcategorySlug.value}`)
 
-await getCategoryData()
+const {
+    data: category,
+    suspense: categorySuspense,
+} = useQuery({
+    queryKey: ['category', categorySlug.value],
+    queryFn: fetchCategory,
+})
+
+const {
+    data: subcategory,
+    suspense: subcategorySuspense,
+} = useQuery({
+    queryKey: ['subcategory', categorySlug.value, subcategorySlug.value],
+    queryFn: fetchSubcategory,
+})
+
+await Promise.all([categorySuspense(), subcategorySuspense()])
 
 const seoTitle = computed(() => subcategory.value?.seo?.title ?? subcategory.value?.name ?? null)
 const seoDescription = computed(() => subcategory.value?.seo?.description ?? subcategory.value?.description ?? null)
