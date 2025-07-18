@@ -19,9 +19,9 @@ onUnmounted(() => {
 useSwiper(containerRef, {
     loop: true,
     speed: 1500,
-    // autoplay: {
-    //     delay: 5000,
-    // },
+    autoplay: {
+        delay: 5000,
+    },
     slidesPerView: 1,
 })
 </script>

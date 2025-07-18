@@ -74,7 +74,7 @@ export default defineNuxtConfig({
         toastClassName: 'toastify-toast',
     },
     image: {
-        quality: 95,
+        quality: 100,
         format: ['webp'],
         densities: [1, 2],
         screens: {
