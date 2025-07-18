@@ -371,8 +371,9 @@ onUnmounted(() => {
         justify-content: space-between;
         width: 100%;
 
-        @include adaptive-value('top', 10, 5);
-        @include adaptive-value('padding-inline', 20, 10);
+        @include adaptive-value('top', 10, 0);
+        @include adaptive-value('padding-left', 20, 10);
+        @include adaptive-value('padding-right', 10, 0);
 
         [small] & {
             top: rem(10);
