@@ -82,7 +82,7 @@ await suspense()
                                 class="collection-card__image"
                                 :src="collection.image.normal"
                                 :srcset="`${collection.image.normal} 1x, ${collection.image.retina} 2x`"
-                                :alt="collection.name"
+                                alt=""
                                 loading="lazy"
                             >
                             <h3 class="collection-card__title">

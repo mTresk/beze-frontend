@@ -68,6 +68,7 @@ onBeforeUnmount(() => {
                     </div>
                     <div class="about__small-image">
                         <NuxtImg
+                            sizes="xs:120px sm:200px md:400px lg:800px"
                             loading="lazy"
                             width="400"
                             height="400"
