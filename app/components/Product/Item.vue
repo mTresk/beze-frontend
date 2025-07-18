@@ -118,14 +118,31 @@ onUnmounted(() => {
                         :key="index"
                         class="product-card__slide"
                     >
-                        <img
-                            :src="image.normal"
-                            :srcset="`${image.normal} 1x, ${image.retina} 2x`"
-                            :alt="product.name"
-                            width="420"
-                            height="630"
-                            @load="handleImageLoad"
-                        >
+                        <picture>
+                            <source
+                                media="(max-width: 480px)"
+                                :srcset="`${image.normal_xs} 1x, ${image.retina_xs} 2x`"
+                                type="image/webp"
+                            >
+                            <source
+                                media="(max-width: 640px)"
+                                :srcset="`${image.normal_sm} 1x, ${image.retina_sm} 2x`"
+                                type="image/webp"
+                            >
+                            <source
+                                media="(max-width: 768px)"
+                                :srcset="`${image.normal_md} 1x, ${image.retina_md} 2x`"
+                                type="image/webp"
+                            >
+                            <img
+                                :src="image.normal"
+                                :srcset="`${image.normal} 1x, ${image.retina} 2x`"
+                                :alt="product.name"
+                                width="420"
+                                height="630"
+                                @load="handleImageLoad"
+                            >
+                        </picture>
                     </swiper-slide>
                 </swiper-container>
                 <div class="product-card__pagination">

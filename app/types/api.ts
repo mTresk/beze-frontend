@@ -44,7 +44,13 @@ export interface ICertificate {
 
 export interface IImage {
     normal: string
+    normal_xs: string
+    normal_sm: string
+    normal_md: string
     retina: string
+    retina_xs: string
+    retina_sm: string
+    retina_md: string
     original: string
     thumb: string
 }
