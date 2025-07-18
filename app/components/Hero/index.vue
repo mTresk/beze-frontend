@@ -19,9 +19,9 @@ onUnmounted(() => {
 useSwiper(containerRef, {
     loop: true,
     speed: 1500,
-    autoplay: {
-        delay: 5000,
-    },
+    // autoplay: {
+    //     delay: 5000,
+    // },
     slidesPerView: 1,
 })
 </script>
@@ -47,7 +47,7 @@ useSwiper(containerRef, {
                     />
                     <NuxtImg
                         v-else
-                        sizes="100vw xs:100vw sm:100vw md:100vw"
+                        sizes="100vw xs:480px sm:640px md:768px"
                         class="hero__image"
                         width="768"
                         height="1152"
@@ -69,7 +69,7 @@ useSwiper(containerRef, {
                     />
                     <NuxtImg
                         v-else
-                        sizes="100vw xs:100vw sm:100vw md:100vw"
+                        sizes="100vw xs:480px sm:640px md:768px"
                         class="hero__image"
                         width="768"
                         height="1152"
@@ -91,7 +91,7 @@ useSwiper(containerRef, {
                     />
                     <NuxtImg
                         v-else
-                        sizes="100vw xs:100vw sm:100vw md:100vw"
+                        sizes="100vw xs:480px sm:640px md:768px"
                         class="hero__image"
                         width="768"
                         height="1152"
@@ -113,7 +113,7 @@ useSwiper(containerRef, {
                     />
                     <NuxtImg
                         v-else
-                        sizes="100vw xs:100vw sm:100vw md:100vw"
+                        sizes="100vw xs:480px sm:640px md:768px"
                         class="hero__image"
                         width="768"
                         height="1152"
