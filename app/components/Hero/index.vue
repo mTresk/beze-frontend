@@ -45,9 +45,7 @@ useSwiper(containerRef, {
                         alt="Beze Studio"
                         fetchpriority="high"
                     />
-                    <picture
-                        v-else
-                    >
+                    <picture v-else>
                         <source
                             media="(max-width: 640px)"
                             srcset="/images/hero/1-mob-sm.webp 1x, /images/hero/1-mob.webp 2x"
@@ -75,9 +73,7 @@ useSwiper(containerRef, {
                         alt="Beze Studio"
                         fetchpriority="high"
                     />
-                    <picture
-                        v-else
-                    >
+                    <picture v-else>
                         <source
                             media="(max-width: 640px)"
                             srcset="/images/hero/2-mob-sm.webp 1x, /images/hero/2-mob.webp 2x"
@@ -105,9 +101,7 @@ useSwiper(containerRef, {
                         alt="Beze Studio"
                         fetchpriority="high"
                     />
-                    <picture
-                        v-else
-                    >
+                    <picture v-else>
                         <source
                             media="(max-width: 640px)"
                             srcset="/images/hero/3-mob-sm.webp 1x, /images/hero/3-mob.webp 2x"
@@ -135,9 +129,7 @@ useSwiper(containerRef, {
                         alt="Beze Studio"
                         fetchpriority="high"
                     />
-                    <picture
-                        v-else
-                    >
+                    <picture v-else>
                         <source
                             media="(max-width: 640px)"
                             srcset="/images/hero/4-mob-sm.webp 1x, /images/hero/4-mob.webp 2x"

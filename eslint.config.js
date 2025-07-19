@@ -10,6 +10,13 @@ export default antfu({
     },
     rules: {
         'node/prefer-global/process': 0,
-        'vue/max-attributes-per-line': 1,
+        'vue/max-attributes-per-line': ['error', {
+            singleline: {
+                max: 1,
+            },
+            multiline: {
+                max: 1,
+            },
+        }],
     },
 })
