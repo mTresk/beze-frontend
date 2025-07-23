@@ -273,7 +273,7 @@ onMounted(() => {
 })
 
 const seoTitle = computed(() => product.value?.data.seo.title ?? product.value?.data.name ?? null)
-const seoDescription = computed(() => product.value?.data.seo.description ?? product.value?.data.description ?? null)
+const seoDescription = computed(() => product.value?.data.seo.description ?? product.value?.data.description ?? `${product.value?.data.name} — Элегантная одежда на утро невесты, для дома и на каждый день`)
 const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
 </script>
 
