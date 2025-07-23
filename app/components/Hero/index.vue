@@ -38,6 +38,7 @@ useSwiper(containerRef, {
                     <NuxtImg
                         v-if="isDesktop"
                         sizes="md:100vw lg:100vw xl:100vw 2xl:100vw"
+                        quality="95"
                         class="hero__image"
                         width="1920"
                         height="1080"
@@ -48,6 +49,7 @@ useSwiper(containerRef, {
                     <NuxtImg
                         v-else
                         sizes="xs:260px sm:480px md:780px"
+                        quality="90"
                         class="hero__image"
                         width="768"
                         height="1152"
@@ -60,66 +62,72 @@ useSwiper(containerRef, {
                     <NuxtImg
                         v-if="isDesktop"
                         sizes="md:100vw lg:100vw xl:100vw 2xl:100vw"
+                        quality="95"
                         class="hero__image"
                         width="1920"
                         height="1080"
                         src="/images/hero/2.webp"
                         alt="Beze Studio"
-                        fetchpriority="high"
+                        fetchpriority="low"
                     />
                     <NuxtImg
                         v-else
                         sizes="xs:260px sm:480px md:780px"
+                        quality="90"
                         class="hero__image"
                         width="768"
                         height="1152"
                         src="/images/hero/2-mob.webp"
                         alt="Beze Studio"
-                        fetchpriority="high"
+                        fetchpriority="low"
                     />
                 </swiper-slide>
                 <swiper-slide class="hero__slide">
                     <NuxtImg
                         v-if="isDesktop"
                         sizes="md:100vw lg:100vw xl:100vw 2xl:100vw"
+                        quality="90"
                         class="hero__image"
                         width="1920"
                         height="1080"
                         src="/images/hero/3.webp"
                         alt="Beze Studio"
-                        fetchpriority="high"
+                        fetchpriority="low"
                     />
                     <NuxtImg
                         v-else
                         sizes="xs:260px sm:480px md:780px"
+                        quality="90"
                         class="hero__image"
                         width="768"
                         height="1152"
                         src="/images/hero/3-mob.webp"
                         alt="Beze Studio"
-                        fetchpriority="high"
+                        fetchpriority="low"
                     />
                 </swiper-slide>
                 <swiper-slide class="hero__slide">
                     <NuxtImg
                         v-if="isDesktop"
                         sizes="md:100vw lg:100vw xl:100vw 2xl:100vw"
+                        quality="95"
                         class="hero__image"
                         width="1920"
                         height="1080"
                         src="/images/hero/4.webp"
                         alt="Beze Studio"
-                        fetchpriority="high"
+                        fetchpriority="low"
                     />
                     <NuxtImg
                         v-else
                         sizes="xs:260px sm:480px md:780px"
+                        quality="90"
                         class="hero__image"
                         width="768"
                         height="1152"
                         src="/images/hero/4-mob.webp"
                         alt="Beze Studio"
-                        fetchpriority="high"
+                        fetchpriority="low"
                     />
                 </swiper-slide>
             </swiper-container>
