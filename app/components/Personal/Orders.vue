@@ -42,6 +42,12 @@ onMounted(() => {
             })
     }
 })
+
+onUnmounted(() => {
+    if (user.value) {
+        $echo.private(`orders.${user.value.id}`).stopListening('NewOrderStatus')
+    }
+})
 </script>
 
 <template>
