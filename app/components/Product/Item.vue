@@ -460,15 +460,15 @@ onUnmounted(() => {
         display: flex;
         align-items: center;
 
-        @include adaptive-value('gap', 6, 4);
+        @include adaptive-value('gap', 6, 2);
     }
 
     &__color {
         border: rem(1) solid $lightColor;
         border-radius: 50%;
 
-        @include adaptive-value('width', 8, 6);
-        @include adaptive-value('height', 8, 6);
+        @include adaptive-value('width', 10, 7);
+        @include adaptive-value('height', 10, 7);
     }
 }
 
