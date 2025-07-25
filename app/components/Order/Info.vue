@@ -14,7 +14,7 @@ const isLoading = ref(false)
 async function handlePayment(orderId: number) {
     isLoading.value = true
 
-    const response = await client(`/api/payments/create/${orderId}`, {
+    const response = await client<string>(`/api/payments/create/${orderId}`, {
         method: 'post',
     })
 
