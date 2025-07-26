@@ -100,8 +100,8 @@ const seoDescription = 'Одежда, создающая особенное на
                 </div>
             </div>
         </section>
-        <Gallery />
-        <Reviews />
+        <LazyGallery hydrate-on-visible />
+        <LazyReviews hydrate-on-visible />
     </div>
 </template>
 

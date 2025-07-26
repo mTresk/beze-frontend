@@ -476,23 +476,25 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
                 </div>
             </div>
         </section>
-        <Featured
+        <LazyFeatured
+            hydrate-on-visible
             name="featured"
             :products="product?.featured || []"
         >
             <template #title>
                 Возможно, вам понравится
             </template>
-        </Featured>
-        <Featured
+        </LazyFeatured>
+        <LazyFeatured
             v-if="viewedProducts.length"
+            hydrate-on-visible
             name="viewed"
             :products="viewedProducts"
         >
             <template #title>
                 Вы недавно смотрели
             </template>
-        </Featured>
+        </LazyFeatured>
         <UiCursor />
         <LayoutDialog v-model="isModalOpen">
             <div class="content">
