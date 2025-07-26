@@ -193,6 +193,7 @@ onUnmounted(() => {
                     <div
                         v-for="color in colors"
                         :key="color.id"
+                        :title="color.name"
                         :style="{ backgroundColor: color.code }"
                         class="product-card__color"
                     />
