@@ -469,7 +469,7 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
                             </UiButton>
                         </div>
                         <div
-                            class="product__description"
+                            class="product__description content"
                             v-html="product?.data.description"
                         />
                     </div>
