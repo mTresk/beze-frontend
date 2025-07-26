@@ -76,15 +76,22 @@ await suspense()
                             data-js-cursor
                             class="collection-card__content"
                         >
-                            <img
-                                width="440"
-                                height="440"
-                                class="collection-card__image"
-                                :src="collection.image.normal"
-                                :srcset="`${collection.image.normal} 1x, ${collection.image.retina} 2x`"
-                                alt=""
-                                loading="lazy"
-                            >
+                            <picture>
+                                <source
+                                    media="(max-width: 640px)"
+                                    :srcset="`${collection.image.normal_sm} 1x, ${collection.image.retina_sm} 2x`"
+                                    type="image/webp"
+                                >
+                                <img
+                                    class="collection-card__image"
+                                    width="440"
+                                    height="440"
+                                    :src="collection.image.normal"
+                                    :srcset="`${collection.image.normal} 1x, ${collection.image.retina} 2x`"
+                                    alt=""
+                                    loading="lazy"
+                                >
+                            </picture>
                             <h3 class="collection-card__title">
                                 {{ collection.name }}
                             </h3>
