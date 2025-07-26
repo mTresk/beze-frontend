@@ -793,6 +793,7 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
     &__item {
         position: relative;
         cursor: pointer;
+        border: rem(1) solid $lightColor;
         border-radius: 50%;
 
         @include adaptive-value('width', 36, 30);
