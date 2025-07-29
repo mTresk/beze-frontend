@@ -164,7 +164,7 @@ watch(selectedSort, async (newSort) => {
                                 :to="baseUrl || '/catalog/category'"
                                 class="catalog__category"
                             >
-                                {{ currentCategory.name }}
+                                Вся категория
                             </NuxtLink>
                             <NuxtLink
                                 v-for="subcategory in currentCategory.subcategories"
