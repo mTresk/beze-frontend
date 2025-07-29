@@ -18,6 +18,7 @@ await suspense()
 
 const seoTitle = 'Политика конфиденциальности'
 const seoDescription = 'Политика конфиденциальности интернет-магазина Beze Studio'
+const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/info/privacy`)
 </script>
 
 <template>
@@ -35,6 +36,10 @@ const seoDescription = 'Политика конфиденциальности и
             <Meta
                 name="twitter:description"
                 :content="seoDescription"
+            />
+            <Link
+                rel="canonical"
+                :href="canonicalUrl"
             />
         </Head>
         <UiSpinner v-if="isLoading" />

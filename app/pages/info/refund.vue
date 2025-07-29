@@ -18,6 +18,7 @@ await suspense()
 
 const seoTitle = 'Возврат и обмен'
 const seoDescription = 'Информация о возврате и обмене в интернет-магазине Beze Studio'
+const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/info/refund`)
 </script>
 
 <template>
@@ -35,6 +36,10 @@ const seoDescription = 'Информация о возврате и обмене
             <Meta
                 name="twitter:description"
                 :content="seoDescription"
+            />
+            <Link
+                rel="canonical"
+                :href="canonicalUrl"
             />
         </Head>
         <UiSpinner v-if="isLoading" />

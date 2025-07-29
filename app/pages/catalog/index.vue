@@ -19,6 +19,7 @@ await suspense()
 
 const seoTitle = 'Каталог товаров'
 const seoDescription = 'Каталог одежды и аксессуаров на утро невесты и для дома'
+const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/catalog`)
 </script>
 
 <template>
@@ -36,6 +37,10 @@ const seoDescription = 'Каталог одежды и аксессуаров н
             <Meta
                 name="twitter:description"
                 :content="seoDescription"
+            />
+            <Link
+                rel="canonical"
+                :href="canonicalUrl"
             />
         </Head>
         <Catalog

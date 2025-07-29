@@ -275,6 +275,7 @@ onMounted(() => {
 const seoTitle = computed(() => product.value?.data.seo.title ?? product.value?.data.name ?? null)
 const seoDescription = computed(() => product.value?.data.seo.description ?? product.value?.data.description ?? `${product.value?.data.name} — Элегантная одежда на утро невесты, для дома и на каждый день`)
 const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
+const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/catalog/${productSlug.value}`)
 </script>
 
 <template>
@@ -305,6 +306,10 @@ const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
                 v-if="seoImage"
                 name="twitter:image"
                 :content="seoImage"
+            />
+            <Link
+                rel="canonical"
+                :href="canonicalUrl"
             />
         </Head>
         <section class="product spacer">

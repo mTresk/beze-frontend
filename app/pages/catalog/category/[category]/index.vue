@@ -17,6 +17,7 @@ await getCategory()
 
 const seoTitle = computed(() => category.value?.seo?.title ?? category.value?.name ?? null)
 const seoDescription = computed(() => category.value?.seo?.description ?? category.value?.description ?? null)
+const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/catalog/category/${categorySlug.value}`)
 </script>
 
 <template>
@@ -37,6 +38,10 @@ const seoDescription = computed(() => category.value?.seo?.description ?? catego
                 v-if="seoDescription"
                 name="twitter:description"
                 :content="seoDescription"
+            />
+            <Link
+                rel="canonical"
+                :href="canonicalUrl"
             />
         </Head>
         <Catalog

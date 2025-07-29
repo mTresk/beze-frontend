@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const seoTitle = 'О нас'
 const seoDescription = 'Одежда, создающая особенное настроение'
+const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/about`)
 </script>
 
 <template>
@@ -18,6 +19,10 @@ const seoDescription = 'Одежда, создающая особенное на
             <Meta
                 name="twitter:description"
                 :content="seoDescription"
+            />
+            <Link
+                rel="canonical"
+                :href="canonicalUrl"
             />
         </Head>
         <section class="about-page spacer">

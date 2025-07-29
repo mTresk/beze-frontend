@@ -17,6 +17,7 @@ export default defineNuxtConfig({
     runtimeConfig: {
         public: {
             backendUrl: process.env.NUXT_PUBLIC_BACKEND_URL,
+            appUrl: process.env.NUXT_PUBLIC_APP_URL,
             yandexMapsApiKey: process.env.NUXT_PUBLIC_YANDEX_MAPS_API_KEY,
             dadataApiKey: process.env.NUXT_PUBLIC_DADATA_API_KEY,
             REVERB_APP_ID: process.env.NUXT_PUBLIC_REVERB_APP_ID,

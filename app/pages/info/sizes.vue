@@ -18,6 +18,7 @@ await suspense()
 
 const seoTitle = 'Таблица размеров'
 const seoDescription = 'Таблица размеров интернет-магазина Beze Studio'
+const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/info/sizes`)
 </script>
 
 <template>
@@ -35,6 +36,10 @@ const seoDescription = 'Таблица размеров интернет-маг�
             <Meta
                 name="twitter:description"
                 :content="seoDescription"
+            />
+            <Link
+                rel="canonical"
+                :href="canonicalUrl"
             />
         </Head>
         <UiSpinner v-if="isLoading" />

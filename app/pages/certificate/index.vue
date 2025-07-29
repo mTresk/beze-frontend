@@ -89,7 +89,7 @@ async function submitOrder() {
         communication: form.value?.communication?.name,
     }
 
-    const response = await client('/api/orders/certificate', {
+    const response = await client<string>('/api/orders/certificate', {
         body: payload,
         method: 'post',
     })
@@ -134,6 +134,7 @@ onMounted(() => {
 
 const seoTitle = 'Подарочный сертификат'
 const seoDescription = 'Купить подарочный сертификат в интернет-магазине Beze Studio'
+const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/certificate`)
 </script>
 
 <template>
@@ -151,6 +152,10 @@ const seoDescription = 'Купить подарочный сертификат �
             <Meta
                 name="twitter:description"
                 :content="seoDescription"
+            />
+            <Link
+                rel="canonical"
+                :href="canonicalUrl"
             />
         </Head>
         <section class="certificate spacer">

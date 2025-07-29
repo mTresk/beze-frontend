@@ -18,6 +18,7 @@ await suspense()
 
 const seoTitle = 'Согласие на обработку персональных данных'
 const seoDescription = 'Согласие на обработку персональных данных интернет-магазина Beze Studio'
+const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/info/processing`)
 </script>
 
 <template>
@@ -35,6 +36,10 @@ const seoDescription = 'Согласие на обработку персона�
             <Meta
                 name="twitter:description"
                 :content="seoDescription"
+            />
+            <Link
+                rel="canonical"
+                :href="canonicalUrl"
             />
         </Head>
         <UiSpinner v-if="isLoading" />

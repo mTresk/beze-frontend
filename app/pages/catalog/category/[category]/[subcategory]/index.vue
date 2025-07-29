@@ -33,6 +33,7 @@ await Promise.all([categorySuspense(), subcategorySuspense()])
 
 const seoTitle = computed(() => subcategory.value?.seo?.title ?? subcategory.value?.name ?? null)
 const seoDescription = computed(() => subcategory.value?.seo?.description ?? subcategory.value?.description ?? null)
+const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/catalog/category/${categorySlug.value}/${subcategorySlug.value}`)
 </script>
 
 <template>
@@ -53,6 +54,10 @@ const seoDescription = computed(() => subcategory.value?.seo?.description ?? sub
                 v-if="seoDescription"
                 name="twitter:description"
                 :content="seoDescription"
+            />
+            <Link
+                rel="canonical"
+                :href="canonicalUrl"
             />
         </Head>
         <Catalog

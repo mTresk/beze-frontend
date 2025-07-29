@@ -59,6 +59,7 @@ onMounted(() => {
 
 const seoTitle = 'Контакты'
 const seoDescription = 'Как с нами связаться'
+const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/contacts`)
 
 useSchemaOrg([
     defineOrganization({
@@ -91,6 +92,10 @@ useSchemaOrg([
             <Meta
                 name="twitter:description"
                 :content="seoDescription"
+            />
+            <Link
+                rel="canonical"
+                :href="canonicalUrl"
             />
         </Head>
         <section class="contacts spacer">
