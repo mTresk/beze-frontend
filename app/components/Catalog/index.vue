@@ -244,6 +244,7 @@ watch(selectedSort, async (newSort) => {
     &__category {
         line-height: 120%;
         white-space: nowrap;
+        touch-action: manipulation;
         border: rem(1) solid $extraColor;
         border-radius: rem(4);
         transition: all 0.3s ease-in-out;
