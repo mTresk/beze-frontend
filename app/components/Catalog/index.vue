@@ -244,7 +244,6 @@ watch(selectedSort, async (newSort) => {
     &__category {
         line-height: 120%;
         white-space: nowrap;
-        touch-action: manipulation;
         border: rem(1) solid $extraColor;
         border-radius: rem(4);
         transition: all 0.3s ease-in-out;
@@ -253,9 +252,11 @@ watch(selectedSort, async (newSort) => {
         @include adaptive-value('padding-block', 10, 6);
         @include adaptive-value('padding-inline', 20, 10);
 
-        &:hover {
-            color: $whiteColor;
-            background-color: $extraColor;
+        @media (any-hover: hover) {
+            &:hover {
+                color: $whiteColor;
+                background-color: $extraColor;
+            }
         }
 
         &--active {
