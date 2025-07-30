@@ -19,6 +19,7 @@ onMounted(() => {
 
 const seoTitle = 'Вишлист'
 const seoDescription = 'Здесь лежат желанные товары'
+const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/favorites`)
 </script>
 
 <template>
@@ -37,6 +38,10 @@ const seoDescription = 'Здесь лежат желанные товары'
                 name="twitter:description"
                 :content="seoDescription"
             />
+            <Link
+                rel="canonical"
+                :href="canonicalUrl"
+            />
         </Head>
         <section class="favorites spacer">
             <div class="favorites__container">
@@ -46,7 +51,7 @@ const seoDescription = 'Здесь лежат желанные товары'
                     ]"
                 />
                 <UiPageTitle>Вишлист</UiPageTitle>
-                <UiSpinner v-if="isLoading" />
+                <UiSpinner v-if="isLoading && !isInitialized" />
                 <div
                     v-else
                     class="favorites__wrapper"
@@ -55,11 +60,17 @@ const seoDescription = 'Здесь лежат желанные товары'
                         v-if="wishlistItems.length"
                         class="favorites__body"
                     >
-                        <ProductItem
-                            v-for="item in wishlistItems"
-                            :key="item.id"
-                            :product="item.product as IProduct"
-                        />
+                        <TransitionGroup
+                            name="wishlist-item"
+                            tag="div"
+                            class="favorites__grid"
+                        >
+                            <ProductItem
+                                v-for="item in wishlistItems"
+                                :key="item.id"
+                                :product="item.product as IProduct"
+                            />
+                        </TransitionGroup>
                     </div>
                     <LayoutEmpty v-if="isInitialized && !wishlistItems.length">
                         <template #icon>
@@ -91,7 +102,7 @@ const seoDescription = 'Здесь лежат желанные товары'
 
 <style lang="scss">
 .favorites {
-    &__body {
+    &__grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
 
@@ -102,5 +113,24 @@ const seoDescription = 'Здесь лежат желанные товары'
             grid-template-columns: repeat(2, 1fr);
         }
     }
+}
+
+.wishlist-item-enter-active,
+.wishlist-item-leave-active {
+    transition: all 0.3s ease;
+}
+
+.wishlist-item-enter-from {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+}
+
+.wishlist-item-leave-to {
+    opacity: 0;
+    transform: scale(0.8) translateY(-20px);
+}
+
+.wishlist-item-move {
+    transition: transform 0.3s ease;
 }
 </style>

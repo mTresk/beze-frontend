@@ -10,7 +10,7 @@ defineEmits<{
     (e: 'linkClick'): void
 }>()
 
-const { toggleWishlist, isInWishlist } = useWishlist()
+const { toggleWishlist, isInWishlist, isOperating } = useWishlist()
 
 const colors = computed(() => getUniqueColors(props.product.variants))
 
@@ -172,6 +172,7 @@ onUnmounted(() => {
                 type="button"
                 class="product-card__action"
                 :class="{ 'product-card__action--selected': wishlistStatus }"
+                :disabled="isOperating"
                 :aria-label="wishlistStatus ? 'Удалить из избранного' : 'Добавить в избранное'"
                 @click="handleWishlistClick"
             >
@@ -412,6 +413,11 @@ onUnmounted(() => {
 
         &--selected {
             color: $redColor;
+        }
+
+        &:disabled {
+            pointer-events: none;
+            opacity: 0.5;
         }
 
         [small] & {
