@@ -378,8 +378,10 @@ onUnmounted(() => {
         @include adaptive-value('padding-right', 10, 0);
 
         [small] & {
-            top: rem(10);
-            padding-inline: rem(10);
+            padding-left: rem(10);
+
+            @include adaptive-value('padding-right', 5, 0);
+            @include adaptive-value('top', 5, 0);
         }
     }
 
@@ -441,7 +443,7 @@ onUnmounted(() => {
         @include adaptive-value('font-size', 18, 14);
 
         [small] & {
-            font-size: rem(16);
+            @include adaptive-value('font-size', 16, 14);
         }
     }
 
