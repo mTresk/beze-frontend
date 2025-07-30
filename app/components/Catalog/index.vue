@@ -198,7 +198,7 @@ watch(selectedSort, async (newSort) => {
                     >
                         <ProductItem
                             v-for="product in cachedData"
-                            :key="product.id"
+                            :key="`${product.id}-${query.isFetching.value}`"
                             :product="product"
                         />
                     </div>
