@@ -10,6 +10,7 @@ export default defineNuxtConfig({
         'nuxt-schema-org',
         'vue3-perfect-scrollbar/nuxt',
         '@nuxtjs/robots',
+        'nuxt-yandex-metrika',
     ],
     app: {
         pageTransition: { name: 'layout', mode: 'out-in' },
@@ -145,6 +146,17 @@ export default defineNuxtConfig({
     },
     schemaOrg: {
         defaults: false,
+    },
+    yandexMetrika: {
+        id: '103546868',
+        debug: false,
+        options: {
+            webvisor: true,
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            ecommerce: true,
+        },
     },
     compatibilityDate: '2025-03-30',
 })

@@ -42,6 +42,7 @@
         "nuxt-schema-org": "^5.0.6",
         "nuxt-swiper": "^2.0.1",
         "nuxt-toastify": "^1.0.0",
+        "nuxt-yandex-metrika": "^1.2.9",
         "pusher-js": "^8.4.0",
         "sass": "1.89.2",
         "stylelint": "^16.22.0",
