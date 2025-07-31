@@ -150,6 +150,7 @@ export default defineNuxtConfig({
     yandexMetrika: {
         id: '103546868',
         debug: false,
+        delay: 0,
         options: {
             webvisor: true,
             clickmap: true,
