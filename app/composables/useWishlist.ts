@@ -35,6 +35,7 @@ export function useWishlist() {
 
         try {
             const response = await client<IWishlistData>('/api/wishlist')
+
             if (response) {
                 wishlistItems.value = response.items || []
                 wishlistId.value = response.id || null

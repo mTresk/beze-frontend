@@ -8,6 +8,7 @@ export function useScrollState(initialState: false = false) {
     const setScrollState = (newScrollState: LenisScrollData | false) => {
         scrollState.value = newScrollState
     }
+
     const setLenis = (virtualScroll: Lenis | false) => {
         lenisVS.value = virtualScroll
     }

@@ -31,11 +31,13 @@ export function useCart() {
 
         try {
             const response = await client<ICartData>('/api/cart')
+
             if (response) {
                 cartItems.value = response.items || []
                 cartTotal.value = response.total || 0
                 cartId.value = response.id || null
                 isCartInitialized = true
+
                 return response
             }
             else {
@@ -43,6 +45,7 @@ export function useCart() {
                 cartTotal.value = 0
                 cartId.value = null
                 isCartInitialized = true
+
                 return null
             }
         }
@@ -52,6 +55,7 @@ export function useCart() {
             cartTotal.value = 0
             cartId.value = null
             isCartInitialized = true
+
             return null
         }
         finally {
@@ -65,6 +69,7 @@ export function useCart() {
         try {
             if (!productId) {
                 useToastify(`Ошибка при добавлении товара в корзину: не указан ID продукта`, { type: 'error' })
+
                 return null
             }
 
@@ -86,6 +91,7 @@ export function useCart() {
                 isCartInitialized = true
 
                 useToastify('Товар добавлен в корзину', { type: 'success' })
+
                 return response
             }
             return null
@@ -93,6 +99,7 @@ export function useCart() {
         catch (error) {
             console.error('Ошибка при добавлении товара в корзину:', error)
             useToastify(`Ошибка при добавлении товара в корзину`, { type: 'error' })
+
             return null
         }
         finally {
@@ -122,6 +129,7 @@ export function useCart() {
         catch (error) {
             console.error('Ошибка при удалении товара из корзины:', error)
             useToastify(`Ошибка при удалении товара из корзины`, { type: 'error' })
+
             return null
         }
         finally {
@@ -135,6 +143,7 @@ export function useCart() {
         }
 
         isLoading.value = true
+
         try {
             const response = await client<ICartData>(`/api/cart/${cartItemId}`, {
                 method: 'put',
@@ -155,6 +164,7 @@ export function useCart() {
         }
         catch (error) {
             console.error('Ошибка при обновлении товара в корзине:', error)
+
             return null
         }
         finally {
@@ -164,17 +174,20 @@ export function useCart() {
 
     async function clearCartItems() {
         isLoading.value = true
+
         try {
             await client('/api/cart/clear', { method: 'delete' })
             cartItems.value = []
             cartTotal.value = 0
             cartId.value = null
             isCartInitialized = true
+
             return true
         }
         catch (error) {
             console.error('Ошибка при очистке корзины:', error)
-            return false
+
+            return null
         }
         finally {
             isLoading.value = false
@@ -188,12 +201,14 @@ export function useCart() {
     async function toggleCartItem(variantId: number | null, quantity: number = 1, productId: number) {
         if (variantId) {
             const item = cartItems.value?.find(item => item.productVariant.id === variantId)
+
             if (item) {
                 return await removeFromCart(item.id)
             }
         }
         else {
             const item = cartItems.value?.find(item => item.product.id === productId)
+
             if (item) {
                 return await removeFromCart(item.id)
             }
@@ -207,11 +222,13 @@ export function useCart() {
             isCartInitialized = false
             fetchCart(true)
         }
+
         previousAuthState = newVal
     })
 
     onMounted(() => {
         previousAuthState = isAuthenticated.value
+
         if (!isCartInitialized) {
             fetchCart()
         }

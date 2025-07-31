@@ -14,13 +14,9 @@ const { toggleWishlist, isInWishlist, isOperating } = useWishlist()
 
 const colors = computed(() => getUniqueColors(props.product.variants))
 
-const limitedImages = computed(() => {
-    return props.product.images?.slice(0, 6) || []
-})
+const limitedImages = computed(() => props.product.images?.slice(0, 6) || [])
 
-const paginationItemWidth = computed(() => {
-    return `${100 / (limitedImages.value.length || 1)}%`
-})
+const paginationItemWidth = computed(() => `${100 / (limitedImages.value.length || 1)}%`)
 
 const wishlistStatus = isInWishlist(String(props.product.id))
 

@@ -16,6 +16,7 @@ export function useSubmit<T>(fetchable: () => Promise<T>, options: IUseSubmitOpt
             const data = await fetchable()
             succeeded.value = true
             options?.onSuccess?.(data)
+
             return data
         }
         catch (e: unknown) {
