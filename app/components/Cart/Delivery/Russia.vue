@@ -32,14 +32,16 @@ watch(() => props.address, (val) => {
 })
 
 watch(addressProxy, (val) => {
-    if (props.address !== val)
+    if (props.address !== val) {
         emit('update:address', val)
+    }
 })
 
 function loadScript() {
     return new Promise((resolve, reject) => {
-        if (window.CDEKWidget)
+        if (window.CDEKWidget) {
             return resolve(true)
+        }
 
         const script = document.createElement('script')
         script.src = 'https://cdn.jsdelivr.net/npm/@cdek-it/widget@3'
@@ -51,12 +53,15 @@ function loadScript() {
 }
 
 function formatDeliveryAddress(type: string, point: CdekPoint): string {
-    if (!point)
+    if (!point) {
         return ''
-    if (type === 'office')
+    }
+    if (type === 'office') {
         return `${point.city}, ${point.address} (${point.code})`
-    else
+    }
+    else {
         return `${point.city}, ${point.name}`
+    }
 }
 
 async function initWidget() {

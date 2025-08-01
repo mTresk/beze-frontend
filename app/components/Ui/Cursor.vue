@@ -3,8 +3,9 @@ const cursor = ref<HTMLElement | null>(null)
 
 onMounted(() => {
     const cursorElements = document.querySelectorAll<HTMLElement>('[data-js-cursor]')
-    if (!cursorElements.length)
+    if (!cursorElements.length) {
         return
+    }
 
     cursorElements.forEach((element) => {
         element.addEventListener('mouseenter', () => {

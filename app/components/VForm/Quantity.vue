@@ -13,10 +13,15 @@ const quantity = computed({
     get: () => props.modelValue,
     set: (value: number) => {
         let newValue = value
-        if (props.min !== undefined && value < props.min)
+
+        if (props.min !== undefined && value < props.min) {
             newValue = props.min
-        if (props.max !== undefined && value > props.max)
+        }
+
+        if (props.max !== undefined && value > props.max) {
             newValue = props.max
+        }
+
         emit('update:modelValue', newValue)
     },
 })

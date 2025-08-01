@@ -8,6 +8,7 @@ export default defineNuxtRouteMiddleware(() => {
         return navigateTo('/auth/login')
     }
 
-    if (user.value?.verified)
+    if (user.value?.verified) {
         return navigateTo('/personal')
+    }
 })

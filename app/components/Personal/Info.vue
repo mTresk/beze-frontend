@@ -23,8 +23,9 @@ const form = reactive({
 const errors = ref<ValidationErrors>({})
 
 function populateFormWithUserData() {
-    if (!user.value)
+    if (!user.value) {
         return
+    }
 
     form.name = user.value.name || ''
     form.surname = user.value.surname || ''

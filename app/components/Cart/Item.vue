@@ -12,8 +12,9 @@ const quantity = ref(props.cartItem.quantity)
 const updateTimeout = ref<NodeJS.Timeout | null>(null)
 
 const selectedVariant = computed(() => {
-    if (!props.cartItem.product?.variants)
+    if (!props.cartItem.product?.variants) {
         return null
+    }
 
     return props.cartItem.product.variants.find(
         variant => variant.id === props.cartItem.productVariant.id,

@@ -46,8 +46,10 @@ export function yandexMap(mapRoot: HTMLElement) {
     }
 
     async function initMap() {
-        if (!mapRoot)
+        if (!mapRoot) {
             return
+        }
+
         const ymaps3: any = await loadYMaps()
         await ymaps3.ready
         const { YMap, YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer, YMapMarker } = ymaps3
@@ -150,23 +152,31 @@ export function sortSizes(sizes: ISize[]): ISize[] {
         const bIndex = sizeOrder.indexOf(b.name.toUpperCase())
 
         // Если размер не найден в sizeOrder, поместить его в конец
-        if (aIndex === -1 && bIndex === -1)
+        if (aIndex === -1 && bIndex === -1) {
             return 0
-        if (aIndex === -1)
+        }
+
+        if (aIndex === -1) {
             return 1
-        if (bIndex === -1)
+        }
+
+        if (bIndex === -1) {
             return -1
+        }
 
         return aIndex - bIndex
     })
 }
 
 export function formatPhone(phone?: string): string {
-    if (!phone)
+    if (!phone) {
         return ''
+    }
+
     if (phone[0] === '+') {
         return `+${phone.slice(1).replace(/\D/g, '')}`
     }
+
     return phone.replace(/\D/g, '')
 }
 

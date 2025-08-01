@@ -68,8 +68,9 @@ if (meta.value && currentPage.value > meta.value.last_page && meta.value.last_pa
 }
 
 async function handlePageClick(page: number) {
-    if (page === meta.value?.current_page)
+    if (page === meta.value?.current_page) {
         return
+    }
 
     const query = { ...route.query }
 

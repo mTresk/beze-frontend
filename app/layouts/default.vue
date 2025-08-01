@@ -10,10 +10,14 @@ const { isSearchOpen } = useSearch()
 const isLoading = ref(true)
 
 const scrollClass = computed(() => {
-    if (direction.value === 'down')
+    if (direction.value === 'down') {
         return 'scroll-down'
-    if (direction.value === 'up')
+    }
+
+    if (direction.value === 'up') {
         return 'scroll-up'
+    }
+
     return ''
 })
 

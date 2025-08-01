@@ -27,9 +27,12 @@ function handleKeyDown(event: KeyboardEvent) {
 }
 
 function handleOpen() {
-    if (!dialogRef.value)
+    if (!dialogRef.value) {
         return
+    }
+
     dialogRef.value.showModal()
+
     if (lenis.value) {
         lenis.value.destroy()
     }
@@ -37,19 +40,24 @@ function handleOpen() {
 }
 
 function handleClose() {
-    if (!dialogRef.value)
+    if (!dialogRef.value) {
         return
+    }
 
     dialogRef.value.setAttribute('closing', '')
 
     setTimeout(() => {
-        if (!dialogRef.value)
+        if (!dialogRef.value) {
             return
+        }
+
         dialogRef.value.close()
         dialogRef.value.removeAttribute('closing')
+
         if (lenis.value) {
             lenis.value.start()
         }
+
         emit('update:modelValue', false)
         emit('close')
     }, 300)

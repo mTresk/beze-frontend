@@ -18,5 +18,9 @@ export default antfu({
                 max: 1,
             },
         }],
+        'curly': 1,
     },
+    ignores: [
+        'docker-compose.yml',
+    ],
 })

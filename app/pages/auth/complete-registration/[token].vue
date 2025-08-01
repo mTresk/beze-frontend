@@ -7,8 +7,9 @@ const route = useRoute()
 
 const { completeRegistration } = useAuth()
 
-if (!route.query.email)
+if (!route.query.email) {
     navigateTo('/')
+}
 
 const form = reactive({
     email: route.query.email as string,

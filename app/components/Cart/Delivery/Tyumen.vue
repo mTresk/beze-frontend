@@ -21,8 +21,9 @@ watch(() => props.address, (val) => {
 })
 
 watch(addressProxy, (val) => {
-    if (props.address !== val)
+    if (props.address !== val) {
         emit('update:address', val)
+    }
 })
 </script>
 

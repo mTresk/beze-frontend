@@ -49,22 +49,29 @@ const form = reactive<Partial<IOrder>>({
 })
 
 const deliveryComponent = computed(() => {
-    if (currentDeliveryTab.value === 'pickup')
+    if (currentDeliveryTab.value === 'pickup') {
         return CartDeliveryPickup
-    if (currentDeliveryTab.value === 'tyumen')
+    }
+
+    if (currentDeliveryTab.value === 'tyumen') {
         return CartDeliveryTyumen
+    }
+
     return CartDeliveryRussia
 })
 
 function populateFormWithUserData() {
-    if (!user.value)
+    if (!user.value) {
         return
+    }
 
     form.name = user.value.name || ''
     form.surname = user.value.surname || ''
+
     if (user.value.email) {
         form.email = user.value.email
     }
+
     if (user.value.profile) {
         form.phone = user.value.profile.phone || ''
         form.address = user.value.profile.address || ''
@@ -85,6 +92,7 @@ function populateFormWithUserData() {
             const communicationOption = options.find(
                 option => option.name.toLowerCase() === user.value?.profile?.communication?.toLowerCase(),
             )
+
             if (communicationOption) {
                 form.communication = communicationOption
             }
