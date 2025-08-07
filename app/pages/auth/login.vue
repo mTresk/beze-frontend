@@ -7,6 +7,8 @@ const route = useRoute()
 
 const { login } = useSanctumAuth()
 
+const { oneTimePassword } = useAuth()
+
 const form = reactive({
     email: '',
     password: '',
@@ -17,14 +19,31 @@ const status = ref((route.query.reset ?? '').length > 0 ? (route.query.reset as 
 
 const {
     submit: submitForm,
-    isLoading,
-    validationErrors: errors,
+    isLoading: isLoadingLogin,
+    validationErrors: errorsLogin,
 } = useSubmit(
     () => {
         status.value = ''
         return login(form)
     },
 )
+
+const {
+    submit: handleOneTimePassword,
+    isLoading: isLoadingOneTimePassword,
+    validationErrors: errorsOneTimePassword,
+} = useSubmit(
+    () => {
+        return oneTimePassword(form.email)
+    },
+    {
+        onSuccess: () => navigateTo(`/auth/one-time-login?email=${encodeURIComponent(form.email)}`),
+    },
+)
+
+const isLoading = computed(() => isLoadingLogin.value || isLoadingOneTimePassword.value)
+
+const errors = computed(() => ({ ...errorsLogin.value, ...errorsOneTimePassword.value }))
 </script>
 
 <template>
@@ -89,6 +108,15 @@ const {
                     type="submit"
                 >
                     Войти
+                </UiButton>
+                <UiButton
+                    wide
+                    outline
+                    :is-loading="isLoading"
+                    type="button"
+                    @click="handleOneTimePassword"
+                >
+                    Одноразовый пароль
                 </UiButton>
                 <div class="auth__links">
                     <UiLink

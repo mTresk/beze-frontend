@@ -1,17 +1,26 @@
-import type { ICompleteRegistrationCredentials, IRegisterCredentials, IResetPasswordCredentials } from '@/types/api'
+import type { ICompleteRegistrationCredentials, ILoginCredentials, IRegisterCredentials, IResetPasswordCredentials } from '@/types/api'
 
 export function useAuth() {
     const client = useSanctumClient()
     const { refreshIdentity } = useSanctumAuth()
 
     async function register(credentials: IRegisterCredentials) {
-        await client('/register', { method: 'post', body: credentials })
+        await client('/register', {
+            method: 'post',
+            body: credentials,
+        })
+
         await refreshIdentity()
     }
 
     async function completeRegistration(credentials: ICompleteRegistrationCredentials) {
-        const response = await client<{ status: string }>('/complete-registration', { method: 'post', body: credentials })
+        const response = await client<{ status: string }>('/complete-registration', {
+            method: 'post',
+            body: credentials,
+        })
+
         await refreshIdentity()
+
         return response
     }
 
@@ -35,11 +44,31 @@ export function useAuth() {
         })
     }
 
+    async function oneTimePassword(email: string) {
+        return await client<{ status: string }>('/one-time-password', {
+            method: 'post',
+            body: { email },
+        })
+    }
+
+    async function oneTimeLogin(credentials: ILoginCredentials) {
+        const response = await client('/one-time-login', {
+            method: 'post',
+            body: credentials,
+        })
+
+        await refreshIdentity()
+
+        return response
+    }
+
     return {
         resendEmailVerification,
         forgotPassword,
         resetPassword,
         register,
         completeRegistration,
+        oneTimePassword,
+        oneTimeLogin,
     }
 }
