@@ -29,7 +29,7 @@ deploy-blue:
 	docker-compose build $(BLUE_SERVICE)
 	# 2) Switch traffic: remove stale container and start BLUE with high priority; keep GREEN running
 	docker-compose rm -f $(BLUE_SERVICE) || true
-	BLUE_PRIORITY=200 docker-compose up -d --no-deps --no-build $(BLUE_SERVICE)
+	BLUE_PRIORITY=3 docker-compose up -d --no-deps --no-build $(BLUE_SERVICE)
 	# 3) Stop inactive (GREEN) to free resources
 	docker-compose stop $(GREEN_SERVICE)
 	@echo blue > $(ACTIVE_FILE)
@@ -42,7 +42,7 @@ deploy-green:
 	docker-compose build $(GREEN_SERVICE)
 	# 2) Switch traffic: remove stale container and start GREEN with high priority; keep BLUE running
 	docker-compose rm -f $(GREEN_SERVICE) || true
-	GREEN_PRIORITY=200 docker-compose up -d --no-deps --no-build $(GREEN_SERVICE)
+	GREEN_PRIORITY=3 docker-compose up -d --no-deps --no-build $(GREEN_SERVICE)
 	# 3) Stop inactive (BLUE) to free resources
 	docker-compose stop $(BLUE_SERVICE)
 	@echo green > $(ACTIVE_FILE)
