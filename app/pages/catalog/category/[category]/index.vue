@@ -10,7 +10,7 @@ const category = ref<ICategory>()
 const categorySlug = computed(() => route.params.category)
 
 async function getCategory() {
-    return category.value = await client<ICategory>(`api/categories/${categorySlug.value}`)
+  return category.value = await client<ICategory>(`api/categories/${categorySlug.value}`)
 }
 
 await getCategory()
@@ -21,38 +21,38 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/catalog
 </script>
 
 <template>
-    <div>
-        <Head>
-            <Title>{{ seoTitle }}</Title>
-            <Meta
-                v-if="seoDescription"
-                name="description"
-                :content="seoDescription"
-            />
-            <Meta
-                v-if="seoDescription"
-                property="og:description"
-                :content="seoDescription"
-            />
-            <Meta
-                v-if="seoDescription"
-                name="twitter:description"
-                :content="seoDescription"
-            />
-            <Link
-                rel="canonical"
-                :href="canonicalUrl"
-            />
-        </Head>
-        <Catalog
-            :api-url="`api/products/categories/${categorySlug}`"
-            :query-key="[`categories-${categorySlug}`]"
-            :breadcrumbs="[
-                { title: 'Каталог', link: '/catalog' },
-                { title: category?.name || '' },
-            ]"
-            :current-category="category"
-            :base-url="`/catalog/category/${categorySlug}`"
-        />
-    </div>
+  <div>
+    <Head>
+      <Title>{{ seoTitle }}</Title>
+      <Meta
+        v-if="seoDescription"
+        name="description"
+        :content="seoDescription"
+      />
+      <Meta
+        v-if="seoDescription"
+        property="og:description"
+        :content="seoDescription"
+      />
+      <Meta
+        v-if="seoDescription"
+        name="twitter:description"
+        :content="seoDescription"
+      />
+      <Link
+        rel="canonical"
+        :href="canonicalUrl"
+      />
+    </Head>
+    <Catalog
+      :api-url="`api/products/categories/${categorySlug}`"
+      :query-key="[`categories-${categorySlug}`]"
+      :breadcrumbs="[
+        { title: 'Каталог', link: '/catalog' },
+        { title: category?.name || '' },
+      ]"
+      :current-category="category"
+      :base-url="`/catalog/category/${categorySlug}`"
+    />
+  </div>
 </template>

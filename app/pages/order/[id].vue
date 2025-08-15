@@ -18,34 +18,34 @@ const signature = route.query.signature as string
 const hasAllParams = computed(() => orderId && expires && signature)
 
 async function fetchOrder() {
-    try {
-        isLoading.value = true
+  try {
+    isLoading.value = true
 
-        if (!hasAllParams.value) {
-            throw new Error('Отсутствуют необходимые параметры для получения заказа')
-        }
-
-        const params = new URLSearchParams({
-            expires,
-            signature,
-        })
-
-        const response = await client<IOrderResponse>(`api/orders/${orderId}?${params}`)
-
-        if (response) {
-            order.value = response
-        }
+    if (!hasAllParams.value) {
+      throw new Error('Отсутствуют необходимые параметры для получения заказа')
     }
-    catch (error) {
-        console.error('Ошибка при загрузке заказа:', error)
+
+    const params = new URLSearchParams({
+      expires,
+      signature,
+    })
+
+    const response = await client<IOrderResponse>(`api/orders/${orderId}?${params}`)
+
+    if (response) {
+      order.value = response
     }
-    finally {
-        isLoading.value = false
-    }
+  }
+  catch (error) {
+    console.error('Ошибка при загрузке заказа:', error)
+  }
+  finally {
+    isLoading.value = false
+  }
 }
 
 onMounted(() => {
-    fetchOrder()
+  fetchOrder()
 })
 
 const seoTitle = 'Заказ'
@@ -54,61 +54,61 @@ const title = computed(() => order.value ? 'Ваш заказ' : 'Заказ н�
 </script>
 
 <template>
-    <div>
-        <Head>
-            <Title>{{ seoTitle }}</Title>
-            <Meta
-                name="description"
-                :content="seoDescription"
-            />
-            <Meta
-                property="og:description"
-                :content="seoDescription"
-            />
-            <Meta
-                name="twitter:description"
-                :content="seoDescription"
-            />
-        </Head>
-        <section class="order spacer">
-            <div class="order__container">
-                <LayoutBreadcrumb
-                    :items="[
-                        { title: 'Заказ' },
-                    ]"
-                />
-                <UiPageTitle>{{ title }}</UiPageTitle>
-                <UiSpinner v-if="isLoading" />
-                <template v-else>
-                    <OrderInfo
-                        v-if="order"
-                        :order="order"
-                    />
+  <div>
+    <Head>
+      <Title>{{ seoTitle }}</Title>
+      <Meta
+        name="description"
+        :content="seoDescription"
+      />
+      <Meta
+        property="og:description"
+        :content="seoDescription"
+      />
+      <Meta
+        name="twitter:description"
+        :content="seoDescription"
+      />
+    </Head>
+    <section class="order spacer">
+      <div class="order__container">
+        <LayoutBreadcrumb
+          :items="[
+            { title: 'Заказ' },
+          ]"
+        />
+        <UiPageTitle>{{ title }}</UiPageTitle>
+        <UiSpinner v-if="isLoading" />
+        <template v-else>
+          <OrderInfo
+            v-if="order"
+            :order="order"
+          />
 
-                    <LayoutEmpty v-if="!order">
-                        <template #icon>
-                            <UiIcon
-                                name="sad"
-                                size="48"
-                            />
-                        </template>
-                        <template #title>
-                            Заказ не найден
-                        </template>
-                        <template #text>
-                            Возможно, он был удален или не существует
-                        </template>
-                        <template #button>
-                            <UiButton
-                                outline
-                                href="/personal"
-                            >
-                                Перейти в личный кабинет
-                            </UiButton>
-                        </template>
-                    </LayoutEmpty>
-                </template>
-            </div>
-        </section>
-    </div>
+          <LayoutEmpty v-if="!order">
+            <template #icon>
+              <UiIcon
+                name="sad"
+                size="48"
+              />
+            </template>
+            <template #title>
+              Заказ не найден
+            </template>
+            <template #text>
+              Возможно, он был удален или не существует
+            </template>
+            <template #button>
+              <UiButton
+                outline
+                href="/personal"
+              >
+                Перейти в личный кабинет
+              </UiButton>
+            </template>
+          </LayoutEmpty>
+        </template>
+      </div>
+    </section>
+  </div>
 </template>

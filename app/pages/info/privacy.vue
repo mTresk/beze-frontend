@@ -6,12 +6,12 @@ const client = useSanctumClient()
 const fetcher = async () => await client<IInfoPageContent>(`/api/pages/privacy`)
 
 const {
-    data: privacy,
-    suspense,
-    isLoading,
+  data: privacy,
+  suspense,
+  isLoading,
 } = useQuery({
-    queryKey: ['privacy'],
-    queryFn: fetcher,
+  queryKey: ['privacy'],
+  queryFn: fetcher,
 })
 
 await suspense()
@@ -22,36 +22,36 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/info/pr
 </script>
 
 <template>
-    <div>
-        <Head>
-            <Title>{{ seoTitle }}</Title>
-            <Meta
-                name="description"
-                :content="seoDescription"
-            />
-            <Meta
-                property="og:description"
-                :content="seoDescription"
-            />
-            <Meta
-                name="twitter:description"
-                :content="seoDescription"
-            />
-            <Link
-                rel="canonical"
-                :href="canonicalUrl"
-            />
-        </Head>
-        <UiSpinner v-if="isLoading" />
-        <InfoPage
-            v-else
-            :title="privacy!.data.name"
-            :breadcrumb-items="[
-                { title: privacy!.data.name },
-            ]"
-            :sidebar-links="privacy!.otherPages.map(page => ({ title: page.name, to: `/info/${page.slug}` }))"
-        >
-            <div v-html="privacy!.data.content" />
-        </InfoPage>
-    </div>
+  <div>
+    <Head>
+      <Title>{{ seoTitle }}</Title>
+      <Meta
+        name="description"
+        :content="seoDescription"
+      />
+      <Meta
+        property="og:description"
+        :content="seoDescription"
+      />
+      <Meta
+        name="twitter:description"
+        :content="seoDescription"
+      />
+      <Link
+        rel="canonical"
+        :href="canonicalUrl"
+      />
+    </Head>
+    <UiSpinner v-if="isLoading" />
+    <InfoPage
+      v-else
+      :title="privacy!.data.name"
+      :breadcrumb-items="[
+        { title: privacy!.data.name },
+      ]"
+      :sidebar-links="privacy!.otherPages.map(page => ({ title: page.name, to: `/info/${page.slug}` }))"
+    >
+      <div v-html="privacy!.data.content" />
+    </InfoPage>
+  </div>
 </template>

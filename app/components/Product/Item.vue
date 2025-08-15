@@ -3,11 +3,11 @@ import type { IProduct } from '@/types/api'
 import { getUniqueColors } from '@/helpers'
 
 const props = defineProps<{
-    product: IProduct
+  product: IProduct
 }>()
 
 defineEmits<{
-    (e: 'linkClick'): void
+  (e: 'linkClick'): void
 }>()
 
 const { toggleWishlist, isInWishlist, isOperating } = useWishlist()
@@ -29,463 +29,463 @@ const imagesLoaded = ref(false)
 let slideChangeTimer: NodeJS.Timeout | null = null
 
 function handleSlideChange(index: number) {
-    if (slideChangeTimer) {
-        clearTimeout(slideChangeTimer)
+  if (slideChangeTimer) {
+    clearTimeout(slideChangeTimer)
+  }
+
+  slideChangeTimer = setTimeout(() => {
+    if (!containerRef.value) {
+      return
     }
 
-    slideChangeTimer = setTimeout(() => {
-        if (!containerRef.value) {
-            return
-        }
-
-        // @ts-expect-error - swiper методы доступны, но TS их не видит
-        containerRef.value.swiper.slideTo(index)
-    }, 200)
+    // @ts-expect-error - swiper методы доступны, но TS их не видит
+    containerRef.value.swiper.slideTo(index)
+  }, 200)
 }
 
 function handleSlideLeave() {
-    if (slideChangeTimer) {
-        clearTimeout(slideChangeTimer)
-        slideChangeTimer = null
-    }
+  if (slideChangeTimer) {
+    clearTimeout(slideChangeTimer)
+    slideChangeTimer = null
+  }
 }
 
 function handleWishlistClick() {
-    if (!props.product) {
-        return
-    }
+  if (!props.product) {
+    return
+  }
 
-    toggleWishlist(
-        String(props.product.id),
-    )
+  toggleWishlist(
+    String(props.product.id),
+  )
 }
 
 function handleImageLoad(event: Event) {
-    if (event.target && event.target instanceof HTMLImageElement) {
-        event.target.classList.add('loaded')
-        imagesLoaded.value = true
-    }
+  if (event.target && event.target instanceof HTMLImageElement) {
+    event.target.classList.add('loaded')
+    imagesLoaded.value = true
+  }
 }
 
 useSwiper(containerRef, {
-    speed: 300,
-    slidesPerView: 1,
-    spaceBetween: 1,
-    on: {
-        slideChange: (swiper: any) => {
-            activeSlide.value = swiper.activeIndex
-        },
+  speed: 300,
+  slidesPerView: 1,
+  spaceBetween: 1,
+  on: {
+    slideChange: (swiper: any) => {
+      activeSlide.value = swiper.activeIndex
     },
+  },
 })
 
 onUnmounted(() => {
-    if (slideChangeTimer) {
-        clearTimeout(slideChangeTimer)
-    }
+  if (slideChangeTimer) {
+    clearTimeout(slideChangeTimer)
+  }
 })
 </script>
 
 <template>
-    <article class="product-card">
-        <NuxtLink
-            title="Перейти на страницу товара"
-            :to="`/catalog/${product.slug}`"
-            class="product-card__picture"
-            @click="$emit('linkClick')"
+  <article class="product-card">
+    <NuxtLink
+      title="Перейти на страницу товара"
+      :to="`/catalog/${product.slug}`"
+      class="product-card__picture"
+      @click="$emit('linkClick')"
+    >
+      <div
+        class="product-card__placeholder"
+        :class="{ hidden: imagesLoaded }"
+      >
+        <UiIcon
+          name="image"
+          size="48"
+        />
+      </div>
+      <ClientOnly>
+        <swiper-container
+          ref="containerRef"
+          :init="false"
+          class="product-card__slider"
+          :class="{ loaded: imagesLoaded }"
         >
-            <div
-                class="product-card__placeholder"
-                :class="{ hidden: imagesLoaded }"
-            >
-                <UiIcon
-                    name="image"
-                    size="48"
-                />
-            </div>
-            <ClientOnly>
-                <swiper-container
-                    ref="containerRef"
-                    :init="false"
-                    class="product-card__slider"
-                    :class="{ loaded: imagesLoaded }"
-                >
-                    <swiper-slide
-                        v-for="(image, index) in limitedImages"
-                        :key="index"
-                        class="product-card__slide"
-                    >
-                        <picture>
-                            <source
-                                media="(max-width: 480px)"
-                                :srcset="`${image.normal_xs} 1x, ${image.retina_xs} 2x`"
-                                type="image/webp"
-                            >
-                            <source
-                                media="(max-width: 640px)"
-                                :srcset="`${image.normal_sm} 1x, ${image.retina_sm} 2x`"
-                                type="image/webp"
-                            >
-                            <source
-                                media="(max-width: 768px)"
-                                :srcset="`${image.normal_md} 1x, ${image.retina_md} 2x`"
-                                type="image/webp"
-                            >
-                            <img
-                                :src="image.normal"
-                                :srcset="`${image.normal} 1x, ${image.retina} 2x`"
-                                :alt="product.name"
-                                width="420"
-                                height="630"
-                                @load="handleImageLoad"
-                            >
-                        </picture>
-                    </swiper-slide>
-                </swiper-container>
-                <div class="product-card__pagination">
-                    <div
-                        v-for="(image, index) in limitedImages"
-                        :key="index"
-                        class="product-card__pagination-item"
-                        :class="{ 'product-card__pagination-item--active': index === activeSlide }"
-                        :style="{ width: paginationItemWidth }"
-                        @mouseenter="handleSlideChange(index)"
-                        @mouseleave="handleSlideLeave"
-                    />
-                </div>
-            </ClientOnly>
-        </NuxtLink>
-        <div class="product-card__header">
-            <div class="product-card__chips">
-                <div
-                    v-for="chip in product.chips"
-                    :key="chip.slug"
-                    class="chip"
-                >
-                    {{ chip.name }}
-                </div>
-            </div>
-            <button
-                type="button"
-                class="product-card__action"
-                :class="{ 'product-card__action--selected': wishlistStatus }"
-                :disabled="isOperating"
-                :aria-label="wishlistStatus ? 'Удалить из избранного' : 'Добавить в избранное'"
-                @click="handleWishlistClick"
-            >
-                <UiIcon
-                    name="favorite"
-                    size="24"
-                />
-            </button>
+          <swiper-slide
+            v-for="(image, index) in limitedImages"
+            :key="index"
+            class="product-card__slide"
+          >
+            <picture>
+              <source
+                media="(max-width: 480px)"
+                :srcset="`${image.normal_xs} 1x, ${image.retina_xs} 2x`"
+                type="image/webp"
+              >
+              <source
+                media="(max-width: 640px)"
+                :srcset="`${image.normal_sm} 1x, ${image.retina_sm} 2x`"
+                type="image/webp"
+              >
+              <source
+                media="(max-width: 768px)"
+                :srcset="`${image.normal_md} 1x, ${image.retina_md} 2x`"
+                type="image/webp"
+              >
+              <img
+                :src="image.normal"
+                :srcset="`${image.normal} 1x, ${image.retina} 2x`"
+                :alt="product.name"
+                width="420"
+                height="630"
+                @load="handleImageLoad"
+              >
+            </picture>
+          </swiper-slide>
+        </swiper-container>
+        <div class="product-card__pagination">
+          <div
+            v-for="(image, index) in limitedImages"
+            :key="index"
+            class="product-card__pagination-item"
+            :class="{ 'product-card__pagination-item--active': index === activeSlide }"
+            :style="{ width: paginationItemWidth }"
+            @mouseenter="handleSlideChange(index)"
+            @mouseleave="handleSlideLeave"
+          />
         </div>
-        <div class="product-card__info">
-            <h3 class="product-card__title">
-                {{ product.name }}
-            </h3>
-            <div class="product-card__line">
-                <div class="product-card__price">
-                    {{ product.price }} ₽
-                </div>
-                <div class="product-card__colors">
-                    <div
-                        v-for="color in colors"
-                        :key="color.id"
-                        :title="color.name"
-                        :style="{ backgroundColor: color.code }"
-                        class="product-card__color"
-                    />
-                </div>
-            </div>
+      </ClientOnly>
+    </NuxtLink>
+    <div class="product-card__header">
+      <div class="product-card__chips">
+        <div
+          v-for="chip in product.chips"
+          :key="chip.slug"
+          class="chip"
+        >
+          {{ chip.name }}
         </div>
-    </article>
+      </div>
+      <button
+        type="button"
+        class="product-card__action"
+        :class="{ 'product-card__action--selected': wishlistStatus }"
+        :disabled="isOperating"
+        :aria-label="wishlistStatus ? 'Удалить из избранного' : 'Добавить в избранное'"
+        @click="handleWishlistClick"
+      >
+        <UiIcon
+          name="favorite"
+          size="24"
+        />
+      </button>
+    </div>
+    <div class="product-card__info">
+      <h3 class="product-card__title">
+        {{ product.name }}
+      </h3>
+      <div class="product-card__line">
+        <div class="product-card__price">
+          {{ product.price }} ₽
+        </div>
+        <div class="product-card__colors">
+          <div
+            v-for="color in colors"
+            :key="color.id"
+            :title="color.name"
+            :style="{ backgroundColor: color.code }"
+            class="product-card__color"
+          />
+        </div>
+      </div>
+    </div>
+  </article>
 </template>
 
 <style lang="scss" scoped>
 .product-card {
+  position: relative;
+  display: grid;
+  gap: rem(10);
+
+  &__slider {
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    &.loaded {
+      opacity: 1;
+    }
+  }
+
+  &__picture {
     position: relative;
-    display: grid;
-    gap: rem(10);
+    display: block;
+    aspect-ratio: 420 / 630;
+    overflow: hidden;
+    background-color: #f7f7f7;
+    border-radius: rem(4);
 
-    &__slider {
-        height: 100%;
-        opacity: 0;
-        transition: opacity 0.3s ease;
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 5;
+      width: 100%;
+      pointer-events: none;
+      content: '';
+      background: linear-gradient(
+        0deg,
+        rgb(28 27 26 / 0%),
+        rgb(28 27 26 / 0%) 4%,
+        rgb(28 27 26 / 1.2%) 12%,
+        rgb(28 27 26 / 3.6%) 24%,
+        rgb(28 27 26 / 9%) 40%,
+        rgb(28 27 26 / 18%) 56%,
+        rgb(28 27 26 / 30.6%) 72%,
+        rgb(28 27 26 / 60%)
+      );
+      border-radius: rem(4);
 
-        &.loaded {
-            opacity: 1;
-        }
+      @include adaptive-value('height', 100, 50);
     }
 
-    &__picture {
-        position: relative;
-        display: block;
-        aspect-ratio: 420 / 630;
-        overflow: hidden;
-        background-color: #f7f7f7;
-        border-radius: rem(4);
+    &::before {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 5;
+      width: 100%;
+      pointer-events: none;
+      content: '';
+      background: linear-gradient(
+        0deg,
+        rgb(28 27 26 / 0%),
+        rgb(28 27 26 / 0%) 4%,
+        rgb(28 27 26 / 1.2%) 12%,
+        rgb(28 27 26 / 3.6%) 24%,
+        rgb(28 27 26 / 9%) 40%,
+        rgb(28 27 26 / 18%) 56%,
+        rgb(28 27 26 / 25.6%) 72%,
+        rgb(28 27 26 / 40%)
+      );
+      border-radius: rem(4);
+      opacity: 0.5;
+      transform: rotate(180deg);
 
-        &::after {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 5;
-            width: 100%;
-            pointer-events: none;
-            content: '';
-            background: linear-gradient(
-                0deg,
-                rgb(28 27 26 / 0%),
-                rgb(28 27 26 / 0%) 4%,
-                rgb(28 27 26 / 1.2%) 12%,
-                rgb(28 27 26 / 3.6%) 24%,
-                rgb(28 27 26 / 9%) 40%,
-                rgb(28 27 26 / 18%) 56%,
-                rgb(28 27 26 / 30.6%) 72%,
-                rgb(28 27 26 / 60%)
-            );
-            border-radius: rem(4);
-
-            @include adaptive-value('height', 100, 50);
-        }
-
-        &::before {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            z-index: 5;
-            width: 100%;
-            pointer-events: none;
-            content: '';
-            background: linear-gradient(
-                0deg,
-                rgb(28 27 26 / 0%),
-                rgb(28 27 26 / 0%) 4%,
-                rgb(28 27 26 / 1.2%) 12%,
-                rgb(28 27 26 / 3.6%) 24%,
-                rgb(28 27 26 / 9%) 40%,
-                rgb(28 27 26 / 18%) 56%,
-                rgb(28 27 26 / 25.6%) 72%,
-                rgb(28 27 26 / 40%)
-            );
-            border-radius: rem(4);
-            opacity: 0.5;
-            transform: rotate(180deg);
-
-            @include adaptive-value('height', 80, 40);
-        }
+      @include adaptive-value('height', 80, 40);
     }
+  }
 
-    &__placeholder {
-        position: absolute;
-        z-index: 2;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
-        color: #ccc;
+  &__placeholder {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #ccc;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+
+    &.hidden {
+      pointer-events: none;
+      opacity: 0;
+    }
+  }
+
+  &__slide {
+    position: relative;
+    display: block;
+    aspect-ratio: 420 / 630;
+
+    img {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+
+      @include image;
+
+      &.loaded {
         opacity: 1;
-        transition: opacity 0.3s ease;
+      }
+    }
+  }
 
-        &.hidden {
-            pointer-events: none;
-            opacity: 0;
-        }
+  &__pagination {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    gap: rem(4);
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0 rem(5) rem(5);
+    pointer-events: none;
+
+    @media (any-hover: hover) {
+      pointer-events: auto;
     }
 
-    &__slide {
-        position: relative;
-        display: block;
-        aspect-ratio: 420 / 630;
+    &-item {
+      position: relative;
+      height: 100%;
 
-        img {
-            opacity: 0;
-            transition: opacity 0.3s ease;
+      @media (any-hover: hover) {
+        cursor: pointer;
+      }
 
-            @include image;
-
-            &.loaded {
-                opacity: 1;
-            }
-        }
-    }
-
-    &__pagination {
+      &::before {
         position: absolute;
-        inset: 0;
-        z-index: 10;
-        display: flex;
-        gap: rem(4);
-        align-items: flex-end;
-        justify-content: center;
-        padding: 0 rem(5) rem(5);
-        pointer-events: none;
-
-        @media (any-hover: hover) {
-            pointer-events: auto;
-        }
-
-        &-item {
-            position: relative;
-            height: 100%;
-
-            @media (any-hover: hover) {
-                cursor: pointer;
-            }
-
-            &::before {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: rem(2);
-                content: '';
-                background-color: rgb(255 255 255 / 30%);
-                border-radius: rem(2);
-                transition: background-color 0.3s ease-in-out;
-            }
-
-            &--active::before {
-                background-color: $whiteColor;
-            }
-
-            @media (any-hover: hover) {
-                &:hover {
-                    &::before {
-                        background-color: $whiteColor;
-                    }
-                }
-            }
-        }
-    }
-
-    &__header {
-        position: absolute;
+        bottom: 0;
         left: 0;
-        z-index: 10;
-        display: flex;
-        gap: rem(40);
-        align-items: center;
-        justify-content: space-between;
         width: 100%;
+        height: rem(2);
+        content: '';
+        background-color: rgb(255 255 255 / 30%);
+        border-radius: rem(2);
+        transition: background-color 0.3s ease-in-out;
+      }
 
-        @include adaptive-value('top', 10, 0);
-        @include adaptive-value('padding-left', 20, 10);
-        @include adaptive-value('padding-right', 10, 0);
+      &--active::before {
+        background-color: $whiteColor;
+      }
 
-        [small] & {
-            padding-left: rem(10);
-
-            @include adaptive-value('padding-right', 5, 0);
-            @include adaptive-value('top', 5, 0);
+      @media (any-hover: hover) {
+        &:hover {
+          &::before {
+            background-color: $whiteColor;
+          }
         }
+      }
+    }
+  }
+
+  &__header {
+    position: absolute;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    gap: rem(40);
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    @include adaptive-value('top', 10, 0);
+    @include adaptive-value('padding-left', 20, 10);
+    @include adaptive-value('padding-right', 10, 0);
+
+    [small] & {
+      padding-left: rem(10);
+
+      @include adaptive-value('padding-right', 5, 0);
+      @include adaptive-value('top', 5, 0);
+    }
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(8);
+    align-items: center;
+  }
+
+  &__action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: rem(40);
+    height: rem(40);
+    color: $whiteColor;
+    transition: color 0.3s ease-in-out;
+
+    svg {
+      height: auto;
+
+      @include adaptive-value('max-width', 24, 18);
     }
 
-    &__chips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: rem(8);
-        align-items: center;
+    @media (any-hover: hover) {
+      &:hover {
+        color: $redColor;
+      }
     }
 
-    &__action {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: rem(40);
-        height: rem(40);
-        color: $whiteColor;
-        transition: color 0.3s ease-in-out;
-
-        svg {
-            height: auto;
-
-            @include adaptive-value('max-width', 24, 18);
-        }
-
-        @media (any-hover: hover) {
-            &:hover {
-                color: $redColor;
-            }
-        }
-
-        &--selected {
-            color: $redColor;
-        }
-
-        &:disabled {
-            pointer-events: none;
-            opacity: 0.5;
-        }
-
-        [small] & {
-            svg {
-                @include adaptive-value('max-width', 20, 18);
-            }
-        }
+    &--selected {
+      color: $redColor;
     }
 
-    &__info {
-        display: grid;
-        gap: rem(6);
+    &:disabled {
+      pointer-events: none;
+      opacity: 0.5;
     }
 
-    &__title {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        line-height: 140%;
-        white-space: nowrap;
-
-        @include adaptive-value('font-size', 18, 14);
-
-        [small] & {
-            @include adaptive-value('font-size', 16, 14);
-        }
+    [small] & {
+      svg {
+        @include adaptive-value('max-width', 20, 18);
+      }
     }
+  }
 
-    &__line {
-        display: flex;
-        align-items: center;
+  &__info {
+    display: grid;
+    gap: rem(6);
+  }
 
-        @include adaptive-value('gap', 16, 10);
+  &__title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 140%;
+    white-space: nowrap;
+
+    @include adaptive-value('font-size', 18, 14);
+
+    [small] & {
+      @include adaptive-value('font-size', 16, 14);
     }
+  }
 
-    &__price {
-        font-weight: 500;
-        line-height: 125%;
+  &__line {
+    display: flex;
+    align-items: center;
 
-        @include adaptive-value('font-size', 18, 14);
+    @include adaptive-value('gap', 16, 10);
+  }
 
-        [small] & {
-            @include adaptive-value('font-size', 16, 14);
-        }
+  &__price {
+    font-weight: 500;
+    line-height: 125%;
+
+    @include adaptive-value('font-size', 18, 14);
+
+    [small] & {
+      @include adaptive-value('font-size', 16, 14);
     }
+  }
 
-    &__colors {
-        display: flex;
-        align-items: center;
+  &__colors {
+    display: flex;
+    align-items: center;
 
-        @include adaptive-value('gap', 6, 2);
-    }
+    @include adaptive-value('gap', 6, 2);
+  }
 
-    &__color {
-        border: rem(1) solid $lightColor;
-        border-radius: 50%;
+  &__color {
+    border: rem(1) solid $lightColor;
+    border-radius: 50%;
 
-        @include adaptive-value('width', 10, 7);
-        @include adaptive-value('height', 10, 7);
-    }
+    @include adaptive-value('width', 10, 7);
+    @include adaptive-value('height', 10, 7);
+  }
 }
 
 .chip {
-    padding: rem(4) rem(8);
-    line-height: 120%;
-    color: $whiteColor;
-    text-transform: lowercase;
-    white-space: nowrap;
-    background-color: $redColor;
-    border-radius: rem(20);
+  padding: rem(4) rem(8);
+  line-height: 120%;
+  color: $whiteColor;
+  text-transform: lowercase;
+  white-space: nowrap;
+  background-color: $redColor;
+  border-radius: rem(20);
 
-    @include adaptive-value('font-size', 12, 8);
+  @include adaptive-value('font-size', 12, 8);
 }
 </style>

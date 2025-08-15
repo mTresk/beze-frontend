@@ -1,6 +1,6 @@
 export interface LenisScrollData {
-    scroll: number
-    progress: number
-    limit: number
-    velocity: number
+  scroll: number
+  progress: number
+  limit: number
+  velocity: number
 }

@@ -6,12 +6,12 @@ const client = useSanctumClient()
 const fetcher = async () => await client<IInfoPageContent>(`/api/pages/sizes`)
 
 const {
-    data: sizes,
-    suspense,
-    isLoading,
+  data: sizes,
+  suspense,
+  isLoading,
 } = useQuery({
-    queryKey: ['sizes'],
-    queryFn: fetcher,
+  queryKey: ['sizes'],
+  queryFn: fetcher,
 })
 
 await suspense()
@@ -22,36 +22,36 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/info/si
 </script>
 
 <template>
-    <div>
-        <Head>
-            <Title>{{ seoTitle }}</Title>
-            <Meta
-                name="description"
-                :content="seoDescription"
-            />
-            <Meta
-                property="og:description"
-                :content="seoDescription"
-            />
-            <Meta
-                name="twitter:description"
-                :content="seoDescription"
-            />
-            <Link
-                rel="canonical"
-                :href="canonicalUrl"
-            />
-        </Head>
-        <UiSpinner v-if="isLoading" />
-        <InfoPage
-            v-else
-            :title="sizes!.data.name"
-            :breadcrumb-items="[
-                { title: sizes!.data.name },
-            ]"
-            :sidebar-links="sizes!.otherPages.map(page => ({ title: page.name, to: `/info/${page.slug}` }))"
-        >
-            <div v-html="sizes!.data.content" />
-        </InfoPage>
-    </div>
+  <div>
+    <Head>
+      <Title>{{ seoTitle }}</Title>
+      <Meta
+        name="description"
+        :content="seoDescription"
+      />
+      <Meta
+        property="og:description"
+        :content="seoDescription"
+      />
+      <Meta
+        name="twitter:description"
+        :content="seoDescription"
+      />
+      <Link
+        rel="canonical"
+        :href="canonicalUrl"
+      />
+    </Head>
+    <UiSpinner v-if="isLoading" />
+    <InfoPage
+      v-else
+      :title="sizes!.data.name"
+      :breadcrumb-items="[
+        { title: sizes!.data.name },
+      ]"
+      :sidebar-links="sizes!.otherPages.map(page => ({ title: page.name, to: `/info/${page.slug}` }))"
+    >
+      <div v-html="sizes!.data.content" />
+    </InfoPage>
+  </div>
 </template>

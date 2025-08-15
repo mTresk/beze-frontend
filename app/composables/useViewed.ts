@@ -1,48 +1,48 @@
 export function useViewed() {
-    const viewedProducts = useState<string[]>('beze-viewed', () => [])
+  const viewedProducts = useState<string[]>('beze-viewed', () => [])
 
-    function updateViewedFromStorage() {
-        if (import.meta.client) {
-            const storedViewed = localStorage.getItem('beze-viewed')
-            viewedProducts.value = storedViewed ? JSON.parse(storedViewed) : []
-        }
+  function updateViewedFromStorage() {
+    if (import.meta.client) {
+      const storedViewed = localStorage.getItem('beze-viewed')
+      viewedProducts.value = storedViewed ? JSON.parse(storedViewed) : []
+    }
+  }
+
+  function addToViewed(productId: string) {
+    viewedProducts.value = viewedProducts.value.filter(id => id !== productId)
+    viewedProducts.value = [productId, ...viewedProducts.value]
+
+    if (viewedProducts.value.length > 15) {
+      viewedProducts.value = viewedProducts.value.slice(0, 15)
     }
 
-    function addToViewed(productId: string) {
-        viewedProducts.value = viewedProducts.value.filter(id => id !== productId)
-        viewedProducts.value = [productId, ...viewedProducts.value]
-
-        if (viewedProducts.value.length > 15) {
-            viewedProducts.value = viewedProducts.value.slice(0, 15)
-        }
-
-        if (import.meta.client) {
-            localStorage.setItem('beze-viewed', JSON.stringify(viewedProducts.value))
-        }
+    if (import.meta.client) {
+      localStorage.setItem('beze-viewed', JSON.stringify(viewedProducts.value))
     }
+  }
 
-    function isViewed(productId: string) {
-        return computed(() => viewedProducts.value.includes(productId))
+  function isViewed(productId: string) {
+    return computed(() => viewedProducts.value.includes(productId))
+  }
+
+  function handleStorageChange(event: StorageEvent) {
+    if (event.key === 'beze-viewed' && import.meta.client) {
+      updateViewedFromStorage()
     }
+  }
 
-    function handleStorageChange(event: StorageEvent) {
-        if (event.key === 'beze-viewed' && import.meta.client) {
-            updateViewedFromStorage()
-        }
-    }
+  onMounted(() => {
+    updateViewedFromStorage()
+    window.addEventListener('storage', handleStorageChange)
+  })
 
-    onMounted(() => {
-        updateViewedFromStorage()
-        window.addEventListener('storage', handleStorageChange)
-    })
+  onUnmounted(() => {
+    window.removeEventListener('storage', handleStorageChange)
+  })
 
-    onUnmounted(() => {
-        window.removeEventListener('storage', handleStorageChange)
-    })
-
-    return {
-        viewedProductsIds: viewedProducts,
-        isViewed,
-        addToViewed,
-    }
+  return {
+    viewedProductsIds: viewedProducts,
+    isViewed,
+    addToViewed,
+  }
 }

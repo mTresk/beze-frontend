@@ -4,15 +4,15 @@ import type { ICategory } from '@/types/api'
 const client = useSanctumClient()
 
 async function fetchCategories() {
-    return await client<ICategory[]>('api/categories')
+  return await client<ICategory[]>('api/categories')
 }
 
 const {
-    data: categories,
-    suspense,
+  data: categories,
+  suspense,
 } = useQuery({
-    queryKey: ['categories'],
-    queryFn: fetchCategories,
+  queryKey: ['categories'],
+  queryFn: fetchCategories,
 })
 
 await suspense()
@@ -23,31 +23,31 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/catalog
 </script>
 
 <template>
-    <div>
-        <Head>
-            <Title>{{ seoTitle }}</Title>
-            <Meta
-                name="description"
-                :content="seoDescription"
-            />
-            <Meta
-                property="og:description"
-                :content="seoDescription"
-            />
-            <Meta
-                name="twitter:description"
-                :content="seoDescription"
-            />
-            <Link
-                rel="canonical"
-                :href="canonicalUrl"
-            />
-        </Head>
-        <Catalog
-            api-url="api/products"
-            :query-key="['products']"
-            :breadcrumbs="[{ title: 'Каталог' }]"
-            :categories="categories"
-        />
-    </div>
+  <div>
+    <Head>
+      <Title>{{ seoTitle }}</Title>
+      <Meta
+        name="description"
+        :content="seoDescription"
+      />
+      <Meta
+        property="og:description"
+        :content="seoDescription"
+      />
+      <Meta
+        name="twitter:description"
+        :content="seoDescription"
+      />
+      <Link
+        rel="canonical"
+        :href="canonicalUrl"
+      />
+    </Head>
+    <Catalog
+      api-url="api/products"
+      :query-key="['products']"
+      :breadcrumbs="[{ title: 'Каталог' }]"
+      :categories="categories"
+    />
+  </div>
 </template>

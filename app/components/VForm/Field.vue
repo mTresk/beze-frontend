@@ -1,13 +1,13 @@
 <template>
-    <div class="form-field">
-        <slot />
-    </div>
+  <div class="form-field">
+    <slot />
+  </div>
 </template>
 
 <style lang="scss" scoped>
 .form-field {
-    display: grid;
+  display: grid;
 
-    @include adaptive-value('gap', 6, 4);
+  @include adaptive-value('gap', 6, 4);
 }
 </style>

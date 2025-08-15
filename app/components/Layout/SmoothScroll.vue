@@ -8,90 +8,90 @@ const lenisRaf = ref()
 const { setScrollState, setLenis } = useScrollState()
 
 const lenisOptions = computed(() => {
-    return {
-        direction: 'vertical',
-        gestureDirection: 'vertical',
-        smooth: true,
-        mouseMultiplier: 1,
-        smoothTouch: false,
-        touchMultiplier: 2,
-        infinite: false,
-    }
+  return {
+    direction: 'vertical',
+    gestureDirection: 'vertical',
+    smooth: true,
+    mouseMultiplier: 1,
+    smoothTouch: false,
+    touchMultiplier: 2,
+    infinite: false,
+  }
 })
 
 function initLenis() {
-    lenisVS.value = new Lenis(lenisOptions.value)
-    lenisVS.value.on('scroll', (scrollData: LenisScrollData) => {
-        setScrollState(scrollData)
-    })
-    lenisVS.value.on('scroll', ScrollTrigger.update)
-    setLenis(lenisVS.value)
-    lenisRaf.value = requestAnimationFrame(raf)
+  lenisVS.value = new Lenis(lenisOptions.value)
+  lenisVS.value.on('scroll', (scrollData: LenisScrollData) => {
+    setScrollState(scrollData)
+  })
+  lenisVS.value.on('scroll', ScrollTrigger.update)
+  setLenis(lenisVS.value)
+  lenisRaf.value = requestAnimationFrame(raf)
 
-    gsap.ticker.add((time) => {
-        lenisVS.value?.raf(time * 1000)
-    })
+  gsap.ticker.add((time) => {
+    lenisVS.value?.raf(time * 1000)
+  })
 
-    gsap.ticker.lagSmoothing(0)
+  gsap.ticker.lagSmoothing(0)
 }
 
 function raf(time: number) {
-    if (!lenisVS.value) {
-        return
-    }
+  if (!lenisVS.value) {
+    return
+  }
 
-    lenisVS.value.raf(time)
-    requestAnimationFrame(raf)
+  lenisVS.value.raf(time)
+  requestAnimationFrame(raf)
 }
 
 function destroyLenis() {
-    if (!lenisVS.value) {
-        return
-    }
-    setScrollState(false)
-    lenisVS.value?.off('scroll', () => {})
-    lenisVS.value.destroy()
-    cancelAnimationFrame(lenisRaf.value)
+  if (!lenisVS.value) {
+    return
+  }
+  setScrollState(false)
+  lenisVS.value?.off('scroll', () => {})
+  lenisVS.value.destroy()
+  cancelAnimationFrame(lenisRaf.value)
 }
 
 onMounted(() => {
-    initLenis()
+  initLenis()
 })
 
 onBeforeUnmount(() => {
-    destroyLenis()
+  destroyLenis()
 })
 
 onUpdated(() => {
-    destroyLenis()
-    initLenis()
+  destroyLenis()
+  initLenis()
 })
 </script>
 
 <template>
-    <div>
-        <slot />
-    </div>
+  <div>
+    <slot />
+  </div>
 </template>
 
 <style>
 html.lenis {
-    height: auto;
+  height: auto;
 }
 
 .lenis.lenis-smooth {
-    scroll-behavior: auto !important;
+  scroll-behavior: auto !important;
 }
 
 .lenis.lenis-smooth [data-lenis-prevent] {
-    overscroll-behavior: contain;
+  overscroll-behavior: contain;
 }
 
 .lenis.lenis-stopped {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .lenis.lenis-scrolling iframe {
-    pointer-events: none;
+  pointer-events: none;
 }
 </style>
