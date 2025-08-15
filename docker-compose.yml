@@ -1,19 +1,50 @@
 services:
-  bezestudio-nuxt:
+  bezestudio-nuxt-blue:
     build:
       context: ./
       dockerfile: Dockerfile
-    container_name: bezestudio-nuxt
+    container_name: bezestudio-nuxt-blue
     restart: always
     networks:
       - web
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.nuxt.rule=Host(`bezestudio.ru`) && PathPrefix(`/`)'
-      - 'traefik.http.routers.nuxt.priority=1'
-      - 'traefik.http.routers.nuxt.entrypoints=websecure'
-      - 'traefik.http.routers.nuxt.tls.certresolver=myresolver'
-      - 'traefik.http.routers.nuxt.middlewares=web-compress'
+      # Main production router (same host). Use higher priority to make BLUE active.
+      - 'traefik.http.routers.bezestudio-nuxt-blue.rule=Host(`${APP_HOST}`) && PathPrefix(`/`)'
+      - 'traefik.http.routers.bezestudio-nuxt-blue.priority=${BLUE_PRIORITY:-10}'
+      - 'traefik.http.routers.bezestudio-nuxt-blue.entrypoints=websecure'
+      - 'traefik.http.routers.bezestudio-nuxt-blue.tls.certresolver=myresolver'
+      - 'traefik.http.routers.bezestudio-nuxt-blue.middlewares=web-compress'
+      # Preview host for BLUE
+      - 'traefik.http.routers.bezestudio-nuxt-blue-preview.rule=Host(`blue.${APP_HOST}`) && PathPrefix(`/`)'
+      - 'traefik.http.routers.bezestudio-nuxt-blue-preview.entrypoints=websecure'
+      - 'traefik.http.routers.bezestudio-nuxt-blue-preview.tls.certresolver=myresolver'
+      - 'traefik.http.routers.bezestudio-nuxt-blue-preview.middlewares=web-compress'
+      # Shared middleware
+      - 'traefik.http.middlewares.web-compress.compress=true'
+
+  bezestudio-nuxt-green:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: bezestudio-nuxt-green
+    restart: always
+    networks:
+      - web
+    labels:
+      - 'traefik.enable=true'
+      # Main production router (same host). Use higher priority to make GREEN active.
+      - 'traefik.http.routers.bezestudio-nuxt-green.rule=Host(`${APP_HOST}`) && PathPrefix(`/`)'
+      - 'traefik.http.routers.bezestudio-nuxt-green.priority=${GREEN_PRIORITY:-10}'
+      - 'traefik.http.routers.bezestudio-nuxt-green.entrypoints=websecure'
+      - 'traefik.http.routers.bezestudio-nuxt-green.tls.certresolver=myresolver'
+      - 'traefik.http.routers.bezestudio-nuxt-green.middlewares=web-compress'
+      # Preview host for GREEN
+      - 'traefik.http.routers.bezestudio-nuxt-green-preview.rule=Host(`green.${APP_HOST}`) && PathPrefix(`/`)'
+      - 'traefik.http.routers.bezestudio-nuxt-green-preview.entrypoints=websecure'
+      - 'traefik.http.routers.bezestudio-nuxt-green-preview.tls.certresolver=myresolver'
+      - 'traefik.http.routers.bezestudio-nuxt-green-preview.middlewares=web-compress'
+      # Shared middleware
       - 'traefik.http.middlewares.web-compress.compress=true'
 networks:
   web:
