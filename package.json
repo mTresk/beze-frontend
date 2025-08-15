@@ -37,7 +37,7 @@
     "eslint": "^9.31.0",
     "eslint-plugin-format": "^1.0.1",
     "laravel-echo": "^2.1.7",
-    "nuxt": "^4.0.1",
+    "nuxt": "^4.0.3",
     "nuxt-auth-sanctum": "^1.1.1",
     "nuxt-schema-org": "^5.0.6",
     "nuxt-swiper": "^2.0.1",
