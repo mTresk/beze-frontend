@@ -63,7 +63,7 @@ await suspense()
           class="bestsellers__footer"
         >
           <UiButton
-            :disabled="isFetchingNextPage"
+            :is-loading="isFetchingNextPage"
             @click="fetchNextPage"
           >
             {{ isFetchingNextPage ? 'Загружаем' : 'Показать еще' }}
