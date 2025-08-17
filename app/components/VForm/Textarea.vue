@@ -30,16 +30,16 @@ defineEmits<{
   font-size: rem(14);
   line-height: 130%;
   resize: none;
-  border: rem(1) solid $extraColor;
+  border: rem(1) solid var(--color-extra);
   border-radius: rem(4);
   transition: all 0.3s ease-in-out;
 
   &::placeholder {
-    color: rgb(54 54 54 / 50%);
+    color: var(--color-gray);
   }
 
   &:focus {
-    border-color: $accentColor;
+    border-color: var(--color-accent);
 
     &::placeholder {
       opacity: 0;
@@ -47,7 +47,7 @@ defineEmits<{
   }
 
   &--error {
-    border-color: $redColor;
+    border-color: var(--color-red);
   }
 }
 </style>

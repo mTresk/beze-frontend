@@ -27,7 +27,7 @@
 
     @media (any-hover: hover) {
       &:hover {
-        color: $accentColor;
+        color: var(--color-accent);
       }
     }
   }

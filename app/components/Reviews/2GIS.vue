@@ -142,8 +142,8 @@ useSwiper(containerRef, {
     height: 100%;
     padding: rem(40) rem(30) rem(50);
     background: rgb(46 46 46 / 16%);
-    background-color: $whiteColor;
-    border: rem(1) solid $lightColor;
+    background-color: var(--color-white);
+    border: rem(1) solid var(--color-light);
     border-radius: rem(4);
 
     @include adaptive-value('gap', 25, 15);
@@ -183,7 +183,7 @@ useSwiper(containerRef, {
 
   &__date {
     line-height: 140%;
-    color: rgb(54 54 54 / 50%);
+    color: var(--color-gray);
 
     @include adaptive-value('font-size', 14, 12);
   }

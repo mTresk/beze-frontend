@@ -96,7 +96,7 @@ function getBadgeVariant(status: string) {
 <style lang="scss" scoped>
 .personal-order {
   display: grid;
-  border-bottom: rem(1) solid rgb(54 54 54 / 10%);
+  border-bottom: rem(1) solid var(--color-border);
 
   @include adaptive-value('padding-bottom', 30, 20);
   @include adaptive-value('margin-bottom', 30, 20);

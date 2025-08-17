@@ -20,14 +20,14 @@ defineProps<{
   width: 1em;
   height: 1em;
   font-size: rem(20);
-  color: $accentColor;
+  color: var(--color-accent);
   text-indent: -9999em;
   border-radius: 50%;
   transform: translate(-50%, -50%);
   animation: load 1.3s infinite linear 0.1s;
 
   &--light {
-    color: $whiteColor;
+    color: var(--color-white);
   }
 }
 

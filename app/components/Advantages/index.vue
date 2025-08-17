@@ -128,7 +128,7 @@ onBeforeUnmount(() => {
     }
 
     @media (max-width: $tablet) {
-      background-color: $lightColor;
+      background-color: var(--color-light);
     }
   }
 
@@ -137,7 +137,7 @@ onBeforeUnmount(() => {
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    color: $accentColor;
+    color: var(--color-accent);
 
     @include adaptive-value('width', 80, 40);
     @include adaptive-value('height', 80, 40);

@@ -29,15 +29,15 @@ defineProps<{
   text-decoration: underline;
   text-decoration-thickness: 10%;
   text-decoration-style: dotted;
+  text-decoration-skip-ink: none;
   text-underline-offset: rem(3);
   transition: color 0.3s ease-in-out;
-  text-decoration-skip-ink: none;
 
   @include adaptive-value('font-size', 16, 14);
 
   @media (any-hover: hover) {
     &:hover {
-      color: $accentColor;
+      color: var(--color-accent);
     }
   }
 
@@ -47,7 +47,7 @@ defineProps<{
 
   @media (any-hover: hover) {
     &:hover {
-      color: $accentColor;
+      color: var(--color-accent);
     }
   }
 }

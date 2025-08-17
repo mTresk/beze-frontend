@@ -169,19 +169,19 @@ function handleKeyDown(event: KeyboardEvent) {
     font-size: rem(14);
     white-space: nowrap;
     cursor: pointer;
-    border: rem(1) solid $extraColor;
+    border: rem(1) solid var(--color-extra);
     border-radius: rem(4);
     transition: all 0.3s ease-in-out;
 
     @include adaptive-value('height', 45, 40);
 
     &:focus {
-      border-color: $accentColor;
+      border-color: var(--color-accent);
     }
 
     @media (any-hover: hover) {
       &:hover {
-        border-color: $accentColor;
+        border-color: var(--color-accent);
       }
     }
 
@@ -196,7 +196,7 @@ function handleKeyDown(event: KeyboardEvent) {
     }
 
     .select--error & {
-      border-color: $redColor;
+      border-color: var(--color-red);
     }
   }
 
@@ -207,7 +207,7 @@ function handleKeyDown(event: KeyboardEvent) {
     display: grid;
     width: 100%;
     overflow: hidden;
-    background-color: $whiteColor;
+    background-color: var(--color-white);
     border-radius: 0 0 rem(4) rem(4);
     box-shadow: 0 0 rem(14) 0 rgb(0 0 0 / 10%);
 
@@ -223,8 +223,8 @@ function handleKeyDown(event: KeyboardEvent) {
 
     &--active,
     &--highlighted {
-      color: $whiteColor;
-      background-color: $accentColor;
+      color: var(--color-white);
+      background-color: var(--color-accent);
     }
 
     &--disabled {
@@ -233,8 +233,8 @@ function handleKeyDown(event: KeyboardEvent) {
 
     @media (any-hover: hover) {
       &:hover {
-        color: $whiteColor;
-        background-color: $accentColor;
+        color: var(--color-white);
+        background-color: var(--color-accent);
       }
     }
   }

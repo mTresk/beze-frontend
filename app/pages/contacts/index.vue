@@ -314,7 +314,7 @@ useSchemaOrg([
 
   &__label {
     line-height: 140%;
-    color: rgb(54 54 54 / 50%);
+    color: var(--color-gray);
 
     @include adaptive-value('font-size', 14, 12);
   }
@@ -328,7 +328,7 @@ useSchemaOrg([
     &:link {
       @media (any-hover: hover) {
         &:hover {
-          color: $accentColor;
+          color: var(--color-accent);
         }
       }
     }

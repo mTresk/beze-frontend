@@ -106,6 +106,6 @@ function handleTabClick(tabName: TabType) {
 
 .ps__thumb-y {
   width: rem(4) !important;
-  background-color: $accentColor !important;
+  background-color: var(--color-accent) !important;
 }
 </style>

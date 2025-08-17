@@ -169,7 +169,7 @@ body {
     width: 100%;
     max-width: rem(600);
     margin: auto;
-    background-color: $whiteColor;
+    background-color: var(--color-white);
     border-radius: rem(8);
     box-shadow:
       0 rem(4) rem(6) rem(-1) rgb(0 0 0 / 10%),
@@ -203,7 +203,7 @@ body {
 
     @media (any-hover: hover) {
       &:hover {
-        color: $accentColor;
+        color: var(--color-accent);
       }
     }
   }

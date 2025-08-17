@@ -197,7 +197,7 @@ function toggleMenu() {
   transition: all 0.5s ease-in-out;
 
   .scroll-up & {
-    background-color: $extraColor;
+    background-color: var(--color-extra);
   }
 
   .scroll-down & {
@@ -211,7 +211,7 @@ function toggleMenu() {
     width: 100%;
     height: 100%;
     content: '';
-    background-color: $extraColor;
+    background-color: var(--color-extra);
     opacity: 0;
 
     .menu-open & {
@@ -221,7 +221,7 @@ function toggleMenu() {
   }
 
   &--inner {
-    background-color: $extraColor;
+    background-color: var(--color-extra);
   }
 
   &__body {
@@ -273,12 +273,12 @@ function toggleMenu() {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: $whiteColor;
+    color: var(--color-white);
     transition: color 0.3s ease-in-out;
 
     @media (any-hover: hover) {
       &:hover {
-        color: $accentColor;
+        color: var(--color-accent);
       }
     }
 
@@ -292,8 +292,8 @@ function toggleMenu() {
       width: rem(16);
       height: rem(16);
       font-size: rem(12);
-      color: $whiteColor;
-      background-color: $accentColor;
+      color: var(--color-white);
+      background-color: var(--color-accent);
       border-radius: 50%;
     }
   }
@@ -339,7 +339,7 @@ function toggleMenu() {
     width: 100%;
     height: rem(1);
     content: '';
-    background-color: $whiteColor;
+    background-color: var(--color-white);
     border-radius: rem(4);
     transition: all 0.3s ease 0s;
   }

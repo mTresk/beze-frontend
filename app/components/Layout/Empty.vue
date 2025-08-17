@@ -21,7 +21,7 @@
   @include adaptive-value('gap', 25, 10);
 
   &__icon {
-    color: $extraColor;
+    color: var(--color-extra);
   }
 
   &__title {

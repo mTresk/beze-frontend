@@ -157,7 +157,7 @@ useSwiper(containerRef, {
   justify-content: center;
   min-height: 100vh;
   min-height: 100svh;
-  background-color: $extraColor;
+  background-color: var(--color-extra);
 
   @media (max-width: $tablet) {
     min-height: calc(100vh - rem(65));
@@ -228,14 +228,14 @@ useSwiper(containerRef, {
   &__title {
     font-family: 'Quincy CF', sans-serif;
     line-height: 150%;
-    color: $whiteColor;
+    color: var(--color-white);
     text-align: center;
     letter-spacing: 0.01em;
 
     @include adaptive-value('font-size', 50, 30);
 
     span {
-      color: $extraColor;
+      color: var(--color-extra);
     }
   }
 }

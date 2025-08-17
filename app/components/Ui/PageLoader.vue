@@ -14,7 +14,7 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  background-color: $whiteColor;
+  background-color: var(--color-white);
 
   &__inner {
     z-index: 10;
@@ -24,7 +24,7 @@
     aspect-ratio: 1;
     padding: 0;
     font-size: rem(20);
-    color: $accentColor;
+    color: var(--color-accent);
     text-indent: -9999em;
     border-radius: 50%;
     animation: load 1.3s infinite linear 0.1s;

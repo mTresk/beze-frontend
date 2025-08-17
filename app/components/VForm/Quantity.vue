@@ -57,7 +57,7 @@ const quantity = computed({
 .quantity {
   display: flex;
   align-items: center;
-  border: rem(1) solid $extraColor;
+  border: rem(1) solid var(--color-extra);
   border-radius: rem(4);
 
   @include adaptive-value('height', 45, 40);
@@ -79,7 +79,7 @@ const quantity = computed({
       width: rem(10);
       height: rem(1);
       content: '';
-      background-color: $mainColor;
+      background-color: var(--color-main);
       transition: all 0.3s ease 0s;
     }
 
@@ -87,7 +87,7 @@ const quantity = computed({
       &:hover {
         &::before,
         &::after {
-          background-color: $accentColor;
+          background-color: var(--color-accent);
         }
       }
     }

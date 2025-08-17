@@ -85,13 +85,13 @@ const breadcrumbs = computed<IBreadcrumbItem[]>(() => [HOME_CRUMB, ...props.item
         right: rem(-10);
         font-size: rem(14);
         line-height: 140%;
-        color: rgb(54 54 54 / 50%);
+        color: var(--color-gray);
         content: '/';
       }
     }
 
     &:last-child {
-      color: rgb(54 54 54 / 50%);
+      color: var(--color-gray);
       pointer-events: none;
     }
   }
@@ -101,7 +101,7 @@ const breadcrumbs = computed<IBreadcrumbItem[]>(() => [HOME_CRUMB, ...props.item
 
     @media (hover: hover) {
       &:hover {
-        color: $accentColor;
+        color: var(--color-accent);
       }
     }
   }

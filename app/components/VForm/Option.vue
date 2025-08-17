@@ -44,14 +44,14 @@ const handleChange = (e: Event) => emit('update:modelValue', (e.target as HTMLIn
     border-radius: 50%;
 
     &:checked {
-      border-color: $accentColor;
+      border-color: var(--color-accent);
 
       &::before {
         position: absolute;
         width: rem(12);
         height: rem(12);
         content: '';
-        background-color: $accentColor;
+        background-color: var(--color-accent);
         border-radius: 50%;
       }
     }

@@ -242,14 +242,14 @@ await suspense()
   }
 
   &__title {
-    color: $whiteColor;
+    color: var(--color-white);
   }
 
   &__description {
     align-self: flex-end;
     max-width: rem(480);
     line-height: 140%;
-    color: $whiteColor;
+    color: var(--color-white);
     background: rgb(255 255 255 / 14%);
     border: rem(1) solid rgb(255 255 255 / 34%);
     backdrop-filter: blur(rem(6));

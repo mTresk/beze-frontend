@@ -675,7 +675,7 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/catalog
     justify-content: center;
     width: rem(40);
     height: rem(40);
-    color: $accentColor;
+    color: var(--color-accent);
     filter: drop-shadow(0 rem(6) rem(20) rgb(239 236 236 / 50%));
 
     &.swiper-button-disabled {
@@ -728,7 +728,7 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/catalog
 
   &__sku {
     line-height: 140%;
-    color: rgb(54 54 54 / 50%);
+    color: var(--color-gray);
 
     @include adaptive-value('font-size', 16, 14);
   }
@@ -754,7 +754,7 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/catalog
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: rem(20);
-    border-bottom: rem(1) solid $extraColor;
+    border-bottom: rem(1) solid var(--color-extra);
 
     @include adaptive-value('padding-bottom', 35, 20);
     @include adaptive-value('margin-bottom', 35, 20);
@@ -767,7 +767,7 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/catalog
 
     &-outofstock {
       font-size: rem(14);
-      color: rgb(54 54 54 / 50%);
+      color: var(--color-gray);
     }
   }
 
@@ -798,14 +798,14 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/catalog
   &__item {
     position: relative;
     cursor: pointer;
-    border: rem(1) solid $lightColor;
+    border: rem(1) solid var(--color-light);
     border-radius: 50%;
 
     @include adaptive-value('width', 36, 30);
     @include adaptive-value('height', 36, 30);
 
     &:has(input:checked) {
-      border: rem(3) solid $whiteColor;
+      border: rem(3) solid var(--color-white);
 
       &::before {
         position: absolute;
@@ -815,7 +815,7 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/catalog
         width: calc(100% + rem(8));
         height: calc(100% + rem(8));
         content: '';
-        background-color: $accentColor;
+        background-color: var(--color-accent);
         border-radius: inherit;
         transform: translate(-50%, -50%);
       }
@@ -828,7 +828,7 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/catalog
 
   &__label {
     line-height: 140%;
-    color: rgb(54 54 54 / 50%);
+    color: var(--color-gray);
 
     @include adaptive-value('font-size', 14, 12);
   }

@@ -40,10 +40,10 @@ defineProps<{
   justify-content: center;
   padding-block: rem(5);
   line-height: 130%;
-  color: $whiteColor;
+  color: var(--color-white);
   text-align: center;
   white-space: nowrap;
-  background-color: $accentColor;
+  background-color: var(--color-accent);
   border-radius: rem(4);
   transition: all 0.3s ease-in-out;
 
@@ -58,41 +58,41 @@ defineProps<{
   }
 
   &[active='true'] {
-    background-color: $extraColor;
+    background-color: var(--color-extra);
 
     &:focus-visible {
-      outline: rem(2) solid $accentColor;
+      outline: rem(2) solid var(--color-accent);
     }
   }
 
   @media (any-hover: hover) {
     &:hover {
-      background-color: $extraColor;
+      background-color: var(--color-extra);
     }
   }
 
   &[outline] {
-    color: $accentColor;
+    color: var(--color-accent);
     background-color: transparent;
-    border: rem(2) solid $accentColor;
+    border: rem(2) solid var(--color-accent);
 
     @media (any-hover: hover) {
       &:hover {
-        color: $whiteColor;
-        background-color: $extraColor;
-        border-color: $extraColor;
+        color: var(--color-white);
+        background-color: var(--color-extra);
+        border-color: var(--color-extra);
       }
     }
   }
 
   &[white] {
-    color: $whiteColor;
-    border-color: $whiteColor;
+    color: var(--color-white);
+    border-color: var(--color-white);
 
     @media (any-hover: hover) {
       &:hover {
-        background-color: $extraColor;
-        border-color: $extraColor;
+        background-color: var(--color-extra);
+        border-color: var(--color-extra);
       }
     }
   }
@@ -102,12 +102,12 @@ defineProps<{
     padding: rem(16) rem(20);
 
     &[active='true'] {
-      color: $whiteColor;
-      background-color: $extraColor;
-      border-color: $extraColor;
+      color: var(--color-white);
+      background-color: var(--color-extra);
+      border-color: var(--color-extra);
 
       &:focus-visible {
-        outline: rem(2) solid $accentColor;
+        outline: rem(2) solid var(--color-accent);
       }
     }
   }
@@ -119,19 +119,19 @@ defineProps<{
   }
 
   &[lite] {
-    background-color: $extraColor;
+    background-color: var(--color-extra);
 
     @media (any-hover: hover) {
       &:hover {
-        background-color: $accentColor;
+        background-color: var(--color-accent);
       }
     }
 
     &[active='true'] {
-      background-color: $accentColor;
+      background-color: var(--color-accent);
 
       &:focus-visible {
-        outline: rem(2) solid $extraColor;
+        outline: rem(2) solid var(--color-extra);
       }
     }
   }
@@ -143,7 +143,7 @@ defineProps<{
   }
 
   &:focus-visible {
-    outline: rem(2) solid $extraColor;
+    outline: rem(2) solid var(--color-extra);
   }
 }
 </style>

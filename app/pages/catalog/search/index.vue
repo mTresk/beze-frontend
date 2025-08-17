@@ -95,45 +95,6 @@ const seoDescription = 'Найденные товары в интернет-ма
 
 <style lang="scss" scoped>
 .search-page {
-  &__filters {
-    position: relative;
-    z-index: 20;
-    display: flex;
-    gap: rem(20);
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: rem(40);
-    margin-bottom: rem(40);
-    border-bottom: 1px solid rgb(54 54 54 / 10%);
-  }
-
-  &__categories {
-    display: flex;
-    gap: rem(20);
-  }
-
-  &__category {
-    padding: rem(10) rem(20);
-    border: 1px solid $extraColor;
-    border-radius: rem(4);
-    transition: all 0.3s ease-in-out;
-
-    &:hover {
-      color: $whiteColor;
-      background-color: $extraColor;
-    }
-
-    &--active {
-      color: $whiteColor;
-      pointer-events: none;
-      background-color: $extraColor;
-    }
-  }
-
-  &__sort {
-    min-width: rem(200);
-  }
-
   &__wrapper {
     position: relative;
     display: grid;

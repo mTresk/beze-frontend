@@ -143,7 +143,7 @@ const description = 'Элегантная одежда на утро невес�
 
 <style lang="scss">
 body {
-  background-color: $whiteColor;
+  background-color: var(--color-white);
 
   .lock & {
     overflow: hidden;
@@ -218,12 +218,12 @@ body {
 .toastify-toast {
   font-family: 'Tilda Sans', sans-serif;
   font-size: rem(14);
-  color: $mainColor;
-  background-color: $lightColor;
+  color: var(--color-main);
+  background-color: var(--color-light);
   box-shadow: 0 0 rem(14) 0 rgb(0 0 0 / 10%);
 
   svg {
-    fill: $extraColor;
+    fill: var(--color-extra);
   }
 }
 
@@ -272,7 +272,7 @@ body {
 
     @media (any-hover: hover) {
       &:hover {
-        color: $accentColor;
+        color: var(--color-accent);
       }
     }
   }
@@ -295,7 +295,7 @@ body {
         top: rem(8);
         left: 0;
         content: '';
-        background-color: $accentColor;
+        background-color: var(--color-accent);
         transform: rotate(45deg);
 
         @include adaptive-value('width', 8, 6);
@@ -337,7 +337,7 @@ body {
       tr {
         &:nth-child(odd) {
           td {
-            background-color: $lightColor;
+            background-color: var(--color-light);
           }
         }
 

@@ -334,7 +334,7 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/certifi
     justify-content: space-between;
     padding-bottom: rem(40);
     margin-bottom: rem(40);
-    border-bottom: rem(1) solid rgb(54 54 54 / 10%);
+    border-bottom: rem(1) solid var(--color-border);
   }
 
   &__login {
@@ -377,7 +377,7 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/certifi
     padding: rem(14) rem(16);
     font-size: rem(13);
     line-height: 130%;
-    background-color: $lightColor;
+    background-color: var(--color-light);
     border-radius: rem(4);
 
     span {
@@ -389,8 +389,8 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/certifi
       height: rem(16);
       font-size: rem(12);
       line-height: 130%;
-      color: $whiteColor;
-      background-color: $accentColor;
+      color: var(--color-white);
+      background-color: var(--color-accent);
       border-radius: 50%;
     }
   }
@@ -427,7 +427,7 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/certifi
   &__note {
     font-size: rem(14);
     line-height: 130%;
-    color: $accentColor;
+    color: var(--color-accent);
   }
 
   &__footer {

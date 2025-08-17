@@ -42,24 +42,24 @@ const classList = computed(() => {
   font-size: rem(12);
   font-weight: 500;
   line-height: 120%;
-  color: $whiteColor;
-  background-color: $lightColor;
+  color: var(--color-white);
+  background-color: var(--color-light);
   border-radius: rem(5);
 
   &--success {
-    background-color: $greenColor;
+    background-color: var(--color-green);
   }
 
   &--warning {
-    background-color: $orangeColor;
+    background-color: var(--color-orange);
   }
 
   &--error {
-    background-color: $redColor;
+    background-color: var(--color-red);
   }
 
   &--info {
-    background-color: $blueColor;
+    background-color: var(--color-blue);
   }
 }
 </style>

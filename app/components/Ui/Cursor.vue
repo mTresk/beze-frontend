@@ -50,9 +50,9 @@ onMounted(() => {
   align-items: center;
   padding: rem(8) rem(16);
   font-size: rem(14);
-  color: $whiteColor;
+  color: var(--color-white);
   pointer-events: none;
-  background-color: $extraColor;
+  background-color: var(--color-extra);
   border-radius: rem(20);
   opacity: 0;
   transform: translate(-50%, -50%);

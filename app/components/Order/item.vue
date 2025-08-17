@@ -146,7 +146,7 @@ defineProps<{
       align-items: center;
       justify-content: center;
       aspect-ratio: 1 / 1;
-      background-color: $extraColor;
+      background-color: var(--color-extra);
       border-radius: rem(8);
     }
   }
@@ -163,7 +163,7 @@ defineProps<{
 
   &__sku {
     line-height: 140%;
-    color: rgb(54 54 54 / 50%);
+    color: var(--color-gray);
 
     @include adaptive-value('font-size', 14, 12);
   }
@@ -181,13 +181,13 @@ defineProps<{
     align-items: center;
     font-size: rem(14);
     line-height: 140%;
-    color: rgb(54 54 54 / 50%);
+    color: var(--color-gray);
     white-space: nowrap;
   }
 
   &__icon {
     flex-shrink: 0;
-    border: rem(1) solid $lightColor;
+    border: rem(1) solid var(--color-light);
     border-radius: 50%;
 
     @include adaptive-value('width', 20, 16);
@@ -207,7 +207,7 @@ defineProps<{
     span {
       font-size: rem(14);
       line-height: 140%;
-      color: rgb(54 54 54 / 50%);
+      color: var(--color-gray);
     }
   }
 

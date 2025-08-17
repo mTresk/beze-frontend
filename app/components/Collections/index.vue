@@ -166,7 +166,7 @@ await suspense()
       position: absolute;
       inset: 0;
       content: '';
-      background-color: $mainColor;
+      background-color: var(--color-main);
       opacity: 0.05;
       transition: opacity 0.3s ease-in-out;
     }
@@ -195,7 +195,7 @@ await suspense()
     z-index: 5;
     font-family: 'Quincy CF', sans-serif;
     line-height: 120%;
-    color: $whiteColor;
+    color: var(--color-white);
     letter-spacing: 0.01em;
 
     @include adaptive-value('font-size', 24, 18);

@@ -41,7 +41,7 @@ const proxyChecked = computed({
 
   &:has(input:checked) {
     .checkbox__text {
-      color: $mainColor;
+      color: var(--color-main);
     }
   }
 
@@ -56,11 +56,11 @@ const proxyChecked = computed({
     appearance: none;
     cursor: pointer;
     content: '';
-    border: rem(1) solid $accentColor;
+    border: rem(1) solid var(--color-accent);
     border-radius: rem(4);
 
     &:checked {
-      background-color: $accentColor;
+      background-color: var(--color-accent);
 
       &::before {
         position: absolute;
@@ -73,7 +73,7 @@ const proxyChecked = computed({
     }
 
     &:focus-visible {
-      outline: rem(2) solid $extraColor;
+      outline: rem(2) solid var(--color-extra);
     }
   }
 }

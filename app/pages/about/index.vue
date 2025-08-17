@@ -115,7 +115,7 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/about`)
   &__hero {
     position: relative;
     min-height: 100dvh;
-    background-color: $extraColor;
+    background-color: var(--color-extra);
 
     &::before {
       position: absolute;

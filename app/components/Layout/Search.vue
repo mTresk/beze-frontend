@@ -346,7 +346,7 @@ onUnmounted(() => {
     padding-top: rem(30);
     padding-bottom: rem(30);
     overflow-y: auto;
-    background-color: $whiteColor;
+    background-color: var(--color-white);
 
     @include adaptive-value('min-height', 544, 502, 0, 1920, 767);
 
@@ -401,7 +401,7 @@ onUnmounted(() => {
     transition: color 0.3s ease-in-out;
 
     &:hover {
-      color: $accentColor;
+      color: var(--color-accent);
     }
   }
 
@@ -492,22 +492,22 @@ onUnmounted(() => {
     flex: 1;
     gap: rem(10);
     align-items: center;
-    border: rem(1) solid $extraColor;
+    border: rem(1) solid var(--color-extra);
     border-radius: rem(4);
 
     @include adaptive-value('height', 45, 40);
     @include adaptive-value('padding-inline', 16, 10);
 
     &:has(input:focus) {
-      border-color: $accentColor;
+      border-color: var(--color-accent);
 
       svg {
-        color: $accentColor;
+        color: var(--color-accent);
       }
     }
 
     svg {
-      color: $extraColor;
+      color: var(--color-extra);
     }
   }
 
@@ -518,8 +518,8 @@ onUnmounted(() => {
       display: flex;
       align-items: center;
       justify-content: center;
-      color: $extraColor;
-      border: rem(1) solid $extraColor;
+      color: var(--color-extra);
+      border: rem(1) solid var(--color-extra);
       border-radius: rem(4);
 
       @include adaptive-value('width', 45, 40);
@@ -533,7 +533,7 @@ onUnmounted(() => {
     line-height: 130%;
 
     &::placeholder {
-      color: rgb(54 54 54 / 50%);
+      color: var(--color-gray);
     }
 
     &:focus {
@@ -550,7 +550,7 @@ onUnmounted(() => {
     transition: color 0.3s ease-in-out;
 
     &:hover {
-      color: $accentColor;
+      color: var(--color-accent);
     }
   }
 
@@ -559,7 +559,7 @@ onUnmounted(() => {
     flex-wrap: wrap;
     gap: rem(10);
     align-items: center;
-    border-bottom: rem(1) solid $extraColor;
+    border-bottom: rem(1) solid var(--color-extra);
 
     @include adaptive-value('padding-bottom', 25, 15);
   }
@@ -569,14 +569,14 @@ onUnmounted(() => {
     font-size: rem(14);
     line-height: 120%;
     cursor: pointer;
-    border: rem(1) solid $mainColor;
+    border: rem(1) solid var(--color-main);
     border-radius: rem(4);
     transition: all 0.3s ease-in-out;
 
     @media (any-hover: hover) {
       &:hover {
-        color: $accentColor;
-        border-color: $accentColor;
+        color: var(--color-accent);
+        border-color: var(--color-accent);
       }
     }
   }
@@ -614,17 +614,17 @@ onUnmounted(() => {
 
     @media (any-hover: hover) {
       &:hover {
-        color: $accentColor;
+        color: var(--color-accent);
 
         svg {
-          color: $accentColor;
+          color: var(--color-accent);
         }
       }
     }
 
     svg {
       height: auto;
-      color: $extraColor;
+      color: var(--color-extra);
       transition: color 0.3s ease-in-out;
 
       @include adaptive-value('max-width', 20, 16);

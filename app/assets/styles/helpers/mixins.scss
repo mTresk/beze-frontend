@@ -12,14 +12,7 @@
   @return $result;
 }
 
-@mixin adaptive-value(
-  $property,
-  $startSize,
-  $minSize,
-  $keepSize: 0,
-  $widthFrom: $containerWidth,
-  $widthTo: $minWidth
-) {
+@mixin adaptive-value($property, $startSize, $minSize, $keepSize: 0, $widthFrom: $containerWidth, $widthTo: $minWidth) {
   @if $startSize == 0 {
     $startSize: 0.0001;
   }
@@ -44,17 +37,10 @@
   }
 
   $flyValue: #{rem($yIntersection)}' + ' #{$slope * 100}vw;
-  $propertyValue: #{'clamp(' rem($minSize) ',' $flyValue ',' rem($startSize)
-    ')'};
+  $propertyValue: #{'clamp(' rem($minSize) ',' $flyValue ',' rem($startSize) ')'};
 
   @if $minSize > $startSize {
-    $propertyValue: #{'clamp('
-      rem($startSize)
-      ','
-      $flyValue
-      ','
-      rem($minSize)
-      ')'};
+    $propertyValue: #{'clamp(' rem($startSize) ',' $flyValue ',' rem($minSize) ')'};
   }
 
   @if $keepSize != 1 and $keepSize != 3 {

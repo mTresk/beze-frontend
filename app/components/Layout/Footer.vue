@@ -190,7 +190,7 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
 <style lang="scss" scoped>
 .footer {
   padding-bottom: rem(25);
-  background-color: $extraColor;
+  background-color: var(--color-extra);
 
   @include adaptive-value('padding-top', 60, 35);
 
@@ -280,7 +280,7 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
 
     @media (any-hover: hover) {
       &:hover {
-        color: $accentColor;
+        color: var(--color-accent);
       }
     }
   }
@@ -293,7 +293,7 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
 
     @media (any-hover: hover) {
       &:hover {
-        color: $accentColor;
+        color: var(--color-accent);
       }
     }
   }
@@ -371,7 +371,7 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
 
       @media (any-hover: hover) {
         &:hover {
-          color: $accentColor;
+          color: var(--color-accent);
         }
       }
     }
@@ -392,7 +392,7 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
 
     @media (any-hover: hover) {
       &:hover {
-        color: $accentColor;
+        color: var(--color-accent);
       }
     }
   }

@@ -17,7 +17,7 @@ defineProps<{
   animation: spin infinite 1s linear;
 
   path {
-    fill: $whiteColor;
+    fill: var(--color-white);
   }
 
   @keyframes spin {

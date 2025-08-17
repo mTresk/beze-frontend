@@ -270,7 +270,7 @@ const seoDescription = 'Корзина интернет-магазина Beze St
 
   &__table {
     display: grid;
-    border-bottom: rem(1) solid rgb(54 54 54 / 10%);
+    border-bottom: rem(1) solid var(--color-border);
 
     @include adaptive-value('padding-bottom', 40, 20);
     @include adaptive-value('margin-bottom', 40, 20);
@@ -319,7 +319,7 @@ const seoDescription = 'Корзина интернет-магазина Beze St
     padding: rem(14) rem(16);
     font-size: rem(13);
     line-height: 130%;
-    background-color: $lightColor;
+    background-color: var(--color-light);
     border-radius: rem(4);
 
     span {
@@ -331,8 +331,8 @@ const seoDescription = 'Корзина интернет-магазина Beze St
       height: rem(16);
       font-size: rem(12);
       line-height: 130%;
-      color: $whiteColor;
-      background-color: $accentColor;
+      color: var(--color-white);
+      background-color: var(--color-accent);
       border-radius: 50%;
     }
   }
@@ -373,7 +373,7 @@ const seoDescription = 'Корзина интернет-магазина Beze St
   &__note {
     font-size: rem(14);
     line-height: 130%;
-    color: $accentColor;
+    color: var(--color-accent);
   }
 
   &__footer {

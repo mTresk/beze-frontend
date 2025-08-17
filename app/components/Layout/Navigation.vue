@@ -135,7 +135,7 @@ const cartCount = computed(() => cartItems.value?.length || 0)
   justify-content: center;
   height: rem(65);
   padding-inline: rem(20);
-  background-color: $whiteColor;
+  background-color: var(--color-white);
   box-shadow: 0 rem(1) rem(12) 0 rgb(38 27 15 / 15%);
 
   @media (max-width: $tablet) {
@@ -167,8 +167,8 @@ const cartCount = computed(() => cartItems.value?.length || 0)
       width: rem(16);
       height: rem(16);
       font-size: rem(12);
-      color: $whiteColor;
-      background-color: $accentColor;
+      color: var(--color-white);
+      background-color: var(--color-accent);
       border-radius: 50%;
     }
   }

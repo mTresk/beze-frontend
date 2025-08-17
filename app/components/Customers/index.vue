@@ -196,7 +196,7 @@ onBeforeUnmount(() => {
       inset: 0;
       z-index: 1;
       content: '';
-      background-color: $accentColor;
+      background-color: var(--color-accent);
       opacity: 0.7;
     }
   }

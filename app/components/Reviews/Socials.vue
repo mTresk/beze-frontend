@@ -122,8 +122,8 @@ useSwiper(containerRef, {
     height: 100%;
     padding: rem(20);
     background: rgb(46 46 46 / 16%);
-    background-color: $whiteColor;
-    border: rem(1) solid $lightColor;
+    background-color: var(--color-white);
+    border: rem(1) solid var(--color-light);
     border-radius: rem(4);
   }
 

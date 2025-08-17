@@ -12,7 +12,7 @@
 <style lang="scss" scoped>
 .form-group {
   &:first-child {
-    border-bottom: rem(1) solid rgb(54 54 54 / 10%);
+    border-bottom: rem(1) solid var(--color-border);
 
     @include adaptive-value('padding-bottom', 40, 30);
     @include adaptive-value('margin-bottom', 20, 15);

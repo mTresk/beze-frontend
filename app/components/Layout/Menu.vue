@@ -203,7 +203,7 @@ function handleLinkClick() {
     padding-top: rem(80);
     padding-bottom: rem(30);
     overflow-y: auto;
-    background-color: $extraColor;
+    background-color: var(--color-extra);
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
 
@@ -231,7 +231,7 @@ function handleLinkClick() {
     @media (any-hover: hover) {
       .menu:not(.menu--blocked) &:hover {
         & > .menu__link {
-          color: $accentColor;
+          color: var(--color-accent);
 
           svg {
             transform: rotate(-180deg);
@@ -257,7 +257,7 @@ function handleLinkClick() {
     gap: rem(8);
     align-items: center;
     line-height: 125%;
-    color: $whiteColor;
+    color: var(--color-white);
     cursor: pointer;
     transition: color 0.3s ease-in-out;
 
@@ -270,7 +270,7 @@ function handleLinkClick() {
     @media (max-width: $tablet) {
       justify-content: space-between;
       font-size: rem(22);
-      color: $mainColor;
+      color: var(--color-main);
 
       svg {
         width: rem(16);
@@ -295,7 +295,7 @@ function handleLinkClick() {
     min-width: rem(220);
     padding: rem(20);
     pointer-events: none;
-    background-color: $extraColor;
+    background-color: var(--color-extra);
     border-radius: rem(4);
     box-shadow: 0 0 rem(14) 0 rgb(0 0 0 / 10%);
     opacity: 0;
@@ -337,17 +337,17 @@ function handleLinkClick() {
   &__sublink {
     font-size: rem(18);
     line-height: 125%;
-    color: $whiteColor;
+    color: var(--color-white);
     transition: color 0.3s ease-in-out;
 
     @media (any-hover: hover) {
       &:hover {
-        color: $accentColor;
+        color: var(--color-accent);
       }
     }
 
     @media (max-width: $tablet) {
-      color: $mainColor;
+      color: var(--color-main);
     }
   }
 
@@ -359,7 +359,7 @@ function handleLinkClick() {
       gap: rem(16);
       padding-top: rem(30);
       margin-top: rem(30);
-      border-top: rem(1) solid rgb(54 54 54 / 10%);
+      border-top: rem(1) solid var(--color-border);
     }
   }
 

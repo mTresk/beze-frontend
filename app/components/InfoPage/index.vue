@@ -113,11 +113,11 @@ defineProps<Props>()
     text-decoration: underline;
     text-decoration-thickness: 10%;
     text-decoration-style: dotted;
+    text-decoration-skip-ink: none;
     text-underline-offset: rem(3);
-    background-color: $lightColor;
+    background-color: var(--color-light);
     border-radius: rem(4);
     transition: all 0.3s ease-in-out;
-    text-decoration-skip-ink: none;
 
     @include adaptive-value('font-size', 16, 14);
     @include adaptive-value('padding-inline', 20, 16);
@@ -125,8 +125,8 @@ defineProps<Props>()
 
     @media (any-hover: hover) {
       &:hover {
-        color: $whiteColor;
-        background-color: $extraColor;
+        color: var(--color-white);
+        background-color: var(--color-extra);
       }
     }
   }

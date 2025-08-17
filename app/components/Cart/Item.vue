@@ -194,7 +194,7 @@ watch(() => quantity.value, handleUpdateCartValues)
 
   &__sku {
     line-height: 140%;
-    color: rgb(54 54 54 / 50%);
+    color: var(--color-gray);
 
     @include adaptive-value('font-size', 14, 12);
   }
@@ -211,13 +211,13 @@ watch(() => quantity.value, handleUpdateCartValues)
     align-items: center;
     font-size: rem(14);
     line-height: 140%;
-    color: rgb(54 54 54 / 50%);
+    color: var(--color-gray);
     white-space: nowrap;
   }
 
   &__icon {
     flex-shrink: 0;
-    border: rem(1) solid $lightColor;
+    border: rem(1) solid var(--color-light);
     border-radius: 50%;
 
     @include adaptive-value('width', 20, 16);
@@ -234,7 +234,7 @@ watch(() => quantity.value, handleUpdateCartValues)
     span {
       font-size: rem(14);
       line-height: 140%;
-      color: rgb(54 54 54 / 50%);
+      color: var(--color-gray);
     }
   }
 
@@ -261,7 +261,7 @@ watch(() => quantity.value, handleUpdateCartValues)
 
     @media (any-hover: hover) {
       &:hover {
-        color: $accentColor;
+        color: var(--color-accent);
       }
     }
   }

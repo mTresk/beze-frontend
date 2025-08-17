@@ -346,13 +346,13 @@ onUnmounted(() => {
       }
 
       &--active::before {
-        background-color: $whiteColor;
+        background-color: var(--color-white);
       }
 
       @media (any-hover: hover) {
         &:hover {
           &::before {
-            background-color: $whiteColor;
+            background-color: var(--color-white);
           }
         }
       }
@@ -394,7 +394,7 @@ onUnmounted(() => {
     justify-content: center;
     width: rem(40);
     height: rem(40);
-    color: $whiteColor;
+    color: var(--color-white);
     transition: color 0.3s ease-in-out;
 
     svg {
@@ -405,12 +405,12 @@ onUnmounted(() => {
 
     @media (any-hover: hover) {
       &:hover {
-        color: $redColor;
+        color: var(--color-red);
       }
     }
 
     &--selected {
-      color: $redColor;
+      color: var(--color-red);
     }
 
     &:disabled {
@@ -469,7 +469,7 @@ onUnmounted(() => {
   }
 
   &__color {
-    border: rem(1) solid $lightColor;
+    border: rem(1) solid var(--color-light);
     border-radius: 50%;
 
     @include adaptive-value('width', 10, 7);
@@ -480,10 +480,10 @@ onUnmounted(() => {
 .chip {
   padding: rem(4) rem(8);
   line-height: 120%;
-  color: $whiteColor;
+  color: var(--color-white);
   text-transform: lowercase;
   white-space: nowrap;
-  background-color: $redColor;
+  background-color: var(--color-red);
   border-radius: rem(20);
 
   @include adaptive-value('font-size', 12, 8);

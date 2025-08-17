@@ -117,7 +117,7 @@ onBeforeUnmount(() => {
       width: rem(8);
       height: rem(8);
       content: '';
-      background-color: $accentColor;
+      background-color: var(--color-accent);
       transform: rotate(45deg);
     }
 

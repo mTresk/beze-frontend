@@ -51,9 +51,9 @@ onMounted(() => {
   width: 100%;
   max-width: rem(400);
   padding: rem(16) rem(20);
-  background-color: $whiteColor;
+  background-color: var(--color-white);
   border-radius: rem(4);
-  box-shadow: 0 0 rem(10) rgba($mainColor, 0.1);
+  box-shadow: 0 0 rem(10) #2a1a0a1a;
 
   @media (max-width: $tablet) {
     bottom: rem(80);

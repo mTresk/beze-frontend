@@ -108,13 +108,13 @@ const seoDescription = 'Личный кабинет интернет-магаз�
     display: flex;
     gap: rem(20);
     padding-bottom: rem(20);
-    border-bottom: rem(1) solid rgb(54 54 54 / 10%);
+    border-bottom: rem(1) solid var(--color-border);
   }
 
   &__button {
     line-height: 120%;
     white-space: nowrap;
-    border: rem(1) solid $extraColor;
+    border: rem(1) solid var(--color-extra);
     border-radius: rem(4);
     transition: all 0.3s ease-in-out;
 
@@ -123,14 +123,14 @@ const seoDescription = 'Личный кабинет интернет-магаз�
     @include adaptive-value('padding-inline', 20, 10);
 
     &:hover {
-      color: $whiteColor;
-      background-color: $extraColor;
+      color: var(--color-white);
+      background-color: var(--color-extra);
     }
 
     &--active {
-      color: $whiteColor;
+      color: var(--color-white);
       pointer-events: none;
-      background-color: $extraColor;
+      background-color: var(--color-extra);
     }
   }
 }

@@ -65,8 +65,8 @@ function handlePageClick(page: number) {
 
   @media (any-hover: hover) {
     &:hover {
-      color: $whiteColor;
-      background-color: $extraColor;
+      color: var(--color-white);
+      background-color: var(--color-extra);
     }
   }
 }
@@ -74,9 +74,9 @@ function handlePageClick(page: number) {
 .page-item {
   &.active {
     .page-link {
-      color: $whiteColor;
+      color: var(--color-white);
       pointer-events: none;
-      background-color: $extraColor;
+      background-color: var(--color-extra);
     }
   }
 }
