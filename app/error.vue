@@ -83,7 +83,7 @@ const handleError = () => clearError({ redirect: '/catalog' })
 
     &::after {
       position: absolute;
-      top: rem(-8);
+      top: rem(8);
       left: 50%;
       width: 100%;
       height: 0.5em;

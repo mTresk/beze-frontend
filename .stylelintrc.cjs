@@ -14,5 +14,6 @@ module.exports = {
     'no-invalid-position-at-import-rule': null,
     'no-descending-specificity': null,
     'declaration-property-value-no-unknown': null,
+    'unit-disallowed-list': ['px'],
   },
 }
