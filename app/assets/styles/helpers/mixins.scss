@@ -1,14 +1,4 @@
-@mixin font($font_name, $file_name, $weight, $style) {
-  @font-face {
-    font-family: $font_name;
-    font-style: #{$style};
-    font-weight: #{$weight};
-    src:
-      url('../fonts/#{$file_name}.woff2') format('woff2'),
-      url('../fonts/#{$file_name}.woff') format('woff');
-    font-display: swap;
-  }
-}
+@use 'sass:math';
 
 @function rem($px) {
   $result: math.div($px, 16) + rem;
@@ -22,7 +12,14 @@
   @return $result;
 }
 
-@mixin adaptive-value($property, $startSize, $minSize, $keepSize: 0, $widthFrom: $containerWidth, $widthTo: $minWidth) {
+@mixin adaptive-value(
+  $property,
+  $startSize,
+  $minSize,
+  $keepSize: 0,
+  $widthFrom: $containerWidth,
+  $widthTo: $minWidth
+) {
   @if $startSize == 0 {
     $startSize: 0.0001;
   }
@@ -47,10 +44,17 @@
   }
 
   $flyValue: #{rem($yIntersection)}' + ' #{$slope * 100}vw;
-  $propertyValue: #{'clamp(' rem($minSize) ',' $flyValue ',' rem($startSize) ')'};
+  $propertyValue: #{'clamp(' rem($minSize) ',' $flyValue ',' rem($startSize)
+    ')'};
 
   @if $minSize > $startSize {
-    $propertyValue: #{'clamp(' rem($startSize) ',' $flyValue ',' rem($minSize) ')'};
+    $propertyValue: #{'clamp('
+      rem($startSize)
+      ','
+      $flyValue
+      ','
+      rem($minSize)
+      ')'};
   }
 
   @if $keepSize != 1 and $keepSize != 3 {

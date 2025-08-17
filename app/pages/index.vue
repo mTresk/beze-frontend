@@ -1,7 +1,7 @@
 <template>
   <div>
     <Hero />
-    <Advantages hydrate-on-visible />
+    <Advantages />
     <LazyDirections hydrate-on-visible />
     <LazyBestsellers hydrate-on-visible />
     <LazyCollections hydrate-on-visible />

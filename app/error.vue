@@ -43,7 +43,6 @@ const handleError = () => clearError({ redirect: '/catalog' })
 
 <style lang="scss">
 .error {
-  min-height: 100vh;
   min-height: 100dvh;
 
   &__body {
@@ -53,7 +52,6 @@ const handleError = () => clearError({ redirect: '/catalog' })
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
     min-height: 100dvh;
     padding-block: rem(120);
   }

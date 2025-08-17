@@ -56,12 +56,11 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  css: ['@/assets/scss/fonts.scss', '@/assets/scss/null.scss'],
   vite: {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@use "@/assets/scss/globals.scss" as *;',
+          additionalData: `@use '@/assets/styles/helpers' as *;`,
           silenceDeprecations: ['import'],
         },
       },

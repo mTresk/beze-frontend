@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { IMenu, ISettings } from '@/types/api'
+import '@/assets/styles'
 
 const client = useSanctumClient()
 
