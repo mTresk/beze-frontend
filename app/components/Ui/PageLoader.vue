@@ -4,6 +4,14 @@
   </div>
 </template>
 
+<style lang="scss">
+body {
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
+}
+</style>
+
 <style lang="scss" scoped>
 .loader {
   position: fixed;

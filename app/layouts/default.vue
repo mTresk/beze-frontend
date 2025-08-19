@@ -36,7 +36,9 @@ useHead({
 })
 
 useNuxtApp().hook('page:loading:end', () => {
-  isLoading.value = false
+  setTimeout(() => {
+    isLoading.value = false
+  }, 300)
 })
 
 async function fetcher() {
