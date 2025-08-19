@@ -193,7 +193,7 @@ function toggleMenu() {
   }
 
   .scroll-down & {
-    transform: translateY(-100%);
+    @include adaptive-value('top', -80, -70);
   }
 
   &::before {
