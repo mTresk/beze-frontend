@@ -228,23 +228,21 @@ function handleLinkClick() {
   &__item {
     position: relative;
 
-    @media (min-width: em(992)) {
-      @media (any-hover: hover) {
-        &:hover {
-          .menu__link {
-            color: var(--color-accent);
+    @media (any-hover: hover) {
+      .menu:not(.menu--blocked) &:hover {
+        & > .menu__link {
+          color: var(--color-accent);
 
-            svg {
-              transform: rotate(-180deg);
-            }
+          svg {
+            transform: rotate(-180deg);
           }
+        }
 
-          .menu__sublist {
-            visibility: visible;
-            pointer-events: auto;
-            opacity: 1;
-            transform: translateY(0);
-          }
+        & > .menu__sublist {
+          visibility: visible;
+          pointer-events: auto;
+          opacity: 1;
+          transform: translateY(0);
         }
       }
     }
