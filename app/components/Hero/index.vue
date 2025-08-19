@@ -159,6 +159,8 @@ useSwiper(containerRef, {
   min-height: 100svh;
   background-color: var(--color-extra);
 
+  @include adaptive-value('top', -78, -60);
+
   @media (max-width: $tablet) {
     min-height: calc(100vh - rem(65));
     min-height: calc(100svh - rem(65));

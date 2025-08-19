@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import type Lenis from 'lenis'
 import type { IProduct, ISearchResult } from '@/types/api'
 
 const client = useSanctumClient()
 
 const { closeSearch, smartSearch } = useSearch()
 
-const fetcher = async () => await client<IProduct[]>(`/api/products/featured`)
+const { unlockScroll } = useScrollLock()
 
-const lenis = useState<Lenis | null>('lenisVS')
+const fetcher = async () => await client<IProduct[]>(`/api/products/featured`)
 
 const searchQuery = ref('')
 
@@ -87,12 +86,7 @@ async function handleSearch() {
 
 function handleClose() {
   closeSearch()
-
-  if (lenis.value) {
-    lenis.value.start()
-  }
-
-  document.documentElement.classList.remove('lock')
+  unlockScroll()
 }
 
 function handleSubmit() {

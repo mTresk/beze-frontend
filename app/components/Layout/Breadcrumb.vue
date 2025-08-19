@@ -70,7 +70,7 @@ const breadcrumbs = computed<IBreadcrumbItem[]>(() => [HOME_CRUMB, ...props.item
   align-items: center;
 
   @include adaptive-value('margin-bottom', 30, 16);
-  @include adaptive-value('margin-top', 130, 80);
+  @include adaptive-value('margin-top', 52, 20);
 
   &__item {
     position: relative;

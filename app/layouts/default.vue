@@ -122,6 +122,7 @@ const description = 'Элегантная одежда на утро невес�
   </Head>
   <NuxtLoadingIndicator color="#b79d83" />
   <div
+    data-wrapper
     class="wrapper"
     :class="scrollClass"
   >
@@ -142,14 +143,16 @@ const description = 'Элегантная одежда на утро невес�
 </template>
 
 <style lang="scss">
-body {
-  background-color: var(--color-white);
-
-  .lock & {
+html {
+  &.lock {
     overflow: hidden;
     overscroll-behavior: none;
     touch-action: none;
   }
+}
+
+body {
+  background-color: var(--color-white);
 }
 
 .wrapper {

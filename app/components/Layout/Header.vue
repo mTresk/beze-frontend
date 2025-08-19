@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type Lenis from 'lenis'
 import type { IMenu, ISettings, IUser } from '@/types/api'
 
 const route = useRoute()
@@ -12,9 +11,9 @@ const { openSearch } = useSearch()
 
 const { isAuthenticated } = useSanctumAuth()
 
-const user = useSanctumUser<IUser>()
+const { lockScroll, unlockScroll } = useScrollLock()
 
-const lenis = useState<Lenis | null>('lenisVS')
+const user = useSanctumUser<IUser>()
 
 const menu = useState<IMenu>('menu')
 
@@ -41,28 +40,19 @@ function handleBlockMenu() {
 
 function handleSearchClick() {
   openSearch()
-
-  if (lenis.value) {
-    lenis.value.destroy()
-  }
-
-  document.documentElement.classList.add('lock')
+  lockScroll()
 }
 
 function toggleMenu() {
   isMenuOpen.value = !isMenuOpen.value
 
-  if (lenis.value) {
-    lenis.value.destroy()
-  }
-
   if (isMenuOpen.value) {
     document.documentElement.classList.add('menu-open')
-    document.documentElement.classList.add('lock')
+    lockScroll()
   }
   else {
     document.documentElement.classList.remove('menu-open')
-    document.documentElement.classList.remove('lock')
+    unlockScroll()
   }
 }
 </script>
@@ -190,11 +180,13 @@ function toggleMenu() {
 
 <style lang="scss">
 .header {
-  position: fixed;
-  left: 0;
+  position: sticky;
+  top: 0;
   z-index: 200;
   width: 100%;
   transition: all 0.5s ease-in-out;
+
+  @include adaptive-value('min-height', 78, 60);
 
   .scroll-up & {
     background-color: var(--color-extra);
