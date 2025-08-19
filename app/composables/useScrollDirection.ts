@@ -10,6 +10,7 @@ export function useScrollDirection() {
 
     if (currentScroll <= 0) {
       direction.value = null
+
       return
     }
 
@@ -24,6 +25,12 @@ export function useScrollDirection() {
   }
 
   onMounted(() => {
+    lastScroll = window.scrollY
+
+    if (lastScroll > 0) {
+      direction.value = 'up'
+    }
+
     window.addEventListener('scroll', handleScroll)
   })
 
