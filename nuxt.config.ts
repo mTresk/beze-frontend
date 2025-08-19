@@ -56,11 +56,7 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  css: [
-    '@/assets/styles/colors.scss',
-    '@/assets/styles/fonts.scss',
-    '@/assets/styles/null.scss',
-  ],
+  css: ['@/assets/styles'],
   vite: {
     css: {
       preprocessorOptions: {
