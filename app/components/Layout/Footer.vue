@@ -194,10 +194,6 @@ const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
 
   @include adaptive-value('padding-top', 60, 35);
 
-  @media (max-width: $tablet) {
-    margin-bottom: rem(65);
-  }
-
   &__body {
     display: grid;
     grid-template-columns: auto auto;

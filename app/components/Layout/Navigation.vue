@@ -125,10 +125,8 @@ const cartCount = computed(() => cartItems.value?.length || 0)
 
 <style lang="scss" scoped>
 .navigation {
-  position: fixed;
-  right: 0;
+  position: sticky;
   bottom: 0;
-  left: 0;
   z-index: 100;
   display: none;
   align-items: center;
