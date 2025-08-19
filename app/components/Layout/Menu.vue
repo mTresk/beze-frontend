@@ -59,25 +59,27 @@ function handleLinkClick() {
               size="10"
             />
           </div>
-          <ul
-            v-if="category.subcategories?.length"
-            class="menu__sublist"
-            :class="{ 'menu__sublist--mobile-open': openSpoilers[category.slug] }"
-          >
-            <li
-              v-for="subcategory in category.subcategories"
-              :key="subcategory.slug"
-              class="menu__subitem"
+          <Transition name="submenu">
+            <ul
+              v-if="category.subcategories?.length"
+              v-show="openSpoilers[category.slug]"
+              class="menu__sublist"
             >
-              <NuxtLink
-                :to="`/catalog/category/${category.slug}/${subcategory.slug}`"
-                class="menu__sublink"
-                @click="handleLinkClick"
+              <li
+                v-for="subcategory in category.subcategories"
+                :key="subcategory.slug"
+                class="menu__subitem"
               >
-                {{ subcategory.name }}
-              </NuxtLink>
-            </li>
-          </ul>
+                <NuxtLink
+                  :to="`/catalog/category/${category.slug}/${subcategory.slug}`"
+                  class="menu__sublink"
+                  @click="handleLinkClick"
+                >
+                  {{ subcategory.name }}
+                </NuxtLink>
+              </li>
+            </ul>
+          </Transition>
         </li>
         <li
           v-for="item in menu?.header_menu"
@@ -96,24 +98,26 @@ function handleLinkClick() {
                 size="10"
               />
             </div>
-            <ul
-              class="menu__sublist"
-              :class="{ 'menu__sublist--mobile-open': openSpoilers[item.name] }"
-            >
-              <li
-                v-for="subitem in item.items"
-                :key="subitem.slug"
-                class="menu__subitem"
+            <Transition name="submenu">
+              <ul
+                v-show="openSpoilers[item.name]"
+                class="menu__sublist"
               >
-                <NuxtLink
-                  :to="`/${subitem.slug}`"
-                  class="menu__sublink"
-                  @click="handleLinkClick"
+                <li
+                  v-for="subitem in item.items"
+                  :key="subitem.slug"
+                  class="menu__subitem"
                 >
-                  {{ subitem.name }}
-                </NuxtLink>
-              </li>
-            </ul>
+                  <NuxtLink
+                    :to="`/${subitem.slug}`"
+                    class="menu__sublink"
+                    @click="handleLinkClick"
+                  >
+                    {{ subitem.name }}
+                  </NuxtLink>
+                </li>
+              </ul>
+            </Transition>
           </template>
           <NuxtLink
             v-else
@@ -217,7 +221,7 @@ function handleLinkClick() {
     gap: rem(40);
     align-items: center;
 
-    @include adaptive-value('gap', 40, 20, 0, 1920, 992);
+    @include adaptive-value('gap', 40, 18, 0, 1920, 992);
 
     @media (max-width: $tablet) {
       flex-direction: column;
@@ -228,7 +232,7 @@ function handleLinkClick() {
   &__item {
     position: relative;
 
-    @media (any-hover: hover) {
+    @media (min-width: em(992)) {
       .menu:not(.menu--blocked) &:hover {
         & > .menu__link {
           color: var(--color-accent);
@@ -276,11 +280,11 @@ function handleLinkClick() {
         width: rem(16);
         height: rem(16);
       }
-    }
 
-    &--opened {
-      svg {
-        transform: rotate(-180deg);
+      &--opened {
+        svg {
+          transform: rotate(-180deg);
+        }
       }
     }
   }
@@ -302,6 +306,10 @@ function handleLinkClick() {
     transform: translateY(rem(10));
     transition: all 0.3s ease-in-out;
 
+    @media (min-width: em(992)) {
+      display: grid !important;
+    }
+
     &::before {
       position: absolute;
       top: rem(-10);
@@ -317,20 +325,17 @@ function handleLinkClick() {
 
     @media (max-width: $tablet) {
       position: static;
-      display: none;
+      display: grid;
       visibility: visible;
       padding: 0;
       padding-block: rem(10);
+      overflow: hidden;
       pointer-events: auto;
       background-color: transparent;
       box-shadow: none;
       opacity: 1;
       transform: none;
       transition: none;
-
-      &--mobile-open {
-        display: grid;
-      }
     }
   }
 
@@ -402,6 +407,28 @@ function handleLinkClick() {
       width: 100%;
       height: 100%;
     }
+  }
+}
+
+@media (max-width: $tablet) {
+  .submenu-enter-active,
+  .submenu-leave-active {
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .submenu-enter-from,
+  .submenu-leave-to {
+    max-height: 0;
+    padding-block: 0;
+    opacity: 0;
+  }
+
+  .submenu-enter-to,
+  .submenu-leave-from {
+    max-height: rem(500);
+    padding-block: rem(10);
+    opacity: 1;
   }
 }
 </style>
