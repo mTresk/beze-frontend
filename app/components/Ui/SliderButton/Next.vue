@@ -2,6 +2,7 @@
   <button
     type="button"
     class="slider-button"
+    title="Вперёд"
   >
     <UiIcon
       name="arrow-right"

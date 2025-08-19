@@ -44,9 +44,6 @@ export default defineNuxtConfig({
       },
     },
   },
-  build: {
-    transpile: ['gsap'],
-  },
   devServer: {
     port: 3000,
     host: 'localhost',
