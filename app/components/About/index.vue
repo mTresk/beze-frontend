@@ -93,8 +93,6 @@ onBeforeUnmount(() => {
 
 <style lang="scss" scoped>
 .about {
-  padding-bottom: rem(80);
-
   @include adaptive-value('padding-bottom', 80, 0);
 
   &__body {

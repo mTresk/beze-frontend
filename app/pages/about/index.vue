@@ -117,6 +117,8 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/about`)
     min-height: 100dvh;
     background-color: var(--color-extra);
 
+    @include adaptive-value('margin-top', -78, -60);
+
     &::before {
       position: absolute;
       inset: 0;
