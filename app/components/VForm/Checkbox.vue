@@ -18,18 +18,16 @@ const proxyChecked = computed({
 </script>
 
 <template>
-  <div class="checkbox">
-    <label class="checkbox">
-      <input
-        v-model="proxyChecked"
-        class="checkbox__input"
-        type="checkbox"
-        value="1"
-        name="form[]"
-      >
-      <span class="checkbox__text"><slot name="text" /></span>
-    </label>
-  </div>
+  <label class="checkbox">
+    <input
+      v-model="proxyChecked"
+      class="checkbox__input"
+      type="checkbox"
+      value="1"
+      name="form[]"
+    >
+    <span class="checkbox__text"><slot name="text" /></span>
+  </label>
 </template>
 
 <style lang="scss">
