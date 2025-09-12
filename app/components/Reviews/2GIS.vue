@@ -88,7 +88,7 @@ useSwiper(containerRef, {
                     class="testimonial__star"
                     name="star"
                     size="20"
-                    :class="{ 'testimonial__star--inactive': i >= testimonial.rating }"
+                    :class="{ 'testimonial__star--inactive': i > testimonial.rating }"
                   />
                 </div>
               </div>
