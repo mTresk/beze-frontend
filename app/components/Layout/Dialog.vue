@@ -240,7 +240,7 @@ onUnmounted(() => {
 @keyframes content-show {
   from {
     opacity: 0;
-    transform: scale(0.5);
+    transform: scale(0);
   }
 
   to {
@@ -257,7 +257,7 @@ onUnmounted(() => {
 
   to {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0);
   }
 }
 
