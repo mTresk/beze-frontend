@@ -1,15 +1,21 @@
 <script setup lang="ts">
 import type { IMenu, ISettings } from '@/types/api'
-import { NuxtImg } from '#components'
 
-defineProps<{
+interface IProps {
   menu: IMenu
   settings: ISettings
   isMenuBlocked: boolean
   formattedPhone: string
-}>()
+}
 
-const emit = defineEmits(['blockMenu', 'toggleMenu'])
+interface IEmits {
+  blockMenu: []
+  toggleMenu: []
+}
+
+defineProps<IProps>()
+
+const emit = defineEmits<IEmits>()
 
 const openSpoilers = ref<Record<string, boolean>>({})
 

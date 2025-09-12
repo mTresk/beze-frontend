@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import type { IProduct } from '@/types/api'
 
-const props = defineProps<{
+interface IProps {
   products: IProduct[]
   name: string
-}>()
+}
+
+const props = defineProps<IProps>()
 
 const containerRef = ref(null)
 

@@ -4,7 +4,6 @@ definePageMeta({
 })
 
 const route = useRoute()
-
 const { resetPassword } = useAuth()
 
 if (!route.query.email) {
@@ -19,17 +18,21 @@ const form = reactive({
 
 const token = computed(() => route.params.token)
 
-const {
-  submit: submitForm,
-  isLoading,
-  validationErrors: errors,
-} = useSubmit<{ status: string }>(() => resetPassword({ token: token.value as string, ...form }), {
-  onSuccess: result =>
-    navigateTo({
-      path: '/auth/login',
-      query: { reset: result?.status ?? '' },
-    }),
-})
+const { submit: submitForm, isLoading, validationErrors: errors } = useSubmit<{ status: string }>(
+  () => resetPassword(
+    {
+      token: token.value as string,
+      ...form,
+    },
+  ),
+  {
+    onSuccess: result =>
+      navigateTo({
+        path: '/auth/login',
+        query: { reset: result?.status ?? '' },
+      }),
+  },
+)
 </script>
 
 <template>

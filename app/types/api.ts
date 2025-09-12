@@ -367,6 +367,11 @@ export interface IWishlistData {
   items: IWishlistItem[]
 }
 
+export interface IBreadcrumbItem {
+  title: string
+  link?: string
+}
+
 export interface IOrderResponse {
   id: number
   status: {

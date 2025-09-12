@@ -1,10 +1,17 @@
 <script setup lang="ts">
 import type { IMenu, ISettings } from '@/types/api'
 
+useHead({
+  htmlAttrs: {
+    lang: 'ru',
+  },
+  titleTemplate: (titleChunk) => {
+    return titleChunk ? `${titleChunk} — Beze Studio` : 'Beze Studio'
+  },
+})
+
 const client = useSanctumClient()
-
 const { direction } = useScrollDirection()
-
 const { isSearchOpen } = useSearch()
 
 const scrollClass = computed(() => {
@@ -23,27 +30,16 @@ gsap.config({
   nullTargetWarn: false,
 })
 
-useHead({
-  htmlAttrs: {
-    lang: 'ru',
-  },
-  titleTemplate: (titleChunk) => {
-    return titleChunk ? `${titleChunk} — Beze Studio` : 'Beze Studio'
-  },
-})
-
 async function fetcher() {
   const [menuData, settingsData] = await Promise.all([
     client<IMenu>('/api/menu'),
     client<ISettings>('/api/settings'),
   ])
+
   return { menu: menuData, settings: settingsData }
 }
 
-const {
-  data,
-  suspense,
-} = useQuery({
+const { data, suspense } = useQuery({
   queryKey: ['app-data'],
   queryFn: fetcher,
 })
@@ -51,7 +47,6 @@ const {
 await suspense()
 
 useState('menu', () => data.value?.menu)
-
 useState('settings', () => data.value?.settings)
 
 const description = 'Элегантная одежда на утро невесты, для дома и на каждый день'

@@ -27,10 +27,7 @@ export default defineNuxtPlugin((_nuxtApp) => {
 
     authorizer: (channel: any) => {
       return {
-        authorize: (
-          socketId: string,
-          callback: ChannelAuthorizationCallback,
-        ) => {
+        authorize: (socketId: string, callback: ChannelAuthorizationCallback) => {
           client('broadcasting/auth', {
             method: 'post',
             body: {
@@ -38,9 +35,7 @@ export default defineNuxtPlugin((_nuxtApp) => {
               channel_name: channel.name,
             },
           })
-            .then((response) => {
-              callback(null, response)
-            })
+            .then(() => {})
             .catch((error: Error) => callback(error, null))
         },
       }

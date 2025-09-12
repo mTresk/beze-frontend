@@ -2,19 +2,22 @@
 import type { DaDataSuggestionAnyType, LocationOptions } from 'vue-dadata-3'
 import { DaDataNext } from 'vue-dadata-3'
 
-defineProps<{
+interface IProps {
   modelValue?: string | number
   placeholder?: string
   id?: string
   error?: string[]
   maska?: string
   locationOptions?: LocationOptions
-}>()
+}
 
-defineEmits<{
+interface IEmits {
   (event: 'update:modelValue', value: number | string): void
   (event: 'selected', value: DaDataSuggestionAnyType): void
-}>()
+}
+
+defineProps<IProps>()
+defineEmits<IEmits>()
 </script>
 
 <template>

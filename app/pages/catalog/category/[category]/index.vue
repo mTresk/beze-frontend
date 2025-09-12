@@ -2,7 +2,6 @@
 import type { ICategory } from '@/types/api'
 
 const client = useSanctumClient()
-
 const route = useRoute()
 
 const category = ref<ICategory>()

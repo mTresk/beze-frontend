@@ -2,26 +2,25 @@
 import type { IProduct, ISearchResult } from '@/types/api'
 
 const client = useSanctumClient()
-
 const { closeSearch, smartSearch } = useSearch()
-
 const { unlockScroll } = useScrollLock()
+
+const searchQuery = ref('')
+const searchResult = ref<ISearchResult>()
+const isLoading = ref(false)
+const searchHistory = ref<string[]>([])
+const productsPerRow = ref(6)
+const currentProducts = ref<IProduct[]>([])
+const currentTitle = ref('Вам может понравиться')
 
 const fetcher = async () => await client<IProduct[]>(`/api/products/featured`)
 
-const searchQuery = ref('')
+const { data: featured, suspense } = useQuery({
+  queryKey: ['featured'],
+  queryFn: fetcher,
+})
 
-const searchResult = ref<ISearchResult>()
-
-const isLoading = ref(false)
-
-const searchHistory = ref<string[]>([])
-
-const productsPerRow = ref(6)
-
-const currentProducts = ref<IProduct[]>([])
-
-const currentTitle = ref('Вам может понравиться')
+await suspense()
 
 let debounceTimer: NodeJS.Timeout | null = null
 
@@ -54,14 +53,6 @@ function updateSearchHistory(query: string) {
   localStorage.setItem('searchHistory', JSON.stringify(searchHistory.value))
 }
 
-const {
-  data: featured,
-  suspense,
-} = useQuery({
-  queryKey: ['featured'],
-  queryFn: fetcher,
-})
-
 const displayedProducts = computed(() => {
   if (isLoading.value) {
     return currentProducts.value
@@ -75,8 +66,6 @@ const displayedProducts = computed(() => {
 
   return products?.slice(0, productsPerRow.value)
 })
-
-await suspense()
 
 async function handleSearch() {
   isLoading.value = true

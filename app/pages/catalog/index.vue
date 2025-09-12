@@ -7,10 +7,7 @@ async function fetchCategories() {
   return await client<ICategory[]>('api/categories')
 }
 
-const {
-  data: categories,
-  suspense,
-} = useQuery({
+const { data: categories, suspense } = useQuery({
   queryKey: ['categories'],
   queryFn: fetchCategories,
 })

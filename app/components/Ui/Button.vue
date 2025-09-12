@@ -1,8 +1,10 @@
 <script setup lang="ts">
-defineProps<{
+interface IProps {
   href?: string
   isLoading?: boolean
-}>()
+}
+
+defineProps<IProps>()
 </script>
 
 <template>

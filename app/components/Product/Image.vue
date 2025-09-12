@@ -2,16 +2,19 @@
 import { VueImageZoomer } from 'vue-image-zoomer'
 import 'vue-image-zoomer/dist/style.css'
 
-defineProps<{
+interface IProps {
   alt: string
   regular: string
   zoom: string
   width: number
   height: number
-}>()
+}
+
+defineProps<IProps>()
 
 onBeforeUnmount(() => {
   const zoomElements = document.querySelectorAll('.vh--outer')
+
   zoomElements.forEach((element) => {
     const clone = element.cloneNode(true)
     element.parentNode?.replaceChild(clone, element)

@@ -122,12 +122,12 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/favorit
 
 .wishlist-item-enter-from {
   opacity: 0;
-  transform: scale(0.8) translateY(20px);
+  transform: scale(0.8) translateY(rem(20));
 }
 
 .wishlist-item-leave-to {
   opacity: 0;
-  transform: scale(0.8) translateY(-20px);
+  transform: scale(0.8) translateY(rem(-20));
 }
 
 .wishlist-item-move {

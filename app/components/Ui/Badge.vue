@@ -1,7 +1,9 @@
 <script setup lang="ts">
-const props = defineProps<{
+interface IProps {
   variant: 'success' | 'warning' | 'error' | 'info'
-}>()
+}
+
+const props = defineProps<IProps>()
 
 const classList = computed(() => {
   if (props.variant === 'success') {

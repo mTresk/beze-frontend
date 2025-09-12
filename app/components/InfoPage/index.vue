@@ -1,19 +1,18 @@
 <script setup lang="ts">
-interface SidebarLink {
+import type { IBreadcrumbItem } from '@/types/api'
+
+interface ISidebarLink {
   to: string
   title: string
 }
 
-interface Props {
+interface IProps {
   title: string
-  breadcrumbItems: Array<{
-    title: string
-    to?: string
-  }>
-  sidebarLinks?: SidebarLink[]
+  breadcrumbItems: IBreadcrumbItem[]
+  sidebarLinks?: ISidebarLink[]
 }
 
-defineProps<Props>()
+defineProps<IProps>()
 </script>
 
 <template>

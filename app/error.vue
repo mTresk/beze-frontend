@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app'
 
-defineProps<{
+interface IProps {
   error: NuxtError
-}>()
+}
+
+defineProps<IProps>()
 
 const handleError = () => clearError({ redirect: '/catalog' })
 </script>

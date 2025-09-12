@@ -7,11 +7,7 @@ const containerRef = ref(null)
 
 const fetcher = async () => await client<IGallery>(`/api/gallery`)
 
-const {
-  data: gallery,
-  suspense,
-  isLoading,
-} = useQuery({
+const { data: gallery, suspense, isLoading } = useQuery({
   queryKey: ['gallery'],
   queryFn: fetcher,
 })

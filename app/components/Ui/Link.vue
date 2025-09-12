@@ -1,7 +1,9 @@
 <script setup lang="ts">
-defineProps<{
+interface IProps {
   href?: string
-}>()
+}
+
+defineProps<IProps>()
 </script>
 
 <template>

@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { IOrderItem } from '@/types/api'
 
-defineProps<{
+interface IProps {
   item: IOrderItem
-}>()
+}
+
+defineProps<IProps>()
 </script>
 
 <template>

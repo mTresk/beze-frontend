@@ -9,11 +9,7 @@ async function fetcher() {
   return await smartSearch(searchQuery.value)
 }
 
-const {
-  data: searchResult,
-  suspense,
-  isLoading,
-} = useQuery({
+const { data: searchResult, suspense, isLoading } = useQuery({
   queryKey: ['search', searchQuery],
   queryFn: fetcher,
 })

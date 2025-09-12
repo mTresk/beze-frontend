@@ -2,20 +2,13 @@
 import type { IOrderResponse, IUser } from '@/types/api'
 
 const client = useSanctumClient()
-
 const { $echo } = useNuxtApp()
-
 const user: Ref<IUser | null> = useSanctumUser()
-
 const route = useRoute()
 
 const fetcher = async () => await client<IOrderResponse[]>(`/api/orders/users/${user.value?.id}`)
 
-const {
-  data: orders,
-  isLoading,
-  refetch,
-} = useQuery({
+const { data: orders, isLoading, refetch } = useQuery({
   queryKey: ['orders'],
   queryFn: fetcher,
   enabled: computed(() => !!user.value?.id),

@@ -4,9 +4,7 @@ definePageMeta({
 })
 
 const route = useRoute()
-
 const { login } = useSanctumAuth()
-
 const { oneTimePassword } = useAuth()
 
 const form = reactive({
@@ -17,32 +15,22 @@ const form = reactive({
 
 const status = ref((route.query.reset ?? '').length > 0 ? (route.query.reset as string) : '')
 
-const {
-  submit: submitForm,
-  isLoading: isLoadingLogin,
-  validationErrors: errorsLogin,
-} = useSubmit(
+const { submit: submitForm, isLoading: isLoadingLogin, validationErrors: errorsLogin } = useSubmit(
   () => {
     status.value = ''
+
     return login(form)
   },
 )
 
-const {
-  submit: handleOneTimePassword,
-  isLoading: isLoadingOneTimePassword,
-  validationErrors: errorsOneTimePassword,
-} = useSubmit(
-  () => {
-    return oneTimePassword(form.email)
-  },
+const { submit: handleOneTimePassword, isLoading: isLoadingOneTimePassword, validationErrors: errorsOneTimePassword } = useSubmit(
+  () => oneTimePassword(form.email),
   {
     onSuccess: () => navigateTo(`/auth/one-time-login?email=${encodeURIComponent(form.email)}`),
   },
 )
 
 const isLoading = computed(() => isLoadingLogin.value || isLoadingOneTimePassword.value)
-
 const errors = computed(() => ({ ...errorsLogin.value, ...errorsOneTimePassword.value }))
 </script>
 

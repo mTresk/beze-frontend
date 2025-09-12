@@ -2,32 +2,20 @@
 import type { IColor, IFeedback, IInfoPageContent, IProduct, IProductVariant, IProductWithFeatured, ISize, ValidationErrors } from '@/types/api'
 import { getUniqueColors, sortSizes } from '@/helpers'
 
+const { isProductInCart, toggleCartItem } = useCart()
+const { isInWishlist, toggleWishlist } = useWishlist()
+const { addToViewed, viewedProductsIds } = useViewed()
 const client = useSanctumClient()
-
 const route = useRoute()
 
-const { isProductInCart, toggleCartItem } = useCart()
-
-const { isInWishlist, toggleWishlist } = useWishlist()
-
-const { addToViewed, viewedProductsIds } = useViewed()
-
 const viewedProducts = ref<IProduct[]>([])
-
 const isModalOpen = ref(false)
-
 const isCustomOrderModalOpen = ref(false)
-
 const containerRef = ref(null)
-
 const colorId = ref()
-
 const colorName = ref()
-
 const size = ref()
-
 const selectError = ref(false)
-
 const isAgreementAccepted = ref(false)
 
 const productSlug = computed(() => route.params.product)
@@ -49,20 +37,12 @@ async function fetchSizesTable() {
   return await client<IInfoPageContent>(`/api/pages/sizes`)
 }
 
-const {
-  data: productData,
-  suspense: productSuspense,
-  isLoading: isProductLoading,
-} = useQuery({
+const { data: productData, suspense: productSuspense, isLoading: isProductLoading } = useQuery({
   queryKey: ['product', productSlug.value],
   queryFn: fetchProduct,
 })
 
-const {
-  data: sizesTableData,
-  suspense: sizesTableSuspense,
-  isLoading: isSizesTableLoading,
-} = useQuery({
+const { data: sizesTableData, suspense: sizesTableSuspense, isLoading: isSizesTableLoading } = useQuery({
   queryKey: ['sizes-table'],
   queryFn: fetchSizesTable,
 })
@@ -70,9 +50,7 @@ const {
 await Promise.all([productSuspense(), sizesTableSuspense()])
 
 const product = computed(() => productData.value)
-
 const sizesTable = computed(() => sizesTableData.value)
-
 const isLoading = computed(() => isProductLoading.value || isSizesTableLoading.value)
 
 async function getViewedProducts() {
@@ -218,11 +196,7 @@ function handleForm() {
   })
 }
 
-const {
-  submit: handleSubmit,
-  isLoading: isFormSending,
-  validationErrors,
-} = useSubmit(
+const { submit: handleSubmit, isLoading: isFormSending, validationErrors } = useSubmit(
   () => handleForm(),
   {
     onSuccess: (response) => {

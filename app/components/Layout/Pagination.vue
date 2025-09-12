@@ -2,14 +2,17 @@
 import type { ApiPaginationMeta } from '@/types/api'
 import { Bootstrap5Pagination } from 'laravel-vue-pagination/dist/laravel-vue-pagination.es.js'
 
-const props = defineProps<{
+interface IProps {
   meta: ApiPaginationMeta
   isLoading?: boolean
-}>()
+}
 
-const emit = defineEmits<{
+interface IEmits {
   pageClick: [page: number]
-}>()
+}
+
+const props = defineProps<IProps>()
+const emit = defineEmits<IEmits>()
 
 function handlePageClick(page: number) {
   if (page === props.meta?.current_page || props.isLoading) {

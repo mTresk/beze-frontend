@@ -15,14 +15,8 @@ const form = reactive({
 
 const isAgreementAccepted = ref(false)
 
-const {
-  submit: submitForm,
-  isLoading,
-  validationErrors: errors,
-} = useSubmit(
-  () => {
-    return register(form)
-  },
+const { submit: submitForm, isLoading, validationErrors: errors } = useSubmit(
+  () => register(form),
   {
     onSuccess: () => navigateTo('/personal'),
   },

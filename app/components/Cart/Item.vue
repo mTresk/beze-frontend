@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import type { ICartItem } from '@/types/api'
 
-const props = defineProps<{
+interface IProps {
   cartItem: ICartItem
-}>()
+}
+
+const props = defineProps<IProps>()
 
 const { removeFromCart, updateCartItem } = useCart()
 
 const quantity = ref(props.cartItem.quantity)
-
 const updateTimeout = ref<NodeJS.Timeout | null>(null)
 
 const selectedVariant = computed(() => {

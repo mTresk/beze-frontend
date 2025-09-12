@@ -38,11 +38,7 @@ async function fetcher() {
   return await client<ICollection[]>(`/api/products/collections`)
 }
 
-const {
-  data: collections,
-  suspense,
-  isLoading,
-} = useQuery({
+const { data: collections, suspense, isLoading } = useQuery({
   queryKey: ['collections'],
   queryFn: fetcher,
 })

@@ -2,7 +2,6 @@ import type { ISearchResult } from '@/types/api'
 
 export function useSearch() {
   const client = useSanctumClient()
-
   const isSearchOpen = useState<boolean>('isSearchOpen', () => false)
 
   const openSearch = () => {

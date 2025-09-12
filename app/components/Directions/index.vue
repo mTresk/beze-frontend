@@ -32,11 +32,7 @@ async function fetcher() {
   return await client<ICategory[]>(`/api/categories`)
 }
 
-const {
-  data: categories,
-  suspense,
-  isLoading,
-} = useQuery({
+const { data: categories, suspense, isLoading } = useQuery({
   queryKey: ['categories'],
   queryFn: fetcher,
 })

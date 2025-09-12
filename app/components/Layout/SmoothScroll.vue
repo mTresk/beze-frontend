@@ -2,10 +2,10 @@
 import type { LenisScrollData } from '@/types/lenis'
 import Lenis from 'lenis'
 
+const { setScrollState, setLenis } = useScrollState()
+
 const lenisVS = ref<Lenis>()
 const lenisRaf = ref()
-
-const { setScrollState, setLenis } = useScrollState()
 
 const lenisOptions = computed(() => {
   return {
@@ -54,17 +54,17 @@ function destroyLenis() {
   cancelAnimationFrame(lenisRaf.value)
 }
 
+onUpdated(() => {
+  destroyLenis()
+  initLenis()
+})
+
 onMounted(() => {
   initLenis()
 })
 
 onBeforeUnmount(() => {
   destroyLenis()
-})
-
-onUpdated(() => {
-  destroyLenis()
-  initLenis()
 })
 </script>
 

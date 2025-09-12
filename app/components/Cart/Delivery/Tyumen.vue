@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import type { LocationOptions } from 'vue-dadata-3'
 
-const props = defineProps<{
+interface IProps {
   address: string
   error?: string[]
-}>()
+}
 
-const emit = defineEmits<{
+interface IEmits {
   (e: 'update:address', value: string): void
-}>()
+}
+
+const props = defineProps<IProps>()
+const emit = defineEmits<IEmits>()
 
 const addressProxy = ref(props.address)
 

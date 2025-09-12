@@ -8,11 +8,7 @@ const containerRef = ref(null)
 
 const fetcher = async () => await client<ITestimonial[]>(`/api/testimonials`)
 
-const {
-  data: testimonials,
-  suspense,
-  isLoading,
-} = useQuery({
+const { data: testimonials, suspense, isLoading } = useQuery({
   queryKey: ['testimonials'],
   queryFn: fetcher,
 })

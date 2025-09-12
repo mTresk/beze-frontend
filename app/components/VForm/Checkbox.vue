@@ -1,10 +1,15 @@
 <script setup lang="ts">
-const props = defineProps<{
+interface IProps {
   checked: boolean
   value?: string
-}>()
+}
 
-const emit = defineEmits(['update:checked'])
+interface IEmits {
+  (event: 'update:checked', value: boolean): void
+}
+
+const props = defineProps<IProps>()
+const emit = defineEmits<IEmits>()
 
 const proxyChecked = computed({
   get() {

@@ -7,13 +7,8 @@ const { resendEmailVerification } = useAuth()
 
 const verificationIsSent = ref(false)
 
-const {
-  submit: handleResendVerification,
-  isLoading,
-} = useSubmit(
-  () => {
-    return resendEmailVerification()
-  },
+const { submit: handleResendVerification, isLoading } = useSubmit(
+  () => resendEmailVerification(),
   {
     onSuccess: (result) => {
       if (result?.status === 'verification-link-sent') {

@@ -5,21 +5,16 @@ const client = useSanctumClient()
 
 const fetcher = async () => await client<IInfoPageContent>(`/api/pages/sizes`)
 
-const {
-  data: sizesTable,
-  suspense,
-} = useQuery({
+const { data: sizesTable, suspense } = useQuery({
   queryKey: ['sizes-table'],
   queryFn: fetcher,
 })
 
 await suspense()
+
 const ctx = ref()
-
 const isCompositionModalOpen = ref(false)
-
 const isCareModalOpen = ref(false)
-
 const isSizesModalOpen = ref(false)
 
 onMounted(() => {

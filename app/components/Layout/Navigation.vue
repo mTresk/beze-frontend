@@ -2,15 +2,11 @@
 import type { IUser } from '@/types/api'
 
 const { wishlistProductIds } = useWishlist()
-
 const { cartItems } = useCart()
-
 const { isAuthenticated } = useSanctumAuth()
-
 const user = useSanctumUser<IUser>()
 
 const wishlistCount = computed(() => wishlistProductIds.value?.length || 0)
-
 const cartCount = computed(() => cartItems.value?.length || 0)
 </script>
 

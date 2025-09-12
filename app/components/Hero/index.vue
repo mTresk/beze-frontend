@@ -1,7 +1,15 @@
 <script setup lang="ts">
 const containerRef = ref(null)
-
 const isDesktop = ref(false)
+
+useSwiper(containerRef, {
+  loop: true,
+  speed: 1500,
+  autoplay: {
+    delay: 5000,
+  },
+  slidesPerView: 1,
+})
 
 function checkScreenSize() {
   isDesktop.value = window.innerWidth >= 768
@@ -14,15 +22,6 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('resize', checkScreenSize)
-})
-
-useSwiper(containerRef, {
-  loop: true,
-  speed: 1500,
-  autoplay: {
-    delay: 5000,
-  },
-  slidesPerView: 1,
 })
 </script>
 

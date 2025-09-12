@@ -1,12 +1,22 @@
 <script setup lang="ts">
-defineProps<{
+interface IProps {
   modelValue: string
   value: string
   label: string
   name?: string
-}>()
-const emit = defineEmits(['update:modelValue'])
-const handleChange = (e: Event) => emit('update:modelValue', (e.target as HTMLInputElement).value)
+}
+
+interface IEmits {
+  (event: 'update:modelValue', value: string): void
+}
+
+defineProps<IProps>()
+
+const emit = defineEmits<IEmits>()
+
+function handleChange(e: Event) {
+  emit('update:modelValue', (e.target as HTMLInputElement).value)
+}
 </script>
 
 <template>

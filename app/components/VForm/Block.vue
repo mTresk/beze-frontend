@@ -1,7 +1,9 @@
 <script setup lang="ts">
-defineProps<{
+interface IProps {
   error?: string[]
-}>()
+}
+
+defineProps<IProps>()
 </script>
 
 <template>

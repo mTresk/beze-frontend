@@ -2,34 +2,22 @@
 import type { IMenu, ISettings, IUser } from '@/types/api'
 
 const route = useRoute()
-
 const { wishlistProductIds } = useWishlist()
-
 const { cartItems } = useCart()
-
 const { openSearch } = useSearch()
-
 const { isAuthenticated } = useSanctumAuth()
-
 const { lockScroll, unlockScroll } = useScrollLock()
-
 const user = useSanctumUser<IUser>()
-
 const menu = useState<IMenu>('menu')
-
 const settings = useState<ISettings>('settings')
 
-const isInnerPage = computed(() => route.path !== '/' && route.path !== '/about')
-
-const wishlistCount = computed(() => wishlistProductIds.value?.length || 0)
-
-const cartCount = computed(() => cartItems.value?.length || 0)
-
-const formattedPhone = computed(() => settings?.value?.phone?.replace(/\s+/g, ''))
-
 const isMenuBlocked = ref(false)
-
 const isMenuOpen = ref(false)
+
+const isInnerPage = computed(() => route.path !== '/' && route.path !== '/about')
+const wishlistCount = computed(() => wishlistProductIds.value?.length || 0)
+const cartCount = computed(() => cartItems.value?.length || 0)
+const formattedPhone = computed(() => settings?.value?.phone?.replace(/\s+/g, ''))
 
 function handleBlockMenu() {
   isMenuBlocked.value = true

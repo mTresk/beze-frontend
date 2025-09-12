@@ -1,7 +1,9 @@
 <script setup lang="ts">
-defineProps<{
+interface IProps {
   size: string
-}>()
+}
+
+defineProps<IProps>()
 </script>
 
 <template>

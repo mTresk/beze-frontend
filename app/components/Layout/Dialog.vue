@@ -1,18 +1,21 @@
 <script setup lang="ts">
 import type Lenis from 'lenis'
 
-const props = defineProps<{
+interface IProps {
   modelValue: boolean
-}>()
+}
 
-const emit = defineEmits<{
+interface IEmits {
   'update:modelValue': [value: boolean]
   'close': []
-}>()
+}
 
-const dialogRef = ref<HTMLDialogElement | null>(null)
+const props = defineProps<IProps>()
+const emit = defineEmits<IEmits>()
 
 const lenis = useState<Lenis | null>('lenisVS')
+
+const dialogRef = ref<HTMLDialogElement | null>(null)
 
 function handleBackdropClick(event: MouseEvent) {
   if (event.target === event.currentTarget) {

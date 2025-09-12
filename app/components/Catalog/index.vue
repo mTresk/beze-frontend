@@ -2,7 +2,7 @@
 import type { ApiPaginationMeta, ApiResponse, ICategory, IProduct } from '@/types/api'
 import { sortOptions } from '@/data/sort-options'
 
-interface Props {
+interface IProps {
   apiUrl: string
   queryKey: string[]
   breadcrumbs: Array<{ title: string, link?: string }>
@@ -11,16 +11,13 @@ interface Props {
   baseUrl?: string
 }
 
-const props = defineProps<Props>()
+const props = defineProps<IProps>()
 
 const client = useSanctumClient()
-
 const route = useRoute()
 
 const meta = ref<ApiPaginationMeta>()
-
 const currentPage = ref(Number(route.query.page) || 1)
-
 const selectedSort = ref(route.query.sort || 'default')
 
 const sort = computed({

@@ -2,17 +2,13 @@
 import type { IOrderResponse } from '@/types/api'
 
 const route = useRoute()
-
 const client = useSanctumClient()
 
 const order = ref()
-
 const isLoading = ref(false)
 
 const orderId = route.params.id as string
-
 const expires = route.query.expires as string
-
 const signature = route.query.signature as string
 
 const hasAllParams = computed(() => orderId && expires && signature)

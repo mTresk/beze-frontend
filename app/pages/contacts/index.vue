@@ -3,6 +3,22 @@ import type { IFeedback, ISettings } from '@/types/api'
 import { formatPhone, yandexMap } from '@/helpers'
 
 const client = useSanctumClient()
+const settings = useState<ISettings>('settings')
+
+useSchemaOrg([
+  defineOrganization({
+    name: 'Beze Studio',
+    url: 'https://bezestudio.ru',
+    logo: 'https://bezestudio.ru/images/og.png',
+    address: {
+      '@type': 'PostalAddress',
+      'addressLocality': 'Тюмень, Россия',
+      'postalCode': '625048',
+      'streetAddress': 'ул. Малыгина, 71',
+      'url': 'https://bezestudio.ru',
+    },
+  }),
+])
 
 const form = reactive<IFeedback>({
   name: '',
@@ -12,12 +28,9 @@ const form = reactive<IFeedback>({
 })
 
 const mapRoot = ref<HTMLElement | null>(null)
-
-const settings = useState<ISettings>('settings')
+const isAgreementAccepted = ref(false)
 
 const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
-
-const isAgreementAccepted = ref(false)
 
 function handleForm() {
   return client('/api/feedback', {
@@ -26,15 +39,8 @@ function handleForm() {
   })
 }
 
-const {
-  submit: handleSubmit,
-  isLoading,
-  validationErrors: errors,
-  succeeded: isFormSent,
-} = useSubmit(
-  () => {
-    return handleForm()
-  },
+const { submit: handleSubmit, isLoading, validationErrors: errors, succeeded: isFormSent } = useSubmit(
+  () => handleForm(),
   {
     onSuccess: (response) => {
       useToastify(response, { type: 'success' })
@@ -60,21 +66,6 @@ onMounted(() => {
 const seoTitle = 'Контакты'
 const seoDescription = 'Как с нами связаться'
 const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/contacts`)
-
-useSchemaOrg([
-  defineOrganization({
-    name: 'Beze Studio',
-    url: 'https://bezestudio.ru',
-    logo: 'https://bezestudio.ru/images/og.png',
-    address: {
-      '@type': 'PostalAddress',
-      'addressLocality': 'Тюмень, Россия',
-      'postalCode': '625048',
-      'streetAddress': 'ул. Малыгина, 71',
-      'url': 'https://bezestudio.ru',
-    },
-  }),
-])
 </script>
 
 <template>

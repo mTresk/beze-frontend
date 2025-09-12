@@ -2,29 +2,20 @@
 import type { ICategory, ISubCategory } from '@/types/api'
 
 const client = useSanctumClient()
-
 const route = useRoute()
 
 const categorySlug = computed(() => route.params.category)
-
 const subcategorySlug = computed(() => route.params.subcategory)
 
 const fetchCategory = () => client<ICategory>(`api/categories/${categorySlug.value}`)
-
 const fetchSubcategory = () => client<ISubCategory>(`api/categories/${categorySlug.value}/${subcategorySlug.value}`)
 
-const {
-  data: category,
-  suspense: categorySuspense,
-} = useQuery({
+const { data: category, suspense: categorySuspense } = useQuery({
   queryKey: ['category', categorySlug.value],
   queryFn: fetchCategory,
 })
 
-const {
-  data: subcategory,
-  suspense: subcategorySuspense,
-} = useQuery({
+const { data: subcategory, suspense: subcategorySuspense } = useQuery({
   queryKey: ['subcategory', categorySlug.value, subcategorySlug.value],
   queryFn: fetchSubcategory,
 })

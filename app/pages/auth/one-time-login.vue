@@ -4,7 +4,6 @@ definePageMeta({
 })
 
 const { oneTimeLogin } = useAuth()
-
 const route = useRoute()
 
 const form = reactive({
@@ -12,14 +11,8 @@ const form = reactive({
   password: '',
 })
 
-const {
-  submit: handleOneTimePassword,
-  isLoading,
-  validationErrors: errors,
-} = useSubmit(
-  () => {
-    return oneTimeLogin(form)
-  },
+const { submit: handleOneTimePassword, isLoading, validationErrors: errors } = useSubmit(
+  () => oneTimeLogin(form),
   {
     onSuccess: () => navigateTo('/personal'),
   },

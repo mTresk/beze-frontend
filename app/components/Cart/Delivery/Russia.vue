@@ -7,24 +7,23 @@ declare global {
   }
 }
 
-const props = defineProps<{
+interface IProps {
   address: string
   error?: string[]
-}>()
+}
 
-const emit = defineEmits<{
+interface IEmits {
   (e: 'update:address', value: string): void
   (e: 'deliveryCost', value: number): void
-}>()
+}
+
+const props = defineProps<IProps>()
+const emit = defineEmits<IEmits>()
 
 const addressProxy = ref(props.address)
-
 const widgetContainer = ref<HTMLElement | null>(null)
-
 const widget = ref()
-
 const deliveryPoint = ref<CdekPoint | null>(null)
-
 const deliveryCost = ref<number>(0)
 
 watch(() => props.address, (val) => {

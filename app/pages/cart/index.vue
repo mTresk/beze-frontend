@@ -2,15 +2,11 @@
 import type { IOrder } from '@/types/api'
 
 const { cartItems, cartTotal, isLoading, clearCartItems } = useCart()
-
 const { isAuthenticated } = useSanctumAuth()
-
 const client = useSanctumClient()
 
 const isInitialized = ref(false)
-
 const form = ref<IOrder>()
-
 const isAgreementAccepted = ref(false)
 
 const deliveryPrice = computed(() => {
@@ -57,14 +53,8 @@ async function submitOrder() {
   }
 }
 
-const {
-  submit: handleSubmit,
-  validationErrors: errors,
-  isLoading: isFormSending,
-} = useSubmit(
-  () => {
-    return submitOrder()
-  },
+const { submit: handleSubmit, validationErrors: errors, isLoading: isFormSending } = useSubmit(
+  () => submitOrder(),
   {
     onSuccess: () => {
       clearCartItems()

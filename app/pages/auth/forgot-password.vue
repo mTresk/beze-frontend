@@ -6,18 +6,13 @@ definePageMeta({
 const { forgotPassword } = useAuth()
 
 const email = ref('')
-
 const resetEmailSent = ref(false)
-
 const status = ref('')
 
-const {
-  submit: submitForm,
-  isLoading,
-  validationErrors: errors,
-} = useSubmit(
+const { submit: submitForm, isLoading, validationErrors: errors } = useSubmit(
   () => {
     status.value = ''
+
     return forgotPassword(email.value)
   },
   {

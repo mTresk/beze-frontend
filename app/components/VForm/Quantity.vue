@@ -1,13 +1,16 @@
 <script setup lang="ts">
-const props = defineProps<{
+interface IProps {
   modelValue: number
   min?: number
   max?: number
-}>()
+}
 
-const emit = defineEmits<{
+interface IEmits {
   (event: 'update:modelValue', value: number): void
-}>()
+}
+
+const props = defineProps<IProps>()
+const emit = defineEmits<IEmits>()
 
 const quantity = computed({
   get: () => props.modelValue,

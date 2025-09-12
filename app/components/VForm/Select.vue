@@ -1,21 +1,23 @@
 <script setup lang="ts">
-const props = defineProps<{
+interface IProps {
   modelValue: any
   options: any
   placeholder: string
   isError?: boolean
   id?: string
-}>()
+}
 
-const emit = defineEmits<{
+interface IEmits {
   (e: 'update:modelValue', value: any): void
   (e: 'clearError'): void
-}>()
+}
+
+const props = defineProps<IProps>()
+const emit = defineEmits<IEmits>()
 
 defineExpose({ openOptions })
 
 const isOptionsOpen = ref(false)
-
 const highlightedIndex = ref(-1)
 
 const selectedOption = computed(() => {

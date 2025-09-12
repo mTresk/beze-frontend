@@ -2,25 +2,16 @@
 import type { ICertificate, ICertificateOrder } from '@/types/api'
 
 const client = useSanctumClient()
-
 const { isAuthenticated } = useSanctumAuth()
 
 const certificates = ref<ICertificate[]>()
-
 const isLoading = ref(false)
-
 const certificateTotal = ref(0)
-
 const form = ref<ICertificateOrder>()
-
 const quantity = ref(1)
-
 const amount = ref<number>()
-
 const selectedOption = ref<any>(null)
-
 const isInitialized = ref(false)
-
 const isAgreementAccepted = ref(false)
 
 const certificateOptions = computed(() => {
@@ -99,26 +90,14 @@ async function submitOrder() {
   }
 }
 
-const {
-  submit: handleSubmit,
-  validationErrors: errors,
-  isLoading: isFormSending,
-} = useSubmit(
-  () => {
-    return submitOrder()
-  },
+const { submit: handleSubmit, validationErrors: errors, isLoading: isFormSending } = useSubmit(
+  () => submitOrder(),
   {
     onSuccess: () => {},
   },
 )
 
-watch(
-  [amount, quantity],
-  () => {
-    calculateTotal()
-  },
-  { immediate: true },
-)
+watch([amount, quantity], () => calculateTotal(), { immediate: true })
 
 watch(isLoading, (value) => {
   if (!value) {

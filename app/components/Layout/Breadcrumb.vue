@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import type { IBreadcrumbItem } from '@/types/api'
 
-interface IBreadcrumbItem {
-  title: string
-  link?: string
+interface IProps {
+  items: IBreadcrumbItem[]
 }
 
-const props = defineProps<{
-  items: IBreadcrumbItem[]
-}>()
+const props = defineProps<IProps>()
 
 const HOME_CRUMB: IBreadcrumbItem = {
   title: 'Главная',

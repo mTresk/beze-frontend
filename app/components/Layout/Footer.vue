@@ -3,11 +3,10 @@ import type { IMenu, ISettings } from '@/types/api'
 import { NuxtImg } from '#components'
 import { formatPhone } from '@/helpers'
 
-const currentYear = new Date().getFullYear()
-
 const menu = useState<IMenu>('menu')
-
 const settings = useState<ISettings>('settings')
+
+const currentYear = new Date().getFullYear()
 
 const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
 </script>

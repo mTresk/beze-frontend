@@ -2,29 +2,39 @@
 import type { IProduct } from '@/types/api'
 import { getUniqueColors } from '@/helpers'
 
-const props = defineProps<{
+interface IProps {
   product: IProduct
-}>()
+}
 
-defineEmits<{
+interface IEmits {
   (e: 'linkClick'): void
-}>()
+}
+
+const props = defineProps<IProps>()
+
+defineEmits<IEmits>()
 
 const { toggleWishlist, isInWishlist, isOperating } = useWishlist()
 
+const wishlistStatus = isInWishlist(String(props.product.id))
+const containerRef = ref(null)
+const activeSlide = ref(0)
+const imagesLoaded = ref(false)
+
 const colors = computed(() => getUniqueColors(props.product.variants))
-
 const limitedImages = computed(() => props.product.images?.slice(0, 6) || [])
-
 const paginationItemWidth = computed(() => `${100 / (limitedImages.value.length || 1)}%`)
 
-const wishlistStatus = isInWishlist(String(props.product.id))
-
-const containerRef = ref(null)
-
-const activeSlide = ref(0)
-
-const imagesLoaded = ref(false)
+useSwiper(containerRef, {
+  speed: 300,
+  slidesPerView: 1,
+  spaceBetween: 1,
+  on: {
+    slideChange: (swiper: any) => {
+      activeSlide.value = swiper.activeIndex
+    },
+  },
+})
 
 let slideChangeTimer: NodeJS.Timeout | null = null
 
@@ -66,17 +76,6 @@ function handleImageLoad(event: Event) {
     imagesLoaded.value = true
   }
 }
-
-useSwiper(containerRef, {
-  speed: 300,
-  slidesPerView: 1,
-  spaceBetween: 1,
-  on: {
-    slideChange: (swiper: any) => {
-      activeSlide.value = swiper.activeIndex
-    },
-  },
-})
 
 onUnmounted(() => {
   if (slideChangeTimer) {

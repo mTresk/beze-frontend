@@ -1,12 +1,15 @@
 <script setup lang="ts">
-defineProps<{
+interface IProps {
   modelValue?: string | number
   error?: string[]
-}>()
+}
 
-defineEmits<{
+interface IEmits {
   (event: 'update:modelValue', value: number | string): void
-}>()
+}
+
+defineProps<IProps>()
+defineEmits<IEmits>()
 </script>
 
 <template>

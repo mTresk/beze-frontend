@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { PersonalInfo, PersonalOrders } from '#components'
 
+type TabName = 'PersonalOrders' | 'PersonalInfo'
+
 definePageMeta({
   middleware: ['verified'],
 })
 
 const { logout } = useSanctumAuth()
-
-type TabName = 'PersonalOrders' | 'PersonalInfo'
 
 const currentTab = ref<TabName>('PersonalOrders')
 

@@ -5,11 +5,7 @@ const client = useSanctumClient()
 
 const fetcher = async () => await client<IInfoPageContent>(`/api/pages/offer`)
 
-const {
-  data: offer,
-  suspense,
-  isLoading,
-} = useQuery({
+const { data: offer, suspense, isLoading } = useQuery({
   queryKey: ['offer'],
   queryFn: fetcher,
 })

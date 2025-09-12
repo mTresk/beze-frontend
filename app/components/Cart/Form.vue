@@ -2,17 +2,19 @@
 import type { IOrder, ISettings, IUser, ValidationErrors } from '@/types/api'
 import { CartDeliveryPickup, CartDeliveryRussia, CartDeliveryTyumen } from '#components'
 
-defineProps<{
+interface IProps {
   errors: ValidationErrors
-}>()
+}
 
-const emit = defineEmits<{
+interface IEmits {
   (event: 'update:modelValue', value: typeof form | null): void
-}>()
+}
 
-const user: Ref<IUser | null> = useSanctumUser()
+type DeliveryTab = typeof deliveryTabs[number]['id']
 
-const settings = useState<ISettings>('settings')
+defineProps<IProps>()
+
+const emit = defineEmits<IEmits>()
 
 const options = [
   { id: 1, name: 'Телефон' },
@@ -27,14 +29,12 @@ const deliveryTabs = [
   { id: 'russia', label: 'Доставка по России' },
 ] as const
 
-type DeliveryTab = typeof deliveryTabs[number]['id']
+const user: Ref<IUser | null> = useSanctumUser()
+const settings = useState<ISettings>('settings')
 
 const currentDeliveryTab = ref<DeliveryTab>('pickup')
-
 const pickupAddress = settings.value.address
-
 const deliveryCost = ref<number>(0)
-
 const tyumenAddress = ref('')
 
 const form = reactive<Partial<IOrder>>({

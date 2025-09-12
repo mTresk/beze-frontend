@@ -3,9 +3,11 @@ import type { IOrderResponse } from '@/types/api'
 import { formatDate } from '@/helpers'
 import { EOrderStatus } from '@/types/api'
 
-defineProps<{
+interface IProps {
   order: IOrderResponse
-}>()
+}
+
+defineProps<IProps>()
 
 const client = useSanctumClient()
 

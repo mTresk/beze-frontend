@@ -1,8 +1,10 @@
 <script setup lang="ts">
-defineProps<{
+interface IProps {
   name: string
   size: string
-}>()
+}
+
+defineProps<IProps>()
 </script>
 
 <template>

@@ -7,11 +7,7 @@ const containerRef = ref(null)
 
 const fetcher = async () => await client<IReview>(`/api/reviews`)
 
-const {
-  data: reviews,
-  suspense,
-  isLoading,
-} = useQuery({
+const { data: reviews, suspense, isLoading } = useQuery({
   queryKey: ['reviews'],
   queryFn: fetcher,
 })
