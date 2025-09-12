@@ -98,8 +98,6 @@ export default defineNuxtConfig({
   },
   pwa: {
     registerType: 'autoUpdate',
-    workbox: { navigateFallback: null, globPatterns: ['**/*.{js,css,svg,ico}'] },
-    client: { installPrompt: true, periodicSyncForUpdates: 100000 },
     manifest: {
       name: 'Beze Studio',
       short_name: 'Beze',
