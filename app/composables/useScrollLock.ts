@@ -1,9 +1,6 @@
-import type Lenis from 'lenis'
-
 export function useScrollLock() {
   const scrollPosition = ref(0)
   const savedScrollClass = ref('')
-  const lenis = useState<Lenis | null>('lenisVS')
 
   const lockScroll = () => {
     scrollPosition.value = window.pageYOffset || document.documentElement.scrollTop
@@ -26,10 +23,6 @@ export function useScrollLock() {
     document.body.style.top = `-${scrollPosition.value}px`
     document.body.style.width = '100%'
     document.documentElement.classList.add('lock')
-
-    if (lenis.value) {
-      lenis.value.destroy()
-    }
   }
 
   const unlockScroll = () => {
@@ -39,10 +32,6 @@ export function useScrollLock() {
     document.documentElement.classList.remove('lock')
 
     window.scrollTo(0, scrollPosition.value)
-
-    if (lenis.value) {
-      lenis.value.start()
-    }
 
     const wrapper = document.querySelector('[data-wrapper]')
 

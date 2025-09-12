@@ -119,9 +119,7 @@ const description = 'Элегантная одежда на утро невес�
       <LayoutSearch v-if="isSearchOpen" />
     </Transition>
     <main class="page">
-      <LayoutSmoothScroll>
-        <slot />
-      </LayoutSmoothScroll>
+      <slot />
     </main>
     <LayoutFooter />
     <LayoutNavigation />

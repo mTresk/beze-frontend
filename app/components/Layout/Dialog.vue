@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type Lenis from 'lenis'
-
 interface IProps {
   modelValue: boolean
 }
@@ -12,8 +10,6 @@ interface IEmits {
 
 const props = defineProps<IProps>()
 const emit = defineEmits<IEmits>()
-
-const lenis = useState<Lenis | null>('lenisVS')
 
 const dialogRef = ref<HTMLDialogElement | null>(null)
 
@@ -36,9 +32,6 @@ function handleOpen() {
 
   dialogRef.value.showModal()
 
-  if (lenis.value) {
-    lenis.value.destroy()
-  }
   emit('update:modelValue', true)
 }
 
@@ -56,10 +49,6 @@ function handleClose() {
 
     dialogRef.value.close()
     dialogRef.value.removeAttribute('closing')
-
-    if (lenis.value) {
-      lenis.value.start()
-    }
 
     emit('update:modelValue', false)
     emit('close')
@@ -81,9 +70,6 @@ onMounted(() => {
 
 onUnmounted(() => {
   document.removeEventListener('keydown', handleKeyDown)
-  if (lenis.value) {
-    lenis.value.start()
-  }
 })
 </script>
 
