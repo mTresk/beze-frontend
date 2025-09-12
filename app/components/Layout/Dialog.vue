@@ -11,6 +11,8 @@ interface IEmits {
 const props = defineProps<IProps>()
 const emit = defineEmits<IEmits>()
 
+const { lockScroll, unlockScroll } = useScrollLock()
+
 const dialogRef = ref<HTMLDialogElement | null>(null)
 
 function handleBackdropClick(event: MouseEvent) {
@@ -30,6 +32,7 @@ function handleOpen() {
     return
   }
 
+  lockScroll()
   dialogRef.value.showModal()
 
   emit('update:modelValue', true)
@@ -53,6 +56,8 @@ function handleClose() {
     emit('update:modelValue', false)
     emit('close')
   }, 300)
+
+  unlockScroll()
 }
 
 watch(() => props.modelValue, (newValue) => {
@@ -106,12 +111,6 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss">
-body {
-  &:has(dialog[open]) {
-    overflow: hidden;
-  }
-}
-
 .modal {
   position: fixed;
   inset: 0;
