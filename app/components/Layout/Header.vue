@@ -21,9 +21,10 @@ const formattedPhone = computed(() => settings?.value?.phone?.replace(/\s+/g, ''
 
 function handleBlockMenu() {
   isMenuBlocked.value = true
+
   setTimeout(() => {
     isMenuBlocked.value = false
-  }, 100)
+  }, 500)
 }
 
 function handleSearchClick() {
