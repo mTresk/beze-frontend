@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import type { IMenu, ISettings } from '@/types/api'
-import { NuxtImg } from '#components'
-import { formatPhone } from '@/helpers'
 
 const menu = useState<IMenu>('menu')
 const settings = useState<ISettings>('settings')

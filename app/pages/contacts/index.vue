@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { IFeedback, ISettings } from '@/types/api'
-import { formatPhone, yandexMap } from '@/helpers'
 
 const client = useSanctumClient()
 const settings = useState<ISettings>('settings')

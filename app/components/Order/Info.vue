@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { IOrderResponse } from '@/types/api'
-import { formatDate } from '@/helpers'
 import { EOrderStatus } from '@/types/api'
 
 interface IProps {

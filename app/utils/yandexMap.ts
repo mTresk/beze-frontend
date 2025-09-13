@@ -1,29 +1,3 @@
-import type { IColor, IProductVariant, ISize } from '@/types/api'
-
-export function getUniqueColors(variants: IProductVariant[]): IColor[] {
-  const uniqueColors = new Map<number, IColor>()
-
-  variants.forEach((variant) => {
-    if (!uniqueColors.has(variant.color.id)) {
-      uniqueColors.set(variant.color.id, variant.color)
-    }
-  })
-
-  return Array.from(uniqueColors.values())
-}
-
-export function getUniqueSizes(variants: IProductVariant[]): ISize[] {
-  const uniqueSizes = new Map<number, ISize>()
-
-  variants.forEach((variant) => {
-    if (!uniqueSizes.has(variant.size.id)) {
-      uniqueSizes.set(variant.size.id, variant.size)
-    }
-  })
-
-  return Array.from(uniqueSizes.values())
-}
-
 export function yandexMap(mapRoot: HTMLElement) {
   function loadYMaps() {
     return new Promise((resolve, reject) => {
@@ -132,58 +106,4 @@ export function yandexMap(mapRoot: HTMLElement) {
   }
 
   initMap()
-}
-
-export function formatDate(dateStr: string) {
-  const date = new Date(dateStr)
-  const day = date.getDate().toString().padStart(2, '0')
-  const month = (date.getMonth() + 1).toString().padStart(2, '0')
-  const year = date.getFullYear()
-  const hours = date.getHours().toString().padStart(2, '0')
-  const minutes = date.getMinutes().toString().padStart(2, '0')
-
-  return `${day}.${month}.${year} ${hours}:${minutes}`
-}
-
-export function sortSizes(sizes: ISize[]): ISize[] {
-  const sizeOrder = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', '2XL', '3XL', '4XL', '5XL']
-
-  return [...sizes].sort((a, b) => {
-    const aIndex = sizeOrder.indexOf(a.name.toUpperCase())
-    const bIndex = sizeOrder.indexOf(b.name.toUpperCase())
-
-    if (aIndex === -1 && bIndex === -1) {
-      return 0
-    }
-
-    if (aIndex === -1) {
-      return 1
-    }
-
-    if (bIndex === -1) {
-      return -1
-    }
-
-    return aIndex - bIndex
-  })
-}
-
-export function formatPhone(phone?: string): string {
-  if (!phone) {
-    return ''
-  }
-
-  if (phone[0] === '+') {
-    return `+${phone.slice(1).replace(/\D/g, '')}`
-  }
-
-  return phone.replace(/\D/g, '')
-}
-
-export function trimTrailingSlash(path: string): string {
-  if (path.length > 1 && path.slice(-1) === '/') {
-    return path.slice(0, -1)
-  }
-
-  return path
 }

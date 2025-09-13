@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { IColor, IFeedback, IInfoPageContent, IProduct, IProductVariant, IProductWithFeatured, ISize, ValidationErrors } from '@/types/api'
-import { getUniqueColors, sortSizes } from '@/helpers'
 
 const { isProductInCart, toggleCartItem } = useCart()
 const { isInWishlist, toggleWishlist } = useWishlist()

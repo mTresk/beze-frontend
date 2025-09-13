@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { IProduct } from '@/types/api'
-import { getUniqueColors } from '@/helpers'
 
 interface IProps {
   product: IProduct
