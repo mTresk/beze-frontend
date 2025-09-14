@@ -1,7 +1,6 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
   modules: [
-    'nuxt-swiper',
     'nuxt-toastify',
     'nuxt-auth-sanctum',
     '@nuxt/image',
@@ -12,6 +11,11 @@ export default defineNuxtConfig({
     '@nuxtjs/robots',
     'nuxt-yandex-metrika',
   ],
+  vue: {
+    compilerOptions: {
+      isCustomElement: tag => ['swiper-container', 'swiper-slide'].includes(tag),
+    },
+  },
   app: {
     pageTransition: { name: 'layout', mode: 'out-in' },
   },
