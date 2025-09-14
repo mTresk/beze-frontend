@@ -35,7 +35,7 @@ onMounted(() => {
         },
       })
     })
-  }, 100)
+  })
 })
 
 onBeforeUnmount(() => {
