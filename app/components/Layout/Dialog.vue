@@ -65,7 +65,7 @@ function handleClose() {
     emit('close')
     unlockScroll()
     closeTimeout.value = null
-  }, 400)
+  }, 200)
 }
 
 watch(() => props.modelValue, (newValue) => {
