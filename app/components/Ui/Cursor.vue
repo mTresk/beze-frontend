@@ -1,52 +1,89 @@
 <script setup lang="ts">
-const cursor = ref<HTMLElement | null>(null)
+const cursor = useTemplateRef('cursor')
+const isVisible = ref(false)
 
-onMounted(() => nextTick(() => {
-  const cursorElements = document.querySelectorAll<HTMLElement>('[data-js-cursor]')
+let animationFrame: number | null = null
+let lastEvent: MouseEvent | null = null
+let targetElements: HTMLElement[] = []
 
-  if (!cursorElements.length) {
+function handleMouseEnter() {
+  isVisible.value = true
+}
+
+function handleMouseLeave() {
+  isVisible.value = false
+}
+
+function handleMouseMove(event: MouseEvent) {
+  lastEvent = event
+
+  if (animationFrame) {
     return
   }
 
-  cursorElements.forEach((element) => {
-    element.addEventListener('mouseenter', () => {
-      cursor.value?.classList.add('cursor--visible')
-    })
+  animationFrame = requestAnimationFrame(() => {
+    if (cursor.value && lastEvent) {
+      cursor.value.style.left = `${lastEvent.clientX}px`
+      cursor.value.style.top = `${lastEvent.clientY}px`
+    }
 
-    element.addEventListener('mouseleave', () => {
-      cursor.value?.classList.remove('cursor--visible')
-    })
-
-    element.addEventListener('mousemove', (e: MouseEvent) => {
-      if (cursor.value) {
-        cursor.value.style.left = `${e.clientX}px`
-        cursor.value.style.top = `${e.clientY}px`
-      }
-    })
+    animationFrame = null
   })
+}
+
+onMounted(() => nextTick(() => {
+  const elements = document.querySelectorAll<HTMLElement>('[data-js-cursor]')
+
+  if (!elements.length) {
+    return
+  }
+
+  targetElements = Array.from(elements)
+
+  targetElements.forEach((element) => {
+    element.addEventListener('mouseenter', handleMouseEnter)
+    element.addEventListener('mouseleave', handleMouseLeave)
+  })
+
+  window.addEventListener('mousemove', handleMouseMove)
 }))
+
+onUnmounted(() => {
+  if (animationFrame) {
+    cancelAnimationFrame(animationFrame)
+  }
+
+  targetElements.forEach((element) => {
+    element.removeEventListener('mouseenter', handleMouseEnter)
+    element.removeEventListener('mouseleave', handleMouseLeave)
+  })
+
+  window.removeEventListener('mousemove', handleMouseMove)
+
+  targetElements = []
+})
 </script>
 
 <template>
   <div
     ref="cursor"
     class="cursor"
+    :class="{ 'cursor--visible': isVisible }"
   >
     <span>Смотреть</span>
-    <svg
-      width="10"
-      height="10"
-    >
-      <use href="/images/icons.svg#arrow-down" />
-    </svg>
+    <UiIcon
+      name="arrow-down"
+      size="10"
+    />
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .cursor {
   position: fixed;
   z-index: 9999;
   display: flex;
+  visibility: hidden;
   gap: rem(4);
   align-items: center;
   padding: rem(8) rem(16);
@@ -57,18 +94,14 @@ onMounted(() => nextTick(() => {
   border-radius: rem(20);
   opacity: 0;
   transform: translate(-50%, -50%);
-  transition: opacity 0.1s ease-in-out;
 
   svg {
     transform: rotate(-90deg);
   }
 
   &--visible {
+    visibility: visible;
     opacity: 1;
   }
-}
-
-[data-js-cursor] {
-  cursor: none !important;
 }
 </style>

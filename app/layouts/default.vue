@@ -219,6 +219,10 @@ body {
   transform: translate(rem(-18), rem(-18));
 }
 
+[data-js-cursor] {
+  cursor: none !important;
+}
+
 .content {
   h2 {
     line-height: 140%;
