@@ -14,6 +14,7 @@ const emit = defineEmits<IEmits>()
 const { lockScroll, unlockScroll } = useScrollLock()
 
 const dialogRef = ref<HTMLDialogElement | null>(null)
+const closeTimeout = ref<NodeJS.Timeout | null>(null)
 
 function handleBackdropClick(event: MouseEvent) {
   if (event.target === event.currentTarget) {
@@ -32,10 +33,18 @@ function handleOpen() {
     return
   }
 
-  lockScroll()
-  dialogRef.value.showModal()
+  if (closeTimeout.value) {
+    clearTimeout(closeTimeout.value)
+    closeTimeout.value = null
+  }
+
+  if (dialogRef.value.hasAttribute('closing')) {
+    dialogRef.value.removeAttribute('closing')
+  }
 
   emit('update:modelValue', true)
+  lockScroll()
+  dialogRef.value.showModal()
 }
 
 function handleClose() {
@@ -45,19 +54,18 @@ function handleClose() {
 
   dialogRef.value.setAttribute('closing', '')
 
-  setTimeout(() => {
+  closeTimeout.value = setTimeout(() => {
     if (!dialogRef.value) {
       return
     }
 
     dialogRef.value.close()
     dialogRef.value.removeAttribute('closing')
-
     emit('update:modelValue', false)
     emit('close')
-  }, 300)
-
-  unlockScroll()
+    unlockScroll()
+    closeTimeout.value = null
+  }, 400)
 }
 
 watch(() => props.modelValue, (newValue) => {
@@ -75,6 +83,10 @@ onMounted(() => {
 
 onUnmounted(() => {
   document.removeEventListener('keydown', handleKeyDown)
+
+  if (closeTimeout.value) {
+    clearTimeout(closeTimeout.value)
+  }
 })
 </script>
 
@@ -123,20 +135,20 @@ onUnmounted(() => {
   background: transparent;
   border: none;
   opacity: 0;
-  animation: modal-show 0.3s ease forwards;
+  animation: modal-show 0.4s ease forwards;
 
   &[closing] {
-    animation: modal-hide 0.3s ease forwards;
+    animation: modal-hide 0.4s ease forwards;
   }
 
   &::backdrop {
     background-color: rgb(0 0 0 / 50%);
     opacity: 0;
-    animation: backdrop-show 0.3s ease forwards;
+    animation: backdrop-show 0.4s ease forwards;
   }
 
   &[closing]::backdrop {
-    animation: backdrop-hide 0.3s ease forwards;
+    animation: backdrop-hide 0.4s ease forwards;
   }
 
   &__wrapper {
@@ -162,15 +174,14 @@ onUnmounted(() => {
     box-shadow:
       0 rem(4) rem(6) rem(-1) rgb(0 0 0 / 10%),
       0 rem(2) rem(4) rem(-1) rgb(0 0 0 / 6%);
-    transform: scale(0.5);
-    animation: content-show 0.3s ease forwards;
+    animation: content-show 0.4s ease forwards;
 
     @include adaptive-value('padding-inline', 40, 20);
     @include adaptive-value('padding-block', 60, 40);
   }
 
   &[closing] .modal__content {
-    animation: content-hide 0.3s ease forwards;
+    animation: content-hide 0.4s ease forwards;
   }
 
   &__close {
@@ -239,24 +250,20 @@ onUnmounted(() => {
 
 @keyframes content-show {
   from {
-    opacity: 0;
     transform: scale(0);
   }
 
   to {
-    opacity: 1;
     transform: scale(1);
   }
 }
 
 @keyframes content-hide {
   from {
-    opacity: 1;
     transform: scale(1);
   }
 
   to {
-    opacity: 0;
     transform: scale(0);
   }
 }
