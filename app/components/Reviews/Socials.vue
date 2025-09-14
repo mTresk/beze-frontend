@@ -131,6 +131,7 @@ useSwiper(containerRef, {
     aspect-ratio: 370 / 500;
 
     img {
+      max-width: 100%;
       max-height: 100%;
     }
   }
