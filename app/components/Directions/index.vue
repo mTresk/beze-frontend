@@ -45,70 +45,72 @@ await suspense()
     <div class="directions__inner">
       <div class="directions__body">
         <UiSpinner v-if="isLoading" />
-        <swiper-container
-          v-else
-          ref="containerRef"
-          :init="false"
-          class="directions__slider"
-        >
-          <swiper-slide
-            v-for="category in categories"
-            :key="category.id"
-            class="direction-card"
-          >
-            <NuxtLink
-              :to="`/catalog/category/${category.slug}`"
-              data-js-cursor
-              class="direction-card__wrapper"
-            >
-              <picture class="direction-card__image">
-                <source
-                  media="(max-width: 480px)"
-                  :srcset="`${category.image.normal_xs} 1x, ${category.image.retina_xs} 2x`"
-                  type="image/webp"
-                >
-                <source
-                  media="(max-width: 640px)"
-                  :srcset="`${category.image.normal_sm} 1x, ${category.image.retina_sm} 2x`"
-                  type="image/webp"
-                >
-                <source
-                  media="(max-width: 768px)"
-                  :srcset="`${category.image.normal_md} 1x, ${category.image.retina_md} 2x`"
-                  type="image/webp"
-                >
-                <img
-                  class="direction-card__image"
-                  loading="lazy"
-                  :src="category.image.normal"
-                  :srcset="`${category.image.normal} 1x, ${category.image.retina} 2x`"
-                  :alt="category.name"
-                  width="880"
-                  height="880"
-                >
-              </picture>
-              <div class="direction-card__content">
-                <div class="direction-card__header">
-                  <p class="direction-card__label">
-                    {{ category.label }}
-                  </p>
-                  <UiTitle class="direction-card__title">
-                    {{ category.name }}
-                  </UiTitle>
-                </div>
-                <div
-                  class="direction-card__description"
-                  v-html="category.description"
-                />
-              </div>
-            </NuxtLink>
-          </swiper-slide>
-        </swiper-container>
+        <ClientOnly v-else>
+          <swiper-container
 
-        <nav class="directions__navigation">
-          <UiSliderButtonPrev class="directions__button directions__button--prev" />
-          <UiSliderButtonNext class="directions__button directions__button--next" />
-        </nav>
+            ref="containerRef"
+            :init="false"
+            class="directions__slider"
+          >
+            <swiper-slide
+              v-for="category in categories"
+              :key="category.id"
+              class="direction-card"
+            >
+              <NuxtLink
+                :to="`/catalog/category/${category.slug}`"
+                data-js-cursor
+                class="direction-card__wrapper"
+              >
+                <picture class="direction-card__image">
+                  <source
+                    media="(max-width: 480px)"
+                    :srcset="`${category.image.normal_xs} 1x, ${category.image.retina_xs} 2x`"
+                    type="image/webp"
+                  >
+                  <source
+                    media="(max-width: 640px)"
+                    :srcset="`${category.image.normal_sm} 1x, ${category.image.retina_sm} 2x`"
+                    type="image/webp"
+                  >
+                  <source
+                    media="(max-width: 768px)"
+                    :srcset="`${category.image.normal_md} 1x, ${category.image.retina_md} 2x`"
+                    type="image/webp"
+                  >
+                  <img
+                    class="direction-card__image"
+                    loading="lazy"
+                    :src="category.image.normal"
+                    :srcset="`${category.image.normal} 1x, ${category.image.retina} 2x`"
+                    :alt="category.name"
+                    width="880"
+                    height="880"
+                  >
+                </picture>
+                <div class="direction-card__content">
+                  <div class="direction-card__header">
+                    <p class="direction-card__label">
+                      {{ category.label }}
+                    </p>
+                    <UiTitle class="direction-card__title">
+                      {{ category.name }}
+                    </UiTitle>
+                  </div>
+                  <div
+                    class="direction-card__description"
+                    v-html="category.description"
+                  />
+                </div>
+              </NuxtLink>
+            </swiper-slide>
+          </swiper-container>
+
+          <nav class="directions__navigation">
+            <UiSliderButtonPrev class="directions__button directions__button--prev" />
+            <UiSliderButtonNext class="directions__button directions__button--next" />
+          </nav>
+        </ClientOnly>
       </div>
     </div>
   </section>

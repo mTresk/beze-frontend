@@ -1,8 +1,9 @@
 <script setup lang="ts">
 const cursor = ref<HTMLElement | null>(null)
 
-onMounted(() => {
+onMounted(() => nextTick(() => {
   const cursorElements = document.querySelectorAll<HTMLElement>('[data-js-cursor]')
+
   if (!cursorElements.length) {
     return
   }
@@ -23,7 +24,7 @@ onMounted(() => {
       }
     })
   })
-})
+}))
 </script>
 
 <template>
