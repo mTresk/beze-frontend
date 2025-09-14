@@ -177,7 +177,8 @@ onUnmounted(() => {
     animation: content-show 0.4s ease forwards;
 
     @include adaptive-value('padding-inline', 40, 20);
-    @include adaptive-value('padding-block', 60, 40);
+    @include adaptive-value('padding-top', 60, 40);
+    @include adaptive-value('padding-bottom', 40, 20);
   }
 
   &[closing] .modal__content {
