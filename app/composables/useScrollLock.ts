@@ -23,6 +23,12 @@ export function useScrollLock() {
     document.body.style.top = `-${scrollPosition.value}px`
     document.body.style.width = '100%'
     document.documentElement.classList.add('lock')
+
+    nextTick(() => {
+      if (typeof window !== 'undefined' && ScrollTrigger) {
+        ScrollTrigger.refresh()
+      }
+    })
   }
 
   const unlockScroll = () => {
@@ -39,6 +45,12 @@ export function useScrollLock() {
       wrapper.classList.remove('scroll-up', 'scroll-down')
       wrapper.classList.add(savedScrollClass.value)
     }
+
+    nextTick(() => {
+      if (typeof window !== 'undefined' && ScrollTrigger) {
+        ScrollTrigger.refresh()
+      }
+    })
   }
 
   return {
