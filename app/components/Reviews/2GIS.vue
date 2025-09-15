@@ -92,7 +92,7 @@ useSwiper(containerRef, {
                   />
                 </div>
               </div>
-              <PerfectScrollbar :options="{ suppressScrollX: true, wheelPropagation: true, wheelSpeed: 0.2 }">
+              <PerfectScrollbar :options="{ suppressScrollX: true, wheelPropagation: true, wheelSpeed: 1 }">
                 <div
                   class="testimonial__text"
                   v-html="testimonial.text"
