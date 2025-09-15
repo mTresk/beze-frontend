@@ -37,18 +37,13 @@ defineProps<IProps>()
 
   @include adaptive-value('font-size', 16, 14);
 
-  @media (any-hover: hover) {
-    &:hover {
-      color: var(--color-accent);
-    }
-  }
-
   &[medium] {
     @include adaptive-value('font-size', 18, 14);
   }
 
   @media (any-hover: hover) {
-    &:hover {
+    &:hover,
+    &:focus-visible {
       color: var(--color-accent);
     }
   }

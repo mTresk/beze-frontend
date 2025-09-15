@@ -26,7 +26,8 @@
     transition: color 0.3s ease-in-out;
 
     @media (any-hover: hover) {
-      &:hover {
+      &:hover,
+      &:focus-visible {
         color: var(--color-accent);
       }
     }
