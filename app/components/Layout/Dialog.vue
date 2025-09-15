@@ -12,8 +12,8 @@ const props = defineProps<IProps>()
 const emit = defineEmits<IEmits>()
 
 const { lockScroll, unlockScroll } = useScrollLock()
+const dialog = useTemplateRef('dialog')
 
-const dialogRef = ref<HTMLDialogElement | null>(null)
 const closeTimeout = ref<NodeJS.Timeout | null>(null)
 
 function handleBackdropClick(event: MouseEvent) {
@@ -29,7 +29,7 @@ function handleKeyDown(event: KeyboardEvent) {
 }
 
 function handleOpen() {
-  if (!dialogRef.value) {
+  if (!dialog.value) {
     return
   }
 
@@ -38,29 +38,29 @@ function handleOpen() {
     closeTimeout.value = null
   }
 
-  if (dialogRef.value.hasAttribute('closing')) {
-    dialogRef.value.removeAttribute('closing')
+  if (dialog.value.hasAttribute('closing')) {
+    dialog.value.removeAttribute('closing')
   }
 
   emit('update:modelValue', true)
   lockScroll()
-  dialogRef.value.showModal()
+  dialog.value.showModal()
 }
 
 function handleClose() {
-  if (!dialogRef.value) {
+  if (!dialog.value) {
     return
   }
 
-  dialogRef.value.setAttribute('closing', '')
+  dialog.value.setAttribute('closing', '')
 
   closeTimeout.value = setTimeout(() => {
-    if (!dialogRef.value) {
+    if (!dialog.value) {
       return
     }
 
-    dialogRef.value.close()
-    dialogRef.value.removeAttribute('closing')
+    dialog.value.close()
+    dialog.value.removeAttribute('closing')
     emit('update:modelValue', false)
     emit('close')
     unlockScroll()
@@ -93,10 +93,8 @@ onUnmounted(() => {
 <template>
   <Teleport to="#teleports">
     <dialog
-      ref="dialogRef"
+      ref="dialog"
       class="modal"
-      aria-modal="true"
-      role="dialog"
     >
       <div
         class="modal__wrapper"
@@ -142,7 +140,7 @@ onUnmounted(() => {
   }
 
   &::backdrop {
-    background-color: rgb(0 0 0 / 50%);
+    background-color: rgb(0 0 0 / 70%);
     opacity: 0;
     animation: backdrop-show 0.4s ease forwards;
   }
