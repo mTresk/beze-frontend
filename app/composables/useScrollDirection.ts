@@ -1,11 +1,16 @@
 export function useScrollDirection() {
-  let lastScroll = 0
+  const route = useRoute()
+  const { isScrollLocked } = useScrollLock()
 
   const direction = ref<'up' | 'down' | null>(null)
 
-  const route = useRoute()
+  let lastScroll = 0
 
   const handleScroll = () => {
+    if (isScrollLocked.value) {
+      return
+    }
+
     const currentScroll = window.scrollY
 
     if (currentScroll <= 0) {
@@ -40,7 +45,10 @@ export function useScrollDirection() {
 
   watch(() => route.fullPath, () => {
     lastScroll = 0
-    direction.value = null
+
+    if (!isScrollLocked.value) {
+      direction.value = null
+    }
   })
 
   return { direction }
