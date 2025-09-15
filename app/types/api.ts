@@ -173,11 +173,6 @@ export interface IInfoPageContent {
   otherPages: IInfoPage[]
 }
 
-export interface ProductsResponse {
-  pageData: IProduct[]
-  cursor?: number
-}
-
 export interface ApiPaginationMeta {
   current_page: number
   last_page: number

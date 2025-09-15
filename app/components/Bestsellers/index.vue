@@ -1,26 +1,18 @@
 <script setup lang="ts">
-import type { ApiResponse, IProduct, ProductsResponse } from '@/types/api'
-import { useInfiniteQuery } from '@tanstack/vue-query'
+import type { ApiResponse, IProduct } from '@/types/api'
 
 const client = useSanctumClient()
 
-async function fetcher({ pageParam = 1 }): Promise<ProductsResponse> {
+async function fetcher({ pageParam = 1 }) {
   const data = await client<ApiResponse<IProduct[]>>(`api/products/bestsellers?page=${pageParam}`)
 
   return {
-    pageData: data?.data || [],
-    cursor: pageParam === data?.meta.last_page ? undefined : data?.meta.current_page + 1,
+    pageData: data.data || [],
+    cursor: pageParam === data.meta.last_page ? undefined : data.meta.current_page + 1,
   }
 }
 
-const {
-  data: products,
-  fetchNextPage,
-  hasNextPage,
-  isFetchingNextPage,
-  suspense,
-  isLoading,
-} = useInfiniteQuery({
+const { data: productsData, fetchNextPage, hasNextPage, isFetchingNextPage, suspense, isLoading } = useInfiniteQuery({
   queryKey: ['bestsellers', { page: 'infinite' }],
   queryFn: fetcher,
   getNextPageParam: (lastPage) => { return lastPage.cursor },
@@ -28,6 +20,14 @@ const {
 })
 
 await suspense()
+
+const products = computed(() => {
+  if (!productsData.value?.pages) {
+    return []
+  }
+
+  return productsData.value.pages.flatMap(page => page.pageData)
+})
 
 watch(isFetchingNextPage, async (isFetching) => {
   if (!isFetching) {
@@ -57,16 +57,11 @@ watch(isFetchingNextPage, async (isFetching) => {
         class="bestsellers__wrapper"
       >
         <div class="bestsellers__body">
-          <template
-            v-for="(page, index) in products?.pages"
-            :key="index"
-          >
-            <ProductItem
-              v-for="product in page.pageData"
-              :key="product.id"
-              :product="product"
-            />
-          </template>
+          <ProductItem
+            v-for="product in products"
+            :key="product.id"
+            :product="product"
+          />
         </div>
         <div
           v-if="hasNextPage"
