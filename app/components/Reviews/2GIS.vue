@@ -145,7 +145,8 @@ useSwiper(containerRef, {
     @include adaptive-value('gap', 25, 15);
     @include adaptive-value('padding-top', 40, 30);
     @include adaptive-value('padding-bottom', 50, 30);
-    @include adaptive-value('padding-inline', 30, 20);
+    @include adaptive-value('padding-left', 30, 20);
+    @include adaptive-value('padding-right', 15, 5);
   }
 
   &.swiper-slide-visible {
@@ -202,6 +203,7 @@ useSwiper(containerRef, {
 
   &__text {
     position: relative;
+    padding-right: rem(15);
     line-height: 140%;
 
     @include adaptive-value('font-size', 16, 14);
