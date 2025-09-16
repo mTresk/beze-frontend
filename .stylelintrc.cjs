@@ -15,5 +15,6 @@ module.exports = {
     'no-descending-specificity': null,
     'declaration-property-value-no-unknown': null,
     'unit-disallowed-list': ['px'],
+    'no-invalid-position-declaration': null,
   },
 }
