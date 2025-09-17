@@ -2,14 +2,14 @@
   <div>
     <Hero />
     <Advantages />
-    <LazyDirections dehydrate-on-visible />
-    <LazyBestsellers dehydrate-on-visible />
-    <LazyCollections dehydrate-on-visible />
-    <LazyAbout dehydrate-on-visible />
-    <LazyGallery dehydrate-on-visible />
-    <LazyReviews dehydrate-on-visible />
-    <LazyCustomers dehydrate-on-visible />
-    <LazyCertificate dehydrate-on-visible />
+    <LazyDirections :hydrate-on-visible="{ rootMargin: '20%' }" />
+    <LazyBestsellers :hydrate-on-visible="{ rootMargin: '20%' }" />
+    <LazyCollections :hydrate-on-visible="{ rootMargin: '20%' }" />
+    <LazyAbout :hydrate-on-visible="{ rootMargin: '20%' }" />
+    <LazyGallery :hydrate-on-visible="{ rootMargin: '20%' }" />
+    <LazyReviews :hydrate-on-visible="{ rootMargin: '20%' }" />
+    <LazyCustomers :hydrate-on-visible="{ rootMargin: '20%' }" />
+    <LazyCertificate :hydrate-on-visible="{ rootMargin: '20%' }" />
     <UiCursor />
   </div>
 </template>
