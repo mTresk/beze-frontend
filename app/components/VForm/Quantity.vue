@@ -3,6 +3,7 @@ interface IProps {
   modelValue: number
   min?: number
   max?: number
+  disabled?: boolean
 }
 
 interface IEmits {
@@ -33,7 +34,7 @@ const quantity = computed({
 <template>
   <div class="quantity">
     <button
-      :disabled="quantity <= (min ?? 1)"
+      :disabled="quantity <= (min ?? 1) || disabled"
       type="button"
       class="quantity__button quantity__button_minus"
       @click="quantity--"
@@ -48,7 +49,7 @@ const quantity = computed({
       >
     </div>
     <button
-      :disabled="max !== undefined && quantity >= max"
+      :disabled="max !== undefined && quantity >= max || disabled"
       type="button"
       class="quantity__button quantity__button_plus"
       @click="quantity++"

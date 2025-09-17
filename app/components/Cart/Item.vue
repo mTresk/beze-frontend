@@ -11,6 +11,7 @@ const { removeFromCart, updateCartItem } = useCart()
 
 const quantity = ref(props.cartItem.quantity)
 const updateTimeout = ref<NodeJS.Timeout | null>(null)
+const isUpdating = ref(false)
 
 const selectedVariant = computed(() => {
   if (!props.cartItem.product?.variants) {
@@ -30,17 +31,34 @@ function handleCartRemove() {
   removeFromCart(props.cartItem.id)
 }
 
-function handleUpdateCartValues() {
+async function handleUpdateCartValues() {
   if (updateTimeout.value) {
     clearTimeout(updateTimeout.value)
   }
 
   updateTimeout.value = setTimeout(async () => {
-    await updateCartItem(props.cartItem.id, quantity.value)
+    try {
+      isUpdating.value = true
+
+      await updateCartItem(props.cartItem.id, quantity.value)
+    }
+    catch (error) {
+      console.error('Ошибка при обновлении количества товара:', error)
+      quantity.value = props.cartItem.quantity
+    }
+    finally {
+      isUpdating.value = false
+    }
   }, 300)
 }
 
 watch(() => quantity.value, handleUpdateCartValues)
+
+onUnmounted(() => {
+  if (updateTimeout.value) {
+    clearTimeout(updateTimeout.value)
+  }
+})
 </script>
 
 <template>
@@ -91,6 +109,7 @@ watch(() => quantity.value, handleUpdateCartValues)
         v-model="quantity"
         :min="1"
         :max="selectedVariant?.stock"
+        :disabled="isUpdating"
       />
       <div class="cart-item__wrapper">
         <div class="cart-item__price">
