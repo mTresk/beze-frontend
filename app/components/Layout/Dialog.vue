@@ -109,7 +109,7 @@ onUnmounted(() => {
             @click="handleClose"
           >
             <UiIcon
-              size="32"
+              size="30"
               name="close"
             />
           </button>
@@ -160,12 +160,13 @@ onUnmounted(() => {
     overflow-y: auto;
 
     @include adaptive-value('padding-inline', 20, 10);
+    @include adaptive-value('padding-block', 40, 36);
   }
 
   &__content {
     position: relative;
     width: 100%;
-    max-width: rem(600);
+    max-width: rem(540);
     margin: auto;
     background-color: var(--color-white);
     border-radius: rem(8);
@@ -175,7 +176,7 @@ onUnmounted(() => {
     animation: content-show 0.4s ease forwards;
 
     @include adaptive-value('padding-inline', 40, 20);
-    @include adaptive-value('padding-top', 60, 40);
+    @include adaptive-value('padding-top', 40, 30);
     @include adaptive-value('padding-bottom', 40, 20);
   }
 
@@ -185,18 +186,19 @@ onUnmounted(() => {
 
   &__close {
     position: absolute;
+    right: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--color-white);
     transition: color 0.3s ease-in-out;
 
-    @include adaptive-value('top', 20, 10);
-    @include adaptive-value('right', 20, 10);
+    @include adaptive-value('top', -36, -30);
 
     svg {
       height: auto;
 
-      @include adaptive-value('max-width', 32, 24);
+      @include adaptive-value('max-width', 30, 24);
     }
 
     @media (any-hover: hover) {
