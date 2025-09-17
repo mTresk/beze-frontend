@@ -684,7 +684,7 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/catalog
   &__content {
     flex: 0 1 rem(460);
 
-    @media (min-height: em(550)) {
+    @media (min-height: em(750)) {
       position: sticky;
       top: rem(100);
     }
