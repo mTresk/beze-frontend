@@ -12,39 +12,9 @@ const { data: sizesTable, suspense } = useQuery({
 
 await suspense()
 
-const ctx = ref()
 const isCompositionModalOpen = ref(false)
 const isCareModalOpen = ref(false)
 const isSizesModalOpen = ref(false)
-
-onMounted(() => {
-  const mm = gsap.matchMedia()
-
-  mm.add('(min-width: 1100px)', () => {
-    setTimeout(() => {
-      ctx.value = gsap.context(() => {
-        gsap.from('.customers-card', {
-          duration: 2,
-          y: 300,
-          ease: 'cubic-bezier(0.25, 0.45, 0.45, 0.95)',
-          stagger: 0.5,
-          scrollTrigger: {
-            trigger: '.customers__body',
-            scrub: true,
-            start: '0% 100%',
-            end: 'bottom 50%',
-          },
-        })
-      })
-    })
-  })
-})
-
-onBeforeUnmount(() => {
-  if (ctx.value) {
-    ctx.value.revert()
-  }
-})
 </script>
 
 <template>

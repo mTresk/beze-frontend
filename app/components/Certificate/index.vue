@@ -1,36 +1,3 @@
-<script setup lang="ts">
-const ctx = ref()
-
-onMounted(() => {
-  const mm = gsap.matchMedia()
-
-  mm.add('(min-width: 992px)', () => {
-    setTimeout(() => {
-      ctx.value = gsap.context(() => {
-        gsap.from('.certificate__image', {
-          duration: 2,
-          y: 110,
-          ease: 'cubic-bezier(0.25, 0.45, 0.45, 0.95)',
-          stagger: 1,
-          scrollTrigger: {
-            trigger: '.certificate__image',
-            scrub: true,
-            start: '0% 100%',
-            end: 'bottom 30%',
-          },
-        })
-      })
-    })
-  })
-})
-
-onBeforeUnmount(() => {
-  if (ctx.value) {
-    ctx.value.revert()
-  }
-})
-</script>
-
 <template>
   <section class="certificate spacer">
     <div class="certificate__container">

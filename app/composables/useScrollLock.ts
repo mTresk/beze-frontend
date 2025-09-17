@@ -11,12 +11,6 @@ export function useScrollLock() {
     document.documentElement.classList.add('lock')
 
     isScrollLocked.value = true
-
-    nextTick(() => {
-      if (typeof window !== 'undefined' && ScrollTrigger) {
-        ScrollTrigger.refresh()
-      }
-    })
   }
 
   const unlockScroll = () => {
@@ -27,12 +21,6 @@ export function useScrollLock() {
     window.scrollTo(0, scrollPosition.value)
 
     isScrollLocked.value = false
-
-    nextTick(() => {
-      if (typeof window !== 'undefined' && ScrollTrigger) {
-        ScrollTrigger.refresh()
-      }
-    })
   }
 
   return {

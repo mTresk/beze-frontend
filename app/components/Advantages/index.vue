@@ -1,38 +1,72 @@
 <script setup>
-const ctx = ref()
+const advantages = useTemplateRef('advantages')
+const scrollProgress = ref(0)
+const isDesktop = ref(false)
 
 onMounted(() => {
-  const mm = gsap.matchMedia()
-
-  mm.add('(min-width: 991px)', () => {
-    ctx.value = gsap.context(() => {
-      gsap.from('.advantages__item', {
-        duration: 2,
-        y: 140,
-        ease: 'cubic-bezier(0.25, 0.45, 0.45, 0.95)',
-        stagger: 1,
-        scrollTrigger: {
-          trigger: '.advantages',
-          scrub: true,
-          end: 'bottom 30%',
-        },
-      })
-    })
-  })
-})
-
-onBeforeUnmount(() => {
-  if (ctx.value) {
-    ctx.value.revert()
+  const updateDesktop = () => {
+    isDesktop.value = window.innerWidth >= 992
   }
+
+  const handleScroll = () => {
+    if (!isDesktop.value) {
+      return
+    }
+
+    if (!advantages.value) {
+      return
+    }
+
+    const rect = advantages.value.getBoundingClientRect()
+    const windowHeight = window.innerHeight
+    const startPoint = windowHeight
+    const endPoint = windowHeight * 0.3
+    const progress = Math.max(0, Math.min(1, (startPoint - rect.top) / (startPoint - endPoint)))
+
+    scrollProgress.value = progress
+  }
+
+  let ticking = false
+
+  const throttledScroll = () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        handleScroll()
+        ticking = false
+      })
+      ticking = true
+    }
+  }
+
+  window.addEventListener('scroll', throttledScroll, { passive: true })
+  window.addEventListener('resize', () => {
+    updateDesktop()
+    handleScroll()
+  }, { passive: true })
+
+  updateDesktop()
+  handleScroll()
+
+  onBeforeUnmount(() => {
+    window.removeEventListener('scroll', throttledScroll)
+    window.removeEventListener('resize', updateDesktop)
+  })
 })
 </script>
 
 <template>
-  <div class="advantages">
+  <div
+    ref="advantages"
+    class="advantages"
+  >
     <div class="advantages__container">
       <div class="advantages__body">
-        <div class="advantages__item">
+        <div
+          class="advantages__item"
+          :style="{
+            transform: isDesktop ? `translateY(${140 * (1 - scrollProgress)}px)` : undefined,
+          }"
+        >
           <div class="advantages__icon">
             <svg
               width="80"
@@ -45,7 +79,12 @@ onBeforeUnmount(() => {
             Собственное <br>производство
           </p>
         </div>
-        <div class="advantages__item">
+        <div
+          class="advantages__item"
+          :style="{
+            transform: isDesktop ? `translateY(${200 * (1 - scrollProgress)}px)` : undefined,
+          }"
+        >
           <div class="advantages__icon">
             <svg
               width="80"
@@ -58,7 +97,12 @@ onBeforeUnmount(() => {
             Размерный ряд <br>от 40 до 60 размера
           </p>
         </div>
-        <div class="advantages__item">
+        <div
+          class="advantages__item"
+          :style="{
+            transform: isDesktop ? `translateY(${260 * (1 - scrollProgress)}px)` : undefined,
+          }"
+        >
           <div class="advantages__icon">
             <svg
               width="80"
@@ -112,6 +156,10 @@ onBeforeUnmount(() => {
     @include adaptive-value('padding-block', 28, 18);
     @include adaptive-value('padding-inline', 16, 10);
     @include adaptive-value('gap', 30, 20);
+
+    @media (width >= 62rem) {
+      transform: translateY(rem(140));
+    }
 
     &::before {
       position: absolute;

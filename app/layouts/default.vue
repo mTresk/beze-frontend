@@ -14,22 +14,6 @@ const client = useSanctumClient()
 const { direction } = useScrollDirection()
 const { isSearchOpen } = useSearch()
 
-const scrollClass = computed(() => {
-  if (direction.value === 'down') {
-    return 'scroll-down'
-  }
-
-  if (direction.value === 'up') {
-    return 'scroll-up'
-  }
-
-  return ''
-})
-
-gsap.config({
-  nullTargetWarn: false,
-})
-
 async function fetcher() {
   const [menuData, settingsData] = await Promise.all([
     client<IMenu>('/api/menu'),
@@ -48,6 +32,18 @@ await suspense()
 
 useState('menu', () => data.value?.menu)
 useState('settings', () => data.value?.settings)
+
+const scrollClass = computed(() => {
+  if (direction.value === 'down') {
+    return 'scroll-down'
+  }
+
+  if (direction.value === 'up') {
+    return 'scroll-up'
+  }
+
+  return ''
+})
 
 const description = 'Элегантная одежда на утро невесты, для дома и на каждый день'
 </script>
