@@ -31,7 +31,7 @@ function handleMouseMove(event: MouseEvent) {
   })
 }
 
-onMounted(() => nextTick(() => {
+onMounted(() => {
   const elements = document.querySelectorAll<HTMLElement>('[data-js-cursor]')
 
   if (!elements.length) {
@@ -46,7 +46,7 @@ onMounted(() => nextTick(() => {
   })
 
   window.addEventListener('mousemove', handleMouseMove)
-}))
+})
 
 onUnmounted(() => {
   if (animationFrame) {
