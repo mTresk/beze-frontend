@@ -1,12 +1,13 @@
+let scrollPosition = 0
+
 export function useScrollLock() {
-  const scrollPosition = ref(0)
   const isScrollLocked = useState<boolean>('scrollLocked', () => false)
 
   const lockScroll = () => {
-    scrollPosition.value = window.pageYOffset || document.documentElement.scrollTop
+    scrollPosition = window.pageYOffset || document.documentElement.scrollTop
 
     document.body.style.position = 'fixed'
-    document.body.style.top = `-${scrollPosition.value}px`
+    document.body.style.top = `-${scrollPosition}px`
     document.body.style.width = '100%'
     document.documentElement.classList.add('lock')
 
@@ -18,7 +19,8 @@ export function useScrollLock() {
     document.body.style.top = ''
     document.body.style.width = ''
     document.documentElement.classList.remove('lock')
-    window.scrollTo(0, scrollPosition.value)
+
+    window.scrollTo(0, scrollPosition)
 
     isScrollLocked.value = false
   }
