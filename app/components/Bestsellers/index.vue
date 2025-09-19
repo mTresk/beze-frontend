@@ -32,10 +32,6 @@ const products = computed(() => {
 watch(isFetchingNextPage, async (isFetching) => {
   if (!isFetching) {
     await nextTick()
-
-    if (typeof window !== 'undefined' && ScrollTrigger) {
-      ScrollTrigger.refresh()
-    }
   }
 })
 </script>
