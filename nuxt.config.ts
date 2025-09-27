@@ -98,7 +98,7 @@ export default defineNuxtConfig({
     exclude: ['/auth/**', '/personal', '/cart', '/favorites', '/success', '/catalog/search'],
   },
   robots: {
-    disallow: ['/auth/**', '/personal', '/cart', '/favorites', '/success', '/catalog/search'],
+    disallow: ['/auth/**', '/personal', '/cart', '/favorites', '/success', '/catalog/search', '/?feed=rss2'],
   },
   pwa: {
     registerType: 'autoUpdate',
