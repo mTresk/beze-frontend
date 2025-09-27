@@ -35,7 +35,7 @@ export default defineNuxtPlugin((_nuxtApp) => {
               channel_name: channel.name,
             },
           })
-            .then(() => {})
+            .then((response: any) => callback(null, response))
             .catch((error: Error) => callback(error, null))
         },
       }
