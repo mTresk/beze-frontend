@@ -3,7 +3,7 @@
     <Hero />
     <Advantages />
     <LazyDirections :hydrate-on-visible="{ rootMargin: '20%' }" />
-    <LazyBestsellers :hydrate-on-visible="{ rootMargin: '20%' }" />
+    <LazyBestsellers />
     <LazyCollections :hydrate-on-visible="{ rootMargin: '20%' }" />
     <LazyAbout :hydrate-on-visible="{ rootMargin: '20%' }" />
     <LazyGallery :hydrate-on-visible="{ rootMargin: '20%' }" />
