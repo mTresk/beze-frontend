@@ -95,10 +95,10 @@ export default defineNuxtConfig({
   },
   sitemap: {
     sources: ['/api/sitemap/urls'],
-    exclude: ['/auth/**', '/personal', '/cart', '/favorites', '/success', '/catalog/search'],
+    exclude: ['/auth/**', '/personal', '/cart', '/favorites', '/success', '/catalog/search', '/?feed=rss2', '/order/**'],
   },
   robots: {
-    disallow: ['/auth/**', '/personal', '/cart', '/favorites', '/success', '/catalog/search', '/?feed=rss2'],
+    disallow: ['/auth/**', '/personal', '/cart', '/favorites', '/success', '/catalog/search', '/?feed=rss2', '/order/**'],
   },
   pwa: {
     registerType: 'autoUpdate',
