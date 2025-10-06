@@ -1,5 +1,8 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
+  experimental: {
+    entryImportMap: false,
+  },
   modules: [
     'nuxt-toastify',
     'nuxt-auth-sanctum',
