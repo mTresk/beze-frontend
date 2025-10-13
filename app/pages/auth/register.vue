@@ -67,7 +67,7 @@ const { submit: submitForm, isLoading, validationErrors: errors } = useSubmit(
           <VFormBlock :error="errors.email">
             <VFormField>
               <VFormLabel for="email">
-                Ваш email*
+                Ваша почта*
               </VFormLabel>
               <VFormInput
                 id="email"

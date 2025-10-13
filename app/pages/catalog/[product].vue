@@ -525,7 +525,7 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/catalog
             <VFormBlock :error="errors.email">
               <VFormField>
                 <VFormLabel for="email">
-                  Ваш email
+                  Ваша почта
                 </VFormLabel>
                 <VFormInput
                   id="email"
