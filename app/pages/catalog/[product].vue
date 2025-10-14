@@ -541,9 +541,10 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/catalog
                 <VFormLabel for="message">
                   Сообщение
                 </VFormLabel>
-                <VFormTextarea
+                <VFormInput
                   id="message"
                   v-model="form.message"
+                  type="textarea"
                   :error="errors.message"
                   placeholder="Напишите нам сообщение"
                 />

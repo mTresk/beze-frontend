@@ -1,26 +1,31 @@
 <script setup lang="ts">
 interface IProps {
-  modelValue?: string | number
   error?: string[]
   maska?: string
-}
-
-interface IEmits {
-  (event: 'update:modelValue', value: number | string): void
+  type: string
 }
 
 defineProps<IProps>()
-defineEmits<IEmits>()
+
+const model = defineModel<string | number>()
 </script>
 
 <template>
+  <textarea
+    v-if="type === 'textarea'"
+    v-model="model"
+    class="form-input form-input--textarea"
+    :class="{ 'form-input--error': error }"
+    autocomplete="off"
+  />
   <input
+    v-else
+    v-model="model"
     v-maska="maska"
-    :value="modelValue"
+    :type="type"
     class="form-input"
     :class="{ 'form-input--error': error }"
     autocomplete="off"
-    @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
   >
 </template>
 
@@ -53,6 +58,11 @@ defineEmits<IEmits>()
 
   &--error {
     border-color: var(--color-red);
+  }
+
+  &--textarea {
+    height: rem(100);
+    resize: none;
   }
 }
 </style>
