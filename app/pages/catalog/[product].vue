@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IColor, IFeedback, IInfoPageContent, IProduct, IProductVariant, IProductWithFeatured, ISize, ValidationErrors } from '@/types/api'
+import type { IColor, IInfoPageContent, IProduct, IProductVariant, IProductWithFeatured, ISize } from '@/types/api'
 
 const { isProductInCart, toggleCartItem } = useCart()
 const { isInWishlist, toggleWishlist } = useWishlist()
@@ -15,7 +15,6 @@ const colorId = ref()
 const colorName = ref()
 const size = ref()
 const selectError = ref(false)
-const isAgreementAccepted = ref(false)
 
 const productSlug = computed(() => route.params.product)
 
@@ -176,50 +175,6 @@ useSwiper(containerRef, {
     prevEl: '.product__button--prev',
     nextEl: '.product__button--next',
   },
-})
-
-const form = reactive<IFeedback>({
-  name: '',
-  phone: '',
-  email: '',
-  message: '',
-  product_variant: undefined,
-})
-
-const errors = ref<ValidationErrors>({})
-
-function handleForm() {
-  return client('/api/feedback', {
-    body: form,
-    method: 'post',
-  })
-}
-
-const { submit: handleSubmit, isLoading: isFormSending, validationErrors } = useSubmit(
-  () => handleForm(),
-  {
-    onSuccess: (response) => {
-      useToastify(response, { type: 'success' })
-      clearForm()
-      isCustomOrderModalOpen.value = false
-    },
-  },
-)
-
-function clearForm() {
-  form.name = ''
-  form.phone = ''
-  form.email = ''
-  form.message = ''
-  errors.value = {}
-}
-
-watch(validationErrors, (newErrors) => {
-  errors.value = newErrors
-})
-
-watch(selectedVariant, (newVariant) => {
-  form.product_variant = newVariant?.id
 })
 
 onMounted(() => {
@@ -482,95 +437,17 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/catalog
       </div>
     </LayoutDialog>
     <LayoutDialog v-model="isCustomOrderModalOpen">
-      <div class="modal-form">
-        <div class="modal-form__header">
-          <h2 class="modal-form__title">
-            Напишите нам
-          </h2>
-          <p class="modal-form__description">
-            и мы сошьем то, что вам нужно в течении пяти дней
-          </p>
-        </div>
-        <div class="modal-form__body">
-          <VForm>
-            <VFormBlock :error="errors.name">
-              <VFormField>
-                <VFormLabel for="name">
-                  Ваше имя*
-                </VFormLabel>
-                <VFormInput
-                  id="name"
-                  v-model="form.name"
-                  :error="errors.name"
-                  type="text"
-                  placeholder="Введите имя"
-                />
-              </VFormField>
-            </VFormBlock>
-            <VFormBlock :error="errors.phone">
-              <VFormField>
-                <VFormLabel for="phone">
-                  Телефон*
-                </VFormLabel>
-                <VFormInput
-                  id="phone"
-                  v-model="form.phone"
-                  :error="errors.phone"
-                  type="tel"
-                  maska="+7 (###) ### ## ##"
-                  placeholder="Введите телефон"
-                />
-              </VFormField>
-            </VFormBlock>
-            <VFormBlock :error="errors.email">
-              <VFormField>
-                <VFormLabel for="email">
-                  Ваша почта
-                </VFormLabel>
-                <VFormInput
-                  id="email"
-                  v-model="form.email"
-                  :error="errors.email"
-                  type="email"
-                  placeholder="Введите email"
-                />
-              </VFormField>
-            </VFormBlock>
-            <VFormBlock :error="errors.message">
-              <VFormField>
-                <VFormLabel for="message">
-                  Сообщение
-                </VFormLabel>
-                <VFormInput
-                  id="message"
-                  v-model="form.message"
-                  type="textarea"
-                  :error="errors.message"
-                  placeholder="Напишите нам сообщение"
-                />
-              </VFormField>
-            </VFormBlock>
-          </VForm>
-        </div>
-        <div class="modal-form__footer">
-          <VFormCheckbox
-            :checked="isAgreementAccepted"
-            @update:checked="isAgreementAccepted = $event"
-          >
-            <template #text>
-              <VFormPolicy />
-            </template>
-          </VFormCheckbox>
-          <UiButton
-            :disabled="!isAgreementAccepted"
-            wide
-            :is-loading="isFormSending"
-            @click="handleSubmit"
-          >
-            Отправить
-          </UiButton>
-        </div>
-      </div>
+      <ContactForm
+        :product-variant-id="selectedVariant?.id"
+        class="contacts__form"
+      >
+        <template #title>
+          Напишите нам
+        </template>
+        <template #description>
+          и мы сошьем то, что вам нужно в течении пяти дней
+        </template>
+      </ContactForm>
     </LayoutDialog>
   </div>
 </template>

@@ -268,32 +268,4 @@ onUnmounted(() => {
     transform: scale(0);
   }
 }
-
-.modal-form {
-  display: grid;
-  gap: rem(30);
-
-  @include adaptive-value('gap', 30, 20);
-
-  &__header {
-    display: grid;
-    gap: rem(5);
-  }
-
-  &__title {
-    line-height: 125%;
-
-    @include adaptive-value('font-size', 38, 28);
-  }
-
-  &__description {
-    font-size: rem(16);
-    line-height: 140%;
-  }
-
-  &__footer {
-    display: grid;
-    gap: rem(10);
-  }
-}
 </style>
