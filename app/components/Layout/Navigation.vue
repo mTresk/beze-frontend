@@ -16,38 +16,6 @@ const cartCount = computed(() => cartItems.value?.length || 0)
       <li class="navigation__item">
         <NuxtLink
           class="navigation__link"
-          to="/catalog"
-          title="Каталог"
-        >
-          <UiIcon
-            name="catalog"
-            size="24"
-          />
-          <span>Каталог</span>
-        </NuxtLink>
-      </li>
-      <li class="navigation__item">
-        <NuxtLink
-          class="navigation__link"
-          to="/favorites"
-          title="Вишлист"
-        >
-          <UiIcon
-            name="favorite"
-            size="24"
-          />
-          <Transition>
-            <span
-              v-if="wishlistCount"
-              class="navigation__link-count"
-            >{{ wishlistCount }}</span>
-          </Transition>
-          <span>Вишлист</span>
-        </NuxtLink>
-      </li>
-      <li class="navigation__item">
-        <NuxtLink
-          class="navigation__link"
           to="/"
           title="Главная"
         >
@@ -75,6 +43,38 @@ const cartCount = computed(() => cartItems.value?.length || 0)
             >{{ cartCount }}</span>
           </Transition>
           <span>Корзина</span>
+        </NuxtLink>
+      </li>
+      <li class="navigation__item">
+        <NuxtLink
+          class="navigation__link"
+          to="/catalog"
+          title="Каталог"
+        >
+          <UiIcon
+            name="catalog"
+            size="24"
+          />
+          <span>Каталог</span>
+        </NuxtLink>
+      </li>
+      <li class="navigation__item">
+        <NuxtLink
+          class="navigation__link"
+          to="/favorites"
+          title="Вишлист"
+        >
+          <UiIcon
+            name="favorite"
+            size="24"
+          />
+          <Transition>
+            <span
+              v-if="wishlistCount"
+              class="navigation__link-count"
+            >{{ wishlistCount }}</span>
+          </Transition>
+          <span>Вишлист</span>
         </NuxtLink>
       </li>
       <li
@@ -164,6 +164,10 @@ const cartCount = computed(() => cartItems.value?.length || 0)
       color: var(--color-white);
       background-color: var(--color-accent);
       border-radius: 50%;
+    }
+
+    &.router-link-active {
+      color: var(--color-accent);
     }
   }
 }
