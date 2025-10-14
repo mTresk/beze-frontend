@@ -1,9 +1,14 @@
 <script setup lang="ts">
+import * as z from 'zod'
+
 definePageMeta({
   middleware: ['guest'],
 })
 
 const { register } = useAuth()
+
+const isAgreementAccepted = ref(false)
+const formErrors = ref()
 
 const form = reactive({
   name: '',
@@ -13,14 +18,51 @@ const form = reactive({
   password_confirmation: '',
 })
 
-const isAgreementAccepted = ref(false)
+const formSchema = z.object({
+  name: z
+    .string()
+    .nonempty({ error: 'Поле обязательно.' })
+    .max(255, { error: 'Максимум 255 символов.' }),
+  surname: z
+    .string()
+    .nonempty({ error: 'Поле обязательно.' })
+    .max(255, { error: 'Максимум 255 символов.' }),
+  email: z
+    .email({ error: 'Значение поля должно быть электронной почтой.' }),
+  password: z
+    .string()
+    .nonempty({ error: 'Поле обязательно.' })
+    .min(8, { error: 'Пароль должен быть минимум 8 символов.' }),
+  password_confirmation: z
+    .string()
+    .nonempty({ error: 'Поле обязательно.' })
+    .min(8, { error: 'Пароль должен быть минимум 8 символов.' }),
+}).refine(data => data.password === data.password_confirmation, {
+  message: 'Пароли не совпадают.',
+  path: ['password_confirmation'],
+})
 
-const { submit: submitForm, isLoading, validationErrors: errors } = useSubmit(
+const { submit: submitForm, isLoading, validationErrors } = useSubmit(
   () => register(form),
   {
     onSuccess: () => navigateTo('/personal'),
   },
 )
+
+function handleForm() {
+  const result = formSchema.safeParse(form)
+
+  if (!result.success) {
+    formErrors.value = z.flattenError(result.error).fieldErrors
+
+    useToastify('Проверьте введенные данные', { type: 'error' })
+  }
+  else {
+    submitForm()
+  }
+}
+
+const errors = computed(() => ({ ...formErrors.value, ...validationErrors.value }))
 </script>
 
 <template>
@@ -35,7 +77,7 @@ const { submit: submitForm, isLoading, validationErrors: errors } = useSubmit(
         <UiPageTitle>Регистрация</UiPageTitle>
       </template>
       <template #body>
-        <VForm @submit.prevent="submitForm">
+        <VForm>
           <VFormBlock :error="errors.name">
             <VFormField>
               <VFormLabel for="name">
@@ -120,9 +162,8 @@ const { submit: submitForm, isLoading, validationErrors: errors } = useSubmit(
         <UiButton
           wide
           :is-loading="isLoading"
-          type="submit"
           :disabled="!isAgreementAccepted"
-          @click="submitForm"
+          @click="handleForm"
         >
           Зарегистрироваться
         </UiButton>

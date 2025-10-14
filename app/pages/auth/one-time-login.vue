@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import * as z from 'zod'
+
 definePageMeta({
   middleware: ['guest'],
 })
@@ -6,17 +8,42 @@ definePageMeta({
 const { oneTimeLogin } = useAuth()
 const route = useRoute()
 
+const formErrors = ref()
+
 const form = reactive({
   email: route.query.email as string,
   password: '',
 })
 
-const { submit: handleOneTimePassword, isLoading, validationErrors: errors } = useSubmit(
+const formSchema = z.object({
+  email: z
+    .email({ error: 'Значение поля должно быть электронной почтой.' }),
+  password: z
+    .string()
+    .nonempty({ error: 'Поле обязательно.' }),
+})
+
+const { submit: submitForm, isLoading, validationErrors } = useSubmit(
   () => oneTimeLogin(form),
   {
     onSuccess: () => navigateTo('/personal'),
   },
 )
+
+function handleForm() {
+  const result = formSchema.safeParse(form)
+
+  if (!result.success) {
+    formErrors.value = z.flattenError(result.error).fieldErrors
+
+    useToastify('Проверьте введенные данные', { type: 'error' })
+  }
+  else {
+    submitForm()
+  }
+}
+
+const errors = computed(() => ({ ...formErrors.value, ...validationErrors.value }))
 </script>
 
 <template>
@@ -38,10 +65,7 @@ const { submit: handleOneTimePassword, isLoading, validationErrors: errors } = u
         </UiStatus>
       </template>
       <template #body>
-        <VForm
-          id="login-form"
-          @submit.prevent="handleOneTimePassword"
-        >
+        <VForm>
           <VFormBlock :error="errors.password">
             <VFormField>
               <VFormLabel for="password">
@@ -63,7 +87,7 @@ const { submit: handleOneTimePassword, isLoading, validationErrors: errors } = u
           wide
           form="login-form"
           :is-loading="isLoading"
-          type="submit"
+          @click="handleForm"
         >
           Войти
         </UiButton>

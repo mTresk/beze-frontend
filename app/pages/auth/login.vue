@@ -1,11 +1,16 @@
 <script setup lang="ts">
+import * as z from 'zod'
+
 definePageMeta({
   middleware: ['guest'],
 })
 
 const route = useRoute()
 const { login } = useSanctumAuth()
-const { oneTimePassword } = useAuth()
+const { getOneTimePassword } = useAuth()
+
+const status = ref((route.query.reset ?? '').length > 0 ? (route.query.reset as string) : '')
+const formErrors = ref()
 
 const form = reactive({
   email: '',
@@ -13,7 +18,13 @@ const form = reactive({
   remember: true,
 })
 
-const status = ref((route.query.reset ?? '').length > 0 ? (route.query.reset as string) : '')
+const formSchema = z.object({
+  email: z
+    .email({ error: 'Значение поля должно быть электронной почтой.' }),
+  password: z
+    .string()
+    .nonempty({ error: 'Поле обязательно' }),
+})
 
 const { submit: submitForm, isLoading: isLoadingLogin, validationErrors: errorsLogin } = useSubmit(
   () => {
@@ -23,15 +34,43 @@ const { submit: submitForm, isLoading: isLoadingLogin, validationErrors: errorsL
   },
 )
 
-const { submit: handleOneTimePassword, isLoading: isLoadingOneTimePassword, validationErrors: errorsOneTimePassword } = useSubmit(
-  () => oneTimePassword(form.email),
+const { submit: submitOneTimePassword, isLoading: isLoadingOneTimePassword, validationErrors: errorsOneTimePassword } = useSubmit(
+  () => getOneTimePassword(form.email),
   {
     onSuccess: () => navigateTo(`/auth/one-time-login?email=${encodeURIComponent(form.email)}`),
   },
 )
 
+function handleLogin() {
+  const result = formSchema.safeParse(form)
+
+  if (!result.success) {
+    formErrors.value = z.flattenError(result.error).fieldErrors
+
+    useToastify('Проверьте введенные данные', { type: 'error' })
+  }
+  else {
+    submitForm()
+  }
+}
+
+function handleOneTimeLogin() {
+  const result = z
+    .email('Значение поля должно быть электронным адресом')
+    .safeParse(form.email)
+
+  if (!result.success) {
+    formErrors.value = { email: z.flattenError(result.error).formErrors }
+
+    useToastify('Проверьте введенные данные', { type: 'error' })
+  }
+  else {
+    submitOneTimePassword()
+  }
+}
+
 const isLoading = computed(() => isLoadingLogin.value || isLoadingOneTimePassword.value)
-const errors = computed(() => ({ ...errorsLogin.value, ...errorsOneTimePassword.value }))
+const errors = computed(() => ({ ...errorsLogin.value, ...errorsOneTimePassword.value, ...formErrors.value }))
 </script>
 
 <template>
@@ -54,10 +93,7 @@ const errors = computed(() => ({ ...errorsLogin.value, ...errorsOneTimePassword.
         </UiStatus>
       </template>
       <template #body>
-        <VForm
-          id="login-form"
-          @submit.prevent="submitForm"
-        >
+        <VForm>
           <VFormBlock :error="errors.email">
             <VFormField>
               <VFormLabel for="email">
@@ -91,9 +127,8 @@ const errors = computed(() => ({ ...errorsLogin.value, ...errorsOneTimePassword.
       <template #footer>
         <UiButton
           wide
-          form="login-form"
           :is-loading="isLoading"
-          type="submit"
+          @click="handleLogin"
         >
           Войти
         </UiButton>
@@ -101,8 +136,7 @@ const errors = computed(() => ({ ...errorsLogin.value, ...errorsOneTimePassword.
           wide
           outline
           :is-loading="isLoading"
-          type="button"
-          @click="handleOneTimePassword"
+          @click="handleOneTimeLogin"
         >
           Одноразовый пароль
         </UiButton>

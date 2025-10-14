@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import * as z from 'zod'
+
 definePageMeta({
   middleware: ['guest'],
 })
@@ -8,8 +10,9 @@ const { forgotPassword } = useAuth()
 const email = ref('')
 const resetEmailSent = ref(false)
 const status = ref('')
+const formErrors = ref()
 
-const { submit: submitForm, isLoading, validationErrors: errors } = useSubmit(
+const { submit: submitForm, isLoading, validationErrors } = useSubmit(
   () => {
     status.value = ''
 
@@ -22,6 +25,23 @@ const { submit: submitForm, isLoading, validationErrors: errors } = useSubmit(
     },
   },
 )
+
+function handleForm() {
+  const result = z
+    .email('Значение поля должно быть электронной почтой.')
+    .safeParse(email.value)
+
+  if (!result.success) {
+    formErrors.value = { email: z.flattenError(result.error).formErrors }
+
+    useToastify('Проверьте введенные данные', { type: 'error' })
+  }
+  else {
+    submitForm()
+  }
+}
+
+const errors = computed(() => ({ ...formErrors.value, ...validationErrors.value }))
 </script>
 
 <template>
@@ -47,7 +67,7 @@ const { submit: submitForm, isLoading, validationErrors: errors } = useSubmit(
         v-if="!resetEmailSent"
         #body
       >
-        <VForm @submit.prevent="submitForm">
+        <VForm>
           <VFormBlock :error="errors.email">
             <VFormField>
               <VFormLabel for="email">
@@ -71,8 +91,7 @@ const { submit: submitForm, isLoading, validationErrors: errors } = useSubmit(
         <UiButton
           wide
           :is-loading="isLoading"
-          type="submit"
-          @click="submitForm"
+          @click="handleForm"
         >
           Восстановить пароль
         </UiButton>

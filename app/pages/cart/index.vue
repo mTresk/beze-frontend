@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { IOrder } from '@/types/api'
+import * as z from 'zod'
 
 const { cartItems, cartTotal, isLoading, clearCartItems } = useCart()
 const { isAuthenticated } = useSanctumAuth()
@@ -8,6 +9,38 @@ const client = useSanctumClient()
 const isInitialized = ref(false)
 const form = ref<IOrder>()
 const isAgreementAccepted = ref(false)
+const formErrors = ref()
+
+const formSchema = z.object({
+  name: z
+    .string()
+    .nonempty({ error: 'Поле обязательно.' })
+    .max(255, { error: 'Максимум 255 символов.' }),
+  surname: z
+    .string()
+    .nonempty({ error: 'Поле обязательно.' })
+    .max(255, { error: 'Максимум 255 символов.' }),
+  email: z
+    .email({ error: 'Значение поля должно быть электронной почтой.' }),
+  phone: z
+    .string()
+    .nonempty({ error: 'Поле обязательно.' })
+    .max(255, { error: 'Максимум 255 символов.' }),
+  address: z
+    .string()
+    .nullish(),
+  delivery_type: z
+    .string(),
+}).refine((data) => {
+  if (data.delivery_type === 'russia' || data.delivery_type === 'tyumen') {
+    return data.address !== '' && data.address !== null && data.address !== undefined
+  }
+
+  return true
+}, {
+  message: 'Поле обязательно.',
+  path: ['address'],
+})
 
 const deliveryPrice = computed(() => {
   if (!form.value || form.value.delivery_type === 'pickup') {
@@ -53,7 +86,7 @@ async function submitOrder() {
   }
 }
 
-const { submit: handleSubmit, validationErrors: errors, isLoading: isFormSending } = useSubmit(
+const { submit: handleSubmit, validationErrors, isLoading: isFormSending } = useSubmit(
   () => submitOrder(),
   {
     onSuccess: () => {
@@ -61,6 +94,21 @@ const { submit: handleSubmit, validationErrors: errors, isLoading: isFormSending
     },
   },
 )
+
+function handleForm() {
+  const result = formSchema.safeParse(form.value)
+
+  if (!result.success) {
+    formErrors.value = z.flattenError(result.error).fieldErrors
+
+    useToastify('Проверьте введенные данные', { type: 'error' })
+  }
+  else {
+    handleSubmit()
+  }
+}
+
+const errors = computed(() => ({ ...formErrors.value, ...validationErrors.value }))
 
 watch(isLoading, (value) => {
   if (!value) {
@@ -199,7 +247,7 @@ const seoDescription = 'Корзина интернет-магазина Beze St
                 :disabled="form?.delivery_type === 'russia' && !form?.delivery_cost || !isAgreementAccepted"
                 :is-loading="isFormSending"
                 class="cart__button"
-                @click="handleSubmit"
+                @click="handleForm"
               >
                 Оформить заказ
               </UiButton>

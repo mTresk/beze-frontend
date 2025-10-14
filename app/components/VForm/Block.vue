@@ -22,10 +22,10 @@ defineProps<IProps>()
 }
 
 .form-error {
-  position: absolute;
+  position: relative;
+  top: rem(5);
   color: var(--color-red);
 
   @include adaptive-value('font-size', 12, 10);
-  @include adaptive-value('bottom', -15, -12);
 }
 </style>

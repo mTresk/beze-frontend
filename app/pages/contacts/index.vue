@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { IFeedback, ISettings } from '@/types/api'
+import * as z from 'zod'
 
 const client = useSanctumClient()
 const settings = useState<ISettings>('settings')
@@ -19,27 +20,39 @@ useSchemaOrg([
   }),
 ])
 
+const mapRoot = ref<HTMLElement | null>(null)
+const isAgreementAccepted = ref(false)
+const formErrors = ref()
+
 const form = reactive<IFeedback>({
   name: '',
-  email: '',
+  email: undefined,
   phone: '',
   message: '',
 })
 
-const mapRoot = ref<HTMLElement | null>(null)
-const isAgreementAccepted = ref(false)
+const formSchema = z.object({
+  name: z
+    .string()
+    .nonempty({ error: 'Поле обязательно.' }),
+  phone: z
+    .string()
+    .nonempty({ error: 'Поле обязательно.' }),
+  email: z
+    .email({ error: 'Значение поля должно быть электронной почтой.' })
+    .nullish(),
+  message: z
+    .string()
+    .nullish(),
+})
 
 const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
 
-function handleForm() {
-  return client('/api/feedback', {
+const { submit: submitForm, isLoading, validationErrors, succeeded: isFormSent } = useSubmit(
+  () => client('/api/feedback', {
     body: form,
     method: 'post',
-  })
-}
-
-const { submit: handleSubmit, isLoading, validationErrors: errors, succeeded: isFormSent } = useSubmit(
-  () => handleForm(),
+  }),
   {
     onSuccess: (response) => {
       useToastify(response, { type: 'success' })
@@ -48,12 +61,28 @@ const { submit: handleSubmit, isLoading, validationErrors: errors, succeeded: is
   },
 )
 
+function handleForm() {
+  const result = formSchema.safeParse(form)
+
+  if (!result.success) {
+    formErrors.value = z.flattenError(result.error).fieldErrors
+
+    useToastify('Проверьте введенные данные', { type: 'error' })
+  }
+  else {
+    submitForm()
+  }
+}
+
+const errors = computed(() => ({ ...formErrors.value, ...validationErrors.value }))
+
 function clearForm() {
   form.name = ''
   form.phone = ''
-  form.email = ''
+  form.email = undefined
   form.message = ''
-  errors.value = {}
+  formErrors.value = null
+  validationErrors.value = {}
 }
 
 onMounted(() => {
@@ -256,7 +285,7 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/contact
                 :disabled="isFormSent || !isAgreementAccepted"
                 :is-loading="isLoading"
                 class="contacts-form__button"
-                @click="handleSubmit"
+                @click="handleForm"
               >
                 {{ isFormSent ? 'Отправлено' : 'Отправить' }}
               </UiButton>

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import * as z from 'zod'
+
 definePageMeta({
   middleware: ['guest'],
 })
@@ -10,15 +12,33 @@ if (!route.query.email) {
   navigateTo('/')
 }
 
+const formErrors = ref()
+
 const form = reactive({
   email: route.query.email as string,
   password: '',
   password_confirmation: '',
 })
 
+const formSchema = z.object({
+  email: z
+    .email({ error: 'Значение поля должно быть электронной почтой.' }),
+  password: z
+    .string()
+    .nonempty({ error: 'Поле обязательно.' })
+    .min(8, { error: 'Пароль должен быть минимум 8 символов.' }),
+  password_confirmation: z
+    .string()
+    .nonempty({ error: 'Поле обязательно.' })
+    .min(8, { error: 'Пароль должен быть минимум 8 символов.' }),
+}).refine(data => data.password === data.password_confirmation, {
+  message: 'Пароли не совпадают.',
+  path: ['password_confirmation'],
+})
+
 const token = computed(() => route.params.token)
 
-const { submit: submitForm, isLoading, validationErrors: errors } = useSubmit<{ status: string }>(
+const { submit: submitForm, isLoading, validationErrors } = useSubmit<{ status: string }>(
   () => resetPassword(
     {
       token: token.value as string,
@@ -33,6 +53,21 @@ const { submit: submitForm, isLoading, validationErrors: errors } = useSubmit<{ 
       }),
   },
 )
+
+function handleForm() {
+  const result = formSchema.safeParse(form)
+
+  if (!result.success) {
+    formErrors.value = z.flattenError(result.error).fieldErrors
+
+    useToastify('Проверьте введенные данные', { type: 'error' })
+  }
+  else {
+    submitForm()
+  }
+}
+
+const errors = computed(() => ({ ...formErrors.value, ...validationErrors.value }))
 </script>
 
 <template>
@@ -43,7 +78,7 @@ const { submit: submitForm, isLoading, validationErrors: errors } = useSubmit<{ 
         <UiPageTitle>Введите новый пароль</UiPageTitle>
       </template>
       <template #body>
-        <VForm @submit.prevent="submitForm">
+        <VForm>
           <VFormBlock :error="errors.password">
             <VFormField>
               <VFormLabel for="password">
@@ -78,8 +113,7 @@ const { submit: submitForm, isLoading, validationErrors: errors } = useSubmit<{ 
         <UiButton
           wide
           :is-loading="isLoading"
-          type="submit"
-          @click="submitForm"
+          @click="handleForm"
         >
           Сбросить пароль
         </UiButton>

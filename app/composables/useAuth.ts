@@ -44,7 +44,7 @@ export function useAuth() {
     })
   }
 
-  async function oneTimePassword(email: string) {
+  async function getOneTimePassword(email: string) {
     return await client<{ status: string }>('/one-time-password', {
       method: 'post',
       body: { email },
@@ -68,7 +68,7 @@ export function useAuth() {
     resetPassword,
     register,
     completeRegistration,
-    oneTimePassword,
+    getOneTimePassword,
     oneTimeLogin,
   }
 }

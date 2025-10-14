@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ICertificate, ICertificateOrder } from '@/types/api'
+import * as z from 'zod'
 
 const client = useSanctumClient()
 const { isAuthenticated } = useSanctumAuth()
@@ -13,6 +14,38 @@ const amount = ref<number>()
 const selectedOption = ref<any>(null)
 const isInitialized = ref(false)
 const isAgreementAccepted = ref(false)
+const formErrors = ref()
+
+const formSchema = z.object({
+  name: z
+    .string()
+    .nonempty({ error: 'Поле обязательно.' })
+    .max(255, { error: 'Максимум 255 символов.' }),
+  surname: z
+    .string()
+    .nonempty({ error: 'Поле обязательно.' })
+    .max(255, { error: 'Максимум 255 символов.' }),
+  email: z
+    .email({ error: 'Значение поля должно быть электронной почтой.' }),
+  phone: z
+    .string()
+    .nonempty({ error: 'Поле обязательно.' })
+    .max(255, { error: 'Максимум 255 символов.' }),
+  address: z
+    .string()
+    .nullish(),
+  delivery_type: z
+    .string(),
+}).refine((data) => {
+  if (data.delivery_type === 'russia' || data.delivery_type === 'tyumen') {
+    return data.address !== '' && data.address !== null && data.address !== undefined
+  }
+
+  return true
+}, {
+  message: 'Поле обязательно.',
+  path: ['address'],
+})
 
 const certificateOptions = computed(() => {
   return certificates.value?.map(cert => ({
@@ -90,12 +123,27 @@ async function submitOrder() {
   }
 }
 
-const { submit: handleSubmit, validationErrors: errors, isLoading: isFormSending } = useSubmit(
+const { submit: handleSubmit, validationErrors, isLoading: isFormSending } = useSubmit(
   () => submitOrder(),
   {
     onSuccess: () => {},
   },
 )
+
+function handleForm() {
+  const result = formSchema.safeParse(form.value)
+
+  if (!result.success) {
+    formErrors.value = z.flattenError(result.error).fieldErrors
+
+    useToastify('Проверьте введенные данные', { type: 'error' })
+  }
+  else {
+    handleSubmit()
+  }
+}
+
+const errors = computed(() => ({ ...formErrors.value, ...validationErrors.value }))
 
 watch([amount, quantity], () => calculateTotal(), { immediate: true })
 
@@ -247,7 +295,7 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/certifi
                 :disabled="form?.delivery_type === 'russia' && !form?.delivery_cost || !isAgreementAccepted"
                 :is-loading="isFormSending"
                 class="certificate__button"
-                @click="handleSubmit"
+                @click="handleForm"
               >
                 Оформить заказ
               </UiButton>
