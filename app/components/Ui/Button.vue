@@ -24,6 +24,7 @@ defineProps<IProps>()
     v-else
     class="button"
     :disabled="isLoading ? true : undefined"
+    type="button"
   >
     <slot />
     <UiButtonSpinner
