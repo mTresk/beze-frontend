@@ -302,7 +302,7 @@ function handleLinkClick() {
     display: grid;
     visibility: hidden;
     gap: rem(12);
-    min-width: rem(220);
+    min-width: rem(240);
     padding: rem(20);
     pointer-events: none;
     background-color: var(--color-extra);
@@ -333,6 +333,7 @@ function handleLinkClick() {
       position: static;
       display: grid;
       visibility: visible;
+      min-width: none;
       padding: 0;
       padding-block: rem(10);
       overflow: hidden;
