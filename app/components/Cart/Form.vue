@@ -176,7 +176,7 @@ watch(form, (newForm) => {
         <VFormBlock :error="errors.email">
           <VFormField>
             <VFormLabel for="email">
-              Email*
+              Почта*
             </VFormLabel>
             <VFormInput
               id="email"
