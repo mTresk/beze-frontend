@@ -8,7 +8,7 @@ const { isAuthenticated } = useSanctumAuth()
 const certificates = ref<ICertificate[]>()
 const isLoading = ref(false)
 const certificateTotal = ref(0)
-const form = ref<ICertificateOrder>()
+const form = ref<Partial<ICertificateOrder>>({})
 const quantity = ref(1)
 const amount = ref<number>()
 const selectedOption = ref<any>(null)
@@ -113,20 +113,16 @@ async function submitOrder() {
     communication: form.value?.communication?.name,
   }
 
-  const response = await client<string>('/api/orders/certificate', {
+  return client<string>('/api/orders/certificate', {
     body: payload,
     method: 'post',
   })
-
-  if (response) {
-    window.location.href = response
-  }
 }
 
 const { submit: handleSubmit, validationErrors, isLoading: isFormSending } = useSubmit(
   () => submitOrder(),
   {
-    onSuccess: () => {},
+    onSuccess: (response: string) => window.location.href = response,
   },
 )
 

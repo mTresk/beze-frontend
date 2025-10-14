@@ -6,15 +6,13 @@ interface IProps {
   errors: ValidationErrors
 }
 
-interface IEmits {
-  (event: 'update:modelValue', value: typeof form | null): void
-}
-
 type DeliveryTab = typeof deliveryTabs[number]['id']
 
 defineProps<IProps>()
 
-const emit = defineEmits<IEmits>()
+const form = defineModel<Partial<IOrder>>({
+  default: () => ({}),
+})
 
 const options = [
   { id: 1, name: 'Телефон' },
@@ -34,19 +32,8 @@ const settings = useState<ISettings>('settings')
 
 const currentDeliveryTab = ref<DeliveryTab>('pickup')
 const pickupAddress = settings.value.address
-const deliveryCost = ref<number>(0)
+const deliveryCost = ref(0)
 const tyumenAddress = ref('')
-
-const form = reactive<Partial<IOrder>>({
-  name: '',
-  surname: '',
-  email: '',
-  phone: '',
-  communication: undefined,
-  address: '',
-  delivery_cost: deliveryCost.value,
-  delivery_type: deliveryTabs[0]?.id as IOrder['delivery_type'],
-})
 
 const deliveryComponent = computed(() => {
   if (currentDeliveryTab.value === 'pickup') {
@@ -65,16 +52,16 @@ function populateFormWithUserData() {
     return
   }
 
-  form.name = user.value.name || ''
-  form.surname = user.value.surname || ''
+  form.value.name = user.value.name || ''
+  form.value.surname = user.value.surname || ''
 
   if (user.value.email) {
-    form.email = user.value.email
+    form.value.email = user.value.email
   }
 
   if (user.value.profile) {
-    form.phone = user.value.profile.phone || ''
-    form.address = user.value.profile.address || ''
+    form.value.phone = user.value.profile.phone || ''
+    form.value.address = user.value.profile.address || ''
 
     if (user.value.profile.deliveryType === 'tyumen' && user.value.profile.address) {
       tyumenAddress.value = user.value.profile.address
@@ -82,9 +69,10 @@ function populateFormWithUserData() {
 
     if (user.value.profile.deliveryType) {
       const validDeliveryType = deliveryTabs.some(tab => tab.id === user.value?.profile?.deliveryType)
+
       if (validDeliveryType) {
         currentDeliveryTab.value = user.value.profile.deliveryType as DeliveryTab
-        form.delivery_type = user.value.profile.deliveryType
+        form.value.delivery_type = user.value.profile.deliveryType
       }
     }
 
@@ -94,48 +82,39 @@ function populateFormWithUserData() {
       )
 
       if (communicationOption) {
-        form.communication = communicationOption
+        form.value.communication = communicationOption
       }
     }
   }
-
-  emit('update:modelValue', form)
 }
 
 function handleDeliveryCost(cost: number) {
   deliveryCost.value = cost
-  form.delivery_cost = cost
-  emit('update:modelValue', form)
+  form.value.delivery_cost = cost
 }
 
-watch(() => form.address, (newAddress) => {
+watch(() => form.value.address, (newAddress) => {
   if (currentDeliveryTab.value === 'tyumen' && newAddress !== undefined) {
     tyumenAddress.value = newAddress
   }
 })
 
 watch(currentDeliveryTab, (newTab) => {
-  form.delivery_type = newTab
+  form.value.delivery_type = newTab
   deliveryCost.value = 0
-  form.delivery_cost = 0
+  form.value.delivery_cost = 0
 
   if (newTab === 'russia') {
-    form.address = ''
+    form.value.address = ''
   }
   else if (newTab === 'tyumen') {
-    form.address = tyumenAddress.value
+    form.value.address = tyumenAddress.value
   }
-
-  emit('update:modelValue', form)
 }, { immediate: true })
 
 watch(user, () => {
   populateFormWithUserData()
 }, { immediate: true })
-
-watch(form, (newForm) => {
-  emit('update:modelValue', newForm)
-}, { deep: true })
 </script>
 
 <template>

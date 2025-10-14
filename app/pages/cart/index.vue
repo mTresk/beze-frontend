@@ -7,7 +7,7 @@ const { isAuthenticated } = useSanctumAuth()
 const client = useSanctumClient()
 
 const isInitialized = ref(false)
-const form = ref<IOrder>()
+const form = ref<Partial<IOrder>>({})
 const isAgreementAccepted = ref(false)
 const formErrors = ref()
 
@@ -76,21 +76,18 @@ async function submitOrder() {
     communication: form.value?.communication?.name,
   }
 
-  const response = await client<string>('/api/orders', {
+  return client<string>('/api/orders', {
     body: payload,
     method: 'post',
   })
-
-  if (response) {
-    window.location.href = response
-  }
 }
 
 const { submit: handleSubmit, validationErrors, isLoading: isFormSending } = useSubmit(
   () => submitOrder(),
   {
-    onSuccess: () => {
+    onSuccess: (response: string) => {
       clearCartItems()
+      window.location.href = response
     },
   },
 )
