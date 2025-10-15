@@ -8,13 +8,21 @@ const { isAuthenticated } = useSanctumAuth()
 const certificates = ref<ICertificate[]>()
 const isLoading = ref(false)
 const certificateTotal = ref(0)
-const form = ref<Partial<ICertificateOrder>>({})
 const quantity = ref(1)
 const amount = ref<number>()
 const selectedOption = ref<any>(null)
 const isInitialized = ref(false)
 const isAgreementAccepted = ref(false)
 const formErrors = ref()
+
+const form = ref<Partial<ICertificateOrder>>({
+  name: '',
+  surname: '',
+  email: '',
+  phone: '',
+  address: '',
+  delivery_type: 'pickup',
+})
 
 const formSchema = z.object({
   name: z
@@ -198,6 +206,7 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/certifi
           <div class="certificate__wrapper">
             <div class="certificate__item">
               <VFormSelect
+                id="certificate"
                 v-model="selectedOption"
                 placeholder="Выберите номинал"
                 :options="certificateOptions"

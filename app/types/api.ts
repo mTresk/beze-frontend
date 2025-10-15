@@ -106,6 +106,7 @@ export interface ICertificateOrder {
   certificate: ICertificate
   quantity: number
   name: string
+  surname: string
   email: string
   phone: string
   address: string

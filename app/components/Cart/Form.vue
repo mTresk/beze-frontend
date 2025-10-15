@@ -10,9 +10,7 @@ type DeliveryTab = typeof deliveryTabs[number]['id']
 
 defineProps<IProps>()
 
-const form = defineModel<Partial<IOrder>>({
-  default: () => ({}),
-})
+const form = defineModel<Partial<IOrder>>({ required: true })
 
 const options = [
   { id: 1, name: 'Телефон' },

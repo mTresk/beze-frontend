@@ -7,9 +7,17 @@ const { isAuthenticated } = useSanctumAuth()
 const client = useSanctumClient()
 
 const isInitialized = ref(false)
-const form = ref<Partial<IOrder>>({})
 const isAgreementAccepted = ref(false)
 const formErrors = ref()
+
+const form = ref<Partial<IOrder>>({
+  name: '',
+  surname: '',
+  email: '',
+  phone: '',
+  address: '',
+  delivery_type: 'pickup',
+})
 
 const formSchema = z.object({
   name: z
