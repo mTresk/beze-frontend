@@ -1,52 +1,25 @@
 <script setup lang="ts">
-interface IProps {
-  checked: boolean
-  value?: string
-}
-
-interface IEmits {
-  (event: 'update:checked', value: boolean): void
-}
-
-const props = defineProps<IProps>()
-const emit = defineEmits<IEmits>()
-
-const proxyChecked = computed({
-  get() {
-    return props.checked
-  },
-
-  set(val) {
-    emit('update:checked', val)
-  },
-})
+const model = defineModel<boolean>('checked', { required: true })
 </script>
 
 <template>
   <label class="checkbox">
     <input
-      v-model="proxyChecked"
+      v-model="model"
       class="checkbox__input"
       type="checkbox"
-      value="1"
-      name="form[]"
+      name="checkbox"
     >
     <span class="checkbox__text"><slot name="text" /></span>
   </label>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .checkbox {
   display: flex;
   gap: rem(10);
   align-items: flex-start;
   cursor: pointer;
-
-  &:has(input:checked) {
-    .checkbox__text {
-      color: var(--color-main);
-    }
-  }
 
   &__input {
     position: relative;
