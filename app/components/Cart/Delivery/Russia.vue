@@ -124,6 +124,7 @@ onUnmounted(() => widget.value?.destroy())
       <VFormInput
         id="address"
         v-model="addressProxy"
+        type="text"
         readonly
         placeholder="Выберите адрес"
         @click="widget?.open()"
