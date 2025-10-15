@@ -15,7 +15,7 @@ const isInitialized = ref(false)
 const isAgreementAccepted = ref(false)
 const formErrors = ref()
 
-const form = ref<Partial<ICertificateOrder>>({
+const form = reactive<Partial<ICertificateOrder>>({
   name: '',
   surname: '',
   email: '',
@@ -64,16 +64,16 @@ const certificateOptions = computed(() => {
 })
 
 const deliveryPrice = computed(() => {
-  if (!form.value || form.value.delivery_type === 'pickup') {
+  if (!form || form.delivery_type === 'pickup') {
     return 0
   }
 
-  if (form.value.delivery_type === 'tyumen') {
+  if (form.delivery_type === 'tyumen') {
     return Number(certificateTotal.value) >= 5000 ? 0 : 500
   }
 
-  if (form.value.delivery_type === 'russia' && form.value.delivery_cost) {
-    return form.value.delivery_cost
+  if (form.delivery_type === 'russia' && form.delivery_cost) {
+    return form.delivery_cost
   }
 
   return 0
@@ -117,8 +117,8 @@ async function submitOrder() {
   const payload = {
     certificate: certificate!,
     quantity: quantity.value,
-    ...form.value,
-    communication: form.value?.communication?.name,
+    ...form,
+    communication: form.communication?.name,
   }
 
   return client<string>('/api/orders/certificate', {
@@ -135,7 +135,7 @@ const { submit: handleSubmit, validationErrors, isLoading: isFormSending } = use
 )
 
 function handleForm() {
-  const result = formSchema.safeParse(form.value)
+  const result = formSchema.safeParse(form)
 
   if (!result.success) {
     formErrors.value = z.flattenError(result.error).fieldErrors
