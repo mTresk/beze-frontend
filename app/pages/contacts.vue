@@ -180,9 +180,14 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/contact
   &__blocks {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    align-items: start;
     align-self: start;
 
     @include adaptive-value('gap', 20, 16);
+
+    @media (max-width: $mobileSmall) {
+      grid-template-columns: 1fr;
+    }
   }
 
   &__block {
