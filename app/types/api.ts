@@ -295,10 +295,12 @@ export interface IUser {
 export interface ILoginCredentials {
   email: string
   password: string
+  remember?: boolean
 }
 
 export interface IRegisterCredentials {
   name: string
+  surname: string
   email: string
   password: string
   password_confirmation: string
