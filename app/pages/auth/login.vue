@@ -23,7 +23,7 @@ const formSchema = z.object({
     .email({ error: 'Значение поля должно быть электронной почтой.' }),
   password: z
     .string()
-    .nonempty({ error: 'Поле обязательно' }),
+    .nonempty({ error: 'Поле обязательно.' }),
 })
 
 const { submit: submitForm, isLoading: isLoadingLogin, validationErrors: errorsLogin } = useSubmit(
@@ -56,7 +56,7 @@ function handleLogin() {
 
 function handleOneTimeLogin() {
   const result = z
-    .email('Значение поля должно быть электронным адресом')
+    .email('Значение поля должно быть электронной почтой.')
     .safeParse(form.email)
 
   if (!result.success) {
