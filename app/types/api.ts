@@ -72,6 +72,13 @@ export interface ISize {
   disabled?: boolean
 }
 
+export interface ISelectOption {
+  id: number | string
+  name: string
+  disabled?: boolean
+  value?: any
+}
+
 export interface IOrder {
   id?: number
   status?: string

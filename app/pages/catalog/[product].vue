@@ -356,7 +356,6 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/catalog
                 placeholder="Выберите размер"
                 :options="availableSizes"
                 @clear-error="clearError"
-                @update:model-value="value => size = value"
               />
               <UiLink @click="isModalOpen = true">
                 Размерная сетка

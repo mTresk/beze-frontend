@@ -1,43 +1,43 @@
-<script setup lang="ts">
-interface IProps {
-  modelValue: any
-  options: any
+<script setup lang="ts" generic="T extends ISelectOption">
+import type { ISelectOption } from '@/types/api'
+
+interface IProps<T> {
+  options: T[]
   placeholder: string
   isError?: boolean
   id?: string
 }
 
 interface IEmits {
-  (e: 'update:modelValue', value: any): void
   (e: 'clearError'): void
 }
 
-const props = defineProps<IProps>()
+const props = defineProps<IProps<T>>()
 const emit = defineEmits<IEmits>()
-
+const model = defineModel<T | undefined>({ required: true })
 defineExpose({ openOptions })
 
 const isOptionsOpen = ref(false)
 const highlightedIndex = ref(-1)
 
 const selectedOption = computed(() => {
-  if (!props.modelValue) {
+  if (!model.value) {
     return props.placeholder
   }
 
-  return props.modelValue.name
+  return model.value.name
 })
 
-function toggleOption(option: any) {
+function selectOption(option: T) {
   isOptionsOpen.value = false
-  emit('update:modelValue', option)
+  model.value = option
 }
 
 function openOptions() {
   isOptionsOpen.value = true
 
-  if (props.modelValue) {
-    const selectedIndex = props.options?.findIndex((option: any) => option.id === props.modelValue.id) ?? 0
+  if (model.value) {
+    const selectedIndex = props.options?.findIndex(option => option.id === model.value?.id) ?? 0
     highlightedIndex.value = selectedIndex >= 0 ? selectedIndex : 0
   }
   else {
@@ -64,10 +64,12 @@ function toggleOptions() {
 function handleKeyDown(event: KeyboardEvent) {
   if (event.key === 'Enter' || event.key === ' ') {
     event.preventDefault()
+
     if (isOptionsOpen.value && highlightedIndex.value >= 0) {
       const selectedOption = props.options[highlightedIndex.value]
+
       if (selectedOption) {
-        toggleOption(selectedOption)
+        selectOption(selectedOption)
       }
     }
     else {
@@ -79,6 +81,7 @@ function handleKeyDown(event: KeyboardEvent) {
   }
   else if (event.key === 'ArrowDown') {
     event.preventDefault()
+
     if (!isOptionsOpen.value) {
       openOptions()
     }
@@ -91,6 +94,7 @@ function handleKeyDown(event: KeyboardEvent) {
   }
   else if (event.key === 'ArrowUp') {
     event.preventDefault()
+
     if (isOptionsOpen.value) {
       highlightedIndex.value = Math.max(highlightedIndex.value - 1, 0)
     }
@@ -139,13 +143,13 @@ function handleKeyDown(event: KeyboardEvent) {
           class="select__option"
           role="option"
           :class="{
-            'select__option--active': modelValue?.id === option.id,
+            'select__option--active': model?.id === option.id,
             'select__option--highlighted': highlightedIndex === index,
             'select__option--disabled': option.disabled,
           }"
-          :aria-selected="modelValue?.id === option.id"
+          :aria-selected="model?.id === option.id"
           :value="option.value"
-          @click.stop="toggleOption(option)"
+          @click.stop="selectOption(option)"
         >
           {{ option.name }}
         </li>
@@ -154,7 +158,7 @@ function handleKeyDown(event: KeyboardEvent) {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .select {
   position: relative;
 
