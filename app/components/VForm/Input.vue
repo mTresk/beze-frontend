@@ -63,6 +63,8 @@ const model = defineModel<string | number>()
   &--textarea {
     height: rem(100);
     resize: none;
+
+    @include adaptive-value('padding-top', 12, 10);
   }
 }
 </style>
