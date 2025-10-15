@@ -279,13 +279,8 @@ const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/certifi
               </div>
             </div>
             <div class="certificate__footer">
-              <VFormCheckbox
-                :checked="isAgreementAccepted"
-                @update:checked="isAgreementAccepted = $event"
-              >
-                <template #text>
-                  <VFormPolicy />
-                </template>
+              <VFormCheckbox v-model="isAgreementAccepted">
+                <VFormPolicy />
               </VFormCheckbox>
               <UiButton
                 :disabled="form?.delivery_type === 'russia' && !form?.delivery_cost || !isAgreementAccepted"

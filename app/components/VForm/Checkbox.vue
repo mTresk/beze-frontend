@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const model = defineModel<boolean>('checked', { required: true })
+const model = defineModel()
 </script>
 
 <template>
@@ -10,7 +10,7 @@ const model = defineModel<boolean>('checked', { required: true })
       type="checkbox"
       name="checkbox"
     >
-    <span class="checkbox__text"><slot name="text" /></span>
+    <span class="checkbox__text"><slot /></span>
   </label>
 </template>
 

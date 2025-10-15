@@ -151,13 +151,8 @@ const errors = computed(() => ({ ...formErrors.value, ...validationErrors.value 
         </VForm>
       </template>
       <template #footer>
-        <VFormCheckbox
-          :checked="isAgreementAccepted"
-          @update:checked="isAgreementAccepted = $event"
-        >
-          <template #text>
-            <VFormPolicy />
-          </template>
+        <VFormCheckbox v-model="isAgreementAccepted">
+          <VFormPolicy />
         </VFormCheckbox>
         <UiButton
           wide

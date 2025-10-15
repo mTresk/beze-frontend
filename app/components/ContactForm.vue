@@ -161,13 +161,8 @@ watch(() => props.productVariantId, (newVariant) => {
       </VForm>
     </div>
     <div class="contacts-form__footer">
-      <VFormCheckbox
-        :checked="isAgreementAccepted"
-        @update:checked="isAgreementAccepted = $event"
-      >
-        <template #text>
-          <VFormPolicy />
-        </template>
+      <VFormCheckbox v-model="isAgreementAccepted">
+        <VFormPolicy />
       </VFormCheckbox>
       <UiButton
         :disabled="isFormSent || !isAgreementAccepted"
