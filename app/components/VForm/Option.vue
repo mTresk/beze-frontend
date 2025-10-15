@@ -1,33 +1,23 @@
 <script setup lang="ts">
 interface IProps {
-  modelValue: string
   value: string
   label: string
   name?: string
 }
 
-interface IEmits {
-  (event: 'update:modelValue', value: string): void
-}
-
 defineProps<IProps>()
 
-const emit = defineEmits<IEmits>()
-
-function handleChange(e: Event) {
-  emit('update:modelValue', (e.target as HTMLInputElement).value)
-}
+const model = defineModel()
 </script>
 
 <template>
   <label class="option">
     <input
+      v-model="model"
       class="option__input"
       type="radio"
       :value="value"
-      :checked="modelValue === value"
       :name="name"
-      @change="handleChange"
     >
     <div class="option__text">{{ label }}</div>
   </label>
