@@ -57,6 +57,7 @@ const seoDescription = 'Личный кабинет интернет-магаз�
         <div class="personal__body">
           <div class="personal__navigation">
             <button
+              v-ripple
               class="personal__button"
               type="button"
               :class="[{ 'personal__button--active': currentTab === 'PersonalOrders' }]"
@@ -65,6 +66,7 @@ const seoDescription = 'Личный кабинет интернет-магаз�
               История заказов
             </button>
             <button
+              v-ripple
               class="personal__button"
               type="button"
               :class="[{ 'personal__button--active': currentTab === 'PersonalInfo' }]"

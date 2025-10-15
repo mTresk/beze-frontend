@@ -143,6 +143,7 @@ watch(selectedSort, async (newSort) => {
               <NuxtLink
                 v-for="category in categories"
                 :key="category.id"
+                v-ripple
                 :to="`/catalog/category/${category.slug}`"
                 class="catalog__category"
               >
@@ -152,6 +153,7 @@ watch(selectedSort, async (newSort) => {
             <template v-else-if="currentCategory">
               <NuxtLink
                 v-if="!route.params.subcategory"
+                v-ripple
                 to="/catalog"
                 class="catalog__category"
               >
@@ -159,6 +161,7 @@ watch(selectedSort, async (newSort) => {
               </NuxtLink>
               <NuxtLink
                 v-else
+                v-ripple
                 :to="baseUrl || '/catalog/category'"
                 class="catalog__category"
               >
@@ -167,6 +170,7 @@ watch(selectedSort, async (newSort) => {
               <NuxtLink
                 v-for="subcategory in currentCategory.subcategories"
                 :key="subcategory.id"
+                v-ripple
                 :to="`${baseUrl}/${subcategory.slug}`"
                 class="catalog__category"
                 :class="[

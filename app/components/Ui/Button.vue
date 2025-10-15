@@ -10,6 +10,7 @@ defineProps<IProps>()
 <template>
   <NuxtLink
     v-if="href"
+    v-ripple
     :to="href"
     class="button"
     :disabled="isLoading ? true : undefined"
@@ -22,6 +23,7 @@ defineProps<IProps>()
   </NuxtLink>
   <button
     v-else
+    v-ripple
     class="button"
     :disabled="isLoading ? true : undefined"
     type="button"
