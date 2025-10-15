@@ -105,7 +105,7 @@ function handleKeyDown(event: KeyboardEvent) {
 <template>
   <div
     v-click-outside="closeOptions"
-    class="product__select select"
+    class="select"
     :class="{ 'select--opened': isOptionsOpen, 'select--error': isError }"
   >
     <input
