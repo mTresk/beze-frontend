@@ -247,6 +247,11 @@ useSchemaOrg([
         :content="seoDescription"
       />
       <Meta
+        v-if="seoTitle"
+        property="og:title"
+        :content="seoTitle"
+      />
+      <Meta
         v-if="seoDescription"
         property="og:description"
         :content="seoDescription"
@@ -255,6 +260,10 @@ useSchemaOrg([
         v-if="seoImage"
         property="og:image"
         :content="seoImage"
+      />
+      <Meta
+        property="og:url"
+        :content="canonicalUrl"
       />
       <Meta
         v-if="seoDescription"

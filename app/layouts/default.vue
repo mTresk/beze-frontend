@@ -45,6 +45,7 @@ const scrollClass = computed(() => {
   return ''
 })
 
+const title = 'Beze Studio'
 const description = 'Элегантная одежда на утро невесты, для дома и на каждый день'
 </script>
 
@@ -80,12 +81,24 @@ const description = 'Элегантная одежда на утро невес�
       href="/apple-touch-icon.png"
     >
     <Meta
+      property="og:title"
+      :content="title"
+    />
+    <Meta
       property="og:description"
       :content="description"
     />
     <Meta
       property="og:image"
       content="/images/og.png"
+    />
+    <Meta
+      property="og:type"
+      content="website"
+    />
+    <Meta
+      property="og:url"
+      :content="useRuntimeConfig().public.appUrl"
     />
     <Meta
       name="twitter:description"
