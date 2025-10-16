@@ -1,20 +1,15 @@
 <script setup lang="ts">
 interface IProps {
-  modelValue: number
   min?: number
   max?: number
   disabled?: boolean
 }
 
-interface IEmits {
-  (event: 'update:modelValue', value: number): void
-}
-
 const props = defineProps<IProps>()
-const emit = defineEmits<IEmits>()
+const model = defineModel({ default: 1 })
 
 const quantity = computed({
-  get: () => props.modelValue,
+  get: () => model.value,
   set: (value: number) => {
     let newValue = value
 
@@ -26,7 +21,7 @@ const quantity = computed({
       newValue = props.max
     }
 
-    emit('update:modelValue', newValue)
+    model.value = newValue
   },
 })
 </script>
@@ -49,7 +44,7 @@ const quantity = computed({
       >
     </div>
     <button
-      :disabled="max !== undefined && quantity >= max || disabled"
+      :disabled="(max !== undefined && quantity >= max) || disabled"
       type="button"
       class="quantity__button quantity__button_plus"
       @click="quantity++"
