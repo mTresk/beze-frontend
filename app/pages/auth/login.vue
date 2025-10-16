@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { ILoginCredentials } from '@/types/api'
 import * as z from 'zod'
 
 definePageMeta({
@@ -12,7 +13,7 @@ const { getOneTimePassword } = useAuth()
 const status = ref((route.query.reset ?? '').length > 0 ? (route.query.reset as string) : '')
 const formErrors = ref()
 
-const form = reactive({
+const form = reactive<ILoginCredentials>({
   email: '',
   password: '',
   remember: true,

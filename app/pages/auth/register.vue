@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { IRegisterCredentials } from '@/types/api'
 import * as z from 'zod'
 
 definePageMeta({
@@ -10,7 +11,7 @@ const { register } = useAuth()
 const isAgreementAccepted = ref(false)
 const formErrors = ref()
 
-const form = reactive({
+const form = reactive<IRegisterCredentials>({
   name: '',
   surname: '',
   email: '',

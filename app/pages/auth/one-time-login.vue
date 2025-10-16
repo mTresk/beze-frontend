@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { ILoginCredentials } from '@/types/api'
 import * as z from 'zod'
 
 definePageMeta({
@@ -10,7 +11,7 @@ const route = useRoute()
 
 const formErrors = ref()
 
-const form = reactive({
+const form = reactive<ILoginCredentials>({
   email: route.query.email as string,
   password: '',
 })

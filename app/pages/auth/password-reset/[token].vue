@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { IResetPasswordCredentials } from '@/types/api'
 import * as z from 'zod'
 
 definePageMeta({
@@ -14,10 +15,11 @@ if (!route.query.email) {
 
 const formErrors = ref()
 
-const form = reactive({
+const form = reactive<IResetPasswordCredentials>({
   email: route.query.email as string,
   password: '',
   password_confirmation: '',
+  token: route.params.token as string,
 })
 
 const formSchema = z.object({
@@ -36,15 +38,8 @@ const formSchema = z.object({
   path: ['password_confirmation'],
 })
 
-const token = computed(() => route.params.token)
-
 const { submit: submitForm, isLoading, validationErrors } = useSubmit<{ status: string }>(
-  () => resetPassword(
-    {
-      token: token.value as string,
-      ...form,
-    },
-  ),
+  () => resetPassword(form),
   {
     onSuccess: result =>
       navigateTo({
