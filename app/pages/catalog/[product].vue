@@ -204,6 +204,30 @@ const seoTitle = computed(() => product.value?.data.seo.title ?? product.value?.
 const seoDescription = computed(() => product.value?.data.seo.description ?? `${product.value?.data.name} — Элегантная одежда на утро невесты, для дома и на каждый день`)
 const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
 const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/catalog/${productSlug.value}`)
+
+useSchemaOrg([
+  defineProduct({
+    name: seoTitle.value,
+    image: seoImage.value,
+    description: seoDescription.value,
+    sku: product.value?.data.sku,
+    brand: {
+      '@type': 'Brand',
+      'name': 'Beze Studio',
+    },
+    offers: defineOffer({
+      url: canonicalUrl.value,
+      priceCurrency: 'RUB',
+      price: currentPrice.value,
+      availability: 'https://schema.org/InStock',
+      priceValidUntil: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30).toISOString().split('T')[0],
+      seller: defineOrganization({
+        name: 'Beze Studio',
+        url: useRuntimeConfig().public.appUrl,
+      }),
+    }),
+  }),
+])
 </script>
 
 <template>
