@@ -110,9 +110,7 @@ watch(currentDeliveryTab, (newTab) => {
   }
 }, { immediate: true })
 
-watch(user, () => {
-  populateFormWithUserData()
-}, { immediate: true })
+watch(user, () => populateFormWithUserData(), { immediate: true })
 </script>
 
 <template>

@@ -28,12 +28,6 @@ const products = computed(() => {
 
   return productsData.value.pages.flatMap(page => page.pageData)
 })
-
-watch(isFetchingNextPage, async (isFetching) => {
-  if (!isFetching) {
-    await nextTick()
-  }
-})
 </script>
 
 <template>

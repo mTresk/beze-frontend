@@ -15,6 +15,7 @@ interface IEmits {
 const props = defineProps<IProps<T>>()
 const emit = defineEmits<IEmits>()
 const model = defineModel<T | undefined>({ required: true })
+
 defineExpose({ openOptions })
 
 const isOptionsOpen = ref(false)

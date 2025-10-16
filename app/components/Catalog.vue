@@ -98,6 +98,7 @@ watch(
   () => route.query.page,
   (newPage) => {
     const page = Number(newPage) || 1
+
     if (page !== currentPage.value) {
       currentPage.value = page
     }
