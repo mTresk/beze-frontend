@@ -218,13 +218,20 @@ useSchemaOrg([
     offers: defineOffer({
       url: canonicalUrl.value,
       priceCurrency: 'RUB',
-      price: currentPrice.value,
+      price: String(currentPrice.value).replace(/\s/g, ''),
       availability: 'https://schema.org/InStock',
       priceValidUntil: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30).toISOString().split('T')[0],
       seller: defineOrganization({
         name: 'Beze Studio',
         url: useRuntimeConfig().public.appUrl,
       }),
+      shippingDetails: {
+        '@type': 'OfferShippingDetails',
+        'shippingDestination': {
+          '@type': 'DefinedRegion',
+          'addressCountry': 'RU',
+        },
+      },
     }),
   }),
 ])
