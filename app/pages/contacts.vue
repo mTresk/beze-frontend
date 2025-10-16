@@ -3,21 +3,6 @@ import type { ISettings } from '@/types/api'
 
 const settings = useState<ISettings>('settings')
 
-useSchemaOrg([
-  defineOrganization({
-    name: 'Beze Studio',
-    url: 'https://bezestudio.ru',
-    logo: 'https://bezestudio.ru/images/og.png',
-    address: {
-      '@type': 'PostalAddress',
-      'addressLocality': 'Тюмень, Россия',
-      'postalCode': '625048',
-      'streetAddress': 'ул. Малыгина, 71',
-      'url': 'https://bezestudio.ru',
-    },
-  }),
-])
-
 const mapRoot = ref<HTMLElement | null>(null)
 
 const formattedPhone = computed(() => formatPhone(settings?.value?.phone))
@@ -31,6 +16,20 @@ onMounted(() => {
 const seoTitle = 'Контакты'
 const seoDescription = 'Как с нами связаться'
 const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/contacts`)
+
+useSchemaOrg([
+  defineOrganization({
+    name: 'Beze Studio',
+    url: useRuntimeConfig().public.appUrl,
+    logo: `${useRuntimeConfig().public.appUrl}/images/og.png`,
+    address: defineAddress({
+      addressLocality: 'Тюмень, Россия',
+      postalCode: '625048',
+      streetAddress: 'ул. Малыгина, 71/3',
+      url: useRuntimeConfig().public.appUrl,
+    }),
+  }),
+])
 </script>
 
 <template>
