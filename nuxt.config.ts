@@ -9,7 +9,6 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxtjs/sitemap',
     '@vite-pwa/nuxt',
-    'nuxt-schema-org',
     'vue3-perfect-scrollbar/nuxt',
     '@nuxtjs/robots',
     'nuxt-yandex-metrika',

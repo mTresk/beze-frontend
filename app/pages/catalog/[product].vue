@@ -205,36 +205,45 @@ const seoDescription = computed(() => product.value?.data.seo.description ?? `${
 const seoImage = computed(() => product.value?.data.images[0]?.retina ?? null)
 const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/catalog/${productSlug.value}`)
 
-useSchemaOrg([
-  defineProduct({
-    name: seoTitle.value,
-    image: seoImage.value,
-    description: seoDescription.value,
-    sku: product.value?.data.sku,
-    brand: {
-      '@type': 'Brand',
-      'name': 'Beze Studio',
-    },
-    offers: defineOffer({
-      url: canonicalUrl.value,
-      priceCurrency: 'RUB',
-      price: String(currentPrice.value).replace(/\s/g, ''),
-      availability: 'https://schema.org/InStock',
-      priceValidUntil: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30).toISOString().split('T')[0],
-      seller: defineOrganization({
-        name: 'Beze Studio',
-        url: useRuntimeConfig().public.appUrl,
-      }),
-      shippingDetails: {
-        '@type': 'OfferShippingDetails',
-        'shippingDestination': {
-          '@type': 'DefinedRegion',
-          'addressCountry': 'RU',
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        'name': seoTitle.value,
+        'image': seoImage.value,
+        'description': seoDescription.value,
+        'sku': product.value?.data.sku,
+        'brand': {
+          '@type': 'Brand',
+          'name': 'Beze Studio',
         },
-      },
-    }),
-  }),
-])
+        'offers': {
+          '@type': 'Offer',
+          'url': canonicalUrl.value,
+          'priceCurrency': 'RUB',
+          'price': String(currentPrice.value).replace(/\s/g, ''),
+          'availability': 'https://schema.org/InStock',
+          'priceValidUntil': new Date(Date.now() + 1000 * 60 * 60 * 24 * 30).toISOString().split('T')[0],
+          'seller': {
+            '@type': 'Organization',
+            'name': 'Beze Studio',
+            'url': useRuntimeConfig().public.appUrl,
+          },
+          'shippingDetails': {
+            '@type': 'OfferShippingDetails',
+            'shippingDestination': {
+              '@type': 'DefinedRegion',
+              'addressCountry': 'RU',
+            },
+          },
+        },
+      }),
+    },
+  ],
+})
 </script>
 
 <template>

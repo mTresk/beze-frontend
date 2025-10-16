@@ -17,19 +17,26 @@ const seoTitle = 'Контакты'
 const seoDescription = 'Как с нами связаться'
 const canonicalUrl = computed(() => `${useRuntimeConfig().public.appUrl}/contacts`)
 
-useSchemaOrg([
-  defineOrganization({
-    name: 'Beze Studio',
-    url: useRuntimeConfig().public.appUrl,
-    logo: `${useRuntimeConfig().public.appUrl}/images/og.png`,
-    address: defineAddress({
-      addressLocality: 'Тюмень, Россия',
-      postalCode: '625048',
-      streetAddress: 'ул. Малыгина, 71/3',
-      url: useRuntimeConfig().public.appUrl,
-    }),
-  }),
-])
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        'name': 'Beze Studio',
+        'url': useRuntimeConfig().public.appUrl,
+        'logo': `${useRuntimeConfig().public.appUrl}/images/og.png`,
+        'address': {
+          '@type': 'PostalAddress',
+          'addressLocality': 'Тюмень, Россия',
+          'postalCode': '625048',
+          'streetAddress': 'ул. Малыгина, 71/3',
+        },
+      }),
+    },
+  ],
+})
 </script>
 
 <template>
