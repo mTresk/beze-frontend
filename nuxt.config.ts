@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     'vue3-perfect-scrollbar/nuxt',
     '@nuxtjs/robots',
     'nuxt-yandex-metrika',
+    'nuxt-ipx-cache',
   ],
   vue: {
     compilerOptions: {
