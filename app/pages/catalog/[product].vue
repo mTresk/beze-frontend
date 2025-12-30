@@ -320,25 +320,27 @@ useHead({
           </div>
           <ClientOnly>
             <div class="product__mobile">
-              <swiper-container
-                ref="containerRef"
-                :init="false"
-                class="product__slider"
-              >
-                <swiper-slide
-                  v-for="(image, index) in product?.data.images"
-                  :key="index"
-                  class="product__slide"
+              <ClientOnly>
+                <swiper-container
+                  ref="containerRef"
+                  :init="false"
+                  class="product__slider"
                 >
-                  <img
-                    :src="image.retina"
-                    :alt="product?.data.name || ''"
-                    :srcset="`${image.normal} 1x, ${image.retina} 2x`"
-                    width="750"
-                    height="1125"
+                  <swiper-slide
+                    v-for="(image, index) in product?.data.images"
+                    :key="index"
+                    class="product__slide"
                   >
-                </swiper-slide>
-              </swiper-container>
+                    <img
+                      :src="image.retina"
+                      :alt="product?.data.name || ''"
+                      :srcset="`${image.normal} 1x, ${image.retina} 2x`"
+                      width="750"
+                      height="1125"
+                    >
+                  </swiper-slide>
+                </swiper-container>
+              </ClientOnly>
               <nav class="product__navigation">
                 <button
                   aria-label="Назад"
@@ -469,16 +471,17 @@ useHead({
         </template>
       </Featured>
     </ClientOnly>
-    <LazyFeatured
-      v-if="viewedProducts.length"
-      hydrate-on-visible
-      name="viewed"
-      :products="viewedProducts"
-    >
-      <template #title>
-        Вы недавно смотрели
-      </template>
-    </LazyFeatured>
+    <ClientOnly>
+      <Featured
+        v-if="viewedProducts.length"
+        name="viewed"
+        :products="viewedProducts"
+      >
+        <template #title>
+          Вы недавно смотрели
+        </template>
+      </Featured>
+    </ClientOnly>
     <UiCursor />
     <LayoutDialog v-model="isModalOpen">
       <div class="content">
