@@ -51,11 +51,11 @@ useSwiper(containerRef, {
         </h2>
         <nav class="featured__navigation slider-navigation">
           <UiSliderButtonPrev
-            class="featured__button featured__button--prev"
+            class="featured__button"
             :class="`${props.name}--prev`"
           />
           <UiSliderButtonNext
-            class="featured__button featured__button--next"
+            class="featured__button"
             :class="`${props.name}--next`"
           />
         </nav>
