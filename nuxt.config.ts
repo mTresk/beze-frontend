@@ -148,9 +148,6 @@ export default defineNuxtConfig({
       ],
     },
   },
-  schemaOrg: {
-    defaults: false,
-  },
   yandexMetrika: {
     id: '103546868',
     debug: false,
