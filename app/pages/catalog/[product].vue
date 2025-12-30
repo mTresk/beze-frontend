@@ -458,15 +458,17 @@ useHead({
         </div>
       </div>
     </section>
-    <LazyFeatured
-      hydrate-on-visible
-      name="featured"
-      :products="product?.featured || []"
-    >
-      <template #title>
-        Возможно, вам понравится
-      </template>
-    </LazyFeatured>
+    <ClientOnly>
+      <Featured
+        v-if="product?.featured && product.featured.length > 0"
+        name="featured"
+        :products="product.featured"
+      >
+        <template #title>
+          Возможно, вам понравится
+        </template>
+      </Featured>
+    </ClientOnly>
     <LazyFeatured
       v-if="viewedProducts.length"
       hydrate-on-visible
