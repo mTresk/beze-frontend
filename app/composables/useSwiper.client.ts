@@ -65,6 +65,29 @@ export function useSwiper(swiperContainerRef: Ref<SwiperContainer | null>, optio
     }
   }
 
+  const _initializeNavigation = () => {
+    if (!swiper.value?.navigation || !options?.navigation) {
+      return
+    }
+
+    const prevEl = typeof options.navigation === 'object' ? options.navigation.prevEl : null
+    const nextEl = typeof options.navigation === 'object' ? options.navigation.nextEl : null
+
+    if (prevEl && nextEl) {
+      const prevExists = typeof prevEl === 'string' ? document.querySelector(prevEl) : prevEl
+      const nextExists = typeof nextEl === 'string' ? document.querySelector(nextEl) : nextEl
+
+      if (prevExists && nextExists) {
+        swiper.value.navigation.destroy()
+        swiper.value.navigation.init()
+        swiper.value.navigation.update()
+        return true
+      }
+    }
+
+    return false
+  }
+
   const _initialize = () => {
     if (swiperContainerRef.value && options !== undefined) {
       Object.assign(swiperContainerRef.value, options)
@@ -72,6 +95,33 @@ export function useSwiper(swiperContainerRef: Ref<SwiperContainer | null>, optio
     }
 
     swiper.value = swiperContainerRef?.value?.swiper
+
+    if (swiper.value && options?.navigation) {
+      if (!_initializeNavigation()) {
+        let attempts = 0
+        const maxAttempts = 20
+
+        const checkInterval = setInterval(() => {
+          attempts++
+
+          if (_initializeNavigation()) {
+            clearInterval(checkInterval)
+            if (swiper.value) {
+              swiper.value.update()
+            }
+          }
+          else if (attempts >= maxAttempts) {
+            clearInterval(checkInterval)
+            console.warn('Navigation elements not found after maximum attempts')
+          }
+        }, 50)
+      }
+      else {
+        if (swiper.value) {
+          swiper.value.update()
+        }
+      }
+    }
   }
 
   watch(swiper, () => checkSwiperRef())
