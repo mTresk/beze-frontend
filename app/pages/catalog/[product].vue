@@ -320,27 +320,25 @@ useHead({
           </div>
           <ClientOnly>
             <div class="product__mobile">
-              <ClientOnly>
-                <swiper-container
-                  ref="containerRef"
-                  :init="false"
-                  class="product__slider"
+              <swiper-container
+                ref="containerRef"
+                :init="false"
+                class="product__slider"
+              >
+                <swiper-slide
+                  v-for="(image, index) in product?.data.images"
+                  :key="index"
+                  class="product__slide"
                 >
-                  <swiper-slide
-                    v-for="(image, index) in product?.data.images"
-                    :key="index"
-                    class="product__slide"
+                  <img
+                    :src="image.retina"
+                    :alt="product?.data.name || ''"
+                    :srcset="`${image.normal} 1x, ${image.retina} 2x`"
+                    width="750"
+                    height="1125"
                   >
-                    <img
-                      :src="image.retina"
-                      :alt="product?.data.name || ''"
-                      :srcset="`${image.normal} 1x, ${image.retina} 2x`"
-                      width="750"
-                      height="1125"
-                    >
-                  </swiper-slide>
-                </swiper-container>
-              </ClientOnly>
+                </swiper-slide>
+              </swiper-container>
               <nav class="product__navigation">
                 <button
                   aria-label="Назад"
