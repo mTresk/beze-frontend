@@ -24,6 +24,8 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@emnapi/core": "1.9.2",
+    "@emnapi/runtime": "1.9.2",
     "@antfu/eslint-config": "^6.7.3",
     "@nuxt/kit": "^4.4.2",
     "@nuxtjs/robots": "^5.7.1",
