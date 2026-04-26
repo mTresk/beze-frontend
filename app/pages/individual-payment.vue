@@ -2,6 +2,7 @@
 import * as z from 'zod'
 
 const client = useSanctumClient()
+const route = useRoute()
 
 const isAgreementAccepted = ref(false)
 const formErrors = ref()
@@ -51,6 +52,22 @@ function handleForm(): void {
 }
 
 const errors = computed(() => ({ ...formErrors.value, ...validationErrors.value }))
+
+onMounted(() => {
+  const amountFromQuery = Array.isArray(route.query.amount)
+    ? route.query.amount[0]
+    : route.query.amount
+
+  if (!amountFromQuery) {
+    return
+  }
+
+  const parsedAmount = Number(amountFromQuery)
+
+  if (!Number.isNaN(parsedAmount) && parsedAmount > 0) {
+    form.amount = parsedAmount
+  }
+})
 
 const seoTitle = 'Оплата заказа'
 const seoDescription = 'Оплата пошива по индивидуальному заказу'
